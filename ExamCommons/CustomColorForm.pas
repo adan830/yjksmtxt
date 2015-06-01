@@ -401,11 +401,11 @@ begin
         C.Brush.Color := clDkGray;
         C.FillRect(ClientRect);
     *)
-    if Assigned(m_BackBMP) then
+    if m_BackColor>0 then
     begin
       C.Brush.Color := m_BackColor;
       C.FillRect(ClientRect);
-      BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, xTitleHeight, SRCCOPY);
+      //BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, xTitleHeight, SRCCOPY);
     end;
   finally
     C.Handle := 0;

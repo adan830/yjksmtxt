@@ -5,7 +5,7 @@ interface
 
 uses Windows,Messages,Vcl.Graphics,Vcl.Imaging.pngimage,System.Classes,Vcl.Controls, Vcl.Forms;
 type
-  TCustomBmpForm = class(TForm)
+  TCustomLoginForm = class(TForm)
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
@@ -57,11 +57,11 @@ implementation
 
 uses System.SysUtils,FormBmpUtils,System.Types;
 const
-  xTitleHeight: Integer = 50; //标题栏的高度
+  xTitleHeight: Integer = 108; //标题栏的高度
   xFramWidth: Integer = 10; //左、右、下边框的厚度
   xHitTestWidth: Integer = 5; //HitTest预留厚度
 
-procedure TCustomBmpForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
+procedure TCustomLoginForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
 begin
 
     with TWMNCCALCSIZE(Message).CalcSize_Params^.rgrc[0] do
@@ -76,7 +76,7 @@ begin
   Message.Result := 0;
 end;
 
-procedure TCustomBmpForm.DrawTitle;
+procedure TCustomLoginForm.DrawTitle;
 var
   TitleBmp: TBitmap;
   DC: HDC;
@@ -114,10 +114,10 @@ begin
       C.Brush.Color := m_BackColor;
 
       BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, xTitleHeight, m_BackBMP.Canvas.Handle, 0, 0, SRCCOPY);
-      DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
-      TitleBmp.Canvas.Font.Assign(Font);
-      TitleBmp.Canvas.Brush.Style := bsClear;
-      ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
+      //DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
+      //TitleBmp.Canvas.Font.Assign(Font);
+      //TitleBmp.Canvas.Brush.Style := bsClear;
+      //ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
 
          if biMinimize in self.BorderIcons then
          begin
@@ -183,14 +183,14 @@ begin
       C.FillRect(Rect(0, 0, Width, xTitleHeight)); //标题区域
       BitBlt(DC, 0, 0, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
 
-      C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
-      BitBlt(DC, 0, xTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, xTitleHeight, SRCCOPY);
-
-      C.FillRect(Rect(Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth)); //右边框
-      BitBlt(DC, Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, xTitleHeight, SRCCOPY);
-
-      C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
-      BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
+//      C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
+//      BitBlt(DC, 0, xTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, xTitleHeight, SRCCOPY);
+//
+//      C.FillRect(Rect(Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth)); //右边框
+//      BitBlt(DC, Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, xTitleHeight, SRCCOPY);
+//
+//      C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
+//      BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
     end;
 
   finally
@@ -201,19 +201,19 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.WMNCPaint(var Message: TWMNCPaint);
+procedure TCustomLoginForm.WMNCPaint(var Message: TWMNCPaint);
 begin
   DrawTitle;
   Message.Result := 1;
 end;
 
-procedure TCustomBmpForm.WMNCActivate(var Message: TWMNCActivate);
+procedure TCustomLoginForm.WMNCActivate(var Message: TWMNCActivate);
 begin
   DrawTitle;
   Message.Result := 1;
 end;
 
-procedure TCustomBmpForm.WMPaint(var Message: TWMPaint);
+procedure TCustomLoginForm.WMPaint(var Message: TWMPaint);
 var
   DC: HDC;
   PS: TPaintStruct;
@@ -228,7 +228,7 @@ begin
   Message.Result := 1;
 end;
 
-procedure TCustomBmpForm.WMEraseBkgnd(var Message: TWMEraseBkgnd);
+procedure TCustomLoginForm.WMEraseBkgnd(var Message: TWMEraseBkgnd);
 var
   DC: HDC;
 begin
@@ -237,13 +237,13 @@ begin
   Message.Result := 1;
 end;
 
-procedure TCustomBmpForm.WMActivate(var Message: TWMActivate);
+procedure TCustomLoginForm.WMActivate(var Message: TWMActivate);
 begin
   inherited;
   DrawTitle;
 end;
 
-procedure TCustomBmpForm.WMNCHitTest(var Message: TWMNCHITTEST);
+procedure TCustomLoginForm.WMNCHitTest(var Message: TWMNCHITTEST);
 var
   P: TPoint;
   R: TRect;
@@ -299,7 +299,7 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.WMNCLBUTTONDBLCLK(var Message: TWMNCLButtonDblClk);
+procedure TCustomLoginForm.WMNCLBUTTONDBLCLK(var Message: TWMNCLButtonDblClk);
 var
   P: TPoint;
   Style: DWORD;
@@ -319,7 +319,7 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.WMSize(var Message: TWMSize);
+procedure TCustomLoginForm.WMSize(var Message: TWMSize);
 var
    Rgn: HRGN;
 begin
@@ -331,13 +331,13 @@ begin
 end;
 
 
-procedure TCustomBmpForm.DoCreate;
+procedure TCustomLoginForm.DoCreate;
 begin
   inherited;
   m_BackBMP := TBitmap.Create;
-  m_BackBMP.LoadFromResourceName(HInstance,'ClassicSkin_bmp_Theme');
+  m_BackBMP.LoadFromResourceName(HInstance,'Login_caption');
   //m_BackBMP.LoadFromFile(ExtractFilePath(Application.ExeNam) + 'Back.bmp');
-  FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
+  //FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
 
   self.Color := clBtnFace;
 
@@ -385,7 +385,7 @@ begin
 
 end;
 
-procedure TCustomBmpForm.DrawClient(DC: HDC);
+procedure TCustomLoginForm.DrawClient(DC: HDC);
 var
   C: TCanvas;
 begin
@@ -408,7 +408,7 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.FormDestroy(Sender: TObject);
+procedure TCustomLoginForm.FormDestroy(Sender: TObject);
 begin
   m_BackBMP.Free;
 
@@ -429,7 +429,7 @@ begin
   btn_close_normal.Free;
 end;
 
-procedure TCustomBmpForm.WMGETMINMAXINFO(var Message: TMessage);
+procedure TCustomLoginForm.WMGETMINMAXINFO(var Message: TMessage);
 var
   Rect: TRect;
 begin
@@ -451,7 +451,7 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.OnButtonUp(P: TPoint);
+procedure TCustomLoginForm.OnButtonUp(P: TPoint);
 var
   Style: DWORD;
 begin
@@ -494,7 +494,7 @@ begin
 end;
 
 
-procedure TCustomBmpForm.WMLBUTTONUP(var Message: TWMLButtonUp);
+procedure TCustomLoginForm.WMLBUTTONUP(var Message: TWMLButtonUp);
 var
   P: TPoint;
 begin
@@ -504,7 +504,7 @@ begin
   OnButtonUp(P);
 end;
 
-procedure TCustomBmpForm.WMNCLButtonDown(var Message: TWMNCLButtonDown);
+procedure TCustomLoginForm.WMNCLButtonDown(var Message: TWMNCLButtonDown);
 begin
   if (Message.HitTest = HTCAPTION) and (WindowState = wsMaximized) then
   begin
@@ -533,7 +533,7 @@ begin
     inherited;
 end;
 
-procedure TCustomBmpForm.WMNCLButtonUp(var Message: TWMNCLButtonUp);
+procedure TCustomLoginForm.WMNCLButtonUp(var Message: TWMNCLButtonUp);
 var
   P: TPoint;
 begin
@@ -543,7 +543,7 @@ begin
   OnButtonUp(P);
 end;
 
-procedure TCustomBmpForm.WMNCMouseMove(var Message: TWMNCMousemove);
+procedure TCustomLoginForm.WMNCMouseMove(var Message: TWMNCMousemove);
 var
   P: TPoint;
   R: TRect;
@@ -602,7 +602,7 @@ begin
   end;
 end;
 
-procedure TCustomBmpForm.Timer1Timer(Sender: TObject);
+procedure TCustomLoginForm.Timer1Timer(Sender: TObject);
 var
   P: TPoint;
   R: TRect;
@@ -647,19 +647,19 @@ begin
   end;
 end;
 
-function TCustomBmpForm.GetRectCloseButton: TRect;
+function TCustomLoginForm.GetRectCloseButton: TRect;
 begin
   Result := Rect(Width - btn_close_normal.Width, 0, Width, btn_close_normal.Height);
 end;
 
-function TCustomBmpForm.GetRectMaxButton: TRect;
+function TCustomLoginForm.GetRectMaxButton: TRect;
 begin
   Result := GetRectCloseButton;
     Dec(Result.Left, btn_max_normal.Width);
     Dec(Result.Right, btn_max_normal.Width);
 end;
 
-function TCustomBmpForm.GetRectMiniButton: TRect;
+function TCustomLoginForm.GetRectMiniButton: TRect;
 begin
   if biMaximize in BorderIcons then
     Result:=  GetRectMaxButton
