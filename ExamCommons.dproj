@@ -490,13 +490,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -538,6 +538,7 @@
         <DCCReference Include="ExamCommons\CustomBmpForm.pas"/>
         <DCCReference Include="ExamCommons\FormBmpUtils.pas"/>
         <DCCReference Include="ExamCommons\CustomColorForm.pas"/>
+        <DCCReference Include="ExamCommons\CustomLoginForm.pas"/>
         <RcItem Include="ExamCommons\skins\Back.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ClassicSkin_bmp_Theme</ResourceId>

@@ -61,7 +61,8 @@ contains
   ufrmInProcess in 'ExamCommons\ufrmInProcess.pas' {frmInProcess},
   CustomBmpForm in 'ExamCommons\CustomBmpForm.pas',
   FormBmpUtils in 'ExamCommons\FormBmpUtils.pas',
-  CustomColorForm in 'ExamCommons\CustomColorForm.pas';
+  CustomColorForm in 'ExamCommons\CustomColorForm.pas',
+  CustomLoginForm in 'ExamCommons\CustomLoginForm.pas';
 
 //FastMM4 in '..\Components\fastmm4\FastMM4.pas';
 
