@@ -1,0 +1,156 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{76d79fac-c9a5-42a8-82f0-96846538a7a8}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="prjEaxmServer.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ExamCommons.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="WindowsModule.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="WordModule.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="ExcelModule.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="PptModule.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MainFrame.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Components\dpkCheckTree.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="SetQuestions.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="prjExamClient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="temptest\Project2.dproj">
+            <Dependencies>ExamCommons.dproj</Dependencies>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="prjEaxmServer">
+        <MSBuild Projects="prjEaxmServer.dproj"/>
+    </Target>
+    <Target Name="prjEaxmServer:Clean">
+        <MSBuild Projects="prjEaxmServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="prjEaxmServer:Make">
+        <MSBuild Projects="prjEaxmServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ExamCommons">
+        <MSBuild Projects="ExamCommons.dproj"/>
+    </Target>
+    <Target Name="ExamCommons:Clean">
+        <MSBuild Projects="ExamCommons.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ExamCommons:Make">
+        <MSBuild Projects="ExamCommons.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="WindowsModule">
+        <MSBuild Projects="WindowsModule.dproj"/>
+    </Target>
+    <Target Name="WindowsModule:Clean">
+        <MSBuild Projects="WindowsModule.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="WindowsModule:Make">
+        <MSBuild Projects="WindowsModule.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="WordModule">
+        <MSBuild Projects="WordModule.dproj"/>
+    </Target>
+    <Target Name="WordModule:Clean">
+        <MSBuild Projects="WordModule.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="WordModule:Make">
+        <MSBuild Projects="WordModule.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ExcelModule">
+        <MSBuild Projects="ExcelModule.dproj"/>
+    </Target>
+    <Target Name="ExcelModule:Clean">
+        <MSBuild Projects="ExcelModule.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ExcelModule:Make">
+        <MSBuild Projects="ExcelModule.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="PptModule">
+        <MSBuild Projects="PptModule.dproj"/>
+    </Target>
+    <Target Name="PptModule:Clean">
+        <MSBuild Projects="PptModule.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PptModule:Make">
+        <MSBuild Projects="PptModule.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MainFrame">
+        <MSBuild Projects="MainFrame.dproj"/>
+    </Target>
+    <Target Name="MainFrame:Clean">
+        <MSBuild Projects="MainFrame.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MainFrame:Make">
+        <MSBuild Projects="MainFrame.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dpkCheckTree">
+        <MSBuild Projects="Components\dpkCheckTree.dproj"/>
+    </Target>
+    <Target Name="dpkCheckTree:Clean">
+        <MSBuild Projects="Components\dpkCheckTree.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dpkCheckTree:Make">
+        <MSBuild Projects="Components\dpkCheckTree.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SetQuestions">
+        <MSBuild Projects="SetQuestions.dproj"/>
+    </Target>
+    <Target Name="SetQuestions:Clean">
+        <MSBuild Projects="SetQuestions.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SetQuestions:Make">
+        <MSBuild Projects="SetQuestions.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="prjExamClient">
+        <MSBuild Projects="prjExamClient.dproj"/>
+    </Target>
+    <Target Name="prjExamClient:Clean">
+        <MSBuild Projects="prjExamClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="prjExamClient:Make">
+        <MSBuild Projects="prjExamClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project2" DependsOnTargets="ExamCommons">
+        <MSBuild Projects="temptest\Project2.dproj"/>
+    </Target>
+    <Target Name="Project2:Clean" DependsOnTargets="ExamCommons:Clean">
+        <MSBuild Projects="temptest\Project2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project2:Make" DependsOnTargets="ExamCommons:Make">
+        <MSBuild Projects="temptest\Project2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="prjEaxmServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;MainFrame;dpkCheckTree;SetQuestions;prjExamClient;Project2"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="prjEaxmServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;MainFrame:Clean;dpkCheckTree:Clean;SetQuestions:Clean;prjExamClient:Clean;Project2:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="prjEaxmServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;MainFrame:Make;dpkCheckTree:Make;SetQuestions:Make;prjExamClient:Make;Project2:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

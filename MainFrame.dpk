@@ -1,0 +1,64 @@
+package MainFrame;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE NOLOGIN}
+{$ENDIF IMPLICITBUILDING}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  ExamCommons,
+  vclimg,
+  dxCoreRS22,
+  cxLibraryRS22,
+  dxGDIPlusRS22,
+  dxThemeRS22,
+  cxEditorsRS22,
+  cxDataRS22,
+  dxSkinsCoreRS22,
+  dpkCheckTree;
+
+contains
+  ufrmException in 'MainFrame\ufrmException.pas',
+  ufrmLogin in 'MainFrame\ufrmLogin.pas',
+  ufrmMsg in 'MainFrame\ufrmMsg.pas',
+  ufrmRoleManager in 'MainFrame\ufrmRoleManager.pas',
+  ufrmWelcome in 'MainFrame\ufrmWelcome.pas',
+  uPathFileOperation in 'MainFrame\uPathFileOperation.PAS',
+  uPattern in 'MainFrame\uPattern.pas',
+  MsnPopup in 'MainFrame\MsnPopup.pas',
+  Role in 'MainFrame\Role.pas',
+  streamio in 'MainFrame\streamio.pas',
+  uAppFactory in 'MainFrame\uAppFactory.pas',
+  uAppSet in 'MainFrame\uAppSet.pas',
+  uAppUtils in 'MainFrame\uAppUtils.pas',
+  uAuthAppFactory in 'MainFrame\uAuthAppFactory.pas',
+  uClasses in 'MainFrame\uClasses.pas',
+  uException in 'MainFrame\uException.pas',
+  ufrmAppBase in 'MainFrame\ufrmAppBase.pas',
+  ufrmAppDlgBase in 'MainFrame\ufrmAppDlgBase.pas',
+  ufrmChangePassword in 'MainFrame\ufrmChangePassword.pas';
+
+end.

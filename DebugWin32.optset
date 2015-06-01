@@ -1,0 +1,16 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <DCC_ExeOutput>D:\develop\yjksmtxt\debug\bin\</DCC_ExeOutput>
+        <DCC_DcpOutput>D:\develop\yjksmtxt\debug\dcp\</DCC_DcpOutput>
+        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\debug\dcu;D:\develop\yjksmtxt\debug\dcp;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DcuOutput>D:\develop\yjksmtxt\debug\dcu\</DCC_DcuOutput>
+    </PropertyGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>OptionSet</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality/>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+</Project>
