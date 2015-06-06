@@ -48,7 +48,7 @@ uses  floatform,XMLIntf,XMLDoc,
   ExamClientGlobal;
 
 {$R *.dfm}
-{$R CoverFlash.res}
+//{$R CoverFlash.res}
 
 function TClientMainForm.GetExamineeIDLength(): string;
 begin

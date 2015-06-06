@@ -3,15 +3,20 @@ unit CustomLoginForm;
 ///  自定义窗口基类
 interface
 
-uses Windows,Messages,Vcl.Graphics,Vcl.Imaging.pngimage,System.Classes,Vcl.Controls, Vcl.Forms;
+uses Windows,Messages,Vcl.Graphics,Vcl.Imaging.pngimage,System.Classes,Vcl.Controls, Vcl.Forms,ShadowFrame;
+
 type
+  TColor32 = record b, g, r, a: Byte; end;
+  PColor32 = ^TColor32;
+
   TCustomLoginForm = class(TForm)
     procedure FormDestroy(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
+    hasShadowFrame:Boolean;
+    shadowFrame:TShadowFrame;
     m_BackColor: TColorRef;
     m_BackBMP: TBitmap;
-
     btn_min_down, btn_min_highlight, btn_min_normal: TPngImage;
     btn_max_down, btn_max_highlight, btn_max_normal: TPngImage;
     btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
@@ -43,9 +48,19 @@ type
     procedure OnButtonUp(P: TPoint);
     procedure DrawClient(DC: HDC);
     procedure DrawTitle;
+
+    procedure GaussianBlur(Bmp: TBitmap; Amount: Integer);
+    procedure Blur(SrcBmp:TBitmap);
+    procedure RGB2BGR(const Bitmap:TBitmap);
+    procedure Grayscale(const Bitmap:TBitMap);
+    procedure Negative(Bmp:TBitmap);
+    procedure DrawShadow(canvas: TCanvas; rect: TRect; direction: Integer);
+    procedure AlphaBlendDraw(destCanvas: TCanvas);
+    procedure DrawAlphaBlend(destHandle:hwnd; sourceDc:HDC);
   protected
     procedure DoCreate; override;
   public
+    destructor Destroy; override;
     { Public declarations }
 
   published
@@ -58,7 +73,7 @@ implementation
 uses System.SysUtils,FormBmpUtils,System.Types;
 const
   xTitleHeight: Integer = 108; //标题栏的高度
-  xFramWidth: Integer = 10; //左、右、下边框的厚度
+  xFramWidth: Integer = 0; //左、右、下边框的厚度
   xHitTestWidth: Integer = 5; //HitTest预留厚度
 
 procedure TCustomLoginForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
@@ -71,10 +86,10 @@ begin
       Dec(Right, xFramWidth);
       Dec(Bottom, xFramWidth);
     end;
-
-
   Message.Result := 0;
 end;
+
+
 
 procedure TCustomLoginForm.DrawTitle;
 var
@@ -84,13 +99,19 @@ var
 var
   R: TRect;
   Style: DWORD;
+  BrushHandle: HBRUSH;
 begin
   TitleBmp := TBitmap.Create;
   TitleBmp.Width := Width;
   TitleBmp.Height := xTitleHeight;
+  TitleBmp.Transparent:= True;
+  TitleBmp.TransparentColor:= clBlack;
+  TitleBmp.Canvas.Brush.Style:= bsSolid;
+  TitleBmp.Canvas.Brush.Color:= clBlack;
+  TitleBmp.Canvas.FillRect(TitleBmp.Canvas.ClipRect);
 
-  TitleBmp.Canvas.Brush.Color := m_BackColor;
-  TitleBmp.Canvas.FillRect(Rect(0, 0, Width, xTitleHeight));//先用平均颜色填充整个标题区
+//  TitleBmp.Canvas.Brush.Color := m_BackColor;
+//  TitleBmp.Canvas.FillRect(Rect(0, 0, Width, xTitleHeight));//先用平均颜色填充整个标题区
 
   DC := GetWindowDC(Handle);
   C := TControlCanvas.Create;
@@ -111,13 +132,11 @@ begin
        *)
     if Assigned(m_BackBMP) then
     begin
-      C.Brush.Color := m_BackColor;
+      //BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, xFramWidth, m_BorderYYTopPng.Canvas.Handle, 0, 0, SRCCOPY);
 
       BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, xTitleHeight, m_BackBMP.Canvas.Handle, 0, 0, SRCCOPY);
-      //DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
-      //TitleBmp.Canvas.Font.Assign(Font);
-      //TitleBmp.Canvas.Brush.Style := bsClear;
-      //ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
+
+
 
          if biMinimize in self.BorderIcons then
          begin
@@ -180,9 +199,10 @@ begin
         TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_normal);
 
 
-      C.FillRect(Rect(0, 0, Width, xTitleHeight)); //标题区域
-      BitBlt(DC, 0, 0, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
-
+      //C.FillRect(Rect(0, 0, Width, xTitleHeight)); //标题区域
+//      BitBlt(DC, xFramWidth, xFramWidth, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
+      BitBlt(DC, xFramWidth, xFramWidth, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
+      //TitleBmp.SaveToFile('title.bmp');
 //      C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
 //      BitBlt(DC, 0, xTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, xTitleHeight, SRCCOPY);
 //
@@ -325,64 +345,102 @@ var
 begin
   inherited;
   DrawTitle;
-  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
-  SetWindowRgn(Handle, Rgn, True);
-  DeleteObject(Rgn);
+//  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
+//  SetWindowRgn(Handle, Rgn, True);
+//  DeleteObject(Rgn);
 end;
 
 
+destructor TCustomLoginForm.Destroy;
+begin
+  FormDestroy(self);
+  inherited;
+end;
+
 procedure TCustomLoginForm.DoCreate;
+var
+  i:integer;
+  AlphaPtr: PByte;
+  bmp:TBitmap;
 begin
   inherited;
+  hasShadowFrame:=true;
+  if hasShadowFrame then
+  begin
+    shadowFrame:=TShadowFrame.Create(self);
+    shadowFrame.ParentForm:=self;
+    shadowFrame.Active:=true;
+    shadowFrame.show();
+  end;
+
   m_BackBMP := TBitmap.Create;
   m_BackBMP.LoadFromResourceName(HInstance,'Login_caption');
-  //m_BackBMP.LoadFromFile(ExtractFilePath(Application.ExeNam) + 'Back.bmp');
-  //FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
+  //m_BackBMP.LoadFromFile('../../examcommons/skins/login_caption.bmp');
+//     bmp:=TBitmap.Create;
+//  BMP.Width:= 100;
+//BMP.Height:= 100;
+//BMP.Transparent:= True;
+//BMP.TransparentColor:= clWhite;
+//BMP.Canvas.Brush.Style:= bsSolid;
+//BMP.Canvas.Brush.Color:= clWhite;
+//BMP.Canvas.FillRect(BMP.Canvas.ClipRect);
+//BMP.Canvas.Brush.Color:= clBlue;
+//BMP.Canvas.Ellipse(0, 0, 90, 90);
 
-  self.Color := clBtnFace;
+
 
   if biMinimize in self.BorderIcons then
   begin
      btn_min_down := TPngImage.Create;
-    btn_min_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Down'); //.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Down.png');
+    btn_min_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Down');
+    //btn_min_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Down.png');
 
     btn_min_highlight := TPngImage.Create;
-    btn_min_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Hover'); //btn_min_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Hover.png');
+     btn_min_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Hover');
+    //btn_min_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Hover.png');
 
     btn_min_normal := TPngImage.Create;
-    btn_min_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Normal'); //btn_min_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Normal.png');
+     btn_min_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Min_Normal');
+    //btn_min_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Normal.png');
   end;
 
+  if biMaximize in self.BorderIcons then
+  begin
+    btn_max_down := TPngImage.Create;
+     btn_max_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Down');
+    //btn_max_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Down.png');
 
-  btn_max_down := TPngImage.Create;
-  btn_max_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Down'); //btn_max_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Down.png');
+    btn_max_highlight := TPngImage.Create;
+     btn_max_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Hover');
+    //btn_max_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Hover.png');
 
-  btn_max_highlight := TPngImage.Create;
-  btn_max_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Hover'); //btn_max_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Hover.png');
-
-  btn_max_normal := TPngImage.Create;
-  btn_max_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Normal'); //btn_max_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Normal.png');
+    btn_max_normal := TPngImage.Create;
+     btn_max_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Max_Normal');
+    //btn_max_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Normal.png');
 
 
-  btn_Restore_down := TPngImage.Create;
-  btn_Restore_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Down'); //btn_Restore_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Down.png');
+    btn_Restore_down := TPngImage.Create;
+     btn_Restore_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Down');
+    //btn_Restore_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Down.png');
 
-  btn_Restore_highlight := TPngImage.Create;
-  btn_Restore_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Hover'); //btn_Restore_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Hover.png');
+    btn_Restore_highlight := TPngImage.Create;
+     btn_Restore_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Hover');
+     //btn_Restore_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Hover.png');
 
-  btn_Restore_normal := TPngImage.Create;
-  btn_Restore_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Normal'); //btn_Restore_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Normal.png');
-
+    btn_Restore_normal := TPngImage.Create;
+     btn_Restore_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Restore_Normal');
+    //btn_Restore_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Normal.png');
+  end;
 
   btn_close_down := TPngImage.Create;
-  btn_close_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Down'); //btn_close_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Down.png');
-
+   btn_close_down.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Down'); //btn_close_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Down.png');
+  //btn_close_down.LoadFromFile('../../examcommons/skins/Close_Down.png');
   btn_close_highlight := TPngImage.Create;
-  btn_close_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Hover'); //btn_close_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Hover.png');
-
+   btn_close_highlight.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Hover'); //btn_close_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Hover.png');
+  //btn_close_highlight.LoadFromFile('../../examcommons/skins/Close_Hover.png');
   btn_close_normal := TPngImage.Create;
-  btn_close_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Normal'); //btn_close_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Normal.png');
-
+   btn_close_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Normal'); //btn_close_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Normal.png');
+  //btn_close_normal.LoadFromFile('../../examcommons/skins/Close_Normal.png');
 end;
 
 procedure TCustomLoginForm.DrawClient(DC: HDC);
@@ -392,19 +450,58 @@ begin
   C := TControlCanvas.Create;
   C.Handle := DC;
   try
-    (*
-        C.Brush.Color := clDkGray;
+    (*  *)
+        C.Brush.Color := $00fafafa;
         C.FillRect(ClientRect);
-    *)
-    if Assigned(m_BackBMP) then
-    begin
-      C.Brush.Color := m_BackColor;
-      C.FillRect(ClientRect);
-      BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, xTitleHeight, SRCCOPY);
-    end;
+
+//    if Assigned(m_BackBMP) then
+//    begin
+//      C.Brush.Color := m_BackColor;
+//      C.FillRect(ClientRect);
+//      BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, xTitleHeight, SRCCOPY);
+//    end;
   finally
     C.Handle := 0;
     C.Free;
+  end;
+end;
+
+
+procedure TCustomLoginForm.DrawShadow(canvas: TCanvas; rect: TRect; direction: Integer);
+var
+  I: integer;
+begin
+  with canvas do
+  begin
+    pen.Width:=1;
+    canvas.pen.Mode:=pmMaskPenNot;
+
+    I:=5;
+      pen.Color:=$00c8c8c8;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+      pen.Color:=$00d6d6d6;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+      pen.Color:=$00e2e2e2;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+      pen.Color:=$00ececec;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+      pen.Color:=$00f4f4f4;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+      pen.Color:=$00f9f9f9;
+        MoveTo(rect.Left,rect.Top+i);
+      LineTo(rect.Width,rect.top+i);
+      dec(i);
+
   end;
 end;
 
@@ -543,7 +640,7 @@ begin
   OnButtonUp(P);
 end;
 
-procedure TCustomLoginForm.WMNCMouseMove(var Message: TWMNCMousemove);
+ procedure TCustomLoginForm.WMNCMouseMove(var Message: TWMNCMousemove);
 var
   P: TPoint;
   R: TRect;
@@ -599,7 +696,16 @@ begin
       DrawTitle;
       //Timer1.Enabled := True;
     end;
-  end;
+  end
+    else
+    begin
+        if m_MiniButtonHover then m_MiniButtonHover := False;
+        if m_MaxButtonHover then m_MaxButtonHover := False;
+        m_CloseButtonHover:=false;
+        DrawTitle;
+    end;
+
+
 end;
 
 procedure TCustomLoginForm.Timer1Timer(Sender: TObject);
@@ -668,6 +774,304 @@ begin
 
   Dec(Result.Left, btn_min_normal.Width);
   Dec(Result.Right, btn_min_normal.Width);
+end;
+
+procedure TCustomLoginForm.GaussianBlur(Bmp: TBitmap; Amount: Integer);
+var
+  i: Integer;
+
+  function TrimRow(n: Integer): Integer;
+  begin
+    if n < 0 then Result := 0 else if n >= Bmp.Height then Result := Bmp.Height - 1
+    else Result := n;
+  end;
+
+  function TrimCol(n: Integer): Integer;
+  begin
+    if n < 0 then Result := 0 else if n >= Bmp.Width then Result := Bmp.Width - 1
+    else Result := n;
+  end;
+
+  procedure SplitBlur(Amount: Integer);
+  var
+    x, y: Integer;
+    tl, tr, bl, br: PColor32;
+    line, line1, line2: PIntegerArray;
+  begin
+    for y := 0 to Bmp.Height - 1 do
+    begin
+      line := PIntegerArray(Bmp.ScanLine[y]);
+      line1 := PIntegerArray(Bmp.ScanLine[TrimRow(y-Amount)]);
+      line2 := PIntegerArray(Bmp.ScanLine[TrimRow(y+Amount)]);
+      for x := 0 to Bmp.Width - 1 do
+      begin
+        tl := PColor32(@line1[TrimCol(x-Amount)]);
+        tr := PColor32(@line1[TrimCol(x+Amount)]);
+        bl := PColor32(@line2[TrimCol(x-Amount)]);
+        br := PColor32(@line2[TrimCol(x+Amount)]);
+        with PColor32(@line[x])^ do
+        begin
+          r := (tl.r + tr.r + bl.r + br.r) shr 2;
+          g := (tl.g + tr.g + bl.g + br.g) shr 2;
+          b := (tl.b + tr.b + bl.b + br.b) shr 2;
+        end;
+      end;
+      CreateHatchBrush(1,1)
+    end;
+  end;
+
+begin
+  for i := 1 to Amount do
+    SplitBlur(i);
+end;
+     //模糊
+procedure TCustomLoginForm.Blur(SrcBmp:TBitmap);
+var
+ i, j:Integer;
+ SrcRGB:pRGBTriple;
+ SrcNextRGB:pRGBTriple;
+ SrcPreRGB:pRGBTriple;
+ Value:Integer;
+   procedure IncRGB;
+   begin
+    Inc(SrcPreRGB);
+    Inc(SrcRGB);
+    Inc(SrcNextRGB);
+   end;
+   procedure DecRGB;
+   begin
+    Inc(SrcPreRGB,-1);
+    Inc(SrcRGB,-1);
+    Inc(SrcNextRGB,-1);
+   end;
+begin
+ SrcBmp.PixelFormat:=pf24Bit;
+ for i := 0 to SrcBmp.Height - 1 do
+ begin
+  if i > 0 then
+   SrcPreRGB:=SrcBmp.ScanLine[i-1]
+  else
+   SrcPreRGB := SrcBmp.ScanLine[i];
+  SrcRGB := SrcBmp.ScanLine[i];
+  if i < SrcBmp.Height - 1 then
+   SrcNextRGB:=SrcBmp.ScanLine[i+1]
+  else
+   SrcNextRGB:=SrcBmp.ScanLine[i];
+  for j := 0 to SrcBmp.Width - 1 do
+  begin
+   if j > 0 then DecRGB;
+   Value:=SrcPreRGB.rgbtRed+SrcRGB.rgbtRed+SrcNextRGB.rgbtRed;
+   if j > 0 then IncRGB;
+   Value:=Value+SrcPreRGB.rgbtRed+SrcRGB.rgbtRed+SrcNextRGB.rgbtRed;
+   if j < SrcBmp.Width - 1 then IncRGB;
+   Value:=(Value+SrcPreRGB.rgbtRed+SrcRGB.rgbtRed+SrcNextRGB.rgbtRed) div 9;
+   DecRGB;
+   SrcRGB.rgbtRed:=value;
+   if j > 0 then DecRGB;
+   Value:=SrcPreRGB.rgbtGreen+SrcRGB.rgbtGreen+SrcNextRGB.rgbtGreen;
+   if j > 0 then IncRGB;
+   Value:=Value+SrcPreRGB.rgbtGreen+SrcRGB.rgbtGreen+SrcNextRGB.rgbtGreen;
+   if j < SrcBmp.Width - 1 then IncRGB;
+   Value:=(Value+SrcPreRGB.rgbtGreen+SrcRGB.rgbtGreen+SrcNextRGB.rgbtGreen) div 9;
+   DecRGB;
+   SrcRGB.rgbtGreen:=value;
+   if j > 0 then DecRGB;
+   Value:=SrcPreRGB.rgbtBlue+SrcRGB.rgbtBlue+SrcNextRGB.rgbtBlue;
+   if j > 0 then IncRGB;
+   Value:=Value+SrcPreRGB.rgbtBlue+SrcRGB.rgbtBlue+SrcNextRGB.rgbtBlue;
+   if j < SrcBmp.Width - 1 then IncRGB;
+   Value:=(Value+SrcPreRGB.rgbtBlue+SrcRGB.rgbtBlue+SrcNextRGB.rgbtBlue) div 9;
+   DecRGB;
+   SrcRGB.rgbtBlue:=value;
+   IncRGB;
+  end;
+ end;
+end;
+
+ //RGB<=>BGR
+procedure TCustomLoginForm.RGB2BGR(const Bitmap:TBitmap);
+var
+ X: Integer;
+ Y: Integer;
+ PRGB: pRGBTriple;
+ Color: Byte;
+begin
+ for Y := 0 to (Bitmap.Height - 1) do
+ begin
+  PRGB := Bitmap.ScanLine[Y];
+  for X := 0 to (Bitmap.Width - 1) do
+  begin
+   Color := PRGB^.rgbtRed;
+   PRGB^.rgbtRed := PRGB^.rgbtBlue;
+   PRGB^.rgbtBlue := Color;
+   Inc(PRGB);
+  end;
+  end
+ end;
+
+ //灰度化(加权)
+procedure TCustomLoginForm.Grayscale(const Bitmap:TBitMap);
+var
+ X: Integer;
+ Y: Integer;
+ PRGB: pRGBTriple;
+ Gray: Byte;
+begin
+  Bitmap.PixelFormat:=pf24bit;
+   for Y := 0 to (Bitmap.Height - 1) do
+   begin
+    PRGB := Bitmap.ScanLine[Y];
+    for X := 0 to (Bitmap.Width - 1) do
+    begin
+     Gray := (77 * PRGB.rgbtRed + 151 * PRGB.rgbtGreen + 28 * PRGB.rgbtBlue) shr 8;
+     PRGB^.rgbtRed:=Gray;
+     PRGB^.rgbtGreen:=Gray;
+     PRGB^.rgbtBlue:=Gray;
+     Inc(PRGB);
+    end;
+   end;
+end;
+
+//反色
+procedure TCustomLoginForm.Negative(Bmp:TBitmap);
+var
+  i, j: Integer;
+  PRGB: pRGBTriple;
+begin
+  Bmp.PixelFormat:=pf24Bit;
+  for i := 0 to Bmp.Height - 1 do
+  begin
+    PRGB := Bmp.ScanLine[i];
+    for j := 0 to Bmp.Width - 1 do
+    begin
+      PRGB^.rgbtRed :=not PRGB^.rgbtRed ;
+      PRGB^.rgbtGreen :=not PRGB^.rgbtGreen;
+      PRGB^.rgbtBlue :=not PRGB^.rgbtBlue;
+      Inc(PRGB);
+    end;
+  end;
+end;
+
+procedure TCustomLoginForm.AlphaBlendDraw(destCanvas: TCanvas);
+var
+  Blend: TBlendFunction; {定义 AlphaBlend 要使用的 TBlendFunction 结构}
+begin
+  {给 TBlendFunction 结构赋值}
+  Blend.BlendOp := AC_SRC_OVER;
+  Blend.BlendFlags := 0;
+  Blend.AlphaFormat := 0;
+  Blend.SourceConstantAlpha := 100;
+                       // m_BorderYYTopPng.SaveToFile('abc.png');
+//  Windows.AlphaBlend(destCanvas.Handle, {因 VCL 有同名属性, 所以指定了是来自 Windows 单元}
+//                     0,
+//                     0,
+//                     m_BorderYYTopPng.Width ,
+//                     m_BorderYYTopPng.Height ,
+//                     m_BorderYYTopPng.Canvas.Handle,
+//                     0,
+//                     0,
+//                     m_BorderYYTopPng.Width,
+//                     m_BorderYYTopPng.Height,
+//                     Blend
+//                     );
+end;
+
+procedure TCustomLoginForm.DrawAlphaBlend (destHandle:hwnd; sourceDc:HDC);
+var
+    Ahdc : HDC;              // handle of the DC we will create
+    bf : BLENDFUNCTION;      // structure for alpha blending
+    Ahbitmap : HBITMAP;      // bitmap handle
+    bmi : BITMAPINFO;        // bitmap header
+    pvBits : pointer;        // pointer to DIB section
+    ulWindowWidth,
+    ulWindowHeight : ULONG;  // window width/height
+    ulBitmapWidth,
+    ulBitmapHeight : ULONG; // bitmap width/height
+    rt : TRect;             // used for getting window dimensions
+    bm,bm1:TBitmap;
+begin
+    ulWindowWidth:=width;
+    ulWindowHeight:=xTitleHeight;
+
+ // divide the window into 3 horizontal areas
+    ulWindowHeight := trunc(ulWindowHeight / 3);
+
+    // create a DC for our bitmap -- the source DC for AlphaBlend
+    Ahdc := CreateCompatibleDC(sourceDc);
+
+    // zero the memory for the bitmap info
+    ZeroMemory(@bmi, sizeof(BITMAPINFO));
+
+    // setup bitmap info
+    bmi.bmiHeader.biSize := sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth := trunc(ulWindowWidth - (ulWindowWidth/5)*2);
+    ulBitmapWidth := trunc(ulWindowWidth - (ulWindowWidth/5)*2);
+    bmi.bmiHeader.biHeight := trunc(ulWindowHeight - (ulWindowHeight/5)*2);
+    ulBitmapHeight := trunc(ulWindowHeight - (ulWindowHeight/5)*2);
+    bmi.bmiHeader.biPlanes := 1;
+    bmi.bmiHeader.biBitCount := 32;         // four 8-bit components
+    bmi.bmiHeader.biCompression := BI_RGB;
+    bmi.bmiHeader.biSizeImage := ulBitmapWidth * ulBitmapHeight * 4;
+
+    // create our DIB section and select the bitmap into the dc
+    Ahbitmap := CreateDIBSection(Ahdc, bmi, DIB_RGB_COLORS, pvBits, 0, 0);
+
+    //SelectObject(Ahdc, Ahbitmap);
+
+//    bm:=TBitmap.Create;
+//    bm.Assign(m_BorderYYTopPng);
+//    bm1:=TBitmap.Create;
+//    bm1.Width:=width;
+//    bm1.Height:=xFramWidth;
+
+    SelectObject(Ahdc, bm.Handle);
+
+    bf.BlendOp := AC_SRC_OVER;
+    bf.BlendFlags := 0;
+    bf.SourceConstantAlpha := $ff;  // half of 0xff = 50% transparency
+    bf.AlphaFormat :=AC_SRC_ALPHA ;  //0;           //0: ignore source alpha channel;AC_SRC_ALPHA:use source alpha value
+    //bm1.SaveToFile('abc.bmp');
+    Windows.AlphaBlend(destHandle, 0, 0,
+                    450, xFramWidth,Ahdc, 0, 0, 450, xFramWidth, bf);
+//    StretchBlt(bm1.Canvas.Handle,0,0,450,6,bm.Canvas.Handle,0,0,450,xFramWidth,SRCCOPY);
+    //bm1.SaveToFile('abc.bmp');
+    //UpdateLayeredWindow()
+//    SelectObject(ahdc,bm1.Handle);
+//    Windows.AlphaBlend(destHandle, 0, 0,
+//                    width, ulBitmapHeight,    Ahdc, 0, 0, width, xFramWidth, bf);
+                    //Ahdc, 0, 0, ulBitmapWidth, ulBitmapHeight, bf);
+
+//    Windows.AlphaBlend(destHandle, trunc(ulWindowWidth/5), trunc(ulWindowHeight/5),
+//                    ulBitmapWidth, ulBitmapHeight,
+//                    Ahdc, 0, 0, ulBitmapWidth, ulBitmapHeight, bf);
+//    bm :=TBitmap.Create;
+//    bm.Width:=ulBitmapWidth;
+//    bm.Height:=ulBitmapHeight;
+//    BitBlt(bm.Canvas.Handle,0,0,ulBitmapWidth, ulBitmapHeight,ahdc,0,0,SRCCOPY);
+//    bm.SaveToFile('abcdef1.bmp');
+
+//    bf.BlendOp := AC_SRC_OVER;
+//    bf.BlendFlags := 0;
+//    bf.AlphaFormat := AC_SRC_ALPHA;  // use source alpha
+//    bf.SourceConstantAlpha := $ff;  // opaque (disable constant alpha)
+//
+//    Windows.AlphaBlend(destHandle, trunc(ulWindowWidth/5),
+//     trunc(ulWindowHeight/5+ulWindowHeight), ulBitmapWidth, ulBitmapHeight,
+//      Ahdc, 0, 0, ulBitmapWidth, ulBitmapHeight, bf);
+//
+//    bf.BlendOp := AC_SRC_OVER;
+//    bf.BlendFlags := 0;
+//    bf.AlphaFormat := 0;
+//    bf.SourceConstantAlpha := $3A;
+//
+//    Windows.AlphaBlend(destHandle, trunc(ulWindowWidth/5),
+//               trunc(ulWindowHeight/5+2*ulWindowHeight), ulBitmapWidth,
+//               ulBitmapHeight, Ahdc, 0, 0, ulBitmapWidth,
+//               ulBitmapHeight, bf);
+    // do cleanup
+    DeleteObject(Ahbitmap);
+    DeleteDC(Ahdc);
+
 end;
 
 end.

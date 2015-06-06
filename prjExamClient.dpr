@@ -20,8 +20,10 @@ uses
   SelectGrade in 'Client\SelectGrade.pas',
   Windows,
   ufrmInProcess in 'ExamCommons\ufrmInProcess.pas' {frmInProcess},
-  uDispAnswer in 'ExamCommons\uDispAnswer.pas' {frmDispAnswer};
-  //FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
+  uDispAnswer in 'ExamCommons\uDispAnswer.pas' {frmDispAnswer},
+  ufrmLogin in 'Client\ufrmLogin.pas' {FrmLogin};
+
+//FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
 {$R *.res}
 
@@ -47,7 +49,7 @@ begin
       end;
   end;
   //Application.CreateForm(TExamClientGlobal, TExamClientGlobal.Inst);
-  
-  Application.CreateForm(TClientMainForm,TExamClientGlobal.ClientMainForm);
+  //Application.CreateForm(TExamClientGlobal, clientGlobal);
+    Application.CreateForm(TFrmLogin, frmLogin);
   Application.Run;
 end.

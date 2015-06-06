@@ -3,8 +3,8 @@ unit ufrmInProcess;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ImgList, ExtCtrls ;
+  Windows, Messages, SysUtils, Variants, Classes, vcl.Graphics, vcl.Controls, vcl.Forms,
+  vcl.Dialogs, vcl.StdCtrls, vcl.ComCtrls, vcl.ImgList, vcl.ExtCtrls ;
 
 type
    TOnProcess = procedure(AMessage:string;AStep:Integer=1);

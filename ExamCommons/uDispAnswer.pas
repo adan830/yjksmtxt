@@ -3,8 +3,8 @@ unit uDispAnswer;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, ExamGlobal,Types;
+  Windows, Messages, SysUtils, Variants, Classes, vcl.Graphics, vcl.Controls, vcl.Forms,
+  vcl.Dialogs, vcl.ExtCtrls, vcl.StdCtrls, vcl.Buttons, vcl.Grids, ExamGlobal,Types;
 
 type
   TfrmDispAnswer = class(TForm)
