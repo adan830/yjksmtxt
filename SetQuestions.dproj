@@ -82,7 +82,6 @@
         <DCC_DependencyCheckOutputName>..\debug\bin\SetQuestions.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
         <DCC_Define>DEBUG;NOLOGIN;$(DCC_Define)</DCC_Define>
-        <DCC_ExeOutput>D:\yjksmtxt\debug\bin\</DCC_ExeOutput>
         <DCC_DcuOutput>D:\yjksmtxt\debug\dcu\</DCC_DcuOutput>
         <DCC_ObjOutput>..\debug\dcu</DCC_ObjOutput>
         <DCC_HppOutput>..\debug\dcu</DCC_HppOutput>
@@ -138,9 +137,9 @@
                     <Source Name="MainSource">SetQuestions.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k190.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp190.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="d:\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxgridlnkrs19.bpl">File d:\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxgridlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\FastReports\LibD22\dclfrxtee22.bpl">(untitled)</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>
@@ -543,13 +542,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

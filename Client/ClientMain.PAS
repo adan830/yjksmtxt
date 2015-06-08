@@ -55,6 +55,7 @@ begin
   Result := '11';
 end;
 
+
 function TClientMainForm.GetExamineeInfo(AExamineeID: string): string;
 begin
   if length(AExamineeID) = CONSTEXAMINEEIDLENGTH  then
@@ -152,7 +153,7 @@ begin
                       modalResult:= mrOk;
                    end;
             end;
-      end; 
+      end;
    except
       MessageBoxOnTopForm(Application,'生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
       modalResult:= mrOk;

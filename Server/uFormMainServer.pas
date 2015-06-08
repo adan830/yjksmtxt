@@ -1,3 +1,5 @@
+//Todo: 需要考虑服务程序死掉情况，如何保存当前状态，如何恢复状态
+
 unit uFormMainServer;
 
 interface
@@ -21,7 +23,7 @@ uses
   dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
   dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxPCdxBarPopupMenu,
-  cxNavigator, dxBarBuiltInMenu;
+  cxNavigator, dxBarBuiltInMenu, cxCheckGroup, cxRadioGroup;
 
 type
   TExamServerStatus = (
@@ -100,10 +102,6 @@ type
     cxLabel2: TcxLabel;
     cxLabel3: TcxLabel;
     cxLabel4: TcxLabel;
-    cxLabel5: TcxLabel;
-    cxLabel6: TcxLabel;
-    edtRetryPwd: TcxTextEdit;
-    edtContPwd: TcxTextEdit;
     edtType: TcxTextEdit;
     edtDuration: TcxTextEdit;
     edtScoreDisp: TcxTextEdit;
@@ -132,6 +130,15 @@ type
     clmnSourceRemainTime: TcxGridDBColumn;
     clmnSourceTimeStamp: TcxGridDBColumn;
     cxGrid1Level1: TcxGridLevel;
+    cxGroupBox1: TcxGroupBox;
+    cxLabel11: TcxLabel;
+    edtContPwd: TcxTextEdit;
+    edtRetryPwd: TcxTextEdit;
+    cxLabel5: TcxLabel;
+    cxLabel6: TcxLabel;
+    cxLabel13: TcxLabel;
+    edtAddTimePwd: TcxTextEdit;
+    cxRadioGroup1: TcxRadioGroup;
 
     procedure FormCreate(Sender: TObject);
 
@@ -158,6 +165,7 @@ type
     procedure btnExamRecordClick(Sender: TObject);
     procedure frxReport1GetValue(const VarName: string; var Value: Variant);
     procedure btnTotalsClick(Sender: TObject);
+    procedure cxRadioGroup1PropertiesEditValueChanged(Sender: TObject);
   private
     FServerStatus : TExamServerStatus;
     FExamServer:TExamServer;
@@ -652,6 +660,26 @@ begin
 
 end;
 
+
+procedure TFormMainServer.cxRadioGroup1PropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  with (sender as TcxRadioGroup) do
+  begin
+    if EditValue=1 then
+    begin
+       edtContPwd.Enabled:=False;
+       edtAddTimePwd.Enabled:=False;
+       edtRetryPwd.Enabled:=False;
+    end else
+    begin
+       edtContPwd.Enabled:=true;
+       edtAddTimePwd.Enabled:=True;
+       edtRetryPwd.Enabled:=True;
+    end;
+  end;
+
+end;
 
 procedure TFormMainServer.RefreshData;
 var

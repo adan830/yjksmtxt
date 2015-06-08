@@ -43,13 +43,34 @@ begin
   except
      on E : Exception do begin
          //Application.MessageBox(pchar(e.Message),'ddd');
-         Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！', 
+         Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！',
            '连接服务器失败', MB_RETRYCANCEL + MB_ICONSTOP + MB_TOPMOST); 
          application.Terminate;
       end;
   end;
+
+  with TFrmLogin.Create(Application) do
+  try
+    if showModal=1 then
+    begin
+      Application.CreateForm(TClientMainForm,TExamClientGlobal.ClientMainForm );
+//    Application.CreateForm(TSelectForm, SelectForm);
+//    Application.CreateForm(TFloatWindow, FloatWindow);
+    //Application.CreateForm(TTypeForm, TypeForm);
+    //  Application.CreateForm(TScoreForm, ScoreForm);
+      free;
+    end
+    else
+    begin
+      free;
+      application.Terminate;
+    end;
+
+  except
+    Free;
+    application.Terminate;
+  end;
   //Application.CreateForm(TExamClientGlobal, TExamClientGlobal.Inst);
   //Application.CreateForm(TExamClientGlobal, clientGlobal);
-    Application.CreateForm(TFrmLogin, frmLogin);
   Application.Run;
 end.

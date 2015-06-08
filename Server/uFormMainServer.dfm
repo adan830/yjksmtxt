@@ -24,7 +24,7 @@ object FormMainServer: TFormMainServer
     Height = 487
     Align = alClient
     TabOrder = 4
-    Properties.ActivePage = tbshtMonitor
+    Properties.ActivePage = tbshtConfig
     Properties.CustomButtons.Buttons = <>
     Properties.HotTrack = True
     Properties.ShowFrame = True
@@ -77,45 +77,13 @@ object FormMainServer: TFormMainServer
           Top = 152
           Caption = #25104#32489#26174#31034#65306
         end
-        object cxLabel5: TcxLabel
-          Left = 18
-          Top = 272
-          Caption = #37325#32771#23494#30721#65306
-          Visible = False
-        end
-        object cxLabel6: TcxLabel
-          Left = 88
-          Top = 276
-          Caption = #32493#32771#23494#30721#65306
-          Visible = False
-        end
-        object edtRetryPwd: TcxTextEdit
-          Left = 320
-          Top = 279
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 7
-          Visible = False
-          Width = 121
-        end
-        object edtContPwd: TcxTextEdit
-          Left = 158
-          Top = 279
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 8
-          Visible = False
-          Width = 121
-        end
         object edtType: TcxTextEdit
           Left = 152
           Top = 71
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
-          TabOrder = 9
+          TabOrder = 5
           Width = 257
         end
         object edtDuration: TcxTextEdit
@@ -124,7 +92,7 @@ object FormMainServer: TFormMainServer
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
-          TabOrder = 10
+          TabOrder = 6
           Width = 257
         end
         object edtScoreDisp: TcxTextEdit
@@ -133,7 +101,7 @@ object FormMainServer: TFormMainServer
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
-          TabOrder = 11
+          TabOrder = 7
           Width = 257
         end
         object edtStkDbFilePath: TcxTextEdit
@@ -142,7 +110,7 @@ object FormMainServer: TFormMainServer
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
-          TabOrder = 12
+          TabOrder = 8
           Width = 257
         end
         object lbl5: TcxLabel
@@ -155,7 +123,7 @@ object FormMainServer: TFormMainServer
           Top = 222
           Enabled = False
           Style.StyleController = cxEditStyleController1
-          TabOrder = 14
+          TabOrder = 10
           Width = 121
         end
         object cxLabel8: TcxLabel
@@ -168,7 +136,7 @@ object FormMainServer: TFormMainServer
           Top = 186
           Enabled = False
           Style.StyleController = cxEditStyleController1
-          TabOrder = 16
+          TabOrder = 12
           Width = 121
         end
         object cxLabel7: TcxLabel
@@ -428,10 +396,10 @@ object FormMainServer: TFormMainServer
       OnShow = tbshtConfigShow
       object grpbx1: TcxGroupBox
         Left = 24
-        Top = 199
-        Caption = #23458#25143#31471
+        Top = 167
+        Caption = #32771#29983#31471
         TabOrder = 0
-        Height = 135
+        Height = 98
         Width = 585
         object lbl3: TcxLabel
           Left = 16
@@ -546,14 +514,84 @@ object FormMainServer: TFormMainServer
         TabOrder = 4
         OnClick = btnConfigCancelClick
       end
+      object cxGroupBox1: TcxGroupBox
+        Left = 24
+        Top = 284
+        Caption = #32493#32771#12289#24310#32771#12289#37325#32771#35774#32622#65306
+        TabOrder = 5
+        Height = 101
+        Width = 585
+        object cxLabel11: TcxLabel
+          Left = 16
+          Top = 24
+          Caption = #25805#20316#27169#24335#65306
+        end
+        object edtContPwd: TcxTextEdit
+          Left = 78
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 1
+          Width = 121
+        end
+        object edtRetryPwd: TcxTextEdit
+          Left = 454
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 2
+          Width = 121
+        end
+        object cxLabel5: TcxLabel
+          Left = 399
+          Top = 60
+          Caption = #37325#32771#23494#30721#65306
+        end
+        object cxLabel6: TcxLabel
+          Left = 16
+          Top = 60
+          Caption = #32493#32771#23494#30721#65306
+        end
+        object cxLabel13: TcxLabel
+          Left = 205
+          Top = 60
+          Caption = #24310#32771#23494#30721#65306
+        end
+        object edtAddTimePwd: TcxTextEdit
+          Left = 264
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 6
+          Width = 121
+        end
+      end
+      object cxRadioGroup1: TcxRadioGroup
+        Left = 110
+        Top = 296
+        Properties.Columns = 2
+        Properties.DefaultValue = 0
+        Properties.Items = <
+          item
+            Caption = #32771#29983#26426#36890#36807#23494#30721#25805#20316
+            Value = 0
+          end
+          item
+            Caption = #26381#21153#22120#31471#25805#20316
+            Value = 1
+          end>
+        Properties.OnEditValueChanged = cxRadioGroup1PropertiesEditValueChanged
+        TabOrder = 6
+        Height = 42
+        Width = 443
+      end
     end
     object tbshtSubmit: TcxTabSheet
       Caption = #27719#24635#19978#25253
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         732
         465)
@@ -661,18 +699,10 @@ object FormMainServer: TFormMainServer
     object tbshtExamineeInfoImport: TcxTabSheet
       Caption = #32771#29983#20449#24687#23548#20837
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
     object tbshtCheckZero: TcxTabSheet
       Caption = 'tbshtCheckZero'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object dxbrmngrMainMenu: TdxBarManager
