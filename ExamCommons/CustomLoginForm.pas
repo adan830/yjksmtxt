@@ -640,7 +640,7 @@ begin
   OnButtonUp(P);
 end;
 
- procedure TCustomLoginForm.WMNCMouseMove(var Message: TWMNCMousemove);
+procedure TCustomLoginForm.WMNCMouseMove(var Message: TWMNCMousemove);
 var
   P: TPoint;
   R: TRect;

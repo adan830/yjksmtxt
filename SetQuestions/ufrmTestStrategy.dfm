@@ -58,30 +58,37 @@ inherited frmTestStrategy: TfrmTestStrategy
       end
     end
     inherited dxDockSite2: TdxDockSite
-      DockType = 0
+      DockingType = 5
       OriginalWidth = 0
       OriginalHeight = 479
     end
     inherited dxDockSite1: TdxDockSite
-      DockType = 0
+      DockingType = 5
       OriginalWidth = 224
       OriginalHeight = 527
       inherited dxLayoutDockSite1: TdxLayoutDockSite
-        DockType = 1
+        DockingType = 0
         OriginalWidth = 224
         OriginalHeight = 200
       end
       inherited dxDockPanel1: TdxDockPanel
-        DockType = 1
+        DockingType = 0
         OriginalWidth = 224
         OriginalHeight = 140
       end
     end
   end
+  inherited dxDockingManager1: TdxDockingManager
+    PixelsPerInch = 96
+  end
   inherited cxStyleRepository1: TcxStyleRepository
+    PixelsPerInch = 96
     inherited GridTableViewStyleSheetDevExpress: TcxGridTableViewStyleSheet
       BuiltIn = True
     end
+  end
+  inherited styleControllerEdit: TcxEditStyleController
+    PixelsPerInch = 96
   end
   object setSysConfig: TADODataSet
     CursorType = ctStatic

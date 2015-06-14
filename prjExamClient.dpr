@@ -2,6 +2,8 @@ program prjExamClient;
 
 
 
+{$R *.dres}
+
 uses
   FastMM4,
   Forms,
@@ -21,7 +23,8 @@ uses
   Windows,
   ufrmInProcess in 'ExamCommons\ufrmInProcess.pas' {frmInProcess},
   uDispAnswer in 'ExamCommons\uDispAnswer.pas' {frmDispAnswer},
-  ufrmLogin in 'Client\ufrmLogin.pas' {FrmLogin};
+  ufrmLogin in 'Client\ufrmLogin.pas' {FrmLogin},
+  ufrmSingleSelect in 'Client\ufrmSingleSelect.pas' {frmSingleSelect: TFrame};
 
 //FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
@@ -44,16 +47,25 @@ begin
      on E : Exception do begin
          //Application.MessageBox(pchar(e.Message),'ddd');
          Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！',
-           '连接服务器失败', MB_RETRYCANCEL + MB_ICONSTOP + MB_TOPMOST); 
+           '连接服务器失败', MB_RETRYCANCEL + MB_ICONSTOP + MB_TOPMOST);
          application.Terminate;
       end;
   end;
 
+{$ifdef NOLOGIN  }
+    TExamClientGlobal.Examinee.ID:='11111100101';
+    TExamClientGlobal.Login();
+    TExamclientGlobal.InitExam;
+   Application.CreateForm(TClientMainForm,TExamClientGlobal.ClientMainForm );
+{$ELSE}
   with TFrmLogin.Create(Application) do
   try
     if showModal=1 then
     begin
-      Application.CreateForm(TClientMainForm,TExamClientGlobal.ClientMainForm );
+      Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
+  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
+  Application.CreateForm(TClientMainForm,TExamClientGlobal.ClientMainForm );
+
 //    Application.CreateForm(TSelectForm, SelectForm);
 //    Application.CreateForm(TFloatWindow, FloatWindow);
     //Application.CreateForm(TTypeForm, TypeForm);
@@ -70,7 +82,6 @@ begin
     Free;
     application.Terminate;
   end;
-  //Application.CreateForm(TExamClientGlobal, TExamClientGlobal.Inst);
-  //Application.CreateForm(TExamClientGlobal, clientGlobal);
+ {$ENDIF}
   Application.Run;
 end.

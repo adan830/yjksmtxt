@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, DBCtrls, ComCtrls, ImgList,db,
-  Buttons, JvExStdCtrls, JvRichEdit, JvExExtCtrls, JvRadioGroup ;
+  Buttons, JvExStdCtrls, JvRichEdit, JvExExtCtrls, JvRadioGroup,
+  System.ImageList ;
 
 type
   TSelectForm = class(TForm)

@@ -11,7 +11,7 @@ type
   private
     m_BackColor: TColorRef;
     m_BackBMP: TBitmap;
-
+    m_CaptionPng:TPngImage;
     btn_min_down, btn_min_highlight, btn_min_normal: TPngImage;
     btn_max_down, btn_max_highlight, btn_max_normal: TPngImage;
     btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
@@ -45,6 +45,8 @@ type
     procedure DrawTitle;
   protected
     procedure DoCreate; override;
+    destructor Destroy; override;
+
   public
     { Public declarations }
 
@@ -57,9 +59,10 @@ implementation
 
 uses System.SysUtils,FormBmpUtils,System.Types;
 const
-  xTitleHeight: Integer = 50; //标题栏的高度
-  xFramWidth: Integer = 10; //左、右、下边框的厚度
-  xHitTestWidth: Integer = 5; //HitTest预留厚度
+  xTitleHeight: Integer = 44; //标题栏的高度
+  xFramWidth: Integer = 0; //左、右、下边框的厚度
+  xHitTestWidth: Integer = 1; //HitTest预留厚度
+  RES_EXAM_CAPTION:string ='Exam_caption';
 
 procedure TCustomBmpForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
 begin
@@ -109,15 +112,17 @@ begin
         C.Brush.Color := clYellow;
         C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
        *)
-    if Assigned(m_BackBMP) then
+    //if Assigned(m_BackBMP) then
+    if Assigned(m_CaptionPng) then
     begin
       C.Brush.Color := m_BackColor;
 
-      BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, xTitleHeight, m_BackBMP.Canvas.Handle, 0, 0, SRCCOPY);
-      DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
-      TitleBmp.Canvas.Font.Assign(Font);
-      TitleBmp.Canvas.Brush.Style := bsClear;
-      ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
+      BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, xTitleHeight, m_CaptionPng.Canvas.Handle, 0, 0, SRCCOPY);
+
+      //DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
+      //TitleBmp.Canvas.Font.Assign(Font);
+      //TitleBmp.Canvas.Brush.Style := bsClear;
+      //ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
 
          if biMinimize in self.BorderIcons then
          begin
@@ -180,17 +185,17 @@ begin
         TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_normal);
 
 
-      C.FillRect(Rect(0, 0, Width, xTitleHeight)); //标题区域
+      //C.FillRect(Rect(0, 0, Width, xTitleHeight)); //标题区域
       BitBlt(DC, 0, 0, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
 
-      C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
-      BitBlt(DC, 0, xTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, xTitleHeight, SRCCOPY);
-
-      C.FillRect(Rect(Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth)); //右边框
-      BitBlt(DC, Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, xTitleHeight, SRCCOPY);
-
-      C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
-      BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
+//      C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
+//      BitBlt(DC, 0, xTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, xTitleHeight, SRCCOPY);
+//
+//      C.FillRect(Rect(Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth)); //右边框
+//      BitBlt(DC, Width - xFramWidth, xTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, xTitleHeight, SRCCOPY);
+//
+//      C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
+//      BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
     end;
 
   finally
@@ -221,9 +226,8 @@ begin
   inherited;//调用系统默认处理。假如不处理，对于窗口上放置的从TGraphicControl继承下来的无句柄控件将无法显示。
   DC := Message.DC;
   if DC = 0 then DC := BeginPaint(Handle, PS);
-
-  DrawClient(DC);
-
+  //DrawClient(DC);
+  OutputDebugString('painting');
   if DC = 0 then EndPaint(Handle, PS);
   Message.Result := 1;
 end;
@@ -320,26 +324,37 @@ begin
 end;
 
 procedure TCustomBmpForm.WMSize(var Message: TWMSize);
-var
-   Rgn: HRGN;
+//var
+//   Rgn: HRGN;
 begin
   inherited;
   DrawTitle;
-  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
-  SetWindowRgn(Handle, Rgn, True);
-  DeleteObject(Rgn);
+//  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
+//  SetWindowRgn(Handle, Rgn, True);
+//  DeleteObject(Rgn);
 end;
 
+
+destructor TCustomBmpForm.Destroy;
+begin
+  FormDestroy(self);
+  inherited;
+end;
 
 procedure TCustomBmpForm.DoCreate;
 begin
   inherited;
-  m_BackBMP := TBitmap.Create;
-  m_BackBMP.LoadFromResourceName(HInstance,'ClassicSkin_bmp_Theme');
-  //m_BackBMP.LoadFromFile(ExtractFilePath(Application.ExeNam) + 'Back.bmp');
-  FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
+//  m_BackBMP := TBitmap.Create;
+//  m_BackBMP.LoadFromResourceName(HInstance,RES_EXAM_CAPTION);
+//  //m_BackBMP.LoadFromFile(ExtractFilePath(Application.ExeNam) + 'Back.bmp');
+//  FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
 
-  self.Color := clBtnFace;
+   m_BackColor:=clWhite;
+   m_CaptionPng:=TPngImage.Create;
+   m_CaptionPng.LoadFromResourceName(HInstance,RES_EXAM_CAPTION);
+
+
+  //self.Color := clBtnFace;
 
   if biMinimize in self.BorderIcons then
   begin
@@ -382,7 +397,8 @@ begin
 
   btn_close_normal := TPngImage.Create;
   btn_close_normal.LoadFromResourceName(HInstance,'ClassicSkin_Png_Close_Normal'); //btn_close_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Normal.png');
-
+  //OutputDebugStringW('oncreate');
+  DrawTitle;
 end;
 
 procedure TCustomBmpForm.DrawClient(DC: HDC);
@@ -392,16 +408,17 @@ begin
   C := TControlCanvas.Create;
   C.Handle := DC;
   try
-    (*
-        C.Brush.Color := clDkGray;
+
+        C.Brush.Color := m_BackColor;
         C.FillRect(ClientRect);
-    *)
-    if Assigned(m_BackBMP) then
+       //OutputDebugString('painting');
+   (* if Assigned(m_BackBMP) then
     begin
       C.Brush.Color := m_BackColor;
       C.FillRect(ClientRect);
       BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, xTitleHeight, SRCCOPY);
     end;
+     *)
   finally
     C.Handle := 0;
     C.Free;
@@ -410,7 +427,10 @@ end;
 
 procedure TCustomBmpForm.FormDestroy(Sender: TObject);
 begin
-  m_BackBMP.Free;
+  if Assigned(m_BackBMP) then
+  		m_BackBMP.Free;
+
+  m_CaptionPng.Free;
 
   btn_min_down.Free;
   btn_min_highlight.Free;
@@ -599,7 +619,14 @@ begin
       DrawTitle;
       //Timer1.Enabled := True;
     end;
-  end;
+  end
+    else
+    begin
+        if m_MiniButtonHover then m_MiniButtonHover := False;
+        if m_MaxButtonHover then m_MaxButtonHover := False;
+        m_CloseButtonHover:=false;
+        DrawTitle;
+    end;
 end;
 
 procedure TCustomBmpForm.Timer1Timer(Sender: TObject);

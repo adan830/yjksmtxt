@@ -2,7 +2,8 @@ unit ExamClientGlobal;
 
 interface
 uses ClientMain,ExamTCPClient,NetGlobal, Classes,
-  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig;
+  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig,controls,
+  ufrmSingleSelect;
 
 
    //TModules = array of TModuleInfo;
@@ -34,6 +35,7 @@ type
             ClientMainForm: TClientMainForm;
             FloatWindow :TFloatWindow;
             SelectWindow: TSelectForm;
+            SelectFrame:TfrmSingleSelect;
             //RemainTime:integer;
             Inst: TExamClientGlobal;
       public //global variable for ExamClient
@@ -67,6 +69,9 @@ type
 
         class procedure EnableTimer;
         class procedure UnableTimer;
+
+        class function InitExam:TModalResult;
+        class function CreateEnvironment(const ALoginType: TLoginType):TModalResult;
 
    end;
 
@@ -413,6 +418,46 @@ begin
 //      end;
  //todo20091207
      if TExamClientGlobal.Examinee.ID='' then OutputDebugString(PChar('发送状态命令后ID为空'));
+end;
+
+class function TExamClientGlobal.InitExam:TModalResult;
+begin
+  Result:= TExamClientGlobal.CreateEnvironment(TExamClientGlobal.LoginType);
+  //TExamClientGlobal.ClientMainForm:=TClientMainForm.Create(self);
+  //       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
+  //       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
+  //TypeForm := TTypeForm.Create(self);
+  TExamClientGlobal.Examinee.Status := esExamining;
+  TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.status, TExamClientGlobal.Examinee.RemainTime);
+  TExamClientGlobal.EnableTimer;
+end;
+
+class function TExamClientGlobal.CreateEnvironment(const ALoginType: TLoginType):TModalResult;
+begin
+  result:=mrOk;
+   TExamClientGlobal.SetGlobalExamPath;
+   try
+      case ALoginType of
+        ltFirstLogin,ltReExamLogin,ltContinuteEndedExam: begin
+                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID,ALoginType,TExamClientGlobal.ExamPath);
+                   TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
+                   TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
+            end;
+        ltContinuteInterupt: begin
+                   if DirectoryExists(TExamClientGlobal.ExamPath) then begin
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
+                     TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
+                   end else begin
+                      MessageBoxOnTopForm(Application,'找不到上次考试文件目录！', '提示:', mb_ok);
+                      Result:= mrCancel;
+                   end;
+            end;
+      end;
+   except
+      MessageBoxOnTopForm(Application,'生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
+      Result:= mrCancel;
+   end;
+
 end;
 
 end.

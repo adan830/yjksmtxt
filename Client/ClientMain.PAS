@@ -4,25 +4,37 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs,  ExtCtrls, Buttons,ScoreIni, StdCtrls, NetGlobal; //  floatform,
+  Dialogs,  ExtCtrls, Buttons,ScoreIni, StdCtrls, NetGlobal, JvExControls,
+  JvSpeedButton,CustomBmpForm, Vcl.ComCtrls,FrameTQModule; //  floatform,
 
 type
-  TClientMainForm = class(TForm)
+  TClientMainForm = class(TCustomBmpForm)
+    pnl1: TPanel;
+    imgTop: TImage;
+    btn1btn: TJvSpeedButton;
+    btnSingleSelect: TJvSpeedButton;
+    btnMultiSelect: TJvSpeedButton;
+    btnType: TJvSpeedButton;
+    btnOperate: TJvSpeedButton;
+    pnl3: TPanel;
+    pnl2: TPanel;
     btn1: TButton;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FlashPlayerFlashCall(ASender: TObject; const request: WideString);
     procedure btn1Click(Sender: TObject);
+    procedure btn1btnClick(Sender: TObject);
+    procedure btnModuleClick(Sender: TObject);
   private
     FDz:boolean;
     closenum:integer;
+    currentMoude:TFrameTQModule;
 
     procedure SendExamineeDict;
     //moved form loginForm
    // function Login(AExamineeID:string):Integer;
     function GetExamineeInfo(AExamineeID:string):string;
-    procedure CreateEnvironment(const ALoginType: TLoginType);
     procedure SaveScoreToDB(AScore: TScoreIni);
     function GetExamineeIDLength: string;
     //procedure WinGrade(pbHandle: integer);
@@ -45,7 +57,7 @@ implementation
 uses  floatform,XMLIntf,XMLDoc,
   ufrmExit, ADODB, Select, KeyType,SelectGrade, score, ExamGlobal, 
   ufrmInProcess, Commons, compress, DB, DataUtils, DataFieldConst,tq,
-  ExamClientGlobal;
+  ExamClientGlobal, ufrmSingleSelect,FrameWorkUtils;
 
 {$R *.dfm}
 //{$R CoverFlash.res}
@@ -127,6 +139,14 @@ begin
 end;
 
 
+procedure TClientMainForm.btn1btnClick(Sender: TObject);
+var
+  frmSelect:TForm;
+begin
+  frmselect:=TSelectForm.Create(self);
+  frmSelect.show;
+end;
+
 procedure TClientMainForm.btn1Click(Sender: TObject);
 begin
    //SetFlashRemainTime('8:00');
@@ -134,49 +154,42 @@ begin
    Close;
 end;
 
-procedure TClientMainForm.CreateEnvironment(const ALoginType: TLoginType);
-begin
-   TExamClientGlobal.SetGlobalExamPath;
-   try
-      case ALoginType of
-        ltFirstLogin,ltReExamLogin,ltContinuteEndedExam: begin
-                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID,ALoginType,TExamClientGlobal.ExamPath);
-                   TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
-                   TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
-            end;
-        ltContinuteInterupt: begin
-                   if DirectoryExists(TExamClientGlobal.ExamPath) then begin
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
-                     TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
-                   end else begin
-                      MessageBoxOnTopForm(Application,'找不到上次考试文件目录！', '提示:', mb_ok);
-                      modalResult:= mrOk;
-                   end;
-            end;
-      end;
-   except
-      MessageBoxOnTopForm(Application,'生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
-      modalResult:= mrOk;
-   end;
 
+
+procedure TClientMainForm.btnModuleClick(Sender: TObject);
+var
+  btn:TjvSpeedButton;
+  tag:integer;
+begin
+  btn:=sender as TjvSpeedButton;
+  tag:=btn.tag;
+
+  case tag of
+    1:begin btnMultiSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
+    							LoadFrameByClassName(TfrmSingleSelect,self,TexamModule.EMSINGLESELECT);
+    	end;
+    2:begin btnSingleSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;    end;
+    3:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnOperate.down:=false;    end;
+    4:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnType.down:=false;    end;
+  end;
 end;
 
 procedure TClientMainForm.CreateParams(var Params: TCreateParams);
 begin
   inherited   CreateParams( Params );
-  with Params do
-  begin
-   // {$IFNDEF DEBUG}
-    Style :=WS_POPUP+WS_MAXIMIZE ;             //ws_overlapped+      params.ExStyle:=ws_ex_topmost;
-    //ExStyle := ExStyle + WS_EX_APPWINDOW	;
-    WndParent :=0;   // mainform.Handle;    //父窗体为form1
-    Self.Left :=0;
-    Self.Top :=0;
-    Self.AutoSize :=False;
-    //{$ENDIF}
-//    FlashPlayer.Scale := 'ExactFit';  //是在控件中拉伸
-//    FlashPlayer.ScaleMode :=2;
-  end;
+//  with Params do
+//  begin
+//   // {$IFNDEF DEBUG}
+//    Style :=WS_POPUP;//+WS_MAXIMIZE ;             //ws_overlapped+      params.ExStyle:=ws_ex_topmost;
+//    //ExStyle := ExStyle + WS_EX_APPWINDOW	;
+//    WndParent :=0;   // mainform.Handle;    //父窗体为form1
+////    Self.Left :=0;
+////    Self.Top :=0;
+//    Self.AutoSize :=False;
+//    //{$ENDIF}
+////    FlashPlayer.Scale := 'ExactFit';  //是在控件中拉伸
+////    FlashPlayer.ScaleMode :=2;
+//  end;
 end;
 
 destructor TClientMainForm.Destroy;
@@ -216,7 +229,7 @@ begin
 //   FlashPlayer.LoadMovieFromStream(0,flashStream);
 //   flashStream.Free;
 //   FlashPlayer.Play;
-   TExamClientGlobal.ExamTCPClient.OnTimer := OnTimer;
+   //TExamClientGlobal.ExamTCPClient.OnTimer := OnTimer;
 end;
 
 
@@ -341,7 +354,7 @@ begin
        Exit;
     end;
     if procName ='StartNewExam' then begin
-       CreateEnvironment(TExamClientGlobal.LoginType);
+       //CreateEnvironment(TExamClientGlobal.LoginType);
        TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
        TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
        //TypeForm := TTypeForm.Create(self);
@@ -354,7 +367,7 @@ begin
        Exit;
     end;
      if procName ='ContinuteExam' then begin
-       CreateEnvironment(TExamClientGlobal.LoginType);
+       //CreateEnvironment(TExamClientGlobal.LoginType);
        TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
        TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
        //TypeForm := TTypeForm.Create(self);

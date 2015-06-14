@@ -4,16 +4,17 @@ unit Commons;
    This file include common function for examine environment and Grade;
 }
 interface
-uses Classes,  uGrade, sysutils, ExamInterface, DB, ExamGlobal, Vcl.Forms;
+uses Classes,  uGrade, sysutils, ExamInterface, DB, ExamGlobal, Vcl.Forms,Vcl.Controls;
+const
+	CONSTWILDCARD='%';
 type
-
-
-
   parray=array [0..4]of pchar;
 
   //考试类型模块枚举类型
-  TFormMode=(SINGLESELECT_MODEL=0,MULTISELECT_MODEL=1,TYPE_MODEL=2,WINDOWS_MODEL=3,WORD_MODEL=4,EXCEL_MODEL=5,POWERPOINT_MODEL=6,IE_MODEL=7);
-  TExamModule =(EMSINGLESELECT=0,EMMULTISELECT=1,EMTYPE=2,EMWINDOWS=3,EMWORD=4,EMEXCEL=5,EMPOWERPOINT=6,EMIE=7);
+  TFormMode=(SINGLESELECT_MODEL=0,MULTISELECT_MODEL=1,TYPE_MODEL=2,WINDOWS_MODEL=3,WORD_MODEL=4,EXCEL_MODEL=5,POWERPOINT_MODEL=6);//,IE_MODEL=7);
+  TExamModule =(EMSINGLESELECT=0,EMMULTISELECT=1,EMTYPE=2,EMWINDOWS=3,EMWORD=4,EMEXCEL=5,EMPOWERPOINT=6);//,EMIE=7);
+
+  
 
   //字符串加密  解密
    function EncryptStr(const Src: String; const Key: String=SYSKEY): String; //stdcall; export
@@ -30,7 +31,7 @@ type
 //==============================================================================
 // 格式化选择题评分信息字符串
 //==============================================================================
-  function FormatSelectGradeInfo(AID, AExamValue: string; IsRight: Boolean): string;
+   function FormatSelectGradeInfo(AID, AExamValue: string; IsRight: Boolean): string;
   //将字符串转换成 TGradeInfo 记录
 //    procedure StrToGradeInfo( Content:string;var GradeInfo:TGradeInfo);  overload ;
     function StrToGradeInfo(Content:string;var GradeInfo:TGradeInfo;chr:char=','):Integer; //stdcall;
@@ -91,11 +92,13 @@ type
     procedure VariantToStream(const Data: OleVariant; Stream: TStream);
     function StreamToVariant(Stream: TStream): OleVariant;
 
+
+
 implementation
 //uses sysutils,adodb,datamodule,forms;
 //为集中评分而改
   uses shellapi, NetGlobal,DataFieldConst,compress,Variants, ExamException, 
-  ExamResourceStrings,IOUtils,windows;    // udmMain
+  ExamResourceStrings,IOUtils,windows,FrameTQModule;    // udmMain
 //字符串加密
 function EncryptStr(const Src: String; const Key: String=SYSKEY): String;
 var
@@ -759,5 +762,6 @@ begin
 end;
 
 {$ENDREGION}
+
 
 end.

@@ -322,14 +322,14 @@ begin
 end;
 
 procedure TCustomColorForm.WMSize(var Message: TWMSize);
-var
-   Rgn: HRGN;
+//var
+//   Rgn: HRGN;
 begin
   inherited;
   DrawTitle;
-  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
-  SetWindowRgn(Handle, Rgn, True);
-  DeleteObject(Rgn);
+//  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
+//  SetWindowRgn(Handle, Rgn, True);
+//  DeleteObject(Rgn);
 end;
 
 

@@ -76,6 +76,7 @@ type
     TQ : TTQ;
     ksda:string;
     flag :Boolean;   // 是否已答题
+    //已弃用
     txFlag:boolean;  //表示 单选 或多选 题
   end;
 {$endregion}

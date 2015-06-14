@@ -490,13 +490,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -540,6 +540,9 @@
         <DCCReference Include="ExamCommons\CustomColorForm.pas"/>
         <DCCReference Include="ExamCommons\CustomLoginForm.pas"/>
         <DCCReference Include="ExamCommons\ShadowFrame.pas"/>
+        <DCCReference Include="ExamCommons\FrameTQModule.pas"/>
+        <DCCReference Include="ExamCommons\FrameTQButtons.pas"/>
+        <DCCReference Include="ExamCommons\FrameWorkUtils.pas"/>
         <RcItem Include="ExamCommons\skins\Close_Down.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ClassicSkin_Png_Close_Down</ResourceId>
@@ -591,6 +594,10 @@
         <RcItem Include="ExamCommons\skins\login_caption.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>Login_Caption</ResourceId>
+        </RcItem>
+        <RcItem Include="ExamCommons\skins\exam_caption.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>Exam_Caption</ResourceId>
         </RcItem>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

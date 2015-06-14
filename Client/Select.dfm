@@ -147,7 +147,6 @@ object SelectForm: TSelectForm
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = #36820#22238
-    DoubleBuffered = True
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -205,7 +204,6 @@ object SelectForm: TSelectForm
       57A2A2A2E8E8E8E8E8E8E8DE8181DED781818181E8E8E8E8E8E8E8E8E8AC8257
       57E8E8E8E8E8E8E8E8E8E8E8E8AC818181E8E8E8E8E8E8E8E8E8}
     NumGlyphs = 2
-    ParentDoubleBuffered = False
     ParentFont = False
     TabOrder = 0
     OnClick = btnReturnClick
@@ -217,7 +215,6 @@ object SelectForm: TSelectForm
     Height = 25
     Anchors = [akLeft, akBottom]
     Caption = #31572#26696
-    DoubleBuffered = True
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -275,7 +272,6 @@ object SelectForm: TSelectForm
       CED578E8E8E8E8E8E8E8E881E8E8E8E8E8E881E8E8E8E8E8E8E8E8E878787878
       7878E8E8E8E8E8E8E8E8E8E8818181818181E8E8E8E8E8E8E8E8}
     NumGlyphs = 2
-    ParentDoubleBuffered = False
     ParentFont = False
     TabOrder = 1
     Visible = False
@@ -294,6 +290,7 @@ object SelectForm: TSelectForm
     Font.Style = []
     ParentFont = False
     ReadOnly = True
+    SelText = ''
     TabOrder = 2
   end
   object pnlTitle: TPanel
@@ -388,7 +385,7 @@ object SelectForm: TSelectForm
     Left = 512
     Top = 464
     Bitmap = {
-      494C01010A001000340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010A001000380010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

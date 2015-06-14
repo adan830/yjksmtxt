@@ -10,7 +10,7 @@ uses
 type
    // for environment command to access data table;
   
-  TExamModule =(EMSINGLESELECT=0,EMMULTISELECT=1,EMTYPE=2,EMWINDOWS=3,EMWORD=4,EMEXCEL=5,EMPOWERPOINT=6,EMIE=7);
+ // TExamModule =(EMSINGLESELECT=0,EMMULTISELECT=1,EMTYPE=2,EMWINDOWS=3,EMWORD=4,EMEXCEL=5,EMPOWERPOINT=6,EMIE=7);
 
   TGradeInfo = record
     ID:integer;         //评分知识点类型

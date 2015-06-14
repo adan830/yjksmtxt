@@ -24,7 +24,8 @@ type
     examineeInfo:Texaminee;
 
     function GetExamineeInfo(AExamineeID: string): TExaminee;
-    procedure CreateEnvironment(const ALoginType: TLoginType);
+//    procedure CreateEnvironment(const ALoginType: TLoginType);
+//    procedure InitExam;
     { Private declarations }
   public
     { Public declarations }
@@ -35,22 +36,11 @@ uses ExamClientGlobal,clientmain,commons;
 
 {$R *.dfm}
 
-
-
 procedure TFrmLogin.btnStartExamClick(Sender: TObject);
 begin
   try
       TExamClientGlobal.Login();
-
-      CreateEnvironment(TExamClientGlobal.LoginType);
-      TExamClientGlobal.ClientMainForm:=TClientMainForm.Create(self);
-//       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
-//       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
-       //TypeForm := TTypeForm.Create(self);
-       TExamClientGlobal.Examinee.Status := esExamining;
-       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID,TExamClientGlobal.Examinee.Name,TExamClientGlobal.Examinee.status,TExamClientGlobal.Examinee.RemainTime);
-       TExamClientGlobal.EnableTimer;
-	     modalResult:=1;
+      modalResult:=TExamclientGlobal.InitExam;
    except
       application.NormalizeTopMosts;
       application.MessageBox('生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
@@ -184,33 +174,6 @@ begin
 //  end else begin
 //     Result := '准考证号长度不够！';
   end;
-end;
-
-procedure TFrmLogin.CreateEnvironment(const ALoginType: TLoginType);
-begin
-   TExamClientGlobal.SetGlobalExamPath;
-   try
-      case ALoginType of
-        ltFirstLogin,ltReExamLogin,ltContinuteEndedExam: begin
-                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID,ALoginType,TExamClientGlobal.ExamPath);
-                   TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
-                   TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
-            end;
-        ltContinuteInterupt: begin
-                   if DirectoryExists(TExamClientGlobal.ExamPath) then begin
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);   //设置考生试题库连接
-                     TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee);  //以备上报评分时获得考生信息
-                   end else begin
-                      MessageBoxOnTopForm(Application,'找不到上次考试文件目录！', '提示:', mb_ok);
-                      modalResult:= mrOk;
-                   end;
-            end;
-      end;
-   except
-      MessageBoxOnTopForm(Application,'生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
-      modalResult:= mrOk;
-   end;
-
 end;
 
 end.
