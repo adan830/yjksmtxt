@@ -63,10 +63,7 @@ contains
   FormBmpUtils in 'ExamCommons\FormBmpUtils.pas',
   CustomColorForm in 'ExamCommons\CustomColorForm.pas',
   CustomLoginForm in 'ExamCommons\CustomLoginForm.pas',
-  ShadowFrame in 'ExamCommons\ShadowFrame.pas',
-  FrameTQModule in 'ExamCommons\FrameTQModule.pas',
-  FrameTQButtons in 'ExamCommons\FrameTQButtons.pas',
-  FrameWorkUtils in 'ExamCommons\FrameWorkUtils.pas';
+  ShadowFrame in 'ExamCommons\ShadowFrame.pas';
 
 //FastMM4 in '..\Components\fastmm4\FastMM4.pas';
 

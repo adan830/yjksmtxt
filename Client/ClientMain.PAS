@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,  ExtCtrls, Buttons,ScoreIni, StdCtrls, NetGlobal, JvExControls,
-  JvSpeedButton,CustomBmpForm, Vcl.ComCtrls,FrameTQModule; //  floatform,
+  JvSpeedButton,CustomBmpForm, Vcl.ComCtrls, Vcl.Imaging.pngimage,uFrameSingleSelect,uFrameMultiSelect; //  floatform,
 
 type
   TClientMainForm = class(TCustomBmpForm)
@@ -16,7 +16,7 @@ type
     btnMultiSelect: TJvSpeedButton;
     btnType: TJvSpeedButton;
     btnOperate: TJvSpeedButton;
-    pnl3: TPanel;
+    pnlClient: TPanel;
     pnl2: TPanel;
     btn1: TButton;
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -29,7 +29,10 @@ type
   private
     FDz:boolean;
     closenum:integer;
-    currentMoude:TFrameTQModule;
+
+    currentMoude:TFrame;
+    singleFrame:TFrameSingleSelect;
+    multiFrame:TFrameMultiSelect;
 
     procedure SendExamineeDict;
     //moved form loginForm
@@ -57,7 +60,7 @@ implementation
 uses  floatform,XMLIntf,XMLDoc,
   ufrmExit, ADODB, Select, KeyType,SelectGrade, score, ExamGlobal, 
   ufrmInProcess, Commons, compress, DB, DataUtils, DataFieldConst,tq,
-  ExamClientGlobal, ufrmSingleSelect,FrameWorkUtils;
+  ExamClientGlobal,FrameWorkUtils;
 
 {$R *.dfm}
 //{$R CoverFlash.res}
@@ -166,9 +169,21 @@ begin
 
   case tag of
     1:begin btnMultiSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
-    							LoadFrameByClassName(TfrmSingleSelect,self,TexamModule.EMSINGLESELECT);
+                  if (multiFrame<>nil) and (multiFrame.Showing) then multiFrame.HideFrame;
+
+                  if singleFrame=nil then
+    							    singleFrame:=LoadFrameByClassName(TFrameSingleSelect,pnlClient) as TFrameSingleSelect
+                  else
+                      singleFrame.Show;
     	end;
-    2:begin btnSingleSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;    end;
+    2:begin btnSingleSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
+                  if (singleFrame<>nil) and (singleFrame.Showing) then singleFrame.HideFrame;
+                  if multiFrame=nil then
+    							    multiFrame:=LoadFrameByClassName(TFrameMultiSelect,pnlClient) as TFrameMultiSelect
+                  else
+                      multiFrame.Show;
+
+      end;
     3:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnOperate.down:=false;    end;
     4:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnType.down:=false;    end;
   end;

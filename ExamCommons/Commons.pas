@@ -98,7 +98,7 @@ implementation
 //uses sysutils,adodb,datamodule,forms;
 //为集中评分而改
   uses shellapi, NetGlobal,DataFieldConst,compress,Variants, ExamException, 
-  ExamResourceStrings,IOUtils,windows,FrameTQModule;    // udmMain
+  ExamResourceStrings,IOUtils,windows;    // udmMain
 //字符串加密
 function EncryptStr(const Src: String; const Key: String=SYSKEY): String;
 var

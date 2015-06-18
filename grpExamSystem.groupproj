@@ -28,7 +28,7 @@
             <Dependencies/>
         </Projects>
         <Projects Include="prjExamClient.dproj">
-            <Dependencies>ExamCommons.dproj</Dependencies>
+            <Dependencies/>
         </Projects>
         <Projects Include="SetQuestions.dproj">
             <Dependencies/>
@@ -116,13 +116,13 @@
     <Target Name="dpkCheckTree:Make">
         <MSBuild Projects="Components\dpkCheckTree.dproj" Targets="Make"/>
     </Target>
-    <Target Name="prjExamClient" DependsOnTargets="ExamCommons">
+    <Target Name="prjExamClient">
         <MSBuild Projects="prjExamClient.dproj"/>
     </Target>
-    <Target Name="prjExamClient:Clean" DependsOnTargets="ExamCommons:Clean">
+    <Target Name="prjExamClient:Clean">
         <MSBuild Projects="prjExamClient.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="prjExamClient:Make" DependsOnTargets="ExamCommons:Make">
+    <Target Name="prjExamClient:Make">
         <MSBuild Projects="prjExamClient.dproj" Targets="Make"/>
     </Target>
     <Target Name="SetQuestions">

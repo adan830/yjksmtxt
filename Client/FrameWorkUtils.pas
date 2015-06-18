@@ -3,7 +3,7 @@ unit FrameworkUtils;
 interface
 
 uses
-  System.Classes,FrameTQModule,Commons, Vcl.Controls,Vcl.Forms;
+  System.Classes,Commons, Vcl.Controls,Vcl.Forms;
 type
 //==============================================================================
 // 考试Frame相关函数
@@ -11,21 +11,22 @@ type
   TFrameTQModuleClass  =  class    of    TFrame;
   function ExamModuleToStPrefix(aExamModule:TExamModule):string;
   function ExamModuleToStPrefixWildCard(aExamModule:TExamModule):string;
-  function LoadFrameByClassName(theFrameClass:TFrameTQModuleClass;aOwner:TComponent;em:TExamModule):TFrame;
+  function LoadFrameByClassName(theFrameClass:TFrameTQModuleClass;ownerPanel:TComponent):TFrame;
 
 implementation
   {$REGION '=====Frame相关函数====='}
-function LoadFrameByClassName(theFrameClass: TFrameTQModuleClass;aOwner:TComponent;em:TExamModule):TFrame;
+function LoadFrameByClassName(theFrameClass: TFrameTQModuleClass;ownerPanel:TComponent):TFrame;
 begin
 //  if Assigned(FCurrentfrm)and( not SameText(theFrameClass.ClassName,FCurrentfrmClassName)) then
 //         FreeAndNil(FCurrentfrm);
-   Result:=theFrameClass.Create(nil);
-   //Result:=theFrameClass.Create(aOwner,em);
-   Result.Parent:=aOwner as TWinControl ;
+   Result:=theFrameClass.Create(ownerPanel);
+  // Result.ExamModule:=em;
+   //Result:=theFrameClass.Create(ownerPanel,em);
+   Result.Parent:=ownerPanel as TWinControl ;
    Result.Align:=alClient;
    Result.Left:=0;//(Panel1.Width-Result.Width)div 2;
    Result.Top:=0;//(Panel1.Height-Result.Height)div 2;
-           Result.Show
+   Result.Show
 
    //FCurrentfrmClassName:=theFrameClass.ClassName;
 

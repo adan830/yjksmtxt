@@ -2,8 +2,7 @@ unit ExamClientGlobal;
 
 interface
 uses ClientMain,ExamTCPClient,NetGlobal, Classes,
-  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig,controls,
-  ufrmSingleSelect;
+  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig,controls,uFrameSingleSelect;
 
 
    //TModules = array of TModuleInfo;
@@ -35,7 +34,7 @@ type
             ClientMainForm: TClientMainForm;
             FloatWindow :TFloatWindow;
             SelectWindow: TSelectForm;
-            SelectFrame:TfrmSingleSelect;
+            SelectFrame:TFrameSingleSelect;
             //RemainTime:integer;
             Inst: TExamClientGlobal;
       public //global variable for ExamClient

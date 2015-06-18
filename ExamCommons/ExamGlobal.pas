@@ -70,6 +70,7 @@ type
 //==============================================================================
 // 选择题窗口树控件结点类型
 //==============================================================================
+{$REGION '老版，未使用泛型前'}
   PTQTreeNode=^TQTreeNode;
   TQTreeNode=record
     CodeText:string; // 试题号文本
@@ -79,6 +80,19 @@ type
     //已弃用
     txFlag:boolean;  //表示 单选 或多选 题
   end;
+{$ENDREGION}
+
+{$REGION '新版，使用泛型'}
+  TTQNode=class
+  public
+    CodeText:string; // 试题号文本
+    TQ : TTQ;
+    ksda:string;
+    flag :Boolean;   // 是否已答题
+    //已弃用
+    //txFlag:boolean;  //表示 单选 或多选 题
+  end;
+{$ENDREGION}
 {$endregion}
 
 implementation

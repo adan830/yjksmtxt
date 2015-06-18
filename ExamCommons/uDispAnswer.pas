@@ -21,12 +21,14 @@ type
     procedure grdAnswerDrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);
   private
+
   protected
     procedure CreateParams(var Params: TCreateParams); override;
     { Private declarations }
   public
     { Public declarations }
     class procedure ShowForm(node:PTQTreeNode);overload;
+    class procedure ShowForm(node: TTQNode); overload;
     class procedure ShowForm(strings:TStrings;chr:char=',');overload;
 
   end;
@@ -37,6 +39,7 @@ uses uGrade,Commons, LogicalExprEval;
 {$R *.dfm}
 
 { TfrmDispAnswer }
+{$REGION '老版，未使用泛型'}
 class procedure TfrmDispAnswer.ShowForm(node: PTQTreeNode);
 var
   frmDispAnswer:TfrmDispAnswer;
@@ -65,7 +68,38 @@ begin
     frmDispAnswer.free;
   end;    // try/finally
 end;
+{$ENDREGION}
 
+{$REGION '新版，使用泛型'}
+class procedure TfrmDispAnswer.ShowForm(node: TTQNode);
+var
+  frmDispAnswer:TfrmDispAnswer;
+  str,tempStr:string;
+  i:integer;
+  pc :pchar;
+begin
+  frmDispAnswer:=TfrmDispAnswer.Create(nil);
+  try
+    with frmDispAnswer do
+    begin
+      frmDispAnswer.memoComment.Visible:=true;
+      frmDispAnswer.grdAnswer.Visible:=false;
+      if node.TQ.St_no<>'' then
+        tempStr := node.TQ.ReadStAnswerStr ;
+        pc:=pchar(tempStr);
+        for I := 0 to length(tempStr)-1  do    // Iterate
+        begin
+          str:=str+ chr(ord(pc[i])+16);
+        end;    // for
+        lblAnswer.Caption:=str;
+        node.TQ.ReadCommentToStrings(memoComment.Lines);
+    end;    // with
+    frmDispAnswer.ShowModal;
+  finally // wrap up
+    frmDispAnswer.free;
+  end;    // try/finally
+end;
+{$ENDREGION}
 
 procedure TfrmDispAnswer.CreateParams(var Params: TCreateParams);
 begin
