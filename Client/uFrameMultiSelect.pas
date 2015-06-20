@@ -23,8 +23,12 @@ type
     grdpnl1: TGridPanel;
     btnNext: TCnSpeedButton;
     btnPrevious: TCnSpeedButton;
-    RadioGroup1: TJvRadioGroup;
     mmo1: TMemo;
+    grdpnlAnswer: TGridPanel;
+    chkAnswer1: TCheckBox;
+    chkAnswer2: TCheckBox;
+    chkAnswer3: TCheckBox;
+    chkAnswer4: TCheckBox;
     procedure tqButtonClick(Sender: TObject);
     procedure btn1Click(Sender: TObject);
     procedure btnPreviousClick(Sender: TObject);
@@ -157,17 +161,25 @@ var
   s:string;
   i,j:integer;
   pc:pchar;
+  bb:string;
 begin
   if (currentTQIndex>-1) then
   begin
-    if (RadioGroup1.ItemIndex<>-1) then
-    begin
-      currentTq:= tqList[currentTQIndex];
-      currentTq.ksda := inttostr(RadioGroup1.ItemIndex + 1);
-      currentTq.flag := true;
-      frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 1);
-    end else
-      frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 3);
+    currentTq:= tqList[currentTQIndex];
+    bb:='';
+        for i:=0 to 3 do
+        begin
+          if (grdpnlAnswer.Controls[i] as TCheckBox).Checked then
+            bb := bb + inttostr(i + 1);
+        end;
+        currentTq.ksda := bb;
+        if length(bb) > 0 then
+        begin
+          currentTq.flag := true;
+          frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 1);
+        end
+        else
+          frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 3);
 
   end;
 
@@ -181,47 +193,24 @@ begin
   //edtTQContent.Font.Height:=14;
 //  edtTQContent.Font.Name:='宋体';
 //  edtTQContent.Font.Color:=$00333333;
-  if currentTq.tq.St_no <> string.Empty then
+  if currentTq.TQ.St_no<>'' then
   begin
-    if currentTq.flag and (currentTq.ksda <> '') then
+      chkAnswer1.Checked:=false;
+      chkAnswer2.Checked:=false;
+      chkAnswer3.Checked:=false;
+      chkAnswer4.Checked:=false;
+    if currentTq.flag and (currentTq.ksda<>'') then
     begin
-      RadioGroup1.ItemIndex := strtoint(currentTq.ksda) - 1;
-    end
-    else
-      RadioGroup1.ItemIndex := -1;
-
+      s:=trim(currentTq.ksda);
+      pc:=pchar(s);
+      for i:=0 to Length(s)-1 do
+      begin
+        j:=strtoint(pc[i])-1;                      //在这里要考虑非数值的情况，可能会触发异常
+        if (j>=0) and (j<=3) then
+           (grdpnlAnswer.Controls[j] as TCheckbox).Checked:=true;
+      end;
+    end;
   end
-  // else
-//    begin
-//      Groupbox1.Visible:=false;
-//      RadioGroup1.Visible:=false;
-//
-//      if currentTq.TQ.St_no<>'' then
-//      begin
-//         groupbox1.Visible:=true;
-//          checkbox1.Caption:=' A ';
-//          checkbox2.Caption:=' B ';
-//          checkbox3.Caption:=' C ';
-//          checkbox4.Caption:=' D ';
-//          for i:=0 to 3 do
-//          begin
-//             (groupbox1.Controls[i] as TCheckbox).Checked:=false;
-//          end;
-//        if currentTq.flag and (currentTq.ksda<>'') then
-//        begin
-//          s:=trim(currentTq.ksda);
-//          pc:=pchar(s);
-//          for i:=0 to Length(s)-1 do
-//          begin
-//            j:=strtoint(pc[i])-1;                      //在这里要考虑非数值的情况，可能会触发异常
-//            if (j>=0) and (j<=3) then
-//               (groupbox1.Controls[j] as TCheckbox).Checked:=true;
-//          end;
-//        end;
-//      end
-//    end;
-//  end;
-  //Resize;
 end;
 
 procedure TFrameMultiSelect.HideFrame;

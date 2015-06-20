@@ -91,7 +91,7 @@ object FrameMultiSelect: TFrameMultiSelect
             end
             item
               Column = 1
-              Control = RadioGroup1
+              Control = grdpnlAnswer
               Row = 0
             end>
           ParentBackground = False
@@ -153,29 +153,139 @@ object FrameMultiSelect: TFrameMultiSelect
             OnClick = btnNextClick
             ExplicitTop = 28
           end
-          object RadioGroup1: TJvRadioGroup
-            Left = 180
-            Top = -12
+          object grdpnlAnswer: TGridPanel
+            Left = 172
+            Top = 1
             Width = 342
             Height = 76
-            Align = alCustom
-            Anchors = [akLeft, akTop, akRight, akBottom]
-            Caption = 'RadioGroup1'
-            Columns = 4
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = 28
-            Font.Name = 'Arial'
-            Font.Style = []
-            Items.Strings = (
-              'A'
-              'B'
-              'C'
-              'D')
-            ParentFont = False
+            Align = alClient
+            Caption = 'grdpnlAnswer'
+            ColumnCollection = <
+              item
+                Value = 25.000327054435120000
+              end
+              item
+                Value = 24.998325752826680000
+              end
+              item
+                Value = 25.000449672482660000
+              end
+              item
+                Value = 25.000897520255530000
+              end>
+            ControlCollection = <
+              item
+                Column = 0
+                Control = chkAnswer1
+                Row = 0
+              end
+              item
+                Column = 1
+                Control = chkAnswer2
+                Row = 0
+              end
+              item
+                Column = 2
+                Control = chkAnswer3
+                Row = 0
+              end
+              item
+                Column = 3
+                Control = chkAnswer4
+                Row = 0
+              end>
+            RowCollection = <
+              item
+                Value = 100.000000000000000000
+              end>
             TabOrder = 0
-            CaptionVisible = False
-            EdgeBorders = []
+            ExplicitLeft = 241
+            ExplicitTop = 5
+            ExplicitWidth = 185
+            ExplicitHeight = 41
+            object chkAnswer1: TCheckBox
+              AlignWithMargins = True
+              Left = 16
+              Top = 4
+              Width = 67
+              Height = 68
+              Margins.Left = 15
+              Align = alClient
+              Caption = 'A'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 28
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 0
+              ExplicitTop = 24
+              ExplicitWidth = 97
+              ExplicitHeight = 17
+            end
+            object chkAnswer2: TCheckBox
+              AlignWithMargins = True
+              Left = 101
+              Top = 4
+              Width = 66
+              Height = 68
+              Margins.Left = 15
+              Align = alClient
+              Caption = 'B'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 28
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 1
+              ExplicitLeft = 104
+              ExplicitTop = 24
+              ExplicitWidth = 97
+              ExplicitHeight = 17
+            end
+            object chkAnswer3: TCheckBox
+              AlignWithMargins = True
+              Left = 185
+              Top = 4
+              Width = 67
+              Height = 68
+              Margins.Left = 15
+              Align = alClient
+              Caption = 'C'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 28
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+              ExplicitLeft = 184
+              ExplicitTop = 24
+              ExplicitWidth = 97
+              ExplicitHeight = 17
+            end
+            object chkAnswer4: TCheckBox
+              AlignWithMargins = True
+              Left = 270
+              Top = 4
+              Width = 68
+              Height = 68
+              Margins.Left = 15
+              Align = alClient
+              Caption = 'D'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = 28
+              Font.Name = 'Arial'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 3
+              ExplicitLeft = 272
+              ExplicitTop = 24
+              ExplicitWidth = 97
+              ExplicitHeight = 17
+            end
           end
         end
       end

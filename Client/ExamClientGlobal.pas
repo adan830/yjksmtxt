@@ -2,7 +2,7 @@ unit ExamClientGlobal;
 
 interface
 uses ClientMain,ExamTCPClient,NetGlobal, Classes,
-  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig,controls,uFrameSingleSelect;
+  ExtCtrls, uGrade, ScoreIni, ADODB,floatform,select,BaseConfig,controls,uFrameSingleSelect,uFrameMultiSelect,keyboardType;
 
 
    //TModules = array of TModuleInfo;
@@ -33,8 +33,10 @@ type
             Examinee : TExaminee;
             ClientMainForm: TClientMainForm;
             FloatWindow :TFloatWindow;
-            SelectWindow: TSelectForm;
-            SelectFrame:TFrameSingleSelect;
+            singleFrame:TFrameSingleSelect;
+            multiFrame:TFrameMultiSelect;
+            typeFrame:TFrameKeyType;
+//            SelectWindow: TSelectForm;
             //RemainTime:integer;
             Inst: TExamClientGlobal;
       public //global variable for ExamClient
@@ -364,7 +366,7 @@ begin
     begin
       Floatwindow.stTime.caption:=' £”‡:'+sj;
       Floatwindow.stTime1.caption:=' £”‡:'+sj;
-      SelectWindow.lblTime.Caption := ' £”‡ ±º‰£∫'+sj;
+//      SelectWindow.lblTime.Caption := ' £”‡ ±º‰£∫'+sj;
     end;
   end;
       //only Examining update time

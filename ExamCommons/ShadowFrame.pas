@@ -3,7 +3,7 @@ unit ShadowFrame;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Controls, Graphics, Forms;
+  Windows, winapi.Messages, SysUtils, Classes, Controls, Graphics, Forms;
 
 const
   EXTSHADOWSIZE = 16;
@@ -156,6 +156,7 @@ begin
   end;
 end;
 
+
 procedure TShadowFrame.FrmWindowPosChanging(
   var Message: TWMWindowPosChanging);
 begin
@@ -200,6 +201,10 @@ begin
   end;
 end;
 
+
+
+
+
 procedure TShadowFrame.ThisEraseBkgnd(var Message: TMessage);
 begin
   Message.Result := 1;
@@ -224,6 +229,8 @@ begin
                     SWP_FRAMECHANGED or SWP_NOZORDER or SWP_NOSIZE or SWP_NOMOVE or SWP_NOACTIVATE);
 end;
 
+
+
 procedure TShadowFrame.RebuildBlend;
 var
   BlackBr: HBRUSH;
@@ -231,6 +238,7 @@ var
   Rct: TRect;
   pwi: TWindowInfo;
 begin
+//TO-DO:出现窗口没有滚动条的异常，在floatForm窗口停靠时，如果窗口缩小时出现
   //FBlendBmp.SaveToFile('blenadbmp0.bmp');
   if not FActive or not Assigned(FForm) or not FForm.HandleAllocated then Exit;
   if (FBlendBmp.Width <> FForm.Width + EXTSHADOWSIZE * 2)

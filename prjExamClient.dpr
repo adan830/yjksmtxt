@@ -27,7 +27,8 @@ uses
   FrameWorkUtils in 'Client\FrameWorkUtils.pas',
   uFrameSingleSelect in 'Client\uFrameSingleSelect.pas' {FrameSingleSelect: TFrame},
   uFrameTQButtons in 'Client\uFrameTQButtons.pas' {FrameTQButtons: TFrame},
-  uFrameMultiSelect in 'Client\uFrameMultiSelect.pas' {FrameMultiSelect: TFrame};
+  uFrameMultiSelect in 'Client\uFrameMultiSelect.pas' {FrameMultiSelect: TFrame},
+  keyboardType in 'Client\keyboardType.pas' {FrameKeyType: TFrame};
 
 //FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
@@ -66,6 +67,7 @@ begin
     if showModal=1 then
     begin
       Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
+  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);

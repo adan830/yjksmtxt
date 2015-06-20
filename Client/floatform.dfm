@@ -1,7 +1,7 @@
 object FloatWindow: TFloatWindow
   Left = 184
   Top = 478
-  BorderIcons = []
+  BorderIcons = [biSystemMenu]
   Caption = #25805#20316#39064#35797#39064#65306
   ClientHeight = 145
   ClientWidth = 681
@@ -49,6 +49,7 @@ object FloatWindow: TFloatWindow
       Font.Style = []
       ParentFont = False
       ReadOnly = True
+      SelText = ''
       TabOrder = 1
     end
     object btnGrade: TButton
@@ -81,7 +82,6 @@ object FloatWindow: TFloatWindow
       Width = 122
       Height = 28
       Caption = #36820#22238#20027#30028#38754
-      DoubleBuffered = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -101,7 +101,6 @@ object FloatWindow: TFloatWindow
         EE33337F333377F3337F33EEEEEE00EEEE33337F33337733337F33EEEEEEEEEE
         EE33337FFFFFFFFFFF7F33EEEEEEEEEEEE333377777777777773}
       NumGlyphs = 2
-      ParentDoubleBuffered = False
       ParentFont = False
       TabOrder = 0
       OnClick = ExitBitBtnClick
@@ -132,7 +131,6 @@ object FloatWindow: TFloatWindow
       Width = 122
       Height = 28
       Caption = '   '#21551'  '#21160
-      DoubleBuffered = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -165,7 +163,6 @@ object FloatWindow: TFloatWindow
         E4B3A3F5BD98E9B19937322B5863843041752F3351797262BDBDBDD8DCDCB8BC
         C1C99582F18C62FF8B60EDC2A2F1B995EBB8A1F6BA98F3C2A087706941312C91
         8275C7B8A8F6D1BCD7D8D7C4B0ACD68F7BFF8B61FF8F66FB8F68}
-      ParentDoubleBuffered = False
       ParentFont = False
       TabOrder = 2
       OnClick = OpenBitBtnClick
@@ -176,13 +173,11 @@ object FloatWindow: TFloatWindow
       Width = 121
       Height = 28
       Caption = #32553#23567
-      DoubleBuffered = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
       Font.Name = 'MS Sans Serif'
       Font.Style = []
-      ParentDoubleBuffered = False
       ParentFont = False
       TabOrder = 3
       OnClick = BitBtn1Click

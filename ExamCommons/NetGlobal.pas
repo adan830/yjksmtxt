@@ -30,7 +30,7 @@ const
    ///考生号长度
    CONSTEXAMINEEIDLENGTH        = 11;           // examinee id length
    ///服务器IP地址
-   CONSTSERVERIP           ='127.0.0.1';
+   CONSTSERVERIP           ='192.168.128.128';
    //'60.173.210.154';     //
 type
 

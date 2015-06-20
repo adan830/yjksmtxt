@@ -5,13 +5,12 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,  ExtCtrls, Buttons,ScoreIni, StdCtrls, NetGlobal, JvExControls,
-  JvSpeedButton,CustomBmpForm, Vcl.ComCtrls, Vcl.Imaging.pngimage,uFrameSingleSelect,uFrameMultiSelect; //  floatform,
+  JvSpeedButton,CustomBmpForm, Vcl.ComCtrls, Vcl.Imaging.pngimage,uFrameSingleSelect,uFrameMultiSelect,keyboardType; //  floatform,
 
 type
   TClientMainForm = class(TCustomBmpForm)
     pnl1: TPanel;
     imgTop: TImage;
-    btn1btn: TJvSpeedButton;
     btnSingleSelect: TJvSpeedButton;
     btnMultiSelect: TJvSpeedButton;
     btnType: TJvSpeedButton;
@@ -31,8 +30,9 @@ type
     closenum:integer;
 
     currentMoude:TFrame;
-    singleFrame:TFrameSingleSelect;
-    multiFrame:TFrameMultiSelect;
+//    singleFrame:TFrameSingleSelect;
+//    multiFrame:TFrameMultiSelect;
+//    typeFrame:TFrameKeyType;
 
     procedure SendExamineeDict;
     //moved form loginForm
@@ -166,27 +166,48 @@ var
 begin
   btn:=sender as TjvSpeedButton;
   tag:=btn.tag;
+   with TExamClientGlobal do begin
+        case tag of
+          1:begin btnMultiSelect.Down:=false; btnType.Down:=false; btnOperate.down:=false;
+                        if (multiFrame<>nil) and (multiFrame.Showing) then multiFrame.HideFrame;
+                        if (typeFrame<>nil) and (typeFrame.Showing) then typeFrame.HideFrame;
 
-  case tag of
-    1:begin btnMultiSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
-                  if (multiFrame<>nil) and (multiFrame.Showing) then multiFrame.HideFrame;
+                        if singleFrame=nil then
+                            singleFrame:=LoadFrameByClassName(TFrameSingleSelect,pnlClient) as TFrameSingleSelect
+                        else
+                            singleFrame.Show;
+            end;
+          2:begin btnSingleSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
+                        if (singleFrame<>nil) and (singleFrame.Showing) then singleFrame.HideFrame;
+                        if (typeFrame<>nil) and (typeFrame.Showing) then typeFrame.HideFrame;
 
-                  if singleFrame=nil then
-    							    singleFrame:=LoadFrameByClassName(TFrameSingleSelect,pnlClient) as TFrameSingleSelect
-                  else
-                      singleFrame.Show;
-    	end;
-    2:begin btnSingleSelect.Down:=false;btnType.Down:=false; btnOperate.down:=false;
-                  if (singleFrame<>nil) and (singleFrame.Showing) then singleFrame.HideFrame;
-                  if multiFrame=nil then
-    							    multiFrame:=LoadFrameByClassName(TFrameMultiSelect,pnlClient) as TFrameMultiSelect
-                  else
-                      multiFrame.Show;
+                        if multiFrame=nil then
+                            multiFrame:=LoadFrameByClassName(TFrameMultiSelect,pnlClient) as TFrameMultiSelect
+                        else
+                            multiFrame.Show;
 
-      end;
-    3:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnOperate.down:=false;    end;
-    4:begin btnSingleSelect.Down:=false;btnMultiSelect.Down:=false; btnType.down:=false;    end;
-  end;
+            end;
+          3:begin btnSingleSelect.Down:=false;  btnMultiSelect.Down:=false; btnOperate.down:=false;
+                if (singleFrame<>nil) and (singleFrame.Showing) then singleFrame.HideFrame;
+                if (multiFrame<>nil) and (multiFrame.Showing) then multiFrame.HideFrame;
+
+
+                if typeFrame=nil then
+                    typeFrame:=LoadFrameByClassName(TFrameKeyType,pnlClient) as TFrameKeyType;
+                typeFrame.ShowFrame;
+            end;
+          4:begin btnSingleSelect.Down:=false;  btnMultiSelect.Down:=false; btnType.down:=false;
+                if (singleFrame<>nil) and (singleFrame.Showing) then singleFrame.HideFrame;
+                if (multiFrame<>nil) and (multiFrame.Showing) then multiFrame.HideFrame;
+                if (typeFrame<>nil) and (typeFrame.Showing) then typeFrame.HideFrame;
+
+                if TExamClientGlobal.Floatwindow=nil then
+                    TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
+                self.Hide;
+                TExamClientGlobal.Floatwindow.ShowModalwithShadow;
+            end;
+        end;
+   end;
 end;
 
 procedure TClientMainForm.CreateParams(var Params: TCreateParams);
@@ -332,115 +353,115 @@ var
    param :string;
    value:string;
 begin
-    xmlDoc := TXMLDocument.Create(nil);
-    try
-      xmlDoc.XML.Text := request;
-      xmlDoc.Active := True;
-      invokeNode := xmlDoc.ChildNodes[0];
-      procName :=invokeNode.Attributes['name'];
-      if invokeNode.HasChildNodes then begin
-         paramNode := invokeNode.ChildNodes[0];
-         if paramNode.HasChildNodes then begin
-            paramNode := paramNode.ChildNodes[0];
-            param := paramNode.Text;
-         end;
-      end;
-    finally
-      paramNode :=nil;
-      invokeNode :=nil;
-      xmlDoc := nil;
-    end;
-    if procName = 'GetIDLength' then begin
-      value := GetExamineeIDLength;
-      value := '<string>'+value+'</string>';
-//      FlashPlayer.SetReturnValue(value);
-      Exit;
-    end;
-    if procName = 'GetExamineeInfo' then begin
-      value := GetExamineeInfo(param);
-      value := '<string>'+value+'</string>';
-//      FlashPlayer.SetReturnValue(value);
-      Exit;
-    end;
-    if procName = 'ExamLogin' then begin
-       value := IntToStr(TExamClientGlobal.Login());
-          value := '<string>'+value+'</string>';
-//          FlashPlayer.SetReturnValue(value);
-       Exit;
-    end;
-    if procName ='StartNewExam' then begin
-       //CreateEnvironment(TExamClientGlobal.LoginType);
-       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
-       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
-       //TypeForm := TTypeForm.Create(self);
-       TExamClientGlobal.Examinee.Status := esExamining;
-       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID,TExamClientGlobal.Examinee.Name,TExamClientGlobal.Examinee.status,TExamClientGlobal.Examinee.RemainTime);
-       TExamClientGlobal.EnableTimer;
-       value := '<string>OK</string>';
-//          FlashPlayer.SetReturnValue(value);
-//          FlashPlayer.StopPlay;
-       Exit;
-    end;
-     if procName ='ContinuteExam' then begin
-       //CreateEnvironment(TExamClientGlobal.LoginType);
-       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
-       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
-       //TypeForm := TTypeForm.Create(self);
-       TExamClientGlobal.Examinee.Status := esExamining;
-       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID,TExamClientGlobal.Examinee.Name,TExamClientGlobal.Examinee.status,TExamClientGlobal.Examinee.RemainTime);
-       TExamClientGlobal.EnableTimer;
-       value := '<string>OK</string>';
-//       FlashPlayer.SetReturnValue(value);
-       Exit;
-    end;
-    if procName ='TestSelect' then begin
-      visible:=false;
-      TExamClientGlobal.SelectWindow.ShowModal;
-    end;
-    if procName ='TestOperator' then begin
-      visible:=false;
-      TExamClientGlobal.Floatwindow.ShowModal;
-    end;
-    if procName ='TestType' then begin
-        visible:=false;
-        TTypeForm.TypeFormShow(self);
-        Visible :=True;
-//        value := GetTQIDByPreFix('C%',TExamClientGlobal.DmClient.GetTQDBConn);
+//    xmlDoc := TXMLDocument.Create(nil);
+//    try
+//      xmlDoc.XML.Text := request;
+//      xmlDoc.Active := True;
+//      invokeNode := xmlDoc.ChildNodes[0];
+//      procName :=invokeNode.Attributes['name'];
+//      if invokeNode.HasChildNodes then begin
+//         paramNode := invokeNode.ChildNodes[0];
+//         if paramNode.HasChildNodes then begin
+//            paramNode := paramNode.ChildNodes[0];
+//            param := paramNode.Text;
+//         end;
+//      end;
+//    finally
+//      paramNode :=nil;
+//      invokeNode :=nil;
+//      xmlDoc := nil;
+//    end;
+//    if procName = 'GetIDLength' then begin
+//      value := GetExamineeIDLength;
+//      value := '<string>'+value+'</string>';
+////      FlashPlayer.SetReturnValue(value);
+//      Exit;
+//    end;
+//    if procName = 'GetExamineeInfo' then begin
+//      value := GetExamineeInfo(param);
+//      value := '<string>'+value+'</string>';
+////      FlashPlayer.SetReturnValue(value);
+//      Exit;
+//    end;
+//    if procName = 'ExamLogin' then begin
+//       value := IntToStr(TExamClientGlobal.Login());
+//          value := '<string>'+value+'</string>';
+////          FlashPlayer.SetReturnValue(value);
+//       Exit;
+//    end;
+//    if procName ='StartNewExam' then begin
+//       //CreateEnvironment(TExamClientGlobal.LoginType);
+//       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
+//       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
+//       //TypeForm := TTypeForm.Create(self);
+//       TExamClientGlobal.Examinee.Status := esExamining;
+//       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID,TExamClientGlobal.Examinee.Name,TExamClientGlobal.Examinee.status,TExamClientGlobal.Examinee.RemainTime);
+//       TExamClientGlobal.EnableTimer;
+//       value := '<string>OK</string>';
+////          FlashPlayer.SetReturnValue(value);
+////          FlashPlayer.StopPlay;
+//       Exit;
+//    end;
+//     if procName ='ContinuteExam' then begin
+//       //CreateEnvironment(TExamClientGlobal.LoginType);
+//       TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
+//       TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
+//       //TypeForm := TTypeForm.Create(self);
+//       TExamClientGlobal.Examinee.Status := esExamining;
+//       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID,TExamClientGlobal.Examinee.Name,TExamClientGlobal.Examinee.status,TExamClientGlobal.Examinee.RemainTime);
+//       TExamClientGlobal.EnableTimer;
+//       value := '<string>OK</string>';
+////       FlashPlayer.SetReturnValue(value);
+//       Exit;
+//    end;
+//    if procName ='TestSelect' then begin
+//      visible:=false;
+//      TExamClientGlobal.SelectWindow.ShowModal;
+//    end;
+//    if procName ='TestOperator' then begin
+//      visible:=false;
+//      TExamClientGlobal.Floatwindow.ShowModal;
+//    end;
+//    if procName ='TestType' then begin
+//        visible:=false;
+//        TTypeForm.TypeFormShow(self);
+//        Visible :=True;
+////        value := GetTQIDByPreFix('C%',TExamClientGlobal.DmClient.GetTQDBConn);
+////
+////        typeform :=Ttypeform.Create(application);
+////
+////           if TExamClientGlobal.DmClient.FilterQueryst_da.asstring='' then
+////           begin
+////              TypeForm.ShowModal;
+////              typeform.Release;
+////           end
+////           else
+////           if  strtoint(TExamClientGlobal.DmClient.FilterQueryst_da.asstring)<5 then
+////           begin
+////             visible := True ;
+////             application.MessageBox('打字时间已用完，你不能进入！','提示：',MB_OK);
+////           end
+////           else
+////           begin
+////             TypeForm.ShowModal;
+////             typeform.Release;
+////           end;
+//    end;
+//    if procName ='TestSubmit' then begin
+//        if application.MessageBox('你真的要交卷吗？','提示：',MB_YESNO)=IDYES then
+//        begin
+//          ModalResult:=mrOk;
+//          TExamClientGlobal.UnableTimer;
+//          //FlashPlayer.StopPlay;
+//          close;
+//        end;
+//    end;
 //
-//        typeform :=Ttypeform.Create(application);
-//
-//           if TExamClientGlobal.DmClient.FilterQueryst_da.asstring='' then
-//           begin
-//              TypeForm.ShowModal;
-//              typeform.Release;
-//           end
-//           else
-//           if  strtoint(TExamClientGlobal.DmClient.FilterQueryst_da.asstring)<5 then
-//           begin
-//             visible := True ;
-//             application.MessageBox('打字时间已用完，你不能进入！','提示：',MB_OK);
-//           end
-//           else
-//           begin
-//             TypeForm.ShowModal;
-//             typeform.Release;
-//           end;
-    end;
-    if procName ='TestSubmit' then begin
-        if application.MessageBox('你真的要交卷吗？','提示：',MB_YESNO)=IDYES then
-        begin
-          ModalResult:=mrOk;
-          TExamClientGlobal.UnableTimer;
-          //FlashPlayer.StopPlay;
-          close;
-        end;           
-    end;
-
-    if procName = 'CloseApp' then begin
-       //GlobalExamTCPClient.Disconnect;
-       ModalResult := mrOk;
-       Close;
-    end;
+//    if procName = 'CloseApp' then begin
+//       //GlobalExamTCPClient.Disconnect;
+//       ModalResult := mrOk;
+//       Close;
+//    end;
 end;
 
 

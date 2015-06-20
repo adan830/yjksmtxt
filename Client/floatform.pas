@@ -4,7 +4,7 @@ interface
 
 uses
   Forms, StdCtrls, Buttons, Controls, ExtCtrls, DBCtrls, Classes, ComCtrls, 
-  Windows, uGrade, JvExStdCtrls, JvRichEdit, DataFieldConst, tq, Messages;
+  Windows, uGrade, JvExStdCtrls, JvRichEdit, DataFieldConst, tq, ShadowFrame,Winapi.Messages;
 
 type
    TTabItem = record
@@ -42,16 +42,18 @@ type
     Tabs : TTabs;
     FAnchors: TAnchors;
     Expended:Boolean;
+
+    shadowFrame:TShadowFrame;
     procedure WMMOVING(var Msg: TMessage);message WM_MOVING;
     procedure GetEQTextByPrefix(APreFix: string; var ATQ : TTQ);  //return eq count
     //procedure SetupEQTab(ATcEQ: TComponent);
     { Private declarations }
   public
     procedure CreateTabs();
+    procedure ShowModalWithShadow();
     { Public declarations }
   protected
      procedure CreateParams(var Params: TCreateParams); override;
-
   end;
 
 implementation
@@ -112,12 +114,16 @@ end;
 procedure TFloatWindow.ExitBitBtnClick(Sender: TObject);
 begin
   close;
-
+  //Free;
 end;
 
 procedure TFloatWindow.FormCreate(Sender: TObject);
 begin
   parent:=nil;
+    shadowFrame:=TShadowFrame.Create(self);
+    shadowFrame.Parent:=self;
+    shadowFrame.ParentForm:=self;
+    shadowFrame.Active:=true;
   //Application.NormalizeTopMosts;
   if (TExamClientGlobal.BaseConfig.ExamClasify=EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode=SCOREDISPLAYMODECLIENT) then
      btnGrade.Visible:=true
@@ -134,6 +140,7 @@ begin
     Tabs[i].ModuleInfo := nil;
     Tabs[i].TQ.Free;
   end;
+
 end;
 
 procedure TFloatWindow.tcEQChange(Sender: TObject);
@@ -143,15 +150,21 @@ begin
    edtEQContent.Lines.LoadFromStream(Tabs[tcEQ.TabIndex].TQ.Content);
 end;
 
+
+
+
+
 procedure TFloatWindow.WMMOVING(var Msg: TMessage);
 begin
   inherited;
   with PRect(Msg.LParam)^ do
   begin
-    Left := Min(Max(0, Left), Screen.Width - Width);
-    Top := Min(Max(0, Top), Screen.Height - Height);
-    Right := Min(Max(Width, Right), Screen.Width);
-    Bottom := Min(Max(Height, Bottom), Screen.Height);
+    Left := Min(Max(0, Left), Screen.Width - self.Width);
+    Top := Min(Max(0, Top), Screen.Height - self.Height);
+//    Right:=left+Width;
+//    Bottom:=top+Height;
+    Right := Min(Max(self.Width, Right), Screen.Width);
+    Bottom := Min(Max(self.Height, Bottom), Screen.Height);
     FAnchors := [];
     if Left = 0 then Include(FAnchors, akLeft);
     if Right = Screen.Width then
@@ -250,6 +263,12 @@ begin
    delegateOpenAction(Handle,TExamClientGlobal.ExamPath);
 end;
 
+procedure TFloatWindow.ShowModalWithShadow;
+begin
+  self.shadowFrame.Active:=true;
+  self.ShowModal();
+end;
+
 procedure TFloatWindow.btnGradeClick(Sender: TObject);
 var
   GradeInfoStrings:TStringList;
@@ -271,7 +290,9 @@ procedure TFloatWindow.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   //CloseAllDoc; //todo
   TExamClientGlobal.ClientMainForm.visible:=true;
-  modalresult:=1;
+  modalresult:= 1;
+
+  shadowFrame.Active:=false;
 end;
 
 end.
