@@ -30,7 +30,11 @@ const
    ///考生号长度
    CONSTEXAMINEEIDLENGTH        = 11;           // examinee id length
    ///服务器IP地址
-   CONSTSERVERIP           ='192.168.128.128';
+{$IFDEF VMSERVER}
+   CONSTSERVERIP           ='192.168.128.3';
+{$ELSE}
+   CONSTSERVERIP           ='127.0.0.1';
+{$ENDIF}
    //'60.173.210.154';     //
 type
 
@@ -52,7 +56,7 @@ type
                      esAbsent = 41,
                      esCrib =42
                   );
-   
+   //TO-DO:增加性别，相片
    TExaminee  = record
       ID:string;
       Name:string;

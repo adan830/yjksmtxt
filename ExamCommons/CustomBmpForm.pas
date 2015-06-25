@@ -3,7 +3,7 @@ unit CustomBmpForm;
 ///  自定义窗口基类
 interface
 
-uses Windows,Messages,Vcl.Graphics,Vcl.Imaging.pngimage,System.Classes,Vcl.Controls, Vcl.Forms;
+uses Windows,winapi.Messages,Vcl.Graphics,Vcl.Imaging.pngimage,System.Classes,Vcl.Controls, Vcl.Forms,shadowFrame;
 type
   TCustomBmpForm = class(TForm)
     procedure FormDestroy(Sender: TObject);
@@ -16,7 +16,8 @@ type
     btn_max_down, btn_max_highlight, btn_max_normal: TPngImage;
     btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
     btn_close_down, btn_close_highlight, btn_close_normal: TPngImage;
-
+//    hasShadow:BOOL;
+//    shadowFrame:TShadowFrame;
     m_MiniButtonHover, m_MiniButtonDown: Boolean;
     m_MaxButtonHover, m_MaxButtonDown: Boolean;
     m_CloseButtonHover, m_CloseButtonDown: Boolean;
@@ -46,9 +47,8 @@ type
   protected
     procedure DoCreate; override;
     destructor Destroy; override;
-
+//    procedure CMVisiblechanged(var Message: TMessage); message CM_VISIBLECHANGED;
   public
-    { Public declarations }
 
   published
 
@@ -226,8 +226,8 @@ begin
   inherited;//调用系统默认处理。假如不处理，对于窗口上放置的从TGraphicControl继承下来的无句柄控件将无法显示。
   DC := Message.DC;
   if DC = 0 then DC := BeginPaint(Handle, PS);
-  //DrawClient(DC);
-  OutputDebugString('painting');
+  DrawClient(DC);
+  //OutputDebugString('painting');
   if DC = 0 then EndPaint(Handle, PS);
   Message.Result := 1;
 end;
@@ -335,6 +335,19 @@ begin
 end;
 
 
+//procedure TCustomBmpForm.CMVisiblechanged(var Message: TMessage);
+//begin
+//  if hasShadow  then
+//  begin
+//    if Visible then
+//
+//    shadowFrame.Visible:=true
+//    else
+//      shadowFrame.Visible:=false;
+//  end;
+//
+//end;
+
 destructor TCustomBmpForm.Destroy;
 begin
   FormDestroy(self);
@@ -344,6 +357,14 @@ end;
 procedure TCustomBmpForm.DoCreate;
 begin
   inherited;
+   // hasShadow:=true;
+//    if (hasShadow) then
+//    begin
+//      shadowFrame:=TShadowFrame.Create(self);
+//      shadowFrame.Parent:=self;
+//      shadowFrame.ParentForm:=self;
+//      shadowFrame.Active:=true;
+//    end;
 //  m_BackBMP := TBitmap.Create;
 //  m_BackBMP.LoadFromResourceName(HInstance,RES_EXAM_CAPTION);
 //  //m_BackBMP.LoadFromFile(ExtractFilePath(Application.ExeNam) + 'Back.bmp');
@@ -409,7 +430,7 @@ begin
   C.Handle := DC;
   try
 
-        C.Brush.Color := m_BackColor;
+        C.Brush.Color := clWhite;
         C.FillRect(ClientRect);
        //OutputDebugString('painting');
    (* if Assigned(m_BackBMP) then
@@ -427,6 +448,8 @@ end;
 
 procedure TCustomBmpForm.FormDestroy(Sender: TObject);
 begin
+//  if hasShadow then
+//    shadowFrame.free;
   if Assigned(m_BackBMP) then
   		m_BackBMP.Free;
 

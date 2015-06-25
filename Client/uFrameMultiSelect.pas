@@ -14,12 +14,10 @@ type
     frmTqButtonList: TFrameTQButtons;
     pnl2: TPanel;
     pnl5: TPanel;
-    btn1: TButton;
     pnl3: TPanel;
     pnl4: TPanel;
     pnl6: TPanel;
     edtTQContent: TJvRichEdit;
-    btnAnswer: TBitBtn;
     grdpnl1: TGridPanel;
     btnNext: TCnSpeedButton;
     btnPrevious: TCnSpeedButton;
@@ -29,8 +27,8 @@ type
     chkAnswer2: TCheckBox;
     chkAnswer3: TCheckBox;
     chkAnswer4: TCheckBox;
+    btnAnswer: TCnSpeedButton;
     procedure tqButtonClick(Sender: TObject);
-    procedure btn1Click(Sender: TObject);
     procedure btnPreviousClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
     procedure btnAnswerClick(Sender: TObject);
@@ -63,14 +61,6 @@ begin
 
    ShowCurrentTQ(bb.Tag);
    //Application.MessageBox(PChar(inttostr(bb.Tag)),'hint');
-end;
-
-procedure TFrameMultiSelect.btn1Click(Sender: TObject);
-var
-  bb:Integer;
-begin
-   bb:=Random(40);
-   tqList[bb].flag:=true;
 end;
 
 procedure TFrameMultiSelect.btnAnswerClick(Sender: TObject);
@@ -108,6 +98,8 @@ begin
   ShowCurrentTQ(0);
   if (TExamClientGlobal.BaseConfig.ExamClasify=EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode=SCOREDISPLAYMODECLIENT) then
    begin
+     grdpnl1.ColumnCollection[3].Value:=100;
+     btnAnswer.width:=80;
      btnAnswer.Visible:=true;
    end;
 end;

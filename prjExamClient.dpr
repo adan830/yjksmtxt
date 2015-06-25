@@ -28,7 +28,9 @@ uses
   uFrameSingleSelect in 'Client\uFrameSingleSelect.pas' {FrameSingleSelect: TFrame},
   uFrameTQButtons in 'Client\uFrameTQButtons.pas' {FrameTQButtons: TFrame},
   uFrameMultiSelect in 'Client\uFrameMultiSelect.pas' {FrameMultiSelect: TFrame},
-  keyboardType in 'Client\keyboardType.pas' {FrameKeyType: TFrame};
+  keyboardType in 'Client\keyboardType.pas' {FrameKeyType: TFrame},
+  uFrameOperate in 'Client\uFrameOperate.pas' {FrameOperate: TFrame},
+  uFormOperate in 'Client\uFormOperate.pas' {FormOperate};
 
 //FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
@@ -70,58 +72,7 @@ begin
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
-  Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
+  Application.CreateForm(TFormOperate, FormOperate);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);
   Application.CreateForm(TTExamClientGlobal, TExamClientGlobal);

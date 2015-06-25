@@ -11,9 +11,11 @@ type
   TFrameTQModuleClass  =  class    of    TFrame;
   function ExamModuleToStPrefix(aExamModule:TExamModule):string;
   function ExamModuleToStPrefixWildCard(aExamModule:TExamModule):string;
-  function LoadFrameByClassName(theFrameClass:TFrameTQModuleClass;ownerPanel:TComponent):TFrame;
+  function LoadFrameByClassName(theFrameClass:TFrameTQModuleClass;ownerPanel:TComponent):TFrame; overload;
+  function LoadFrameByClassName(theFrameClass: TFrameTQModuleClass;ownerPanel:TComponent;examModule:TExamModule):TFrame;overload;
 
 implementation
+uses uframeOperate,ExamClientGlobal, System.SysUtils,ugrade;
   {$REGION '=====FrameÏà¹Øº¯Êý====='}
 function LoadFrameByClassName(theFrameClass: TFrameTQModuleClass;ownerPanel:TComponent):TFrame;
 begin
@@ -26,6 +28,39 @@ begin
    Result.Align:=alClient;
    Result.Left:=0;//(Panel1.Width-Result.Width)div 2;
    Result.Top:=0;//(Panel1.Height-Result.Height)div 2;
+   Result.Show
+
+   //FCurrentfrmClassName:=theFrameClass.ClassName;
+
+end;
+
+function LoadFrameByClassName(theFrameClass: TFrameTQModuleClass;ownerPanel:TComponent;examModule:TExamModule):TFrame;
+var
+  module:TModuleInfo ;
+begin
+//  if Assigned(FCurrentfrm)and( not SameText(theFrameClass.ClassName,FCurrentfrmClassName)) then
+//         FreeAndNil(FCurrentfrm);
+   Result:=theFrameClass.Create(ownerPanel);
+
+   Result.Name:=Format('%s_%d', [theFrameClass.ClassName,ord(examModule)]);
+  // Result.ExamModule:=em;
+   //Result:=theFrameClass.Create(ownerPanel,em);
+   Result.Parent:=ownerPanel as TWinControl ;
+   Result.Align:=alClient;
+   Result.Left:=0;//(Panel1.Width-Result.Width)div 2;
+   Result.Top:=0;//(Panel1.Height-Result.Height)div 2;
+
+   case examModule of
+//     EMSINGLESELECT: ;
+//     EMMULTISELECT: ;
+//     EMTYPE: Result:=;
+     EMWINDOWS:module:= TExamClientGlobal.Modules[0];
+     EMWORD:module:= TExamClientGlobal.Modules[1];
+     EMEXCEL: module:= TExamClientGlobal.Modules[2];
+     EMPOWERPOINT: module:= TExamClientGlobal.Modules[3];
+   end;
+    (result as TFrameOperate).SetModuleTq(module);
+
    Result.Show
 
    //FCurrentfrmClassName:=theFrameClass.ClassName;

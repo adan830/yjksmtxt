@@ -1,6 +1,7 @@
 program SetQuestions;
 uses
   {$IFDEF DEBUG}
+  fastmm4,
   {$ENDIF }
   Forms,
   uAuthAppFactory,
@@ -39,7 +40,7 @@ var
 
 begin
   {$IFDEF DEBUG}
-  //ReportMemoryLeaksOnShutdown :=True;
+  ReportMemoryLeaksOnShutdown :=True;
   {$ENDIF}
   Application.Initialize;
   Application.Title := RSAppTitle;

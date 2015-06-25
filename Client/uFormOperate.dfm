@@ -1,84 +1,32 @@
-object FloatWindow: TFloatWindow
-  Left = 184
-  Top = 478
-  BorderIcons = [biSystemMenu]
-  Caption = #25805#20316#39064#35797#39064#65306
-  ClientHeight = 145
-  ClientWidth = 681
+object FormOperate: TFormOperate
+  Left = 0
+  Top = 0
+  Caption = 'FormOperate'
+  ClientHeight = 201
+  ClientWidth = 680
   Color = clBtnFace
-  DefaultMonitor = dmDesktop
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
-  FormStyle = fsStayOnTop
   OldCreateOrder = False
-  OnActivate = tcEQChange
+  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object tcEQ: TTabControl
-    Left = 0
-    Top = 0
-    Width = 553
-    Height = 145
-    Align = alClient
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -16
-    Font.Name = 'Default'
-    Font.Style = []
-    MultiLine = True
-    ParentFont = False
-    TabOrder = 0
-    OnChange = tcEQChange
-    object edtEQContent: TJvRichEdit
-      Left = 4
-      Top = 6
-      Width = 545
-      Height = 135
-      Align = alClient
-      Color = clBtnFace
-      Font.Charset = GB2312_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = #23435#20307
-      Font.Style = []
-      ParentFont = False
-      ReadOnly = True
-      SelText = ''
-      TabOrder = 1
-    end
-    object btnGrade: TButton
-      Left = 472
-      Top = 0
-      Width = 75
-      Height = 25
-      Caption = #35780#20998
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Default'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      OnClick = btnGradeClick
-    end
-  end
-  object Panel1: TPanel
-    Left = 553
+  object pnl1: TPanel
+    Left = 552
     Top = 0
     Width = 128
-    Height = 145
+    Height = 201
     Align = alRight
     BevelOuter = bvNone
-    TabOrder = 1
-    object ExitBitBtn: TBitBtn
-      Left = 5
-      Top = 113
+    TabOrder = 0
+    object btnExitBitBtn: TBitBtn
+      Left = 2
+      Top = 153
       Width = 122
       Height = 28
       Caption = #36820#22238#20027#30028#38754
@@ -103,18 +51,18 @@ object FloatWindow: TFloatWindow
       NumGlyphs = 2
       ParentFont = False
       TabOrder = 0
-      OnClick = ExitBitBtnClick
+      OnClick = btnExitBitBtnClick
     end
-    object stTime: TStaticText
+    object txtTime: TStaticText
       Left = 6
       Top = 18
       Width = 121
       Height = 28
       Alignment = taCenter
       AutoSize = False
-      BevelKind = bkTile
-      BevelOuter = bvRaised
-      Caption = 'stTime'
+      BevelKind = bkFlat
+      BevelOuter = bvNone
+      Caption = 'txtTime'
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clRed
@@ -125,9 +73,9 @@ object FloatWindow: TFloatWindow
       ParentFont = False
       TabOrder = 1
     end
-    object OpenBitBtn: TBitBtn
-      Left = 5
-      Top = 68
+    object btnOpen: TBitBtn
+      Left = 2
+      Top = 95
       Width = 122
       Height = 28
       Caption = '   '#21551'  '#21160
@@ -165,13 +113,45 @@ object FloatWindow: TFloatWindow
         8275C7B8A8F6D1BCD7D8D7C4B0ACD68F7BFF8B61FF8F66FB8F68}
       ParentFont = False
       TabOrder = 2
-      OnClick = OpenBitBtnClick
+      OnClick = btnOpenClick
     end
+    object btnGrade: TButton
+      Left = 21
+      Top = 52
+      Width = 75
+      Height = 25
+      Caption = #35780#20998
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Default'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = btnGradeClick
+    end
+  end
+  object edtEQContent: TJvRichEdit
+    Left = 0
+    Top = 0
+    Width = 552
+    Height = 201
+    Align = alClient
+    Color = clBtnFace
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    SelText = ''
+    TabOrder = 1
   end
   object Timer1: TTimer
     Interval = 200
     OnTimer = Timer1Timer
-    Left = 320
+    Left = 496
     Top = 8
   end
 end

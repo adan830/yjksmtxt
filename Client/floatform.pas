@@ -20,10 +20,7 @@ type
     ExitBitBtn: TBitBtn;
     stTime: TStaticText;
     OpenBitBtn: TBitBtn;
-    BitBtn1: TBitBtn;
-    Panel2: TPanel;
-    btnExpand: TButton;
-    stTime1: TStaticText;
+    //stTime1: TStaticText;
     btnGrade: TButton;
     edtEQContent: TJvRichEdit;
     Timer1: TTimer;
@@ -231,7 +228,6 @@ begin
     pos.X:=0;
   if pos.Y<0 then
     pos.Y:=0;
-  Panel2.Visible:=true;
   autoscroll := False;
   SetWindowPos(handle,HWND_TOPMOST,pos.X,pos.Y,180,53,SWP_SHOWWINDOW);
 end;
@@ -248,7 +244,6 @@ begin
     pos.X:=0;
   if pos.Y<0 then
     pos.Y:=0;
-  panel2.Visible:=false;
   AutoScroll := True;
   SetWindowPos(handle,HWND_TOPMOST,pos.X,pos.Y,689,172,SWP_SHOWWINDOW);
 end;

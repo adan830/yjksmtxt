@@ -70,19 +70,17 @@ object FrameKeyType: TFrameKeyType
         Width = 792
         Height = 155
         Align = alClient
-        Color = clBtnFace
+        Color = clWhite
         Enabled = False
         Font.Charset = GB2312_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
         Font.Name = #23435#20307
         Font.Style = []
-        HideScrollBars = False
         Lines.Strings = (
           '')
         ParentFont = False
         ReadOnly = True
-        ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
         OnKeyDown = sourceRichKeyDown
@@ -130,6 +128,7 @@ object FrameKeyType: TFrameKeyType
         Width = 792
         Height = 240
         Align = alClient
+        Color = clWhite
         Font.Charset = GB2312_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -138,7 +137,6 @@ object FrameKeyType: TFrameKeyType
         HideScrollBars = False
         ImeMode = imChinese
         ParentFont = False
-        ScrollBars = ssVertical
         TabOrder = 0
         Zoom = 100
         OnChange = targetRichChange

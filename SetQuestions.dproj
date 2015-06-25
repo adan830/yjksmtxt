@@ -73,10 +73,6 @@
         <DCC_UnitSearchPath>D:\yjksmtxt\debug\dcu;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DependencyCheckOutputName>..\debug\bin\SetQuestions.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
-        <DCC_Define>DEBUG;NOLOGIN;$(DCC_Define)</DCC_Define>
-        <DCC_DcuOutput>D:\yjksmtxt\debug\dcu\</DCC_DcuOutput>
-        <DCC_ObjOutput>..\debug\dcu</DCC_ObjOutput>
-        <DCC_HppOutput>..\debug\dcu</DCC_HppOutput>
         <DCC_ResourcePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~1\JVCL33~1\jcl\lib\d11\debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10111;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users.WINDOWS\Documents\RAD Studio\5.0\Bpl;E:\yjksmtxt\debug\dcp;$(DCC_ResourcePath)</DCC_ResourcePath>
         <DCC_ObjPath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~1\JVCL33~1\jcl\lib\d11\debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10111;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users.WINDOWS\Documents\RAD Studio\5.0\Bpl;E:\yjksmtxt\debug\dcp;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~1\JVCL33~1\jcl\lib\d11\debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10111;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users.WINDOWS\Documents\RAD Studio\5.0\Bpl;E:\yjksmtxt\debug\dcp;$(DCC_IncludePath)</DCC_IncludePath>
@@ -131,7 +127,6 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Program Files (x86)\FastReports\LibD22\dclfrxtee22.bpl">(untitled)</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>
@@ -533,13 +528,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

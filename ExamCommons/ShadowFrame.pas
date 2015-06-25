@@ -3,7 +3,7 @@ unit ShadowFrame;
 interface
 
 uses
-  Windows, winapi.Messages, SysUtils, Classes, Controls, Graphics, Forms;
+  Windows, winapi.Messages, SysUtils, Classes, VCL.Controls, VCL.Graphics, VCL.Forms;
 
 const
   EXTSHADOWSIZE = 16;
@@ -59,7 +59,7 @@ type
 implementation
 
 uses
-  Dialogs;
+  VCL.Dialogs;
 { TFormShadow }
 
 constructor TShadowFrame.Create(AOwner: TComponent);

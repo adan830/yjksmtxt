@@ -21,9 +21,6 @@
         <Projects Include="PptModule.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="MainFrame.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="Components\dpkCheckTree.dproj">
             <Dependencies/>
         </Projects>
@@ -33,7 +30,10 @@
         <Projects Include="SetQuestions.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="temptest\Project2.dproj">
+        <Projects Include="MainFrame.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="temptest\kstemptest.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -98,15 +98,6 @@
     <Target Name="PptModule:Make">
         <MSBuild Projects="PptModule.dproj" Targets="Make"/>
     </Target>
-    <Target Name="MainFrame">
-        <MSBuild Projects="MainFrame.dproj"/>
-    </Target>
-    <Target Name="MainFrame:Clean">
-        <MSBuild Projects="MainFrame.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="MainFrame:Make">
-        <MSBuild Projects="MainFrame.dproj" Targets="Make"/>
-    </Target>
     <Target Name="dpkCheckTree">
         <MSBuild Projects="Components\dpkCheckTree.dproj"/>
     </Target>
@@ -134,23 +125,32 @@
     <Target Name="SetQuestions:Make">
         <MSBuild Projects="SetQuestions.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Project2">
-        <MSBuild Projects="temptest\Project2.dproj"/>
+    <Target Name="MainFrame">
+        <MSBuild Projects="MainFrame.dproj"/>
     </Target>
-    <Target Name="Project2:Clean">
-        <MSBuild Projects="temptest\Project2.dproj" Targets="Clean"/>
+    <Target Name="MainFrame:Clean">
+        <MSBuild Projects="MainFrame.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="Project2:Make">
-        <MSBuild Projects="temptest\Project2.dproj" Targets="Make"/>
+    <Target Name="MainFrame:Make">
+        <MSBuild Projects="MainFrame.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="kstemptest">
+        <MSBuild Projects="temptest\kstemptest.dproj"/>
+    </Target>
+    <Target Name="kstemptest:Clean">
+        <MSBuild Projects="temptest\kstemptest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="kstemptest:Make">
+        <MSBuild Projects="temptest\kstemptest.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="prjEaxmServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;MainFrame;dpkCheckTree;prjExamClient;SetQuestions;Project2"/>
+        <CallTarget Targets="prjEaxmServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;dpkCheckTree;prjExamClient;SetQuestions;MainFrame;kstemptest"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="prjEaxmServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;MainFrame:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;Project2:Clean"/>
+        <CallTarget Targets="prjEaxmServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;MainFrame:Clean;kstemptest:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="prjEaxmServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;MainFrame:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;Project2:Make"/>
+        <CallTarget Targets="prjEaxmServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;MainFrame:Make;kstemptest:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
