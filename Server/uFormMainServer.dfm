@@ -2,8 +2,8 @@ object FormMainServer: TFormMainServer
   Left = 146
   Top = 115
   Caption = #26381#21153#22120
-  ClientHeight = 515
-  ClientWidth = 734
+  ClientHeight = 521
+  ClientWidth = 729
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,11 +20,11 @@ object FormMainServer: TFormMainServer
   object pgServer: TcxPageControl
     Left = 0
     Top = 28
-    Width = 734
-    Height = 487
+    Width = 729
+    Height = 493
     Align = alClient
     TabOrder = 4
-    Properties.ActivePage = tbshtConfig
+    Properties.ActivePage = tbshtMonitor
     Properties.CustomButtons.Buttons = <>
     Properties.HotTrack = True
     Properties.ShowFrame = True
@@ -34,15 +34,497 @@ object FormMainServer: TFormMainServer
     LookAndFeel.NativeStyle = True
     TabSlants.Kind = skCutCorner
     OnPageChanging = pgServerPageChanging
-    ClientRectBottom = 486
+    ClientRectBottom = 492
     ClientRectLeft = 1
-    ClientRectRight = 733
+    ClientRectRight = 728
     ClientRectTop = 21
+    object tbshtMonitor: TcxTabSheet
+      Caption = #32771#35797#30417#25511
+      ImageIndex = 0
+      DesignSize = (
+        727
+        471)
+      object img1: TImage
+        Left = 638
+        Top = 47
+        Width = 32
+        Height = 32
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Picture.Data = {
+          055449636F6E0000010001002020100000000000E80200001600000028000000
+          2000000040000000010004000000000080020000000000000000000010000000
+          0000000000000000000080000080000000808000800000008000800080800000
+          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
+          FFFFFF0000000000070070000000000000000000000000007000070000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000700700000
+          000000000000000000FF000000070000000000000000000000FF0000FF000707
+          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
+          000000000000000700000007FF707FF80070000000000000077770007F708FF8
+          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
+          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
+          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
+          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
+          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
+          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
+          700000000000000000F00000000000F0000000000000000000F87000000078F0
+          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
+          7000000000000000070000000000000700000000000000000007000000000700
+          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
+          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
+          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
+          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
+          FFE003FF}
+        ExplicitLeft = 584
+      end
+      object img2: TImage
+        Left = 638
+        Top = 116
+        Width = 32
+        Height = 32
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Picture.Data = {
+          055449636F6E0000010001002020100000000000E80200001600000028000000
+          2000000040000000010004000000000080020000000000000000000010000000
+          0000000000000000000080000080000000808000800000008000800080800000
+          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
+          FFFFFF0000000000070070000000000000000000000000007000070000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000700700000
+          000000000000000000FF000000070000000000000000000000FF0000FF000707
+          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
+          000000000000000700000007FF707FF80070000000000000077770007F708FF8
+          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
+          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
+          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
+          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
+          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
+          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
+          700000000000000000F00000000000F0000000000000000000F87000000078F0
+          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
+          7000000000000000070000000000000700000000000000000007000000000700
+          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
+          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
+          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
+          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
+          FFE003FF}
+        ExplicitLeft = 584
+      end
+      object img3: TImage
+        Left = 638
+        Top = 185
+        Width = 32
+        Height = 32
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Picture.Data = {
+          055449636F6E0000010001002020100000000000E80200001600000028000000
+          2000000040000000010004000000000080020000000000000000000010000000
+          0000000000000000000080000080000000808000800000008000800080800000
+          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
+          FFFFFF0000000000070070000000000000000000000000007000070000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000700700000
+          000000000000000000FF000000070000000000000000000000FF0000FF000707
+          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
+          000000000000000700000007FF707FF80070000000000000077770007F708FF8
+          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
+          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
+          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
+          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
+          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
+          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
+          700000000000000000F00000000000F0000000000000000000F87000000078F0
+          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
+          7000000000000000070000000000000700000000000000000007000000000700
+          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
+          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
+          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
+          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
+          FFE003FF}
+        ExplicitLeft = 584
+      end
+      object img4: TImage
+        Left = 638
+        Top = 257
+        Width = 32
+        Height = 32
+        Anchors = [akTop, akRight]
+        AutoSize = True
+        Picture.Data = {
+          055449636F6E0000010001002020100000000000E80200001600000028000000
+          2000000040000000010004000000000080020000000000000000000010000000
+          0000000000000000000080000080000000808000800000008000800080800000
+          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
+          FFFFFF0000000000070070000000000000000000000000007000070000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000000000000
+          000000000000000000FF000000000000000000000000000000FF000700700000
+          000000000000000000FF000000070000000000000000000000FF0000FF000707
+          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
+          000000000000000700000007FF707FF80070000000000000077770007F708FF8
+          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
+          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
+          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
+          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
+          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
+          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
+          700000000000000000F00000000000F0000000000000000000F87000000078F0
+          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
+          7000000000000000070000000000000700000000000000000007000000000700
+          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
+          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
+          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
+          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
+          FFE003FF}
+        ExplicitLeft = 643
+      end
+      object btnStart: TButton
+        Left = 605
+        Top = 85
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #24320#22987#32771#35797
+        TabOrder = 0
+        OnClick = btnStartClick
+      end
+      object btnEndExam: TButton
+        Left = 605
+        Top = 154
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #32467#26463#32771#35797
+        TabOrder = 1
+        OnClick = btnEndExamClick
+      end
+      object btnExamineeSelect: TButton
+        Left = 605
+        Top = 16
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #26412#22330#32771#29983#23548#20837
+        TabOrder = 2
+        OnClick = btnExamineeSelectClick
+      end
+      object btnSaveExamineeInfo: TButton
+        Left = 605
+        Top = 223
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #20445#23384#32771#29983#20449#24687
+        TabOrder = 3
+        OnClick = btnSaveExamineeInfoClick
+      end
+      object btnExit: TButton
+        Left = 605
+        Top = 412
+        Width = 97
+        Height = 25
+        Anchors = [akRight, akBottom]
+        Caption = #36864#20986
+        TabOrder = 4
+        OnClick = btnExitClick
+      end
+      object cxGrid1: TcxGrid
+        Left = 3
+        Top = 3
+        Width = 589
+        Height = 434
+        Anchors = [akLeft, akTop, akRight, akBottom]
+        TabOrder = 5
+        object tvExaminees: TcxGridTableView
+          Navigator.Buttons.CustomButtons = <>
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          OptionsCustomize.ColumnFiltering = False
+          OptionsCustomize.ColumnGrouping = False
+          OptionsCustomize.ColumnMoving = False
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Inserting = False
+          OptionsSelection.CellSelect = False
+          OptionsView.ShowEditButtons = gsebForFocusedRecord
+          OptionsView.ColumnAutoWidth = True
+          OptionsView.GroupByBox = False
+          Styles.ContentEven = cxStyle4
+          Styles.ContentOdd = cxStyle6
+        end
+        object grdlvlExaminees: TcxGridLevel
+          GridView = tvExaminees
+        end
+      end
+      object btnExamRecord: TButton
+        Left = 598
+        Top = 295
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #25171#21360#32771#22330#35760#24405
+        TabOrder = 6
+        OnClick = btnExamRecordClick
+      end
+      object btnLock: TButton
+        Left = 605
+        Top = 356
+        Width = 97
+        Height = 25
+        Anchors = [akRight, akBottom]
+        Caption = #38145#23450
+        TabOrder = 7
+      end
+      object Button1: TButton
+        Left = 598
+        Top = 326
+        Width = 97
+        Height = 25
+        Anchors = [akTop, akRight]
+        Caption = #26597#38646#20998
+        TabOrder = 8
+        OnClick = btnExamRecordClick
+      end
+    end
+    object tbshtConfig: TcxTabSheet
+      Caption = #31995#32479#37197#32622
+      ImageIndex = 1
+      OnShow = tbshtConfigShow
+      object grpbx1: TcxGroupBox
+        Left = 24
+        Top = 175
+        Caption = #32771#29983#31471
+        TabOrder = 0
+        Height = 58
+        Width = 585
+        object lbl3: TcxLabel
+          Left = 341
+          Top = 56
+          Caption = #29366#24577#21047#26032#38388#38548#65306
+          Visible = False
+        end
+        object spndtStatusRefreshInterval: TcxSpinEdit
+          Left = 435
+          Top = 52
+          Properties.MaxValue = 300.000000000000000000
+          Properties.MinValue = 3.000000000000000000
+          Properties.OnChange = ConfigChange
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 1
+          Value = 3
+          Visible = False
+          Width = 65
+        end
+        object lbl4: TcxLabel
+          Left = 506
+          Top = 56
+          Caption = #65288#21333#20301#65306#31186#65289
+          Visible = False
+        end
+        object lbl2: TcxLabel
+          Left = 16
+          Top = 24
+          Caption = #32771#29983#25805#20316#20301#32622#65306
+        end
+        object txtClientFolder: TcxMaskEdit
+          Left = 110
+          Top = 25
+          Hint = #25351#23450#35813#30446#24405#26159#25351#26126#23398#29983#26426#19978#32771#29983#32771#35797#25991#20214#22841#30340#20301#32622#12290
+          Properties.OnChange = ConfigChange
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 4
+          Text = 'txtClientFolder'
+          Width = 335
+        end
+      end
+      object grpbx2: TcxGroupBox
+        Left = 24
+        Top = 24
+        Caption = #26381#21153#22120#31471
+        TabOrder = 1
+        Height = 137
+        Width = 585
+        object lbl1: TcxLabel
+          Left = 16
+          Top = 28
+          Caption = #32771#22330#25968#25454#23384#25918#36335#24452#65306
+        end
+        object cbbDataFolder: TcxShellComboBox
+          Left = 134
+          Top = 27
+          ParentShowHint = False
+          Properties.ShowFullPath = sfpAlways
+          ShowHint = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 1
+          Width = 337
+        end
+        object cxlbl2: TcxLabel
+          Left = 506
+          Top = 54
+          Caption = #23398#26657#20195#30721#65306
+          Visible = False
+        end
+        object txtSchoolCode: TcxMaskEdit
+          Left = 477
+          Top = 77
+          Hint = #29992#20110#32771#21495#30340#26657#39564#65292#21487#24573#30053#65281
+          Properties.EditMask = '!999;1;_'
+          Properties.MaxLength = 0
+          Properties.OnChange = ConfigChange
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 3
+          Text = '   '
+          Visible = False
+          Width = 187
+        end
+        object cxLabel9: TcxLabel
+          Left = 16
+          Top = 66
+          Caption = #32771#29983#25968#25454#22791#20221#36335#24452#65306
+        end
+        object cbbExamBakFolder: TcxShellComboBox
+          Left = 134
+          Top = 62
+          ParentShowHint = False
+          Properties.ShowFullPath = sfpAlways
+          ShowHint = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 5
+          Width = 337
+        end
+        object cxLabel12: TcxLabel
+          Left = 40
+          Top = 98
+          Caption = #32771#29983#30456#29255#36335#24452#65306
+        end
+        object cbbExamineePhotoFolder: TcxShellComboBox
+          Left = 134
+          Top = 97
+          Hint = #20301#20110#26381#21153#22120#19978#30340#32771#29983#30456#29255#30446#24405#65292#22312#32771#29983#20449#24687#23548#20837#26102#20250#23558#32771#29983#30456#29255#23384#25918#20110#27492#12290
+          ParentShowHint = False
+          Properties.ShowFullPath = sfpAlways
+          ShowHint = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 7
+          Width = 337
+        end
+      end
+      object btnSaveConfig: TButton
+        Left = 512
+        Top = 432
+        Width = 97
+        Height = 25
+        Caption = #20445#23384#20462#25913
+        TabOrder = 2
+        OnClick = btnSaveConfigClick
+      end
+      object btnConfigEdit: TButton
+        Left = 296
+        Top = 432
+        Width = 97
+        Height = 25
+        Caption = #20462#25913#37197#32622
+        TabOrder = 3
+        OnClick = btnConfigEditClick
+      end
+      object btnConfigCancel: TButton
+        Left = 409
+        Top = 432
+        Width = 97
+        Height = 25
+        Caption = #21462#28040#20462#25913
+        TabOrder = 4
+        OnClick = btnConfigCancelClick
+      end
+      object cxGroupBox1: TcxGroupBox
+        Left = 24
+        Top = 254
+        Caption = #32493#32771#12289#24310#32771#12289#37325#32771#35774#32622#65306
+        TabOrder = 5
+        Height = 101
+        Width = 585
+        object cxLabel11: TcxLabel
+          Left = 16
+          Top = 24
+          Caption = #25805#20316#27169#24335#65306
+        end
+        object edtContPwd: TcxTextEdit
+          Left = 78
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 1
+          Width = 121
+        end
+        object edtRetryPwd: TcxTextEdit
+          Left = 454
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 2
+          Width = 121
+        end
+        object cxLabel5: TcxLabel
+          Left = 399
+          Top = 60
+          Caption = #37325#32771#23494#30721#65306
+        end
+        object cxLabel6: TcxLabel
+          Left = 16
+          Top = 60
+          Caption = #32493#32771#23494#30721#65306
+        end
+        object cxLabel13: TcxLabel
+          Left = 205
+          Top = 60
+          Caption = #24310#32771#23494#30721#65306
+        end
+        object edtAddTimePwd: TcxTextEdit
+          Left = 264
+          Top = 56
+          Enabled = False
+          Properties.ReadOnly = True
+          Style.StyleController = cxEditStyleController1
+          TabOrder = 6
+          Width = 121
+        end
+        object cxRadioGroup1: TcxRadioGroup
+          Left = 110
+          Top = 12
+          Properties.Columns = 2
+          Properties.DefaultValue = 0
+          Properties.Items = <
+            item
+              Caption = #32771#29983#26426#36890#36807#23494#30721#25805#20316
+              Value = 0
+            end
+            item
+              Caption = #26381#21153#22120#31471#25805#20316
+              Value = 1
+            end>
+          Properties.OnEditValueChanged = cxRadioGroup1PropertiesEditValueChanged
+          ItemIndex = 0
+          TabOrder = 7
+          Height = 42
+          Width = 443
+        end
+      end
+    end
     object tbshtTQBInfo: TcxTabSheet
       Caption = #39064#24211#20449#24687
       ImageIndex = 3
       object grpbx3: TcxGroupBox
-        Left = 16
+        Left = 3
         Top = 3
         Caption = 'grpbx3'
         TabOrder = 0
@@ -146,564 +628,6 @@ object FormMainServer: TFormMainServer
         end
       end
     end
-    object tbshtMonitor: TcxTabSheet
-      Caption = #32771#35797#30417#25511
-      ImageIndex = 0
-      DesignSize = (
-        732
-        465)
-      object img1: TImage
-        Left = 643
-        Top = 47
-        Width = 32
-        Height = 32
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        Picture.Data = {
-          055449636F6E0000010001002020100000000000E80200001600000028000000
-          2000000040000000010004000000000080020000000000000000000010000000
-          0000000000000000000080000080000000808000800000008000800080800000
-          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
-          FFFFFF0000000000070070000000000000000000000000007000070000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000700700000
-          000000000000000000FF000000070000000000000000000000FF0000FF000707
-          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
-          000000000000000700000007FF707FF80070000000000000077770007F708FF8
-          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
-          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
-          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
-          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
-          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
-          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
-          700000000000000000F00000000000F0000000000000000000F87000000078F0
-          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
-          7000000000000000070000000000000700000000000000000007000000000700
-          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
-          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
-          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
-          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
-          FFE003FF}
-        ExplicitLeft = 584
-      end
-      object img2: TImage
-        Left = 643
-        Top = 116
-        Width = 32
-        Height = 32
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        Picture.Data = {
-          055449636F6E0000010001002020100000000000E80200001600000028000000
-          2000000040000000010004000000000080020000000000000000000010000000
-          0000000000000000000080000080000000808000800000008000800080800000
-          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
-          FFFFFF0000000000070070000000000000000000000000007000070000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000700700000
-          000000000000000000FF000000070000000000000000000000FF0000FF000707
-          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
-          000000000000000700000007FF707FF80070000000000000077770007F708FF8
-          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
-          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
-          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
-          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
-          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
-          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
-          700000000000000000F00000000000F0000000000000000000F87000000078F0
-          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
-          7000000000000000070000000000000700000000000000000007000000000700
-          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
-          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
-          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
-          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
-          FFE003FF}
-        ExplicitLeft = 584
-      end
-      object img3: TImage
-        Left = 643
-        Top = 185
-        Width = 32
-        Height = 32
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        Picture.Data = {
-          055449636F6E0000010001002020100000000000E80200001600000028000000
-          2000000040000000010004000000000080020000000000000000000010000000
-          0000000000000000000080000080000000808000800000008000800080800000
-          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
-          FFFFFF0000000000070070000000000000000000000000007000070000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000700700000
-          000000000000000000FF000000070000000000000000000000FF0000FF000707
-          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
-          000000000000000700000007FF707FF80070000000000000077770007F708FF8
-          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
-          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
-          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
-          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
-          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
-          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
-          700000000000000000F00000000000F0000000000000000000F87000000078F0
-          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
-          7000000000000000070000000000000700000000000000000007000000000700
-          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
-          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
-          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
-          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
-          FFE003FF}
-        ExplicitLeft = 584
-      end
-      object img4: TImage
-        Left = 643
-        Top = 257
-        Width = 32
-        Height = 32
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        Picture.Data = {
-          055449636F6E0000010001002020100000000000E80200001600000028000000
-          2000000040000000010004000000000080020000000000000000000010000000
-          0000000000000000000080000080000000808000800000008000800080800000
-          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
-          FFFFFF0000000000070070000000000000000000000000007000070000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000700700000
-          000000000000000000FF000000070000000000000000000000FF0000FF000707
-          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
-          000000000000000700000007FF707FF80070000000000000077770007F708FF8
-          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
-          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
-          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
-          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
-          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
-          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
-          700000000000000000F00000000000F0000000000000000000F87000000078F0
-          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
-          7000000000000000070000000000000700000000000000000007000000000700
-          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
-          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
-          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
-          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
-          FFE003FF}
-      end
-      object btnStart: TButton
-        Left = 610
-        Top = 85
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #24320#22987#32771#35797
-        TabOrder = 0
-        OnClick = btnStartClick
-      end
-      object btnEndExam: TButton
-        Left = 610
-        Top = 154
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #32467#26463#32771#35797
-        TabOrder = 1
-        OnClick = btnEndExamClick
-      end
-      object btnExamineeSelect: TButton
-        Left = 610
-        Top = 16
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #26412#22330#32771#29983#23548#20837
-        TabOrder = 2
-        OnClick = btnExamineeSelectClick
-      end
-      object btnSaveExamineeInfo: TButton
-        Left = 610
-        Top = 223
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #20445#23384#32771#29983#20449#24687
-        TabOrder = 3
-        OnClick = btnSaveExamineeInfoClick
-      end
-      object btnExit: TButton
-        Left = 610
-        Top = 406
-        Width = 97
-        Height = 25
-        Anchors = [akRight, akBottom]
-        Caption = #36864#20986
-        TabOrder = 4
-        OnClick = btnExitClick
-      end
-      object cxGrid1: TcxGrid
-        Left = 3
-        Top = 3
-        Width = 594
-        Height = 428
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        TabOrder = 5
-        object tvExaminees: TcxGridTableView
-          Navigator.Buttons.CustomButtons = <>
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <>
-          DataController.Summary.SummaryGroups = <>
-          OptionsCustomize.ColumnFiltering = False
-          OptionsCustomize.ColumnGrouping = False
-          OptionsCustomize.ColumnMoving = False
-          OptionsData.Deleting = False
-          OptionsData.DeletingConfirmation = False
-          OptionsData.Inserting = False
-          OptionsSelection.CellSelect = False
-          OptionsView.ShowEditButtons = gsebForFocusedRecord
-          OptionsView.ColumnAutoWidth = True
-          OptionsView.GroupByBox = False
-          Styles.ContentEven = cxStyle4
-          Styles.ContentOdd = cxStyle6
-        end
-        object grdlvlExaminees: TcxGridLevel
-          GridView = tvExaminees
-        end
-      end
-      object btnExamRecord: TButton
-        Left = 610
-        Top = 295
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #25171#21360#32771#22330#35760#24405
-        TabOrder = 6
-        OnClick = btnExamRecordClick
-      end
-      object btnLock: TButton
-        Left = 610
-        Top = 350
-        Width = 97
-        Height = 25
-        Anchors = [akRight, akBottom]
-        Caption = #38145#23450
-        TabOrder = 7
-      end
-    end
-    object tbshtConfig: TcxTabSheet
-      Caption = #31995#32479#37197#32622
-      ImageIndex = 1
-      OnShow = tbshtConfigShow
-      object grpbx1: TcxGroupBox
-        Left = 24
-        Top = 167
-        Caption = #32771#29983#31471
-        TabOrder = 0
-        Height = 98
-        Width = 585
-        object lbl3: TcxLabel
-          Left = 16
-          Top = 24
-          Caption = #29366#24577#21047#26032#38388#38548#65306
-        end
-        object spndtStatusRefreshInterval: TcxSpinEdit
-          Left = 110
-          Top = 20
-          Properties.MaxValue = 300.000000000000000000
-          Properties.MinValue = 3.000000000000000000
-          Properties.OnChange = ConfigChange
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 1
-          Value = 3
-          Width = 65
-        end
-        object lbl4: TcxLabel
-          Left = 181
-          Top = 24
-          Caption = #65288#21333#20301#65306#31186#65289
-        end
-        object lbl2: TcxLabel
-          Left = 16
-          Top = 64
-          Caption = #32771#29983#25805#20316#20301#32622#65306
-        end
-        object txtClientFolder: TcxMaskEdit
-          Left = 110
-          Top = 63
-          Properties.OnChange = ConfigChange
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 4
-          Text = 'txtClientFolder'
-          Width = 335
-        end
-      end
-      object grpbx2: TcxGroupBox
-        Left = 24
-        Top = 24
-        Caption = #26381#21153#22120#31471
-        TabOrder = 1
-        Height = 137
-        Width = 585
-        object lbl1: TcxLabel
-          Left = 16
-          Top = 72
-          Caption = #32771#22330#25968#25454#23384#25918#36335#24452#65306
-        end
-        object cbbDataFolder: TcxShellComboBox
-          Left = 134
-          Top = 72
-          Properties.ShowFullPath = sfpAlways
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 1
-          Width = 337
-        end
-        object cxlbl2: TcxLabel
-          Left = 64
-          Top = 25
-          Caption = #23398#26657#20195#30721#65306
-        end
-        object txtSchoolCode: TcxMaskEdit
-          Left = 134
-          Top = 24
-          Properties.EditMask = '!999;1;_'
-          Properties.MaxLength = 0
-          Properties.OnChange = ConfigChange
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 3
-          Text = '   '
-          Width = 187
-        end
-        object cxLabel9: TcxLabel
-          Left = 16
-          Top = 113
-          Caption = #32771#29983#25968#25454#22791#20221#36335#24452#65306
-        end
-        object cbbExamBakFolder: TcxShellComboBox
-          Left = 134
-          Top = 113
-          Properties.ShowFullPath = sfpAlways
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 5
-          Width = 337
-        end
-      end
-      object btnSaveConfig: TButton
-        Left = 512
-        Top = 432
-        Width = 97
-        Height = 25
-        Caption = #20445#23384#20462#25913
-        TabOrder = 2
-        OnClick = btnSaveConfigClick
-      end
-      object btnConfigEdit: TButton
-        Left = 296
-        Top = 432
-        Width = 97
-        Height = 25
-        Caption = #20462#25913#37197#32622
-        TabOrder = 3
-        OnClick = btnConfigEditClick
-      end
-      object btnConfigCancel: TButton
-        Left = 409
-        Top = 432
-        Width = 97
-        Height = 25
-        Caption = #21462#28040#20462#25913
-        TabOrder = 4
-        OnClick = btnConfigCancelClick
-      end
-      object cxGroupBox1: TcxGroupBox
-        Left = 24
-        Top = 284
-        Caption = #32493#32771#12289#24310#32771#12289#37325#32771#35774#32622#65306
-        TabOrder = 5
-        Height = 101
-        Width = 585
-        object cxLabel11: TcxLabel
-          Left = 16
-          Top = 24
-          Caption = #25805#20316#27169#24335#65306
-        end
-        object edtContPwd: TcxTextEdit
-          Left = 78
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 1
-          Width = 121
-        end
-        object edtRetryPwd: TcxTextEdit
-          Left = 454
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 2
-          Width = 121
-        end
-        object cxLabel5: TcxLabel
-          Left = 399
-          Top = 60
-          Caption = #37325#32771#23494#30721#65306
-        end
-        object cxLabel6: TcxLabel
-          Left = 16
-          Top = 60
-          Caption = #32493#32771#23494#30721#65306
-        end
-        object cxLabel13: TcxLabel
-          Left = 205
-          Top = 60
-          Caption = #24310#32771#23494#30721#65306
-        end
-        object edtAddTimePwd: TcxTextEdit
-          Left = 264
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 6
-          Width = 121
-        end
-      end
-      object cxRadioGroup1: TcxRadioGroup
-        Left = 110
-        Top = 296
-        Properties.Columns = 2
-        Properties.DefaultValue = 0
-        Properties.Items = <
-          item
-            Caption = #32771#29983#26426#36890#36807#23494#30721#25805#20316
-            Value = 0
-          end
-          item
-            Caption = #26381#21153#22120#31471#25805#20316
-            Value = 1
-          end>
-        Properties.OnEditValueChanged = cxRadioGroup1PropertiesEditValueChanged
-        TabOrder = 6
-        Height = 42
-        Width = 443
-      end
-    end
-    object tbshtSubmit: TcxTabSheet
-      Caption = #27719#24635#19978#25253
-      ImageIndex = 2
-      DesignSize = (
-        732
-        465)
-      object redt1: TRichEdit
-        Left = 16
-        Top = 16
-        Width = 697
-        Height = 113
-        Anchors = [akLeft, akTop, akRight]
-        Enabled = False
-        Font.Charset = GB2312_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        Lines.Strings = (
-          #12288#12288#27719#24635#19978#25253#26159#25351#23558#25152#26377#32771#35797#26381#21153#22120#19978#30340#8220#25104#32489#24211#8221#27719#24635#21040#19968#20010#24635#30340#25104#32489#24211#26469#19978#25253#65292#21516#26102#20063#26041#20415#26816#26597#24050#32771#12289#26410#32771#12289#32570
-          #32771#12289#20316#24330#12289#25104#32489#24322#24120#30340#32771#29983#65292#20351#19978#25253#25104#32489#25968#25454#26356#21152#20934#30830#23436#25972#12290
-          #12288#12288#27719#24635#26102#65292#35831#23558#25152#26377#26381#21153#22120#19978#30340#8220#25104#32489#24211'.mdb'#8221#25991#20214#22797#21046#21040#19968#20010#25991#20214#22841#20013#65292#28857#20987#27719#24635#65292#31243#24207#23558#33258#21160#23558#25351#23450#25991#20214#22841#19979#25152#26377#25104#32489#24211#27719#24635
-          #21040#19968#20010#25991#20214#12290
-          #12288#12288#19978#25253#26102#65292#21482#38656#23558#27719#24635#24471#21040#30340#19968#20010#8220#25104#32489#24211'.mdb'#8221#19978#25253#21363#21487#12290)
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-        Zoom = 100
-      end
-      object cxLabel10: TcxLabel
-        Left = 40
-        Top = 144
-        Caption = #38656#21512#24182#25104#32489#24211#25991#20214#22841#65306
-      end
-      object scbTotalDir: TcxShellComboBox
-        Left = 190
-        Top = 143
-        Properties.ShowFullPath = sfpAlways
-        Style.StyleController = cxEditStyleController1
-        TabOrder = 2
-        Width = 337
-      end
-      object btnTotals: TButton
-        Left = 550
-        Top = 139
-        Width = 97
-        Height = 25
-        Caption = #27719#24635
-        TabOrder = 3
-        OnClick = btnTotalsClick
-      end
-      object lst1: TListBox
-        Left = 16
-        Top = 167
-        Width = 193
-        Height = 274
-        ItemHeight = 13
-        TabOrder = 4
-      end
-      object cxGrid2: TcxGrid
-        Left = 224
-        Top = 170
-        Width = 505
-        Height = 266
-        Anchors = [akLeft, akTop, akRight, akBottom]
-        TabOrder = 5
-        object tvSource: TcxGridDBTableView
-          Navigator.Buttons.CustomButtons = <>
-          DataController.Summary.DefaultGroupSummaryItems = <>
-          DataController.Summary.FooterSummaryItems = <
-            item
-              Kind = skCount
-              FieldName = 'ExamineeName'
-            end>
-          DataController.Summary.SummaryGroups = <>
-          OptionsData.Deleting = False
-          OptionsData.Inserting = False
-          OptionsView.Footer = True
-          object clmnSourceExamineeNo: TcxGridDBColumn
-            DataBinding.FieldName = 'ExamineeID'
-            Width = 99
-          end
-          object clmnSourceExamineeName: TcxGridDBColumn
-            DataBinding.FieldName = 'ExamineeName'
-          end
-          object clmnSourceIP: TcxGridDBColumn
-            DataBinding.FieldName = 'IP'
-          end
-          object clmnSourcePort: TcxGridDBColumn
-            DataBinding.FieldName = 'Port'
-            Width = 51
-          end
-          object clmnSourceStatus: TcxGridDBColumn
-            DataBinding.FieldName = 'Status'
-          end
-          object clmnSourceRemainTime: TcxGridDBColumn
-            DataBinding.FieldName = 'RemainTime'
-          end
-          object clmnSourceTimeStamp: TcxGridDBColumn
-            DataBinding.FieldName = 'Stamp'
-          end
-        end
-        object cxGrid1Level1: TcxGridLevel
-          GridView = tvSource
-        end
-      end
-    end
-    object tbshtExamineeInfoImport: TcxTabSheet
-      Caption = #32771#29983#20449#24687#23548#20837
-      ImageIndex = 4
-    end
-    object tbshtCheckZero: TcxTabSheet
-      Caption = 'tbshtCheckZero'
-      ImageIndex = 5
-    end
   end
   object dxbrmngrMainMenu: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
@@ -745,6 +669,10 @@ object FormMainServer: TFormMainServer
         item
           Visible = True
           ItemName = 'mnbtnAllExamineeInfoImport'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton1'
         end>
       OneOnRow = True
       Row = 0
@@ -763,6 +691,18 @@ object FormMainServer: TFormMainServer
       Caption = 'New Separator'
       Category = 0
       Hint = 'New Separator'
+      Visible = ivAlways
+    end
+    object dxBarButton1: TdxBarButton
+      Caption = #27719#24635#19978#25253
+      Category = 0
+      Hint = #27719#24635#19978#25253
+      Visible = ivAlways
+    end
+    object dxBarButton2: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
       Visible = ivAlways
     end
     object pmbtnReExam: TdxBarButton

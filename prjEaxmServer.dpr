@@ -12,7 +12,8 @@ uses
   ExamServer in 'ExamNet\ExamServer.pas',
   frmExamineesImport in 'Server\frmExamineesImport.pas' {ExamineesImport},
   ServerGlobal in 'Server\ServerGlobal.pas',
-  frmEnterForBaseImport in 'Server\frmEnterForBaseImport.pas' {EnterForBaseImport};
+  frmEnterForBaseImport in 'Server\frmEnterForBaseImport.pas' {EnterForBaseImport},
+  uTotalScoreForm in 'Server\uTotalScoreForm.pas' {TotalScoreForm};
 
 {$R *.res}
 
@@ -27,5 +28,6 @@ begin
   Application.MainFormOnTaskbar := True;
   //Application.CreateForm(TdmServer, GlobalDmServer);
   Application.CreateForm(TFormMainServer, FormMainServer);
+  Application.CreateForm(TTotalScoreForm, TotalScoreForm);
   Application.Run;
 end.

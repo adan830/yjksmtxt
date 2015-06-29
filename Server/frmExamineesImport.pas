@@ -193,7 +193,7 @@ begin
         with TcxGridSite(Control) do
           Accept := (GridView.PatternGridView = tvcdstemp) ;
 end;
-
+//TODO: Check photo file if exist
 procedure TExamineesImport.btnSaveClick(Sender: TObject);
 var
    Examinee:PExaminee;
@@ -214,6 +214,10 @@ var
 
         Examinee.Status := esNotLogined; //TExamineeStatus(vartoint(FieldValues['Status']));
         Examinee.RemainTime := TExamServerGlobal.GlobalStkRecordInfo.BaseConfig.ExamTime;
+        if FileExists(examinee.ID+'.jpg') then
+        Examinee.HasPhoto:=true
+        else
+          Examinee.HasPhoto:=false;
 //        case AStatus of
 //          esAllowReExam:  begin
 //                    Examinee.Status := esNotLogined; //TExamineeStatus(vartoint(FieldValues['Status']));
@@ -222,7 +226,7 @@ var
 //          else begin
 //                    Examinee.Status := TExamineeStatus(vartoint(FieldValues[DFNEI_STATUS]));
 //                    Examinee.RemainTime := vartoint(FieldValues[DFNEI_REMAINTIME]);
-//                end;;
+//                end;
 //        end;
         if not FormMainServer.ExamineesManager.Add(Examinee) then Dispose(Examinee);
       end;

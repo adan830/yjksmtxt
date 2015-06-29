@@ -13,7 +13,7 @@ uses
   dxSkinPumpkin, dxSkinSeven, dxSkinSharp, dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinValentine, dxSkinXmas2008Blue, cxGroupBox, cxMemo, cxClasses, cxStyles, cxGridTableView,
   cxLookAndFeels, dxSkinOffice2010Black, dxSkinOffice2010Blue,
-  dxSkinOffice2010Silver;
+  dxSkinOffice2010Silver, Vcl.ComCtrls, dxCore, cxDateUtils;
 
 type
   TfrmSysConfig = class(TBaseActionForm)
@@ -90,6 +90,7 @@ begin
       edtExamTime.Text:= configStrings.Values['考试时间'];
       edtTypeTime.Text:= configStrings.Values['打字时间'];
       edtExamPath.Text:= configStrings.Values['考试路径'];
+//      edtPhotoFolder.Text:= configStrings.Values['相片路径'];
       edtStatusRefeshInterval.Text :=  configStrings.Values['状态更新间隔'];
       cxmModules.Text := DecryptStr(FieldByName('Modules').AsString);
       cxmStrategy.Text := DecryptStr(FieldByName('Strategy').AsString);
@@ -115,6 +116,7 @@ begin
       configStrings.Values['显示成绩']:= cbDispScore.Text;
      // configStrings.Values['管理密码']:= edtManagePwd.Text;
       configStrings.Values['考试路径']:= edtExamPath.Text;
+//      configStrings.Values['相片路径']:= edtPhotoFolder.Text;
       configStrings.Values['考试时间']:= edtExamTime.Text;
       configStrings.Values['打字时间']:= edtTypeTime.Text;
       configStrings.Values['状态更新间隔']:=edtStatusRefeshInterval.Text ;
@@ -207,6 +209,7 @@ begin
                edtExamTime.Enabled := false;
                edtTypeTime.Enabled := False;
                edtExamPath.Enabled := False;
+//               edtPhotoFolder.Enabled := False;
                cxmModules.Enabled := false;
                cxmStrategy.Enabled := False;
                edtStatusRefeshInterval.Enabled := False;
@@ -225,6 +228,7 @@ begin
                edtExamTime.Enabled := True;
                edtTypeTime.Enabled := True;
                edtExamPath.Enabled := True;
+//               edtPhotoFolder.Enabled := true;
                cxmModules.Enabled := True;
                cxmStrategy.Enabled := True;
                edtStatusRefeshInterval.Enabled := True;
@@ -242,6 +246,7 @@ begin
                edtExamTime.Enabled := false;
                edtTypeTime.Enabled := False;
                edtExamPath.Enabled := False;
+//               edtPhotoFolder.Enabled := False;
                cxmModules.Enabled := false;
                cxmStrategy.Enabled := False;
                edtStatusRefeshInterval.Enabled := False;

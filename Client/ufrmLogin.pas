@@ -24,6 +24,7 @@ type
     examineeInfo:Texaminee;
 
     function GetExamineeInfo(AExamineeID: string): TExaminee;
+    function GetExamineePhoto(AExamineeID: string; photoStream: TmemoryStream): TExaminee;
 //    procedure CreateEnvironment(const ALoginType: TLoginType);
 //    procedure InitExam;
     { Private declarations }
@@ -59,6 +60,7 @@ begin
       if (length(edtExamineeID.Text)=11) then
       begin
          examineeinfo:= GetExamineeInfo(edtExamineeID.text);
+         TExamClientGlobal.ExamTCPClient.CommandGetExamineePhoto(examineeinfo.ID, TExamClientGlobal.ExamineePhoto);
          //if examineeName.Length>0 then
          begin
            edtExamineeName.text:=examineeInfo.Name;
@@ -162,6 +164,25 @@ begin
   if length(AExamineeID) = CONSTEXAMINEEIDLENGTH  then
   begin
     if (TExamClientGlobal.ExamTCPClient.CommandGetExamineeInfo(AExamineeID, TExamClientGlobal.Examinee) = crOK) then
+    begin
+
+       result:= TExamClientGlobal.Examinee;
+//       begin
+//          Result :='OK,'+ ID+','+Name+','+GetStatusDisplayValue(Status)+','+IntToStr(RemainTime);
+//       end;
+    end
+//    else begin
+//       Result := '获取考生信息错误！';
+//    end;
+//  end else begin
+//     Result := '准考证号长度不够！';
+  end;
+end;
+function TFrmLogin.GetExamineePhoto(AExamineeID: string;photoStream:TmemoryStream): TExaminee;
+begin
+  if length(AExamineeID) = CONSTEXAMINEEIDLENGTH  then
+  begin
+    if (TExamClientGlobal.ExamTCPClient.CommandGetExamineePhoto(AExamineeID,photoStream) = crOK) then
     begin
        result:= TExamClientGlobal.Examinee;
 //       begin

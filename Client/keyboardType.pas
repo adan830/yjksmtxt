@@ -46,6 +46,8 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure HideFrame;
     procedure ShowFrame;
+    destructor Destroy; override;
+
   end;
 
 implementation
@@ -57,26 +59,26 @@ uses
 
 { TFrameKeyType }
 procedure TFrameKeyType.SetCaret(RTF: TRichEdit; caretPos: integer);
-  var
-    i, istopline, iselstart: integer;
-    row, col: integer;
+//  var
+//    i, istopline, iselstart: integer;
+//    row, col: integer;
   begin
-    row := disprow;
-    if prevPos < caretPos then
-      begin
-        col := caretPos - prevPos;
-        if col >= length(RTF.Lines[disprow]) then
-          begin
-            prevPos := prevPos + length(RTF.Lines[disprow]);
-            disprow := disprow + 1;
-          end;
-      end;
-    if (row = disprow) then
-      exit;
-    iselstart := prevPos + length(RTF.Lines[disprow]) + length(RTF.Lines[disprow + 1]);
+//    row := disprow;
+//    if prevPos < caretPos then
+//      begin
+//        col := caretPos - prevPos;
+//        if col >= length(RTF.Lines[disprow]) then
+//          begin
+//            prevPos := prevPos + length(RTF.Lines[disprow]);
+//            disprow := disprow + 1;
+//          end;
+//      end;
+//    if (row = disprow) then
+//      exit;
+//    iselstart := prevPos + length(RTF.Lines[disprow]) + length(RTF.Lines[disprow + 1]);
 
     // 以设定票房的方式指定游标位置
-    sendmessage(RTF.Handle, em_setsel, iselstart, iselstart);
+    sendmessage(RTF.Handle, em_setsel, caretPos, caretPos);
     // 再次侦测游标位置
     // row:=SendMessage(rtf.handle,em_linefromchar,rtf.SelStart,0);
     // col:=rtf.SelStart-SendMessage(rtf.Handle,em_lineindex,row,0);
@@ -101,39 +103,97 @@ procedure TFrameKeyType.targetRichChange(Sender: TObject);
         // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
         // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
       end;
+procedure SetSourceRichFormat(re: TRichEdit; caretPos: integer);
+      begin
+        re.SelStart            := 0;
+        re.SelLength           := caretPos;
+        re.SelAttributes.color := clblue;
+        re.SelAttributes.style := [fsUnderline];
 
+        re.SelStart            := caretPos;
+        re.SelLength           := length(re.text)-caretpos;
+        re.SelAttributes.color := clRed;
+        re.SelAttributes.style := [];
+
+        SetCaret(sourceRich, fCurrentPos);
+
+        // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
+        // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
+      end;
+     procedure CheckBlock(startPos,endPos:integer);
+     var
+        sp, len: integer;
+      begin
+        if endpos=0 then exit;
+
+        with targetRich do
+          begin
+            while startPos < endPos do
+              begin
+                sp:=startPos;
+                len             := 1;
+                if (sourceRich.text[startPos+1] = targetRich.text[startPos+1 ]) then
+                begin
+                  startPos:=startPos+1;
+                  while (sourceRich.text[startPos +1] = targetRich.text[startPos+1]) do
+                  begin
+                     len:=len+1;
+                     startPos:=startPos+1;
+                  end;
+                  SetRichFormat(targetRich, sp, len, clblue, []);
+                end
+                else
+                  begin
+                    startPos:=startPos+1;
+                    while (sourceRich.text[startPos+1 ] <> targetRich.text[startPos +1]) do
+                    begin
+                       len:=len+1;
+                       startPos:=startPos+1;
+                    end;
+                    SetRichFormat(targetRich, sp, len, clred, []);
+                  end;
+                startPos := startPos + 1;
+              end;
+          end;
+      end;
+     procedure setTargetCaret(caretPos:integer);
+     begin
+       targetRich.SelStart:=caretPos;
+       targetRich.SelLength:=0;
+     end;
   begin
 
     sendmessage(targetRich.Handle, WM_IME_ENDCOMPOSITION, 0, 0);
 
     cursorpos := targetRich.SelStart;
-    if fCurrentPos < cursorpos then
-      begin
-        while fCurrentPos < cursorpos do
-          begin
-            with targetRich do
-              begin
-                if (sourceRich.Text[fCurrentPos + 1] = targetRich.Text[fCurrentPos + 1]) then
-                  begin
-                    SetRichFormat(targetRich, fCurrentPos, 1, clblue, []);
-                  end
-                else
-                  begin
-                    SetRichFormat(targetRich, fCurrentPos, 2, clRed, []);
-                  end;
-                fCurrentPos := fCurrentPos + 1;
-              end;
-          end;
-        sourceRich.SelStart := cursorpos;
-        targetRich.SelStart := cursorpos;
-        fCurrentPos         := cursorpos;
-      end
+    if fCurrentPos<=cursorpos then
+        CheckBlock(fCurrentPos,length(targetRich.Text))
     else
-      begin
-        SetRichFormat(sourceRich, 0, length(sourceRich.Text), clRed, []);
-      end;
-    SetRichFormat(sourceRich, 0, length(targetRich.Text), clwindowtext, [fsUnderline]);
-    SetCaret(sourceRich, fCurrentPos);
+      CheckBlock(cursorpos,length(targetRich.Text));
+
+      fCurrentPos:=cursorpos;
+      setTargetCaret(fCurrentPos);
+//    if fCurrentPos>cursorpos then
+
+//    if fCurrentPos < cursorpos then
+//      begin
+//         CheckBlock(fCurrentPos,cursorPos);
+//        sourceRich.SelStart := cursorpos;
+//        targetRich.SelStart := cursorpos;
+//        fCurrentPos         := cursorpos;
+//      end
+//    else
+//      begin
+//        fCurrentPos:=length(targetrich.text);
+//        CheckBlock(cursorpos,fCurrentPos);
+//        setTargetCaret(cursorpos);
+//        //SetRichFormat(sourceRich, 0, length(sourceRich.Text), clRed, []);
+//      end;
+
+    //SetRichFormat(sourceRich, 0, length(targetRich.Text), clwindowtext, [fsUnderline]);
+    if (fCurrentPos>sourceRich.GetTextLen) then  exit;
+    SetSourceRichFormat(sourceRich,fCurrentPos);
+//    SetCaret(sourceRich, fCurrentPos);
     targetRich.SetFocus;
   end;
 
@@ -182,6 +242,7 @@ constructor TFrameKeyType.Create(AOwner: TComponent);
 
     fFlag       := false;
     fCurrentPos := 0;
+    targetRich.OnChange:=targetRichChange;
     // FTime:=900;
     // timer1.Enabled:=true;
   end;
@@ -236,6 +297,12 @@ procedure TFrameKeyType.timer1Timer(Sender: TObject);
     sj              := format('剩余时间:%.2d:%.2d', [FTime div 60, FTime mod 60]);
     lblTime.Caption := sj;
   end;
+
+destructor TFrameKeyType.Destroy;
+begin
+  ftq.free;
+  inherited;
+end;
 
 procedure TFrameKeyType.HideFrame;
   var

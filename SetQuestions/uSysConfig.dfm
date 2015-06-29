@@ -5,7 +5,7 @@ inherited frmSysConfig: TfrmSysConfig
   ClientHeight = 505
   ClientWidth = 707
   ExplicitWidth = 723
-  ExplicitHeight = 543
+  ExplicitHeight = 544
   PixelsPerInch = 96
   TextHeight = 13
   object cxLabel1: TcxLabel [0]
@@ -14,11 +14,11 @@ inherited frmSysConfig: TfrmSysConfig
     Caption = #39064#24211#21517#31216#65306
   end
   object edtName: TcxTextEdit [1]
-    Left = 104
+    Left = 110
     Top = 16
     Style.StyleController = styleControllerEdit
     TabOrder = 1
-    Width = 361
+    Width = 355
   end
   object cxLabel2: TcxLabel [2]
     Left = 40
@@ -36,7 +36,7 @@ inherited frmSysConfig: TfrmSysConfig
     Caption = #25104#32489#26174#31034#65306
   end
   object cbType: TcxComboBox [5]
-    Left = 104
+    Left = 110
     Top = 55
     Properties.DropDownListStyle = lsFixedList
     Properties.Items.Strings = (
@@ -44,7 +44,7 @@ inherited frmSysConfig: TfrmSysConfig
       #27169#25311#32771#35797)
     Style.StyleController = styleControllerEdit
     TabOrder = 5
-    Width = 121
+    Width = 115
   end
   object edtDate: TcxDateEdit [6]
     Left = 344
@@ -54,7 +54,7 @@ inherited frmSysConfig: TfrmSysConfig
     Width = 121
   end
   object cbDispScore: TcxComboBox [7]
-    Left = 104
+    Left = 110
     Top = 93
     Properties.DropDownListStyle = lsFixedList
     Properties.Items.Strings = (
@@ -62,7 +62,7 @@ inherited frmSysConfig: TfrmSysConfig
       #26381#21153#22120#31471)
     Style.StyleController = styleControllerEdit
     TabOrder = 7
-    Width = 121
+    Width = 115
   end
   object Panel1: TPanel [8]
     Left = 0
@@ -99,7 +99,7 @@ inherited frmSysConfig: TfrmSysConfig
       Height = 25
       Anchors = [akTop, akRight]
       Caption = #36820#22238
-      Glyph.Data = {
+      OptionsImage.Glyph.Data = {
         36060000424D3606000000000000360400002800000020000000100000000100
         08000000000000020000730B0000730B00000001000000000000000000003300
         00006600000099000000CC000000FF0000000033000033330000663300009933
@@ -150,7 +150,7 @@ inherited frmSysConfig: TfrmSysConfig
         57ACE8A3E889E8E8E8E88181DEDEACD781ACE381E8DEE8E8E8E8E8DE5E8288D7
         57A2A2A2E8E8E8E8E8E8E8DE8181DED781818181E8E8E8E8E8E8E8E8E8AC8257
         57E8E8E8E8E8E8E8E8E8E8E8E8AC818181E8E8E8E8E8E8E8E8E8}
-      NumGlyphs = 2
+      OptionsImage.NumGlyphs = 2
       TabOrder = 2
       OnClick = btnExitClick
     end
@@ -175,11 +175,11 @@ inherited frmSysConfig: TfrmSysConfig
     Caption = #25171#23383#26102#38388#65288#31186#65289#65306
   end
   object edtExamTime: TcxTextEdit [11]
-    Left = 104
+    Left = 110
     Top = 132
     Style.StyleController = styleControllerEdit
     TabOrder = 11
-    Width = 121
+    Width = 115
   end
   object edtTypeTime: TcxTextEdit [12]
     Left = 344
@@ -189,11 +189,11 @@ inherited frmSysConfig: TfrmSysConfig
     Width = 121
   end
   object edtExamPath: TcxTextEdit [13]
-    Left = 104
+    Left = 110
     Top = 167
     Style.StyleController = styleControllerEdit
     TabOrder = 13
-    Width = 361
+    Width = 355
   end
   object cxLabel6: TcxLabel [14]
     Left = 40
@@ -221,10 +221,10 @@ inherited frmSysConfig: TfrmSysConfig
   end
   object cxgrpbxStrategy: TcxGroupBox [16]
     Left = 8
-    Top = 208
+    Top = 194
     Caption = #36873#39064#31574#30053#65306
     TabOrder = 16
-    Height = 250
+    Height = 264
     Width = 691
     object cxmStrategy: TcxMemo
       Left = 2
@@ -234,7 +234,8 @@ inherited frmSysConfig: TfrmSysConfig
         'cxmStrategy')
       Style.StyleController = styleControllerEdit
       TabOrder = 0
-      Height = 230
+      ExplicitHeight = 206
+      Height = 244
       Width = 687
     end
   end
@@ -257,7 +258,11 @@ inherited frmSysConfig: TfrmSysConfig
     Left = 424
     Top = 8
   end
+  inherited styleControllerEdit: TcxEditStyleController
+    PixelsPerInch = 96
+  end
   inherited cxStyleRepository1: TcxStyleRepository
+    PixelsPerInch = 96
     inherited GridTableViewStyleSheetDevExpress: TcxGridTableViewStyleSheet
       BuiltIn = True
     end

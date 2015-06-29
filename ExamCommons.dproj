@@ -92,7 +92,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <DCC_OutputDRCFile>true</DCC_OutputDRCFile>
-        <DCC_Define>DEBUG;VMSERVER;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ProjectExtensions>
@@ -477,13 +476,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -527,6 +526,7 @@
         <DCCReference Include="ExamCommons\CustomColorForm.pas"/>
         <DCCReference Include="ExamCommons\CustomLoginForm.pas"/>
         <DCCReference Include="ExamCommons\ShadowFrame.pas"/>
+        <DCCReference Include="ExamCommons\Logger.pas"/>
         <RcItem Include="ExamCommons\skins\Close_Down.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ClassicSkin_Png_Close_Down</ResourceId>

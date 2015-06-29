@@ -26,12 +26,12 @@ type
     FConnClientDB: TADOConnection;
     FMainTimer: TTimer;
   private
-
     class function GetConnClientDB: TADOConnection; static;
     class procedure MainTimerTimer(Sender: TObject);
   public
   class var
     Examinee: TExaminee;
+    ExamineePhoto:TMemoryStream;
     ClientMainForm: TClientMainForm;
     // FloatWindow :TFloatWindow;
     floatWindow: TFormOperate;
@@ -289,6 +289,8 @@ class function TExamClientGlobal.GetConnClientDB: TADOConnection;
   begin
     Result := FConnClientDB;
   end;
+
+
 
 class procedure TExamClientGlobal.SetupExamineeInfoBase(const AExaminee: TExaminee);
   var

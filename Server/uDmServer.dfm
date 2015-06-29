@@ -3,11 +3,13 @@ object dmServer: TdmServer
   Height = 336
   Width = 504
   object connStk: TADOConnection
+    Connected = True
     ConnectionString = 
       'Provider=Microsoft.Jet.OLEDB.4.0;User ID=admin;Data Source=D:\yj' +
       'ksmtxt\debug\bin\'#31995#32479#39064#24211'.mdb;Mode=Share Deny None;Persist Security ' +
       'Info=False;Jet OLEDB:Database Password=thepasswordofaccedwm'
     LoginPrompt = False
+    Mode = cmShareDenyNone
     Provider = 'Microsoft.Jet.OLEDB.4.0'
     BeforeConnect = connStkBeforeConnect
     Left = 40

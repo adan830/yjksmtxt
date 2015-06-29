@@ -45,7 +45,8 @@ begin
   Application.Title := '一级WINDOWS无纸化考试系统';
   TExamClientGlobal.CreateClassObject();
   //Application.CreateForm(TDmClient, TExamClientGlobal.DmClient);
-  TExamClientGlobal.ExamTCPClient := TExamTCPClient.Create(CONSTSERVERIP,CONSTSERVERPORT);
+//  TExamClientGlobal.ExamTCPClient := TExamTCPClient.Create(CONSTSERVERIP,CONSTSERVERPORT);
+TExamClientGlobal.ExamTCPClient := TExamTCPClient.Create();
   try
      TExamClientGlobal.ExamTCPClient.Connect;// GlobalExamTCPClient.Connect;
      TExamClientGlobal.SetBaseConfig();

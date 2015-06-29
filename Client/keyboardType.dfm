@@ -139,7 +139,6 @@ object FrameKeyType: TFrameKeyType
         ParentFont = False
         TabOrder = 0
         Zoom = 100
-        OnChange = targetRichChange
         OnKeyDown = targetRichKeyDown
         OnKeyUp = targetRichKeyUp
       end
