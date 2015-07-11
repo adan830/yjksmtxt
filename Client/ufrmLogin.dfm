@@ -43,9 +43,9 @@ object FrmLogin: TFrmLogin
     ParentFont = False
   end
   object btnStartExam: TJvSpeedButton
-    Left = 104
+    Left = 152
     Top = 136
-    Width = 236
+    Width = 175
     Height = 25
     Enabled = False
     Flat = True
@@ -8122,7 +8122,7 @@ object FrmLogin: TFrmLogin
     Font.Name = #23435#20307
     Font.Style = []
     ParentFont = False
+    ReadOnly = True
     TabOrder = 1
-    OnKeyPress = edtExamineeNameKeyPress
   end
 end

@@ -23,7 +23,7 @@ type
    public
       class procedure CreateClassObject;
       class procedure DestroyClassObject;
-      class procedure SetupGlobalVariables();
+//      class procedure SetupGlobalVariables();
       class procedure SetupGlobalOperateModules();
    public
    class var
@@ -32,7 +32,7 @@ type
       class property GlobalApplicationPath: string read FAppPath;
       class property ServerCustomConfig: TServerCustomConfig read FServerCustomConfig write FServerCustomConfig;
       class property GlobalOperateModules: TModules read FOperateModules;
-      class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
+      //class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
       // class property GlobalExamServer : TExamServer read FExamServer;
       class property GlobalStkRecordInfo: TStkRecordInfo read FStkRecordInfo;
       class property GlobalDmServer: TDmServer read FDmServer;
@@ -55,7 +55,7 @@ class procedure TExamServerGlobal.CreateClassObject;
          configfile := ExtractFilePath(Application.ExeName);
          FServerCustomConfig := TServerCustomConfig.create;
          FServerCustomConfig.SetupCustomConfig(configfile, FStkRecordInfo.BaseConfig);
-         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath);
+         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath,fserverCustomConfig.LoginPermissionModel);
          SetupGlobalOperateModules;
       except
          on E: Exception do
@@ -113,12 +113,12 @@ class procedure TExamServerGlobal.SetupGlobalOperateModules();
       end;
    end;
 
-class procedure TExamServerGlobal.SetupGlobalVariables();
-   begin
-      FAppPath := ExtractFilePath(Application.ExeName);
-      FServerCustomConfig := TServerCustomConfig.create;
-      FServerCustomConfig.SetupCustomConfig(FAppPath, FStkRecordInfo.BaseConfig);
-   end;
+//class procedure TExamServerGlobal.SetupGlobalVariables();
+//   begin
+//      FAppPath := ExtractFilePath(Application.ExeName);
+//      FServerCustomConfig := TServerCustomConfig.create;
+//      FServerCustomConfig.SetupCustomConfig(FAppPath, FStkRecordInfo.BaseConfig);
+//   end;
 
 initialization
 

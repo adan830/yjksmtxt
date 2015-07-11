@@ -139,7 +139,7 @@
             <Platforms>
                 <Platform value="Win32">True</Platform>
             </Platforms>
-            <Deployment Version="1">
+            <Deployment Version="2">
                 <DeployFile LocalName="debug\bin\ExamCommons.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>ExamCommons.bpl</RemoteName>
@@ -476,12 +476,12 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
@@ -527,6 +527,7 @@
         <DCCReference Include="ExamCommons\CustomLoginForm.pas"/>
         <DCCReference Include="ExamCommons\ShadowFrame.pas"/>
         <DCCReference Include="ExamCommons\Logger.pas"/>
+        <DCCReference Include="ExamCommons\CnDebug.pas"/>
         <RcItem Include="ExamCommons\skins\Close_Down.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ClassicSkin_Png_Close_Down</ResourceId>

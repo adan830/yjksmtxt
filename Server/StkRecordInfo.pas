@@ -608,7 +608,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList: TList): integer;
          DateTimeToString(timeStr, 'yyyymmddhhnn', Now);
          { TODO : 需要修改加密 }
 
-         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + TExamServerGlobal.ServerCustomConfig.SchoolCode + timeStr + '.dat');
+         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\'  + timeStr + '.dat');
       finally
          dstemp.Free;
          FMemExaminees.Unlock;

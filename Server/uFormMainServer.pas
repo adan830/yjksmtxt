@@ -23,7 +23,7 @@ uses
    dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
    dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
    dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxPCdxBarPopupMenu,
-   cxNavigator, dxBarBuiltInMenu, cxCheckGroup, cxRadioGroup;
+   cxNavigator, dxBarBuiltInMenu, cxCheckGroup, cxRadioGroup,idcontext;
 
 type
    TExamServerStatus = (essConfigChanged = 1, essReady = 10, essExamineeSelected = 11, essStarted = 12, essTeminated = 13, essInfoSaved = 14);
@@ -78,8 +78,8 @@ type
       cxStyle13: TcxStyle;
       cxStyle14: TcxStyle;
       GridTableViewStyleSheetDevExpress: TcxGridTableViewStyleSheet;
-      cxGridPopupMenu1: TcxGridPopupMenu;
-      dxBarPopupMenu1: TdxBarPopupMenu;
+    grdPopupMenu: TcxGridPopupMenu;
+    barPopupMenu: TdxBarPopupMenu;
       pmbtnReExam: TdxBarButton;
       pmbtnContinuteExam: TdxBarButton;
       mnbtnAbsent: TdxBarButton;
@@ -107,18 +107,14 @@ type
       btnLock: TButton;
       cxGroupBox1: TcxGroupBox;
       cxLabel11: TcxLabel;
-      edtContPwd: TcxTextEdit;
-      edtRetryPwd: TcxTextEdit;
-      cxLabel5: TcxLabel;
-      cxLabel6: TcxLabel;
-      cxLabel13: TcxLabel;
-      edtAddTimePwd: TcxTextEdit;
-    cxLabel12: TcxLabel;
-    cbbExamineePhotoFolder: TcxShellComboBox;
-    cxRadioGroup1: TcxRadioGroup;
-    dxBarButton1: TdxBarButton;
-    dxBarButton2: TdxBarButton;
-    Button1: TButton;
+      cxLabel12: TcxLabel;
+      cbbExamineePhotoFolder: TcxShellComboBox;
+      radiogrpRetryModel: TcxRadioGroup;
+      dxBarButton1: TdxBarButton;
+      dxBarButton2: TdxBarButton;
+      Button1: TButton;
+      btnResetExamPwd: TButton;
+    mnbtnNormal: TdxBarButton;
 
       procedure FormCreate(Sender: TObject);
 
@@ -144,10 +140,11 @@ type
       procedure mnbtnCribClick(Sender: TObject);
       procedure btnExamRecordClick(Sender: TObject);
       procedure frxReport1GetValue(const VarName: string; var Value: Variant);
-      procedure cxRadioGroup1PropertiesEditValueChanged(Sender: TObject);
+      procedure btnResetExamPwdClick(Sender: TObject);
+    procedure barPopupMenuPopup(Sender: TObject);
    private
-      FServerStatus: TExamServerStatus;
-      FExamServer: TExamServer;
+      FServerStatus    : TExamServerStatus;
+      FExamServer      : TExamServer;
       FExamineesManager: TExamineesManager;
       // procedure clientListOnListChanged(const aItem: TClientbak);
       procedure InitGrdClientListHeader;
@@ -177,7 +174,7 @@ type
    /// 客户计算机数
 const
    CLIENTNUM = 10;
-   TabChar = #9;
+   TabChar   = #9;
 
 var
    FormMainServer: TFormMainServer;
@@ -186,7 +183,7 @@ implementation
 
 uses
    uDmServer, frmExamineesImport, ServerGlobal, StkRecordInfo, frmEnterForBaseImport, IOUtils, DataFieldConst, ExamException,
-   Provider, DataUtils, Commons;
+   Provider, DataUtils, Commons, setexampwd;
 {$R *.dfm}
 
 procedure TFormMainServer.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -246,45 +243,45 @@ procedure TFormMainServer.InitGrdClientListHeader;
    begin
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfExamineeNo;
-         Caption := '准考证号';
+         Index                      := ColIndexOfExamineeNo;
+         Caption                    := '准考证号';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfExamineeName;
-         Caption := '姓名';
+         Index                      := ColIndexOfExamineeName;
+         Caption                    := '姓名';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfIP;
-         Caption := '客户机IP';
+         Index                      := ColIndexOfIP;
+         Caption                    := '客户机IP';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfPort;
-         Caption := '客户机端口';
+         Index                      := ColIndexOfPort;
+         Caption                    := '客户机端口';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfStatus;
-         Caption := '状态';
+         Index                      := ColIndexOfStatus;
+         Caption                    := '状态';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
-         Index := ColIndexOfRemainTime;
-         Caption := '剩余时间';
+         Index                      := ColIndexOfRemainTime;
+         Caption                    := '剩余时间';
          DataBinding.ValueTypeClass := TcxStringValueType;
-         Options.Editing := False;
+         Options.Editing            := False;
       end;
    end;
 
@@ -308,12 +305,12 @@ procedure TFormMainServer.pmbtnContinuteExamClick(Sender: TObject);
       New(Examinee);
       with Examinee^, tvExaminees.DataController do
       begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Status := esAllowContinuteExam;
+         ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
+         Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Status     := esAllowContinuteExam;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
+         IP         := Values[FocusedRecordIndex, ColIndexOfIP];
+         Port       := Values[FocusedRecordIndex, ColIndexOfPort];
       end;
       FExamineesManager.UpdateStatus(Examinee);
    end;
@@ -325,12 +322,12 @@ procedure TFormMainServer.pmbtnReExamClick(Sender: TObject);
       New(Examinee);
       with Examinee^, tvExaminees.DataController do
       begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Status := esAllowReExam;
+         ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
+         Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Status     := esAllowReExam;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
+         IP         := Values[FocusedRecordIndex, ColIndexOfIP];
+         Port       := Values[FocusedRecordIndex, ColIndexOfPort];
       end;
       FExamineesManager.UpdateStatus(Examinee);
    end;
@@ -355,6 +352,19 @@ procedure TFormMainServer.pmbtnReExamClick(Sender: TObject);
 // end;
 // end;
 
+procedure TFormMainServer.barPopupMenuPopup(Sender: TObject);
+begin
+   if TExamServerGlobal.ServerCustomConfig.LoginPermissionModel=0 then
+   begin
+      pmbtnReExam.Enabled:=false;
+      pmbtnContinuteExam.Enabled:=false;
+   end else
+       begin
+           pmbtnReExam.Enabled:=true;
+          pmbtnContinuteExam.Enabled:=true;
+       end;
+end;
+
 procedure TFormMainServer.btnConfigCancelClick(Sender: TObject);
    begin
       LoadConfigControlValue;
@@ -371,7 +381,7 @@ procedure TFormMainServer.btnEndExamClick(Sender: TObject);
    begin
       try
          FExamServer.Active := False;
-         ServerStatus := essTeminated;
+         ServerStatus       := essTeminated;
       except
          on E: Exception do
             raise;
@@ -396,6 +406,25 @@ procedure TFormMainServer.btnExitClick(Sender: TObject);
       Close;
    end;
 
+procedure TFormMainServer.btnResetExamPwdClick(Sender: TObject);
+   var
+      resetExamPwdForm: TResetExamPwdForm;
+      mr:integer;
+   begin
+      resetExamPwdForm := TResetExamPwdForm.Create(nil);
+      try
+         mr:= resetExamPwdForm.ShowModal;
+         if  mr= mrYes then
+         begin
+            TExamServerGlobal.ServerCustomConfig.RetryPwd := trim(resetExamPwdForm.edtRetryPwd.Text) ;
+            TExamServerGlobal.ServerCustomConfig.ContPwd := trim(resetExamPwdForm.edtContPwd.Text) ;
+            TExamServerGlobal.ServerCustomConfig.AddTimePwd := trim(resetExamPwdForm.edtAddTimePwd.Text) ;
+         end;
+      finally
+         resetExamPwdForm.Free;
+      end;
+   end;
+
 procedure TFormMainServer.btnSaveConfigClick(Sender: TObject);
    begin
       SaveConfig;
@@ -408,15 +437,17 @@ procedure TFormMainServer.btnSaveExamineeInfoClick(Sender: TObject);
    end;
 
 procedure TFormMainServer.btnStartClick(Sender: TObject);
+   var
+      kc: string;
    begin
       TExamServerGlobal.GlobalStkRecordInfo.SetupExamineeTestFilePacks(FExamineesManager.Count, TExamServerGlobal.ServerCustomConfig.ServerDataPath +
               '\tempdir');
       FExamServer.Active := True;
       FExamineesManager.EnableTimer(True);
       ServerStatus := essStarted;
-      // CreateExaminationRoomBakFolder(globalCustomConfig.ServerDataPath);
-      TExamServerGlobal.globaldataBakFolder := TExamServerGlobal.ServerCustomConfig.ServerDataPath;
+      TExamServerGlobal.ServerCustomConfig.CreateExaminationRoomBakFolder(TExamServerGlobal.ServerCustomConfig.ServerDataPath);
    end;
+
 
 function TFormMainServer.GetUnnormalExamineeInfoCDS(cdsSource: TClientDataSet): TClientDataSet;
    var
@@ -458,39 +489,39 @@ function TFormMainServer.GetUnnormalExamineeInfoCDS(cdsSource: TClientDataSet): 
          end;
 
    begin
-      cdsSource.Filter := 'status<>40';
+      cdsSource.Filter   := 'status<>40';
       cdsSource.Filtered := True;
 
       Result := TClientDataSet.Create(nil);
       Result.FieldDefs.Clear;
       with Result.FieldDefs.AddFieldDef do
       begin
-         Name := 'ExamineeID';
-         Size := 24;
+         Name     := 'ExamineeID';
+         Size     := 24;
          DataType := ftString;
       end;
       with Result.FieldDefs.AddFieldDef do
       begin
-         Name := 'ExamineeName';
-         Size := 20;
+         Name     := 'ExamineeName';
+         Size     := 20;
          DataType := ftString;
       end;
       with Result.FieldDefs.AddFieldDef do
       begin
-         Name := 'Status';
-         Size := 20;
+         Name     := 'Status';
+         Size     := 20;
          DataType := ftString;
       end;
       with Result.FieldDefs.AddFieldDef do
       begin
-         Name := 'RemainTime';
-         Size := 20;
+         Name     := 'RemainTime';
+         Size     := 20;
          DataType := ftString;
       end;
       with Result.FieldDefs.AddFieldDef do
       begin
-         Name := 'stamp';
-         Size := 20;
+         Name     := 'stamp';
+         Size     := 20;
          DataType := ftString;
       end;
       Result.IndexFieldNames := 'examineeID';
@@ -517,33 +548,11 @@ function TFormMainServer.GetUnnormalExamineeInfoCDS(cdsSource: TClientDataSet): 
       end;
    end;
 
-
-
-procedure TFormMainServer.cxRadioGroup1PropertiesEditValueChanged(Sender: TObject);
-   begin
-      with (Sender as TcxRadioGroup) do
-      begin
-         if EditValue = 1 then
-         begin
-            edtContPwd.Enabled := False;
-            edtAddTimePwd.Enabled := False;
-            edtRetryPwd.Enabled := False;
-         end
-         else
-         begin
-            edtContPwd.Enabled := True;
-            edtAddTimePwd.Enabled := True;
-            edtRetryPwd.Enabled := True;
-         end;
-      end;
-
-   end;
-
 procedure TFormMainServer.RefreshData;
    var
-      myList: TList;
+      myList  : TList;
       Examinee: TExaminee;
-      i: integer;
+      i       : integer;
    begin
       with tvExaminees.DataController do
       begin
@@ -551,15 +560,15 @@ procedure TFormMainServer.RefreshData;
          BeginUpdate;
          try
             RecordCount := myList.Count;
-            for i := 0 to myList.Count - 1 do
+            for i       := 0 to myList.Count - 1 do
             begin
-               Examinee := TExaminee(myList[i]^);
-               Values[i, ColIndexOfExamineeNo] := Examinee.ID;
+               Examinee                          := TExaminee(myList[i]^);
+               Values[i, ColIndexOfExamineeNo]   := Examinee.ID;
                Values[i, ColIndexOfExamineeName] := Examinee.Name;
-               Values[i, ColIndexOfIP] := Examinee.IP;
-               Values[i, ColIndexOfPort] := inttostr(Examinee.Port);
-               Values[i, ColIndexOfRemainTime] := inttostr(Examinee.RemainTime);
-               Values[i, ColIndexOfStatus] := GetStatusDisplayValue(Examinee.Status)
+               Values[i, ColIndexOfIP]           := Examinee.IP;
+               Values[i, ColIndexOfPort]         := inttostr(Examinee.Port);
+               Values[i, ColIndexOfRemainTime]   := inttostr(Examinee.RemainTime);
+               Values[i, ColIndexOfStatus]       := GetStatusDisplayValue(Examinee.Status)
             end;
          finally
             FExamineesManager.ExamineesList.unlocklist;
@@ -570,14 +579,14 @@ procedure TFormMainServer.RefreshData;
 
 procedure TFormMainServer.LoadConfigControlValue;
    begin
-      //spndtStatusRefreshInterval.Value := TExamServerGlobal.ServerCustomConfig.StatusRefreshInterval;
+      // spndtStatusRefreshInterval.Value := TExamServerGlobal.ServerCustomConfig.StatusRefreshInterval;
       txtClientFolder.Text := TExamServerGlobal.ServerCustomConfig.ExamPath;
-//      txtSchoolCode.Text := TExamServerGlobal.ServerCustomConfig.SchoolCode;
+      // txtSchoolCode.Text := TExamServerGlobal.ServerCustomConfig.SchoolCode;
       cbbDataFolder.Text := TExamServerGlobal.ServerCustomConfig.ServerDataPath;
-      cbbExamBakFolder.Text := TExamServerGlobal.ServerCustomConfig.DataBakFolder;
-      cbbExamineePhotoFolder.Text := TExamServerGlobal.ServerCustomConfig.PhotoFolder;
+      // cbbExamBakFolder.Text := TExamServerGlobal.ServerCustomConfig.DataBakFolder;
+      // cbbExamineePhotoFolder.Text := TExamServerGlobal.ServerCustomConfig.PhotoFolder;
 
-      scbTotalDir.Text := 'D:\yjksmtxt\debug\test\totals';
+      //
    end;
 
 procedure TFormMainServer.mnbtnAbsentClick(Sender: TObject);
@@ -587,12 +596,12 @@ procedure TFormMainServer.mnbtnAbsentClick(Sender: TObject);
       New(Examinee);
       with Examinee^, tvExaminees.DataController do
       begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Status := esAbsent;
+         ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
+         Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Status     := esAbsent;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
+         IP         := Values[FocusedRecordIndex, ColIndexOfIP];
+         Port       := Values[FocusedRecordIndex, ColIndexOfPort];
       end;
       FExamineesManager.UpdateStatus(Examinee);
    end;
@@ -609,38 +618,45 @@ procedure TFormMainServer.mnbtnCribClick(Sender: TObject);
       New(Examinee);
       with Examinee^, tvExaminees.DataController do
       begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Status := esCrib;
+         ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
+         Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Status     := esCrib;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
+         IP         := Values[FocusedRecordIndex, ColIndexOfIP];
+         Port       := Values[FocusedRecordIndex, ColIndexOfPort];
       end;
       FExamineesManager.UpdateStatus(Examinee);
    end;
 
 procedure TFormMainServer.SetConfigControlStatus(const AModified: Boolean);
    begin
-      //spndtStatusRefreshInterval.Enabled := AModified;
+      // spndtStatusRefreshInterval.Enabled := AModified;
       txtClientFolder.Enabled := AModified;
-//      txtSchoolCode.Enabled := AModified;
-      cbbDataFolder.Enabled := AModified;
-      cbbExamBakFolder.Enabled := AModified;
+      // txtSchoolCode.Enabled := AModified;
+      cbbDataFolder.Enabled          := AModified;
+      cbbExamBakFolder.Enabled       := AModified;
       cbbExamineePhotoFolder.Enabled := AModified;
 
-      btnConfigEdit.Enabled := not AModified;
+      btnConfigEdit.Enabled   := not AModified;
       btnConfigCancel.Enabled := AModified;
-      btnSaveConfig.Enabled := AModified;
-      //     //spndtStatusRefreshInterval.Enabled := AModified;
-//      txtClientFolder.Properties.ReadOnly:=not  AModified;
-////      txtSchoolCode.Properties.ReadOnly:=not  AModified;
-//      cbbDataFolder.Properties.ReadOnly:=not  AModified;
-//      cbbExamBakFolder.Properties.ReadOnly:=not  AModified;
-//      cbbExamineePhotoFolder.Properties.ReadOnly:=not  AModified;
-//
-//      btnConfigEdit.Enabled := not AModified;
-//      btnConfigCancel.Enabled := AModified;
-//      btnSaveConfig.Enabled := AModified;
+      btnSaveConfig.Enabled   := AModified;
+
+      radiogrpRetryModel.Enabled:=AModified;
+
+      if AModified and (radiogrpRetryModel.ItemIndex=0) then
+        btnResetExamPwd.Enabled:=AModified
+      else
+         btnResetExamPwd.Enabled:=false;
+      // //spndtStatusRefreshInterval.Enabled := AModified;
+      // txtClientFolder.Properties.ReadOnly:=not  AModified;
+      /// /      txtSchoolCode.Properties.ReadOnly:=not  AModified;
+      // cbbDataFolder.Properties.ReadOnly:=not  AModified;
+      // cbbExamBakFolder.Properties.ReadOnly:=not  AModified;
+      // cbbExamineePhotoFolder.Properties.ReadOnly:=not  AModified;
+      //
+      // btnConfigEdit.Enabled := not AModified;
+      // btnConfigCancel.Enabled := AModified;
+      // btnSaveConfig.Enabled := AModified;
    end;
 
 // ==============================================================================
@@ -650,12 +666,12 @@ procedure TFormMainServer.SetExamBaseInfo;
    begin
       with TExamServerGlobal.GlobalStkRecordInfo.BaseConfig do
       begin
-         edtName.Text := ExamName;
-         edtType.Text := ExamClasify;
-         edtDuration.Text := DateToStr(LastDate);
-         edtScoreDisp.Text := ScoreDisplayMode;
-         edtExamTime.Text := inttostr(ExamTime);
-         edtTypeTime.Text := inttostr(TypeTime);
+         edtName.Text          := ExamName;
+         edtType.Text          := ExamClasify;
+         edtDuration.Text      := DateToStr(LastDate);
+         edtScoreDisp.Text     := ScoreDisplayMode;
+         edtExamTime.Text      := inttostr(ExamTime);
+         edtTypeTime.Text      := inttostr(TypeTime);
          edtStkDbFilePath.Text := TExamServerGlobal.GlobalDmServer.StkDbFilePath;
       end;
    end;
@@ -663,46 +679,47 @@ procedure TFormMainServer.SetExamBaseInfo;
 procedure TFormMainServer.SaveConfig;
    var
       filename: string;
+      error   : bool;
    begin
-      filename := ExtractFilePath(Application.ExeName);
+         filename := ExtractFilePath(Application.ExeName);
       with TExamServerGlobal.ServerCustomConfig do
       begin
-         //StatusRefreshInterval := strtoint(spndtStatusRefreshInterval.Text);
-//         SchoolCode := txtSchoolCode.Text;
-         ExamPath := txtClientFolder.Text;
+         ExamPath       := txtClientFolder.Text;
          ServerDataPath := cbbDataFolder.Text;
-         DataBakFolder := cbbExamBakFolder.Text;
-         PhotoFolder:=cbbExamineePhotoFolder.text;
+         // StatusRefreshInterval := strtoint(spndtStatusRefreshInterval.Text);
+         // SchoolCode := txtSchoolCode.Text;
+         // DataBakFolder := cbbExamBakFolder.Text;
+         // PhotoFolder:=cbbExamineePhotoFolder.text;
       end;
       TExamServerGlobal.ServerCustomConfig.SaveCustomConfig(filename);
       TExamServerGlobal.GlobalStkRecordInfo.BaseConfig.ModifyCustomConfig(TExamServerGlobal.ServerCustomConfig.StatusRefreshInterval,
-              TExamServerGlobal.ServerCustomConfig.ExamPath);
+              TExamServerGlobal.ServerCustomConfig.ExamPath,texamServerGlobal.ServerCustomConfig.LoginPermissionModel);
       ServerStatus := essReady;
    end;
 
 procedure TFormMainServer.SetFormControlStatus(const AStatus: TExamServerStatus);
       procedure SetReady;
          begin
-            btnExit.Enabled := True;
-            btnExamineeSelect.Enabled := True;
-            btnStart.Enabled := False;
-            btnEndExam.Enabled := False;
+            btnExit.Enabled             := True;
+            btnExamineeSelect.Enabled   := True;
+            btnStart.Enabled            := False;
+            btnEndExam.Enabled          := False;
             btnSaveExamineeInfo.Enabled := False;
 
             SetConfigControlStatus(False);
          end;
       procedure SetExamining;
          begin
-            btnExit.Enabled := False;
-            btnStart.Enabled := False;
-            btnExamineeSelect.Enabled := False;
-            btnEndExam.Enabled := False;
+            btnExit.Enabled             := False;
+            btnStart.Enabled            := False;
+            btnExamineeSelect.Enabled   := False;
+            btnEndExam.Enabled          := False;
             btnSaveExamineeInfo.Enabled := False;
-            btnConfigEdit.Enabled := False;
+            btnConfigEdit.Enabled       := False;
             case ServerStatus of
                essExamineeSelected:
                   begin
-                     btnStart.Enabled := True;
+                     btnStart.Enabled          := True;
                      btnExamineeSelect.Enabled := True;
                   end;
                essStarted:
@@ -915,22 +932,20 @@ procedure TFormMainServer.CLMChanged(var message: TCLMChange);
 
             // Cells[ColIndexOfExamineeNo,index]:=Item.ExamineeNo;
             // Cells[ColIndexOfExamineeName,index]:=Item.ExamineeName;
-            Values[index, ColIndexOfIP] := Item.IP;
-            Values[index, ColIndexOfPort] := inttostr(Item.Port);
+            Values[index, ColIndexOfIP]         := Item.IP;
+            Values[index, ColIndexOfPort]       := inttostr(Item.Port);
             Values[index, ColIndexOfRemainTime] := inttostr(Item.RemainTime);
-            Values[index, ColIndexOfStatus] := GetStatusDisplayValue(Item.Status);
+            Values[index, ColIndexOfStatus]     := GetStatusDisplayValue(Item.Status);
          end;
       end;
       // don't dispose examinee ,because the item is managed by examineemanager,it is not be deleted ,moved
       Dispose(message.Item);
    end;
 
-
-
 procedure TFormMainServer.HandleException(Sender: TObject; E: Exception);
    begin
       TExamServerGlobal.logger.WriteLog(E.message);
-      Application.ShowException(e);
+      Application.ShowException(E);
    end;
 
 end.

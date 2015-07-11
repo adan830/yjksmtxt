@@ -21804,8 +21804,8 @@ object ClientMainForm: TClientMainForm
       Height = 116
     end
     object btnComplete: TCnSpeedButton
-      Left = 13
-      Top = 400
+      Left = 7
+      Top = 391
       Width = 170
       Height = 30
       Anchors = []
@@ -21824,6 +21824,8 @@ object ClientMainForm: TClientMainForm
       Margin = 4
       ParentFont = False
       OnClick = btnCompleteClick
+      ExplicitLeft = 13
+      ExplicitTop = 400
     end
     object btn1: TButton
       Left = 94

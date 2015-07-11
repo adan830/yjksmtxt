@@ -400,13 +400,14 @@ procedure TClientMainForm.FormCreate(Sender: TObject);
   begin
     FDz                                     := false;
     closenum                                := 0;
-    TExamClientGlobal.ExamTCPClient.OnTimer := OnTimer;
-    if FileExists(TExamClientGlobal.ExamPath+'\'+TExamClientGlobal.Examinee.ID+'.jpg') then
-    imgExaminee.Picture.LoadFromFile(TExamClientGlobal.ExamPath+'\'+TExamClientGlobal.Examinee.ID+'.jpg')
-    else
-    begin
-      imgExaminee.Picture.LoadFromFile(TExamClientGlobal.ExamPath+'\photo.jpg')
-    end;
+
+//    TExamClientGlobal.ExamTCPClient.OnTimer := OnTimer;
+//    if FileExists(TExamClientGlobal.ExamPath+'\'+TExamClientGlobal.Examinee.ID+'.jpg') then
+//    imgExaminee.Picture.LoadFromFile(TExamClientGlobal.ExamPath+'\'+TExamClientGlobal.Examinee.ID+'.jpg')
+//    else
+//    begin
+//      imgExaminee.Picture.LoadFromFile(TExamClientGlobal.ExamPath+'\photo.jpg')
+//    end;
 
     txtExamineeName.Caption                 := '考生姓名:' + TExamClientGlobal.Examinee.Name;
     txtExamineeSex.Caption                  := '性    别:';

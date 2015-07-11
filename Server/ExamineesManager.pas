@@ -327,8 +327,8 @@ begin
             begin
               //Examinee:=TExaminee(pListItem^);
               //if Examinee.Status in [esLogined,esReExamLogined, esContinueExamLogined,esGetTestPaper,esExamining,esGrading,esSutmitAchievement] then    begin
-              if (Port>0)and(Status >=esLogined)and (Status <esExamEnded)  then begin
-                 escapeTime:= System.Trunc(frac(Now - TimeStamp)*SecsPerDay);
+              if (Port>0)and(Status >esLogined)and (Status <esExamEnded)  then begin
+                 escapeTime:= System.Trunc(frac(Now - TimeStamp)*SecsPerDay);  {TODO -ojp -cMust : 时间需要修改为刷新间隔}
                  if escapeTime>6 then begin
                     Status := esDisConnect;
                     New(PMessageExaminee);

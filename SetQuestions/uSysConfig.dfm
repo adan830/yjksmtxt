@@ -190,14 +190,14 @@ inherited frmSysConfig: TfrmSysConfig
   end
   object edtExamPath: TcxTextEdit [13]
     Left = 110
-    Top = 167
+    Top = 159
     Style.StyleController = styleControllerEdit
     TabOrder = 13
     Width = 355
   end
   object cxLabel6: TcxLabel [14]
     Left = 40
-    Top = 167
+    Top = 159
     Caption = #32771#29983#36335#24452#65306
   end
   object cxgrpbxModules: TcxGroupBox [15]
@@ -221,10 +221,10 @@ inherited frmSysConfig: TfrmSysConfig
   end
   object cxgrpbxStrategy: TcxGroupBox [16]
     Left = 8
-    Top = 194
+    Top = 232
     Caption = #36873#39064#31574#30053#65306
     TabOrder = 16
-    Height = 264
+    Height = 226
     Width = 691
     object cxmStrategy: TcxMemo
       Left = 2
@@ -234,8 +234,8 @@ inherited frmSysConfig: TfrmSysConfig
         'cxmStrategy')
       Style.StyleController = styleControllerEdit
       TabOrder = 0
-      ExplicitHeight = 206
-      Height = 244
+      ExplicitHeight = 220
+      Height = 206
       Width = 687
     end
   end
@@ -251,7 +251,46 @@ inherited frmSysConfig: TfrmSysConfig
     TabOrder = 18
     Width = 121
   end
-  object setSysConfig: TADODataSet [19]
+  object cxLabel9: TcxLabel [19]
+    Left = 451
+    Top = 196
+    AutoSize = False
+    Caption = #37325#12289#32493#12289#24310#32771#23494#30721#65306
+    Height = 17
+    Width = 135
+  end
+  object edtPwd: TcxTextEdit [20]
+    Left = 587
+    Top = 194
+    Style.StyleController = styleControllerEdit
+    TabOrder = 20
+    Width = 106
+  end
+  object radiogrpRetryModel: TcxRadioGroup [21]
+    Left = 116
+    Top = 180
+    Properties.Columns = 2
+    Properties.DefaultValue = 0
+    Properties.Items = <
+      item
+        Caption = #32771#29983#26426#36890#36807#23494#30721#25805#20316
+        Value = 0
+      end
+      item
+        Caption = #26381#21153#22120#31471#25805#20316
+        Value = 1
+      end>
+    ItemIndex = 0
+    TabOrder = 21
+    Height = 42
+    Width = 329
+  end
+  object cxLabel11: TcxLabel [22]
+    Left = 21
+    Top = 195
+    Caption = #30331#24405#35768#21487#27169#24335#65306
+  end
+  object setSysConfig: TADODataSet [23]
     Connection = dmSetQuestion.stkConn
     CommandText = 'select * from sysconfig'
     Parameters = <>

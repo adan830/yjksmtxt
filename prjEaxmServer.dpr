@@ -13,7 +13,8 @@ uses
   frmExamineesImport in 'Server\frmExamineesImport.pas' {ExamineesImport},
   ServerGlobal in 'Server\ServerGlobal.pas',
   frmEnterForBaseImport in 'Server\frmEnterForBaseImport.pas' {EnterForBaseImport},
-  uTotalScoreForm in 'Server\uTotalScoreForm.pas' {TotalScoreForm};
+  uTotalScoreForm in 'Server\uTotalScoreForm.pas' {TotalScoreForm},
+  SetExamPwd in 'Server\SetExamPwd.pas' {ResetExamPwdForm};
 
 {$R *.res}
 
@@ -28,6 +29,5 @@ begin
   Application.MainFormOnTaskbar := True;
   //Application.CreateForm(TdmServer, GlobalDmServer);
   Application.CreateForm(TFormMainServer, FormMainServer);
-  Application.CreateForm(TTotalScoreForm, TotalScoreForm);
   Application.Run;
 end.

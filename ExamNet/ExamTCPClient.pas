@@ -9,42 +9,42 @@ type
    /// implement the encapsulaton of TIDTcpClient, so  we can test convenient and separate the GUI and business logic.
    TExamTCPClient = class(TIdTCPClient, IExamTcpClient)
    private
-      FTimer: TTimer;
-      FCommandProcessing: Boolean;
-      FOnTimer: TNotifyEvent;
-      procedure SetOnTimer(const Value: TNotifyEvent);
-      function GetServerIPPortConfig(filename: string): Boolean;
-
+      FTimer             : TTimer;
+      FCommandProcessing : Boolean;
+      FOnTimer           : TNotifyEvent;
+      procedure SetOnTimer(const Value : TNotifyEvent);
+      function GetServerIPPortConfig(filename : string) : Boolean;
 
    public
       // constructor Create(AHost:string;APort:integer);  reintroduce;overload;
       constructor Create(); reintroduce;
       destructor Destroy(); override;
-      procedure TimerTimer(Sender: TObject);
-      procedure OnConnected(Sender: TObject);
-      procedure OnDisConnected(Sender: TObject);
-      function CommandGetExamineeInfo(AExamineeID: string; var AExaminee: TExaminee): TCommandResult;
-      function CommandGetExamineePhoto(AExamineeID: string; out AStream: TMemoryStream): TCommandResult;
-      function CommandSendExamineeStatus(AExamineeID, AExamineeName: string; AStauts: TExamineeStatus; ARemainTime: Integer): TCommandResult;
+      procedure TimerTimer(Sender : TObject);
+      procedure OnConnected(Sender : TObject);
+      procedure OnDisConnected(Sender : TObject);
+      function CommandGetExamineeInfo(AExamineeID : string; var AExaminee : TExaminee) : TCommandResult;
+      function CommandGetExamineePhoto(AExamineeID : string; out AStream : TMemoryStream) : TCommandResult;
+      function CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
 
-      function CommandGetBaseConfig(out ABaseConfig: TBaseConfig): TCommandResult;
-      function CommandGetEQInfo(out AEQInfoList: TStringList): TCommandResult;
-      function CommandGetEQFile(AFileID: string; out AStream: TMemoryStream): TCommandResult;
-      function CommandGetEQRecord(ANo: string; out ARecordPacket: TClientEQRecordPacket): TCommandResult;
-      function CommandExamineeLogin(var AExaminee: TExaminee; AFlag: TLoginType; ALoginPwd: string = NULLSTR): TCommandResult;
+      function CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TCommandResult;
+      function CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
+      function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
+      function CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
+      function CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string = NULLSTR) : TCommandResult;
 
-      function CommandSendScoreInfo(AExaminee: TExaminee; AScore: TScoreIni): TCommandResult;
-      function CommandSendExamineeZipFile(AExamineeID: string; AZipStream: TMemoryStream): TCommandResult;
+      function CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
+      function CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
       // function CommandGetExamineeZipFile(AExamineeID: string; out AZipStream: TMemoryStream): TCommandResult;
-      function CommandGetExamineeTestFilePack(AExamineeID: string; ALoginType: TLoginType; AStream: TMemoryStream): TCommandResult;
-      function SendCmd(AOut: string; const AResponse: SmallInt = -1): SmallInt; overload;
+      function CommandGetExamineeTestFilePack(AExamineeID : string; ALoginType : TLoginType; AStream : TMemoryStream) : TCommandResult;
+      function SendCmd(AOut : string; const AResponse : SmallInt = -1) : SmallInt; overload;
+
    public
-      property OnTimer: TNotifyEvent read FOnTimer write SetOnTimer;
+      property OnTimer : TNotifyEvent read FOnTimer write SetOnTimer;
    end;
 
 implementation
 
-uses Windows, IdStack, Forms, IdException, compress, IdGlobal;
+uses Windows, IdStack, Forms, IdException, compress, IdGlobal, cndebug;
 
 { TTcpClient }
 // constructor TExamTCPClient.Create(AHost: string; APort: integer);
@@ -52,7 +52,10 @@ constructor TExamTCPClient.Create();
    begin
       inherited Create();
       if not GetServerIPPortConfig('examconfig.ini') then
+      begin
          raise Exception.Create('读配置文件examconfig.ini出错！请检查文件');
+      end;
+
       // because follow reason ,we don't compelling client port
       // http://groups.google.com/group/borland.public.delphi.internet.winsock/browse_thread/thread/26200060a26213d6/2303afa1932de55c?q=boundport&lnk=nl&
       // The only way to release the IP/Port faster is to use setsockopt() to enable
@@ -74,11 +77,12 @@ constructor TExamTCPClient.Create();
 
       // Host:=aHost;
       // Port:=APort;
-      FTimer := TTimer.Create(nil);
-      FTimer.Enabled := False;
+      FTimer          := TTimer.Create(nil);
+      FTimer.Enabled  := False;
       FTimer.Interval := 3000;
-      FTimer.OnTimer := TimerTimer;
-      FOnConnected := OnConnected;
+      FTimer.OnTimer  := TimerTimer;
+
+      FOnConnected    := OnConnected;
       FOnDisconnected := OnDisConnected;
 
    end;
@@ -89,13 +93,13 @@ destructor TExamTCPClient.Destroy;
       inherited;
    end;
 
-function TExamTCPClient.GetServerIPPortConfig(filename: string): Boolean;
+function TExamTCPClient.GetServerIPPortConfig(filename : string) : Boolean;
    var
-      cfg: TStringList;
-      index: Integer;
-      ahost: string;
-      aPort: word;
-  MyClass: TComponent;
+      cfg     : TStringList;
+      index   : Integer;
+      ahost   : string;
+      aPort   : word;
+      MyClass : TComponent;
    begin
       Result := False;
       if FileExists('examconfig.ini') then
@@ -106,39 +110,39 @@ function TExamTCPClient.GetServerIPPortConfig(filename: string): Boolean;
             ahost := cfg.Values['serverip'];
             if not word.tryparse(cfg.Values['serverport'], aPort) then
                exit;
-            Host := ahost;
-            port := aPort;
+            Host   := ahost;
+            port   := aPort;
             Result := true;
             // if trim(aip)=string.Empty then errorMessage:='配置文件中ServerIP不能为空；';
             // if (not integer.tryparse( cfg.values['serverport'], portvalue)) then errorMessage:=errorMessage+'配置文件中ServerPort项值应为整数，默认应为3000;';
          finally
-            cfg.Free;
+            cfg.free;
          end;
       end;
    end;
 
-procedure TExamTCPClient.OnConnected(Sender: TObject);
+procedure TExamTCPClient.OnConnected(Sender : TObject);
    begin
       IOHandler.DefStringEncoding := IndyTextEncoding_UTF8(); // TIdTextEncoding.UTF8 ;
-      FTimer.Enabled := true;
+      FTimer.Enabled              := true;
    end;
 
-procedure TExamTCPClient.OnDisConnected(Sender: TObject);
+procedure TExamTCPClient.OnDisConnected(Sender : TObject);
    begin
       FTimer.Enabled := False;
    end;
 
-function TExamTCPClient.SendCmd(AOut: string; const AResponse: SmallInt = -1): SmallInt;
+function TExamTCPClient.SendCmd(AOut : string; const AResponse : SmallInt = -1) : SmallInt;
    begin
       Result := SendCmd(AOut, AResponse, IndyTextEncoding_UTF8()); // TIdTextEncoding.UTF8);
    end;
 
-procedure TExamTCPClient.SetOnTimer(const Value: TNotifyEvent);
+procedure TExamTCPClient.SetOnTimer(const Value : TNotifyEvent);
    begin
       FOnTimer := Value;
    end;
 
-procedure TExamTCPClient.TimerTimer(Sender: TObject);
+procedure TExamTCPClient.TimerTimer(Sender : TObject);
    begin
       { TODO -ojp -c0 : test if overflow ,test if correct }
       // if (GlobalExaminee.RemainTime div GlobalSysConfig.StatusRefreshInterval)=(GlobalExaminee.RemainTime / GlobalSysConfig.StatusRefreshInterval) then
@@ -170,13 +174,13 @@ procedure TExamTCPClient.TimerTimer(Sender: TObject);
 // end;
 // end;
 
-function TExamTCPClient.CommandGetExamineeInfo(AExamineeID: string; var AExaminee: TExaminee): TCommandResult;
+function TExamTCPClient.CommandGetExamineeInfo(AExamineeID : string; var AExaminee : TExaminee) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
-            SendCmd(CMD_GETEXAMINEEINFO + ' ' + AExamineeID, 600);
+            SendCmd(CMD_GETEXAMINEEINFO + ' ' + AExamineeID, [600, 700]);
             if LastCmdResult.Code = CMDCONSTCORRECTREPLYCODE then
             begin
                ConvertStringsToExaminee(LastCmdResult.Text, AExaminee);
@@ -187,7 +191,7 @@ function TExamTCPClient.CommandGetExamineeInfo(AExamineeID: string; var AExamine
                Result := crError;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -199,9 +203,10 @@ function TExamTCPClient.CommandGetExamineeInfo(AExamineeID: string; var AExamine
          FCommandProcessing := False;
       end;
    end;
-function TExamTCPClient.CommandGetExamineePhoto(AExamineeID: string; out AStream: TMemoryStream): TCommandResult;
-    begin
-      Result := crError;
+
+function TExamTCPClient.CommandGetExamineePhoto(AExamineeID : string; out AStream : TMemoryStream) : TCommandResult;
+   begin
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -213,7 +218,7 @@ function TExamTCPClient.CommandGetExamineePhoto(AExamineeID: string; out AStream
                Result := crOk;
             end
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -226,9 +231,9 @@ function TExamTCPClient.CommandGetExamineePhoto(AExamineeID: string; out AStream
       end;
    end;
 
-function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig: TBaseConfig): TCommandResult;
+function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -245,7 +250,7 @@ function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig: TBaseConfig): TCom
                Result := crError;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -258,9 +263,9 @@ function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig: TBaseConfig): TCom
       end;
    end;
 
-function TExamTCPClient.CommandExamineeLogin(var AExaminee: TExaminee; AFlag: TLoginType; ALoginPwd: string): TCommandResult;
+function TExamTCPClient.CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -271,7 +276,7 @@ function TExamTCPClient.CommandExamineeLogin(var AExaminee: TExaminee; AFlag: TL
                Result := crOk;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -284,9 +289,9 @@ function TExamTCPClient.CommandExamineeLogin(var AExaminee: TExaminee; AFlag: TL
       end;
    end;
 
-function TExamTCPClient.CommandGetEQInfo(out AEQInfoList: TStringList): TCommandResult;
+function TExamTCPClient.CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -298,7 +303,7 @@ function TExamTCPClient.CommandGetEQInfo(out AEQInfoList: TStringList): TCommand
                Result := crOk;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -311,9 +316,9 @@ function TExamTCPClient.CommandGetEQInfo(out AEQInfoList: TStringList): TCommand
       end;
    end;
 
-function TExamTCPClient.CommandGetEQRecord(ANo: string; out ARecordPacket: TClientEQRecordPacket): TCommandResult;
+function TExamTCPClient.CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -330,7 +335,7 @@ function TExamTCPClient.CommandGetEQRecord(ANo: string; out ARecordPacket: TClie
             end;
             Result := crOk;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -343,9 +348,9 @@ function TExamTCPClient.CommandGetEQRecord(ANo: string; out ARecordPacket: TClie
       end;
    end;
 
-function TExamTCPClient.CommandGetEQFile(AFileID: string; out AStream: TMemoryStream): TCommandResult;
+function TExamTCPClient.CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
 
@@ -358,7 +363,7 @@ function TExamTCPClient.CommandGetEQFile(AFileID: string; out AStream: TMemorySt
                Result := crOk;
             end
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -371,9 +376,9 @@ function TExamTCPClient.CommandGetEQFile(AFileID: string; out AStream: TMemorySt
       end;
    end;
 
-function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID: string; ALoginType: TLoginType; AStream: TMemoryStream): TCommandResult;
+function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID : string; ALoginType : TLoginType; AStream : TMemoryStream) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -385,7 +390,7 @@ function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID: string; ALog
                Result := crOk;
             end
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -421,16 +426,28 @@ function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID: string; ALog
 // //ASender.Disconnect := True;
 // end;
 
-function TExamTCPClient.CommandSendExamineeStatus(AExamineeID, AExamineeName: string; AStauts: TExamineeStatus; ARemainTime: Integer): TCommandResult;
+function TExamTCPClient.CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
+   var
+      socketException : EIdSocketError;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
+
             IOHandler.WriteLn(Format('%s %s %s %d %d', [CMD_SENDEXAMINEESTATUS, AExamineeID, AExamineeName, Ord(AStauts), ARemainTime]));
          except
-            on E: Exception do
+            on E : Exception do
+            begin
+               socketException := E as EIdSocketError;
+               { TODO -c必需 : 这里需要处理10053等异常 }
+               // self.IOHandler.InputBuffer.Clear;
+               self.IOHandler.Close;
+               self.IOHandler.Open;
+               // self.Disconnect;
+               // self.Connect;
                // OutputDebugString('Sendclientstate command end with error');
+            end;
          end;
       finally
          FCommandProcessing := False;
@@ -472,13 +489,13 @@ function TExamTCPClient.CommandSendExamineeStatus(AExamineeID, AExamineeName: st
 // end;
 // end;
 
-function TExamTCPClient.CommandSendScoreInfo(AExaminee: TExaminee; AScore: TScoreIni): TCommandResult;
+function TExamTCPClient.CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
    var
-      ScoreStream: TMemoryStream;
+      ScoreStream : TMemoryStream;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
-      ScoreStream := TMemoryStream.Create;
+      ScoreStream        := TMemoryStream.Create;
       try
          try
             AScore.SaveToStream(ScoreStream);
@@ -492,7 +509,7 @@ function TExamTCPClient.CommandSendScoreInfo(AExaminee: TExaminee; AScore: TScor
                   Result := crOk;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully
@@ -506,9 +523,9 @@ function TExamTCPClient.CommandSendScoreInfo(AExaminee: TExaminee; AScore: TScor
       end;
    end;
 
-function TExamTCPClient.CommandSendExamineeZipFile(AExamineeID: string; AZipStream: TMemoryStream): TCommandResult;
+function TExamTCPClient.CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
    begin
-      Result := crError;
+      Result             := crError;
       FCommandProcessing := true;
       try
          try
@@ -520,7 +537,7 @@ function TExamTCPClient.CommandSendExamineeZipFile(AExamineeID: string; AZipStre
                Result := crOk;
             end
          except
-            on E: Exception do
+            on E : Exception do
             begin
                if E is EIdConnClosedGracefully then
                   Result := crConnClosedGracefully

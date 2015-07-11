@@ -143,14 +143,20 @@
             <Platforms>
                 <Platform value="Win32">True</Platform>
             </Platforms>
-            <Deployment Version="1">
+            <Deployment Version="2">
                 <DeployFile LocalName="debug\bin\prjExamClient.rsm" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win32">
                         <RemoteName>prjExamClient.rsm</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Client\ClientMain.PAS" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="debug\bin\prjExamClient.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>prjExamClient.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="prjExamClient.todo" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
@@ -162,9 +168,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="debug\bin\prjExamClient.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Client\ClientMain.PAS" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>prjExamClient.exe</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -544,13 +550,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -561,9 +567,6 @@
         </DelphiCompile>
         <DCCReference Include="ExamNet\ExamTCPClient.pas"/>
         <DCCReference Include="Client\ExamClientGlobal.pas"/>
-        <DCCReference Include="Client\ExamTypeFrm.pas">
-            <Form>ExamTypeForm</Form>
-        </DCCReference>
         <DCCReference Include="Client\ClientMain.PAS">
             <Form>ClientMainForm</Form>
         </DCCReference>
@@ -623,10 +626,20 @@
             <Form>FormOperate</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Client\ExamTypeFrm.pas">
+            <Form>ExamTypeForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Client\uFrameCover.pas">
+            <Form>FrameCover</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <RcItem Include="Client\skins\Exam_top.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>Exam_top</ResourceId>
         </RcItem>
+        <None Include="prjExamClient.todo"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_3</Key>
             <CfgParent>Base</CfgParent>

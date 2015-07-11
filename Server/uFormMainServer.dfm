@@ -299,7 +299,7 @@ object FormMainServer: TFormMainServer
       OnShow = tbshtConfigShow
       object grpbx1: TcxGroupBox
         Left = 24
-        Top = 175
+        Top = 111
         Caption = #32771#29983#31471
         TabOrder = 0
         Height = 58
@@ -329,12 +329,12 @@ object FormMainServer: TFormMainServer
           Visible = False
         end
         object lbl2: TcxLabel
-          Left = 16
+          Left = 28
           Top = 24
-          Caption = #32771#29983#25805#20316#20301#32622#65306
+          Caption = #23458#25143#26426#32771#29983#25991#20214#22841#65306
         end
         object txtClientFolder: TcxMaskEdit
-          Left = 110
+          Left = 146
           Top = 25
           Hint = #25351#23450#35813#30446#24405#26159#25351#26126#23398#29983#26426#19978#32771#29983#32771#35797#25991#20214#22841#30340#20301#32622#12290
           Properties.OnChange = ConfigChange
@@ -349,15 +349,15 @@ object FormMainServer: TFormMainServer
         Top = 24
         Caption = #26381#21153#22120#31471
         TabOrder = 1
-        Height = 137
+        Height = 65
         Width = 585
         object lbl1: TcxLabel
           Left = 16
           Top = 28
-          Caption = #32771#22330#25968#25454#23384#25918#36335#24452#65306
+          Caption = #26381#21153#22120#25968#25454#23384#25918#36335#24452#65306
         end
         object cbbDataFolder: TcxShellComboBox
-          Left = 134
+          Left = 146
           Top = 27
           ParentShowHint = False
           Properties.ShowFullPath = sfpAlways
@@ -386,40 +386,44 @@ object FormMainServer: TFormMainServer
           Width = 187
         end
         object cxLabel9: TcxLabel
-          Left = 16
-          Top = 66
+          Left = 281
+          Top = 7
           Caption = #32771#29983#25968#25454#22791#20221#36335#24452#65306
+          Visible = False
         end
         object cbbExamBakFolder: TcxShellComboBox
-          Left = 134
-          Top = 62
+          Left = 399
+          Top = 3
           ParentShowHint = False
           Properties.ShowFullPath = sfpAlways
           ShowHint = True
           Style.StyleController = cxEditStyleController1
           TabOrder = 5
+          Visible = False
           Width = 337
         end
         object cxLabel12: TcxLabel
-          Left = 40
-          Top = 98
+          Left = 305
+          Top = 39
           Caption = #32771#29983#30456#29255#36335#24452#65306
+          Visible = False
         end
         object cbbExamineePhotoFolder: TcxShellComboBox
-          Left = 134
-          Top = 97
+          Left = 399
+          Top = 38
           Hint = #20301#20110#26381#21153#22120#19978#30340#32771#29983#30456#29255#30446#24405#65292#22312#32771#29983#20449#24687#23548#20837#26102#20250#23558#32771#29983#30456#29255#23384#25918#20110#27492#12290
           ParentShowHint = False
           Properties.ShowFullPath = sfpAlways
           ShowHint = True
           Style.StyleController = cxEditStyleController1
           TabOrder = 7
+          Visible = False
           Width = 337
         end
       end
       object btnSaveConfig: TButton
-        Left = 512
-        Top = 432
+        Left = 480
+        Top = 400
         Width = 97
         Height = 25
         Caption = #20445#23384#20462#25913
@@ -427,8 +431,8 @@ object FormMainServer: TFormMainServer
         OnClick = btnSaveConfigClick
       end
       object btnConfigEdit: TButton
-        Left = 296
-        Top = 432
+        Left = 264
+        Top = 400
         Width = 97
         Height = 25
         Caption = #20462#25913#37197#32622
@@ -436,8 +440,8 @@ object FormMainServer: TFormMainServer
         OnClick = btnConfigEditClick
       end
       object btnConfigCancel: TButton
-        Left = 409
-        Top = 432
+        Left = 377
+        Top = 400
         Width = 97
         Height = 25
         Caption = #21462#28040#20462#25913
@@ -446,59 +450,17 @@ object FormMainServer: TFormMainServer
       end
       object cxGroupBox1: TcxGroupBox
         Left = 24
-        Top = 254
+        Top = 206
         Caption = #32493#32771#12289#24310#32771#12289#37325#32771#35774#32622#65306
         TabOrder = 5
-        Height = 101
+        Height = 131
         Width = 585
         object cxLabel11: TcxLabel
           Left = 16
           Top = 24
           Caption = #25805#20316#27169#24335#65306
         end
-        object edtContPwd: TcxTextEdit
-          Left = 78
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 1
-          Width = 121
-        end
-        object edtRetryPwd: TcxTextEdit
-          Left = 454
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 2
-          Width = 121
-        end
-        object cxLabel5: TcxLabel
-          Left = 399
-          Top = 60
-          Caption = #37325#32771#23494#30721#65306
-        end
-        object cxLabel6: TcxLabel
-          Left = 16
-          Top = 60
-          Caption = #32493#32771#23494#30721#65306
-        end
-        object cxLabel13: TcxLabel
-          Left = 205
-          Top = 60
-          Caption = #24310#32771#23494#30721#65306
-        end
-        object edtAddTimePwd: TcxTextEdit
-          Left = 264
-          Top = 56
-          Enabled = False
-          Properties.ReadOnly = True
-          Style.StyleController = cxEditStyleController1
-          TabOrder = 6
-          Width = 121
-        end
-        object cxRadioGroup1: TcxRadioGroup
+        object radiogrpRetryModel: TcxRadioGroup
           Left = 110
           Top = 12
           Properties.Columns = 2
@@ -512,11 +474,19 @@ object FormMainServer: TFormMainServer
               Caption = #26381#21153#22120#31471#25805#20316
               Value = 1
             end>
-          Properties.OnEditValueChanged = cxRadioGroup1PropertiesEditValueChanged
           ItemIndex = 0
-          TabOrder = 7
+          TabOrder = 1
           Height = 42
-          Width = 443
+          Width = 335
+        end
+        object btnResetExamPwd: TButton
+          Left = 110
+          Top = 74
+          Width = 97
+          Height = 25
+          Caption = #37325#35774#23494#30721
+          TabOrder = 2
+          OnClick = btnResetExamPwdClick
         end
       end
     end
@@ -647,7 +617,7 @@ object FormMainServer: TFormMainServer
     MenuAnimations = maRandom
     PopupMenuLinks = <>
     UseSystemFont = True
-    Left = 520
+    Left = 408
     Top = 8
     DockControlHeights = (
       0
@@ -733,9 +703,15 @@ object FormMainServer: TFormMainServer
       Visible = ivAlways
       OnClick = mnbtnCribClick
     end
+    object mnbtnNormal: TdxBarButton
+      Caption = #27491#24120
+      Category = 1
+      Hint = #27491#24120
+      Visible = ivAlways
+    end
   end
   object cxStyleRepository1: TcxStyleRepository
-    Left = 472
+    Left = 312
     Top = 8
     PixelsPerInch = 96
     object cxStyle1: TcxStyle
@@ -843,21 +819,21 @@ object FormMainServer: TFormMainServer
       BuiltIn = True
     end
   end
-  object cxGridPopupMenu1: TcxGridPopupMenu
+  object grdPopupMenu: TcxGridPopupMenu
     Grid = cxGrid1
     PopupMenus = <
       item
         GridView = tvExaminees
         HitTypes = [gvhtCell, gvhtRecord]
         Index = 0
-        PopupMenu = dxBarPopupMenu1
+        PopupMenu = barPopupMenu
       end>
     UseBuiltInPopupMenus = False
     AlwaysFireOnPopup = True
-    Left = 616
+    Left = 600
     Top = 8
   end
-  object dxBarPopupMenu1: TdxBarPopupMenu
+  object barPopupMenu: TdxBarPopupMenu
     BarManager = dxbrmngrMainMenu
     ItemLinks = <
       item
@@ -876,9 +852,14 @@ object FormMainServer: TFormMainServer
       item
         Visible = True
         ItemName = 'mnbtnCrib'
+      end
+      item
+        Visible = True
+        ItemName = 'mnbtnNormal'
       end>
     UseOwnFont = False
-    Left = 568
+    OnPopup = barPopupMenuPopup
+    Left = 504
     Top = 8
   end
   object cxEditStyleController1: TcxEditStyleController

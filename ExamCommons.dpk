@@ -25,8 +25,7 @@ package ExamCommons;
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
-{$DEFINE NOLOGIN}
-{$DEFINE VMSERVER}
+{$DEFINE noNOLOGIN}
 {$ENDIF IMPLICITBUILDING}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
@@ -66,7 +65,8 @@ contains
   CustomColorForm in 'ExamCommons\CustomColorForm.pas',
   CustomLoginForm in 'ExamCommons\CustomLoginForm.pas',
   ShadowFrame in 'ExamCommons\ShadowFrame.pas',
-  Logger in 'ExamCommons\Logger.pas';
+  Logger in 'ExamCommons\Logger.pas',
+  CnDebug in 'ExamCommons\CnDebug.pas';
 
 //FastMM4 in '..\Components\fastmm4\FastMM4.pas';
 

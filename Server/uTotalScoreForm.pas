@@ -5,8 +5,8 @@ interface
 uses
    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Winapi.ShlObj, cxShellCommon, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
-  cxEdit, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
-  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxLabel, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxShellComboBox,Datasnap.DBClient;
+   cxEdit, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
+   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxLabel, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxShellComboBox, Datasnap.DBClient;
 
 type
    TTotalScoreForm = class(TForm)
@@ -27,9 +27,9 @@ type
       btnTotals: TButton;
       procedure btnTotalsClick(Sender: TObject);
    private
-    procedure UpdateTotalScore(aFolder: TfileName; aFileList: TStrings; ATotalFileName: TfileName);
-    function GetFileList(mPath: TfileName): TStrings;
-    procedure CreateTotalReport(cdsTotal: TClientDataSet);
+      procedure UpdateTotalScore(aFolder: TfileName; aFileList: TStrings; ATotalFileName: TfileName);
+      function GetFileList(mPath: TfileName): TStrings;
+      procedure CreateTotalReport(cdsTotal: TClientDataSet);
       { Private declarations }
    public
       { Public declarations }
@@ -41,7 +41,7 @@ var
 implementation
 
 uses
-  system.IOUtils,commons, Data.Win.ADODB, Datasnap.Provider, DataFieldConst,DataUtils;
+   System.IOUtils, commons, Data.Win.ADODB, Datasnap.Provider, DataFieldConst, DataUtils;
 
 {$R *.dfm}
 
@@ -50,24 +50,26 @@ procedure TTotalScoreForm.btnTotalsClick(Sender: TObject);
       fileList: TStrings;
       TotalFileName: string;
    begin
-      btnTotals.Enabled := False;
-      try
-         TotalFileName := scbTotalDir.Text + '\' + '汇总成绩库.mdb';
-         if FileExists(TotalFileName) then
-            if (not deletefilewithprompt(TotalFileName)) then
-               Exit;
-         fileList := GetFileList(scbTotalDir.Path + '\*.mdb');
-         lst1.Items.Clear;
-         lst1.Items.AddStrings(fileList);
+    // TODO:
+       // scbTotalDir.Text := 'D:\yjksmtxt\debug\test\totals';
+           btnTotals.Enabled := False;
+   try
+      TotalFileName := scbTotalDir.Text + '\' + '汇总成绩库.mdb';
+      if FileExists(TotalFileName) then
+         if (not deletefilewithprompt(TotalFileName)) then
+            Exit;
+      fileList := GetFileList(scbTotalDir.Path + '\*.mdb');
+      lst1.Items.Clear;
+      lst1.Items.AddStrings(fileList);
 
-         TFile.Copy(scbTotalDir.Path + '\' + fileList[0], TotalFileName);
-         // fileList.Delete(0);
-         UpdateTotalScore(scbTotalDir.Path, fileList, TotalFileName);
-      finally
-         fileList.Free;
-         btnTotals.Enabled := True;
-      end;
+      TFile.Copy(scbTotalDir.Path + '\' + fileList[0], TotalFileName);
+      // fileList.Delete(0);
+      UpdateTotalScore(scbTotalDir.Path, fileList, TotalFileName);
+   finally
+      fileList.Free;
+      btnTotals.Enabled := True;
    end;
+end;
 
 procedure TTotalScoreForm.UpdateTotalScore(aFolder: TfileName; aFileList: TStrings; ATotalFileName: TfileName);
    var
@@ -176,6 +178,7 @@ procedure TTotalScoreForm.UpdateTotalScore(aFolder: TfileName; aFileList: TStrin
          FreeAndNil(dsTotal);
       end;
    end;
+
 /// <summary>
 /// 获取目录中文件列表
 /// 只获取单层目录，不搜索子目录
@@ -231,4 +234,5 @@ procedure TTotalScoreForm.CreateTotalReport(cdsTotal: TClientDataSet);
       // end;
 
    end;
+
 end.

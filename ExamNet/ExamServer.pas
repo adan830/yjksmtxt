@@ -13,53 +13,54 @@ uses
    IdCustomTCPServer, SysUtils, IdCommandHandlers;
 
 type
-   TExamServer = class;
+   TExamServer       = class;
    ECommandException = class(Exception);
 
    // event
-   TOnUpdateStatus = procedure(ASender: TExamServer; const ADocument: string) of object;
+   TOnUpdateStatus = procedure(ASender : TExamServer; const ADocument : string) of object;
 
    TExamServer = class(TIdCmdTCPServer)
    private
-      FExamineesManager: TExamineesManager;
-      FThreadPool: TIdSchedulerOfThreadPool;
-      procedure ExamServerOnDisconnect(AContext: TIdContext);
-      procedure ExamServerListenException(AThread: TIdListenerThread; AException: Exception);
-      procedure ExamServerException(AContext: TIdContext; AException: Exception);
-      procedure CmdHandleException(ACommand: String; AContext: TIdContext);
+      FExamineesManager : TExamineesManager;
+      FThreadPool       : TIdSchedulerOfThreadPool;
+      procedure ExamServerOnDisconnect(AContext : TIdContext);
+      procedure ExamServerListenException(AThread : TIdListenerThread; AException : Exception);
+      procedure ExamServerException(AContext : TIdContext; AException : Exception);
+      procedure CmdHandleException(ACommand : String; AContext : TIdContext);
 
       // CommandHandlers
-      procedure commandSendExamineeStatus(ASender: TIdCommand);
-      procedure CommandGetExamineeInfo(ASender: TIdCommand);
-      procedure CommandGetExamineePhoto(ASender: TIdCommand);
-      procedure CommandGetBaseConfig(ASender: TIdCommand);
-      procedure CommandExamineeLogin(ASender: TIdCommand);
+      procedure commandSendExamineeStatus(ASender : TIdCommand);
+      procedure CommandGetExamineeInfo(ASender : TIdCommand);
+      procedure CommandGetExamineePhoto(ASender : TIdCommand);
+      procedure CommandGetBaseConfig(ASender : TIdCommand);
+      procedure CommandExamineeLogin(ASender : TIdCommand);
 
-      procedure CommandGetEQInfo(ASender: TIdCommand);
-      procedure CommandGetEQRecord(ASender: TIdCommand);
-      procedure CommandGetEQFile(ASender: TIdCommand);
-      procedure CommandGetExamineeTestFilePack(ASender: TIdCommand);
+      procedure CommandGetEQInfo(ASender : TIdCommand);
+      procedure CommandGetEQRecord(ASender : TIdCommand);
+      procedure CommandGetEQFile(ASender : TIdCommand);
+      procedure CommandGetExamineeTestFilePack(ASender : TIdCommand);
 
-      procedure CommandSendScoreInfo(ASender: TIdCommand);
-      procedure CommandSendExamineeZipFile(ASender: TIdCommand);
+      procedure CommandSendScoreInfo(ASender : TIdCommand);
+      procedure CommandSendExamineeZipFile(ASender : TIdCommand);
 
       // procedure CommandGetExamineeZipFile(ASender: TIdCommand);
    protected
 
       procedure InitComponent; override;
       procedure InitializeCommandHandlers; override;
-      procedure SetActive(AValue: Boolean); override;
-      procedure DoConnect(AContext: TIdContext); override;
+      procedure SetActive(AValue : Boolean); override;
+      procedure DoConnect(AContext : TIdContext); override;
    public
-      constructor Create(AOwner: TComponent; AExamineeManager: TExamineesManager; APort: Integer = 3000);
+      constructor Create(AOwner : TComponent; AExamineeManager : TExamineesManager; APort : Integer = 3000);
       destructor Destroy; override;
+
    end;
 
 implementation
 
-uses NetGlobal, Windows, ServerGlobal, StkRecordInfo, tq, BaseConfig;
+uses NetGlobal, Windows, ServerGlobal, StkRecordInfo, tq, BaseConfig, cndebug;
 
-constructor TExamServer.Create(AOwner: TComponent; AExamineeManager: TExamineesManager; APort: Integer = 3000);
+constructor TExamServer.Create(AOwner : TComponent; AExamineeManager : TExamineesManager; APort : Integer = 3000);
    begin
       inherited Create(AOwner);
       FExamineesManager := AExamineeManager;
@@ -67,39 +68,39 @@ constructor TExamServer.Create(AOwner: TComponent; AExamineeManager: TExamineesM
       // FThreadPool.PoolSize:=0;
       // Self.Scheduler := FThreadPool;
 
-      ListenQueue := 150;
-      MaxConnections := 150;
-      TerminateWaitTime := 3000;
-      OnDisconnect := ExamServerOnDisconnect;
-      OnListenException := ExamServerListenException;
-      OnException := ExamServerException;
+      ListenQueue                                     := 150;
+      MaxConnections                                  := 150;
+      TerminateWaitTime                               := 3000;
+      OnDisconnect                                    := ExamServerOnDisconnect;
+      OnListenException                               := ExamServerListenException;
+      OnException                                     := ExamServerException;
       Self.CommandHandlers.OnCommandHandlersException := CmdHandleException;
-      DefaultPort := APort;
+      DefaultPort                                     := APort;
 
-{$IFDEF DEBUG}
+      {$IFDEF DEBUG}
       // Intercept := TIdServerInterceptLogFile.Create(nil);
       // with TIdServerInterceptLogFile(Intercept) do
       // begin
       // Filename := 'serverlog.txt';
       // LogTime := false;
       // end;
-{$ENDIF}
+      {$ENDIF}
    end;
 
 destructor TExamServer.Destroy;
    begin
       // FThreadPool.free;
-{$IFDEF DEBUG}
+      {$IFDEF DEBUG}
       if Assigned(Intercept) then
       begin
          TIdServerInterceptLogFile(Intercept).Free;
          Intercept := nil;
       end;
-{$ENDIF}
+      {$ENDIF}
       inherited;
    end;
 
-procedure TExamServer.DoConnect(AContext: TIdContext);
+procedure TExamServer.DoConnect(AContext : TIdContext);
    begin
       AContext.Connection.IOHandler.DefStringEncoding := IndyTextEncoding_UTF8(); // TIdTextEncoding.UTF8 ;
       inherited;
@@ -121,78 +122,78 @@ procedure TExamServer.InitializeCommandHandlers;
       inherited;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETBASECONFIG; { do not localize }
-         OnCommand := CommandGetBaseConfig;
+         Command     := CMD_GETBASECONFIG; { do not localize }
+         OnCommand   := CommandGetBaseConfig;
          ParseParams := False;
          // Disconnect := true;  //default is false
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_SENDEXAMINEESTATUS; { do not localize }
-         OnCommand := commandSendExamineeStatus;
+         Command     := CMD_SENDEXAMINEESTATUS; { do not localize }
+         OnCommand   := commandSendExamineeStatus;
          ParseParams := True;
          // Disconnect := true;  //default is false
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEXAMINEEINFO; { do not localize }
-         OnCommand := CommandGetExamineeInfo;
+         Command     := CMD_GETEXAMINEEINFO; { do not localize }
+         OnCommand   := CommandGetExamineeInfo;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEXAMINEEPHOTO; { do not localize }
-         OnCommand := CommandGetExamineePhoto;
+         Command     := CMD_GETEXAMINEEPHOTO; { do not localize }
+         OnCommand   := CommandGetExamineePhoto;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_EXAMINEELOGIN; { do not localize }
-         OnCommand := CommandExamineeLogin;
+         Command     := CMD_EXAMINEELOGIN; { do not localize }
+         OnCommand   := CommandExamineeLogin;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEQINFO; { do not localize }
-         OnCommand := CommandGetEQInfo;
+         Command     := CMD_GETEQINFO; { do not localize }
+         OnCommand   := CommandGetEQInfo;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEQRECORD; { do not localize }
-         OnCommand := CommandGetEQRecord;
+         Command     := CMD_GETEQRECORD; { do not localize }
+         OnCommand   := CommandGetEQRecord;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEQFILE; { do not localize }
-         OnCommand := CommandGetEQFile;
+         Command     := CMD_GETEQFILE; { do not localize }
+         OnCommand   := CommandGetEQFile;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_GETEXAMINEETESTFILEPACK; { do not localize }
-         OnCommand := CommandGetExamineeTestFilePack;
+         Command     := CMD_GETEXAMINEETESTFILEPACK; { do not localize }
+         OnCommand   := CommandGetExamineeTestFilePack;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_SENDSCOREINFO; { do not localize }
-         OnCommand := CommandSendScoreInfo;
+         Command     := CMD_SENDSCOREINFO; { do not localize }
+         OnCommand   := CommandSendScoreInfo;
          ParseParams := True;
          // Disconnect := true;
       end;
       with CommandHandlers.Add do
       begin
-         Command := CMD_SENDEXAMINEEZIPFILE; { do not localize }
-         OnCommand := CommandSendExamineeZipFile;
+         Command     := CMD_SENDEXAMINEEZIPFILE; { do not localize }
+         OnCommand   := CommandSendExamineeZipFile;
          ParseParams := True;
          // Disconnect := true;
       end;
@@ -206,7 +207,7 @@ procedure TExamServer.InitializeCommandHandlers;
       Greeting.Clear;
    end;
 
-procedure TExamServer.SetActive(AValue: Boolean);
+procedure TExamServer.SetActive(AValue : Boolean);
    begin
       if AValue = True then
       begin
@@ -220,44 +221,67 @@ procedure TExamServer.SetActive(AValue: Boolean);
       end;
    end;
 
-procedure TExamServer.ExamServerOnDisconnect(AContext: TIdContext);
+procedure TExamServer.ExamServerOnDisconnect(AContext : TIdContext);
    var
-      Examinee: PExaminee;
+      Examinee : PExaminee;
    begin
-{$IFNDEF NODISPLAY }
+      {$IFNDEF NODISPLAY }
       New(Examinee);
       with Examinee^ do
       begin
-         ID := CMDNULLNONAME;
-         Name := CMDNULLNONAME;
+         ID     := CMDNULLNONAME;
+         Name   := CMDNULLNONAME;
          Status := esDisConnect;
          // RemainTime := strtoint(Params[3]);
-         IP := AContext.Connection.Socket.Binding.PeerIP;
+         IP   := AContext.Connection.Socket.Binding.PeerIP;
          Port := AContext.Connection.Socket.Binding.PeerPort;
       end;
-      FExamineesManager.UpdateDisConnectStatus(AContext.Binding)
-{$ENDIF}
+      FExamineesManager.UpdateDisConnectStatus(AContext.Binding);
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('ExamServerOnDisconnect OK! ', AContext.Binding.PeerIP.Substring(8));
+      {$ENDIF}
+      {$ENDIF}
    end;
 
-procedure TExamServer.ExamServerListenException(AThread: TIdListenerThread; AException: Exception);
+procedure TExamServer.ExamServerListenException(AThread : TIdListenerThread; AException : Exception);
    begin
-{$IFDEF DEBUG}
-      if Assigned(Intercept) then
-         TIdServerInterceptLogFile(Intercept).LogWriteString('ListenExcpetion-----exception:' + AException.Message);
-{$ENDIF}
+      {$IFDEF DEBUG}
+      // TExamServerGlobal.logger.WriteLog('ServerListenException:'+AException.Message);
+      {$IFDEF DEBUG}
+      CnDebugger.LogFull('Server Listen exception:' + AException.Message, AThread.Binding.PeerIP.Substring(8), 0, cmtException);
+      {$ENDIF}
+      // if Assigned(Intercept) then
+      // TIdServerInterceptLogFile(Intercept).LogWriteString('ListenExcpetion-----exception:' + AException.Message);
+      {$ENDIF}
    end;
 
-procedure TExamServer.ExamServerException(AContext: TIdContext; AException: Exception);
+procedure TExamServer.ExamServerException(AContext : TIdContext; AException : Exception);
    begin
-{$IFDEF DEBUG}
-      if Assigned(Intercept) then
-         TIdServerInterceptLogFile(Intercept).LogWriteString('ServerException-----exception:' + AException.Message);
-{$ENDIF}
+      {$IFDEF DEBUG}
+      // TExamServerGlobal.logger.WriteLog('ServerException:'+AException.Message);
+      {$IFDEF DEBUG}
+      CnDebugger.LogFull('Server exception:' + AException.Message, AContext.Binding.PeerIP.Substring(8), 0, cmtException);
+      {$ENDIF}
+      // if Assigned(Intercept) then
+      // TIdServerInterceptLogFile(Intercept).LogWriteString('ServerException-----exception:' + AException.Message);
+      {$ENDIF}
    end;
 
-procedure TExamServer.commandSendExamineeStatus(ASender: TIdCommand);
+procedure TExamServer.CmdHandleException(ACommand : String; AContext : TIdContext);
+   begin
+      {$IFDEF DEBUG}
+      // TExamServerGlobal.logger.WriteLog('CmdhandleException:'+Acommand);
+      {$IFDEF DEBUG}
+      CnDebugger.LogFull('Server Command handle exception :' + ACommand, AContext.Binding.PeerIP.Substring(8), 0, cmtException);
+      {$ENDIF}
+      // if Assigned(Intercept) then
+      // TIdServerInterceptLogFile(Intercept).LogWriteString(ACommand + ':' + AContext.Binding.PeerIP + ':' + inttostr(AContext.Binding.PeerPort));
+      {$ENDIF}
+   end;
+
+procedure TExamServer.commandSendExamineeStatus(ASender : TIdCommand);
    var
-      Examinee: PExaminee; // Examinee will be put in the message ,so we'll dynamic alloc mem
+      Examinee : PExaminee; // Examinee will be put in the message ,so we'll dynamic alloc mem
    begin
       ASender.PerformReply := False;
       New(Examinee);
@@ -266,20 +290,23 @@ procedure TExamServer.commandSendExamineeStatus(ASender: TIdCommand);
          Assert(Params.Count = 4, 'Error commandSendExamineeStatus params count');
          with Examinee^ do
          begin
-            ID := Params[0];
-            Name := Params[1];
-            Status := TExamineeStatus(StrToInt(Params[2]));
+            ID         := Params[0];
+            Name       := Params[1];
+            Status     := TExamineeStatus(StrToInt(Params[2]));
             RemainTime := StrToInt(Params[3]);
-            IP := Context.Binding.PeerIP;
-            Port := Context.Binding.PeerPort;
+            IP         := Context.Binding.PeerIP;
+            Port       := Context.Binding.PeerPort;
          end;
-         FExamineesManager.UpdateStatus(Examinee);
+         // FExamineesManager.UpdateStatus(Examinee);
       end;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('commandSendExamineeStatus OK! exaimineeID:' + Examinee.ID, ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
-procedure TExamServer.CommandGetExamineeTestFilePack(ASender: TIdCommand);
+procedure TExamServer.CommandGetExamineeTestFilePack(ASender : TIdCommand);
    var
-      packStream: TMemoryStream;
+      packStream : TMemoryStream;
    begin
       ASender.PerformReply := False;
       with ASender, ASender.Context.Connection.IOHandler do
@@ -299,11 +326,14 @@ procedure TExamServer.CommandGetExamineeTestFilePack(ASender: TIdCommand);
          end;
       end;
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandGetExamineeTestFilePack OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
-procedure TExamServer.CommandGetEQFile(ASender: TIdCommand);
+procedure TExamServer.CommandGetEQFile(ASender : TIdCommand);
    var
-      EQFile: TMemoryStream;
+      EQFile : TMemoryStream;
    begin
       ASender.PerformReply := False;
       with ASender, ASender.Context.Connection.IOHandler do
@@ -321,12 +351,15 @@ procedure TExamServer.CommandGetEQFile(ASender: TIdCommand);
       end;
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
       // ASender.Disconnect := True;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandGetEQFile OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
-procedure TExamServer.CommandGetEQRecord(ASender: TIdCommand);
+procedure TExamServer.CommandGetEQRecord(ASender : TIdCommand);
    var
-      recordPacket: TClientEQRecordPacket;
-      st: string;
+      recordPacket : TClientEQRecordPacket;
+      st           : string;
    begin
       ASender.PerformReply := False;
       with recordPacket, ASender, ASender.Context.Connection.IOHandler do
@@ -351,19 +384,22 @@ procedure TExamServer.CommandGetEQRecord(ASender: TIdCommand);
       end;
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
       // ASender.Disconnect := True;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandGetEQRecord OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
-procedure TExamServer.CommandGetEQInfo(ASender: TIdCommand);
+procedure TExamServer.CommandGetEQInfo(ASender : TIdCommand);
    var
-      EQInfo: TStringList;
-      BaseConfig: TBaseConfig;
+      EQInfo     : TStringList;
+      BaseConfig : TBaseConfig;
    begin
       ASender.PerformReply := True;
       with ASender do
       begin
          try
             BaseConfig := TExamServerGlobal.GlobalStkRecordInfo.BaseConfig;
-            EQInfo := TExamServerGlobal.GlobalStkRecordInfo.AcquireEQInfo(BaseConfig);
+            EQInfo     := TExamServerGlobal.GlobalStkRecordInfo.AcquireEQInfo(BaseConfig);
          finally
             // if Assigned(EQInfo) then
 
@@ -375,17 +411,19 @@ procedure TExamServer.CommandGetEQInfo(ASender: TIdCommand);
       end;
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
       // ASender.Disconnect := True;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandGetEQInfo OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
-procedure TExamServer.CommandGetExamineeInfo(ASender: TIdCommand);
+procedure TExamServer.CommandGetExamineeInfo(ASender : TIdCommand);
    var
-      Examinee: TExaminee;
-      AExamineeID: string;
+      Examinee    : TExaminee;
+      AExamineeID : string;
    begin
       ASender.PerformReply := True;
       with ASender do
       begin
-         Assert(Params.Count = 1, 'Error commandGetExamineeInfo params count');
          try
             try
                try
@@ -401,37 +439,39 @@ procedure TExamServer.CommandGetExamineeInfo(ASender: TIdCommand);
 
                   end;
                end;
+               {$IFDEF DEBUG}
+               CnDebugger.LogMsgWithTag('CommandGetExamineeInfo OK! examineeID:' + Examinee.ID, ASender.Context.Binding.PeerIP.Substring(8));
+               {$ENDIF}
             finally
                Examinee.ClearData;
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                Reply.Code := CMDCONSTERRORREPLYCODE;
-{$IFDEF DEBUG}
+               {$IFDEF DEBUG}
                if Assigned(Intercept) then
                   TIdServerInterceptLogFile(Intercept).LogWriteString('GetExamineeInfo-----exception:' + E.Message);
-{$ENDIF}
+               {$ENDIF}
             end;
          end;
       end;
       // ASender.Disconnect := True;
+
    end;
 
-
-procedure TExamServer.CommandGetExamineePhoto(ASender: TIdCommand);
+procedure TExamServer.CommandGetExamineePhoto(ASender : TIdCommand);
    var
-      PhotoFile: TMemoryStream;
-      examineePhotoFile:string;
+      PhotoFile         : TMemoryStream;
+      examineePhotoFile : string;
    begin
       ASender.PerformReply := False;
-      Assert(asender.Params.Count = 1, 'Error commandGetExamineeInfo params count');
-      examineePhotoFile:=TExamServerGlobal.ServerCustomConfig.PhotoFolder+'\'+ ASender.Params[0]+'.jpg';
+      Assert(ASender.Params.Count = 1, 'Error commandGetExamineeInfo params count');
+      examineePhotoFile := TExamServerGlobal.ServerCustomConfig.PhotoFolder + '\' + ASender.Params[0] + '.jpg';
       with ASender, ASender.Context.Connection.IOHandler do
       begin
          PhotoFile := TMemoryStream.Create();
          try
-
             if FileExists(examineePhotoFile) then
                PhotoFile.LoadFromFile(examineePhotoFile);
             PhotoFile.Position := 0;
@@ -440,8 +480,13 @@ procedure TExamServer.CommandGetExamineePhoto(ASender: TIdCommand);
             PhotoFile.Free;
          end;
       end;
-      FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
+      // TODO:下面代码引发异常，将终止连接
+      // 将考虑连接异常中止时如何重新连接
+      // FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
       // ASender.Disconnect := True;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandGetExamineePhoto OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
    end;
 
 // procedure TExamServer.CommandGetExamineeZipFile(ASender: TIdCommand);
@@ -472,15 +517,14 @@ procedure TExamServer.CommandGetExamineePhoto(ASender: TIdCommand);
 // FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
 // end;
 
-procedure TExamServer.CommandGetBaseConfig(ASender: TIdCommand);
+procedure TExamServer.CommandGetBaseConfig(ASender : TIdCommand);
    var
-      strlist: TStringList;
+      strlist : TStringList;
    begin
       { TODO -ojp -c1 : need deal with exception:if connect is close resource need to be free }
       ASender.PerformReply := True;
       with ASender do
       begin
-         Assert(Params.Count = 0, 'Error commandGetSysConfig params count');
          try
             try
                strlist := TExamServerGlobal.GlobalStkRecordInfo.BaseConfig.ToStrings();
@@ -498,41 +542,32 @@ procedure TExamServer.CommandGetBaseConfig(ASender: TIdCommand);
                begin
                   Reply.Code := CMDCONSTERRORREPLYCODE;
                end;
-
+               {$IFDEF DEBUG}
+               CnDebugger.LogMsgWithTag('CommandGetBaseConfig OK!', ASender.Context.Binding.PeerIP.Substring(8));
+               {$ENDIF}
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                Reply.Code := CMDCONSTERRORREPLYCODE;
-{$IFDEF DEBUG}
-               if Assigned(Intercept) then
-                  TIdServerInterceptLogFile(Intercept).LogWriteString('GetSysConfig-----exception:' + E.Message);
-{$ENDIF}
+               {$IFDEF DEBUG}
+               // if Assigned(Intercept) then
+               // TIdServerInterceptLogFile(Intercept).LogWriteString('GetSysConfig-----exception:' + E.Message);
+               {$ENDIF}
             end;
          end;
       end;
+
    end;
 
-procedure TExamServer.CmdHandleException(ACommand: String; AContext: TIdContext);
-   begin
-{$IFDEF DEBUG}
-      if Assigned(Intercept) then
-         TIdServerInterceptLogFile(Intercept).LogWriteString(ACommand + ':' + AContext.Binding.PeerIP + ':' + inttostr(AContext.Binding.PeerPort));
-{$ENDIF}
-   end;
-
-procedure TExamServer.CommandExamineeLogin(ASender: TIdCommand);
+procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
    var
-      Examinee: PExaminee;
-      loginType: TLoginType;
-      pwd: string;
-      RemainTime: Integer;
+      Examinee   : PExaminee;
+      loginType  : TLoginType;
+      pwd        : string;
+      RemainTime : Integer;
    begin
       ASender.PerformReply := True;
-{$IFDEF DEBUG}
-      if Assigned(Intercept) then
-         TIdServerInterceptLogFile(Intercept).LogWriteString('CommandExamineeLogin:' + inttostr(ASender.Context.Binding.PeerPort));
-{$ENDIF}
       with ASender do
       begin
          Assert((Params.Count = 2) or (Params.Count = 3), 'Error commandGetSysConfig params count');
@@ -544,8 +579,8 @@ procedure TExamServer.CommandExamineeLogin(ASender: TIdCommand);
 
             New(Examinee);
             try
-               Examinee.ID := Params[0];
-               Examinee.IP := Context.Binding.PeerIP;
+               Examinee.ID   := Params[0];
+               Examinee.IP   := Context.Binding.PeerIP;
                Examinee.Port := Context.Binding.PeerPort;
                // examinee.Status := esLogined;
                // examinee.RemainTime := remainTime;
@@ -558,30 +593,33 @@ procedure TExamServer.CommandExamineeLogin(ASender: TIdCommand);
                begin
                   Reply.Code := CMDCONSTERRORREPLYCODE;
                end;
+               {$IFDEF DEBUG}
+               CnDebugger.LogMsgWithTag('CommandExamineeLogin OK!', ASender.Context.Binding.PeerIP.Substring(8));
+               {$ENDIF}
             finally
                Dispose(Examinee);
             end;
          except
-            on E: Exception do
+            on E : Exception do
             begin
                Reply.Code := CMDCONSTERRORREPLYCODE;
-{$IFDEF DEBUG}
-               if Assigned(Intercept) then
-                  TIdServerInterceptLogFile(Intercept).LogWriteString('CommandExamineeLogin-----exception:' + E.Message);
-{$ENDIF}
+               // {$IFDEF DEBUG}
+               // if Assigned(Intercept) then
+               // TIdServerInterceptLogFile(Intercept).LogWriteString('CommandExamineeLogin-----exception:' + E.Message);
+               // {$ENDIF}
             end;
          end;
       end;
       // ASender.Disconnect := True;
    end;
 
-procedure TExamServer.CommandSendScoreInfo(ASender: TIdCommand);
+procedure TExamServer.CommandSendScoreInfo(ASender : TIdCommand);
    var
-      Examinee: PExaminee;
-      ScoreStream: TMemoryStream;
+      Examinee    : PExaminee;
+      ScoreStream : TMemoryStream;
    begin
       ASender.PerformReply := False;
-      ScoreStream := TMemoryStream.Create;
+      ScoreStream          := TMemoryStream.Create;
       // try
       with ASender, ASender.Context.Connection.IOHandler do
       begin
@@ -594,11 +632,11 @@ procedure TExamServer.CommandSendScoreInfo(ASender: TIdCommand);
          New(Examinee);
          with Examinee^ do
          begin
-            ID := Params[0];
-            Status := TExamineeStatus(StrToInt(Params[2]));
-            RemainTime := StrToInt(Params[3]);
-            IP := Context.Binding.PeerIP;
-            Port := Context.Binding.PeerPort;
+            ID                    := Params[0];
+            Status                := TExamineeStatus(StrToInt(Params[2]));
+            RemainTime            := StrToInt(Params[3]);
+            IP                    := Context.Binding.PeerIP;
+            Port                  := Context.Binding.PeerPort;
             ScoreCompressedStream := ScoreStream;
             // ScoreCompressedStream.LoadFromStream(ScoreStream);
             // ScoreInfo := TScoreIni.Create;
@@ -606,15 +644,18 @@ procedure TExamServer.CommandSendScoreInfo(ASender: TIdCommand);
          end;
          FExamineesManager.UpdateScoreInfo(Examinee);
       end;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandSendScoreInfo OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
       // finally
       // ScoreStream.Free;
       // end;
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
    end;
 
-procedure TExamServer.CommandSendExamineeZipFile(ASender: TIdCommand);
+procedure TExamServer.CommandSendExamineeZipFile(ASender : TIdCommand);
    var
-      ExamineeZipFile: TMemoryStream;
+      ExamineeZipFile : TMemoryStream;
    begin
       ASender.PerformReply := False;
       with ASender, ASender.Context.Connection.IOHandler do
@@ -622,11 +663,14 @@ procedure TExamServer.CommandSendExamineeZipFile(ASender: TIdCommand);
          ExamineeZipFile := TMemoryStream.Create;
          try
             ReadStream(ExamineeZipFile, -1);
-            ExamineeZipFile.SaveToFile(TExamServerGlobal.GlobalDataBAkFolder + '\' + Params[0] + '.dat');
+            ExamineeZipFile.SaveToFile(IncludeTrailingPathDelimiter(TExamServerGlobal.ServerCustomConfig.DataBakFolder) + Params[0] + '.dat');
          finally
             ExamineeZipFile.Free;
          end;
       end;
+      {$IFDEF DEBUG}
+      CnDebugger.LogMsgWithTag('CommandSendExamineeZipFile OK!', ASender.Context.Binding.PeerIP.Substring(8));
+      {$ENDIF}
       FExamineesManager.UpdateTimeStamp(ASender.Context.Binding);
       // ASender.Disconnect := True;
    end;

@@ -5,31 +5,31 @@ interface
 uses Classes, ScoreIni, DataFieldConst;
 
 const
-   CMD_GETBASECONFIG = 'GETBASECONFIG';
-   CMD_GETEXAMINEEINFO = 'GETEXAMINEEINFO';
-   CMD_GETEXAMINEEPHOTO = 'GETEXAMINEEPHOTO';
-   CMD_GETEXAMPWD = 'GETEXAMPWD';
-   CMD_EXAMINEELOGIN = 'EXAMINEELOGIN';
-   CMD_SENDEXAMINEESTATUS = 'SENDEXAMINEESTATUS';
-   CMD_GETEQINFO = 'GETEQINFO';
-   CMD_GETEQRECORD = 'GETEQRECORD';
-   CMD_GETEQFILE = 'GETEQFILE';
+   CMD_GETBASECONFIG           = 'GETBASECONFIG';
+   CMD_GETEXAMINEEINFO         = 'GETEXAMINEEINFO';
+   CMD_GETEXAMINEEPHOTO        = 'GETEXAMINEEPHOTO';
+   CMD_GETEXAMPWD              = 'GETEXAMPWD';
+   CMD_EXAMINEELOGIN           = 'EXAMINEELOGIN';
+   CMD_SENDEXAMINEESTATUS      = 'SENDEXAMINEESTATUS';
+   CMD_GETEQINFO               = 'GETEQINFO';
+   CMD_GETEQRECORD             = 'GETEQRECORD';
+   CMD_GETEQFILE               = 'GETEQFILE';
    CMD_GETEXAMINEETESTFILEPACK = 'GETEXAMINEETESTFILEPACK';
-   CMD_SENDSCOREINFO = 'SENDSCOREINFO';
-   CMD_SENDEXAMINEEZIPFILE = 'SENDEXAMINEEZIPFILE';
+   CMD_SENDSCOREINFO           = 'SENDSCOREINFO';
+   CMD_SENDEXAMINEEZIPFILE     = 'SENDEXAMINEEZIPFILE';
    // CMD_GETEXAMINEEZIPFILE  ='GETEXAMINEEZIPFILE';
 
-   CMDNULLNONAME = 'NULL';
-   CMDNOEXAMINEEINFO = 'NOEXAMINEEINFO';
+   CMDNULLNONAME            = 'NULL';
+   CMDNOEXAMINEEINFO        = 'NOEXAMINEEINFO';
    CMDCONSTCORRECTREPLYCODE = '600';
-   CMDCONSTERRORREPLYCODE = '700';
+   CMDCONSTERRORREPLYCODE   = '700';
 
    NULLSTR = '';
 
    /// 需要加入-系统设置中
    /// 考生号长度
    CONSTEXAMINEEIDLENGTH = 11; // examinee id length
-{$REGION '根据配置文件设置'}
+   {$REGION '根据配置文件设置'}
    // ///服务器IP地址
    // {$IFDEF VMSERVER}
    // CONSTSERVERIP           ='192.168.128.3';
@@ -38,34 +38,29 @@ const
    // {$ENDIF}
    /// /服务器端口号
    // CONSTSERVERPORT         = 3000;
-{$ENDREGION}
+   {$ENDREGION}
 
    // '60.173.210.154';     //
 type
 
-   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2, esDisConnect = 10, esGradeError = 11,
-
-           esLogined = 20, esGetTestPaper = 21, esExamining = 22,
-
-           esGrading = 30, esSutmitAchievement = 33, esError = 39, esExamEnded = 40,
-
-           esAbsent = 41, esCrib = 42);
+   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2,esGetTestPaper = 3,  esLogined = 20,
+           esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCrib = 42,esDisConnect = 90, esGradeError = 91, esExamEnded = 99);
 
    // TO-DO:增加性别，相片
    TExaminee = record
-      ID: string;
-      Name: string;
-      Sex: string;
-      IP: string; // not transmit  between client and server
-      Port: integer; // not transmit  between client and server
-      Status: TExamineeStatus;
-      RemainTime: integer;
-      TimeStamp: TDateTime;
+      ID : string;
+      Name : string;
+      Sex : string;
+      IP : string;    // not transmit  between client and server
+      Port : integer; // not transmit  between client and server
+      Status : TExamineeStatus;
+      RemainTime : integer;
+      TimeStamp : TDateTime;
       // ScoreInfo:TScoreIni;
-      HasPhoto: Boolean;
-      ScoreCompressedStream: TMemoryStream;
+      HasPhoto : Boolean;
+      ScoreCompressedStream : TMemoryStream;
 
-      procedure Assign(AExaminee: TExaminee);
+      procedure Assign(AExaminee : TExaminee);
       procedure ClearData();
       procedure Decrypt();
    end;
@@ -74,7 +69,7 @@ type
 
    TLoginType = (ltFirstLogin = 0, ltContinuteInterupt = 1, ltContinuteEndedExam = 2, ltReExamLogin = 3);
 
-   TCommandResult = (crOk = 1, crError = 2, crDisConnected = 3, crConnClosedGracefully = 4, crNetError = 5);
+   TCommandResult = (crOk = 1, crRefuseLogin = 2, crError = 3, crDisConnected = 4, crConnClosedGracefully = 5, crNetError = 6);
 
    TServerState = (ssClosed = 0, ssListening = 1);
 
@@ -117,11 +112,11 @@ type
    // procedure ConvertStringsToExaminee(AStrings :TStrings; var AExaminee:TExaminee);
    // procedure ConvertStringsToSysConfig(AStrings :TStrings; var ASysConfig:TSysConfig);
 
-function GetStatusDisplayValue(AStatus: TExamineeStatus): string;
+function GetStatusDisplayValue(AStatus : TExamineeStatus) : string;
 
-procedure ConvertExamineeToStrings(AExaminee: TExaminee; AStrings: TStrings);
+procedure ConvertExamineeToStrings(AExaminee : TExaminee; AStrings : TStrings);
 
-procedure ConvertStringsToExaminee(AStrings: TStrings; var AExaminee: TExaminee);
+procedure ConvertStringsToExaminee(AStrings : TStrings; var AExaminee : TExaminee);
 
 implementation
 
@@ -179,42 +174,42 @@ uses
 // end;
 // end;
 
-function GetStatusDisplayValue(AStatus: TExamineeStatus): string;
+function GetStatusDisplayValue(AStatus : TExamineeStatus) : string;
    begin
       Result := '无此状态';
       case AStatus of
-         esNotLogined:
+         esNotLogined :
             Result := '未登录';
-         esDisConnect:
+         esDisConnect :
             Result := '异常中断';
-         esGradeError:
+         esGradeError :
             Result := '交卷中断';
-         esLogined:
+         esLogined :
             Result := '已登录';
-         esAllowReExam:
+         esAllowReExam :
             Result := '允许重考';
-         esAllowContinuteExam:
+         esAllowContinuteExam :
             Result := '允许续考';
-         esGetTestPaper:
+         esGetTestPaper :
             Result := '正在获取试卷';
-         esExamining:
+         esExamining :
             Result := '考试中...';
-         esGrading:
+         esGrading :
             Result := '正在评分...';
-         esSutmitAchievement:
+         esSutmitAchievement :
             Result := '提交成绩';
-         esExamEnded:
+         esExamEnded :
             Result := '考试正常结束';
-         esError:
+         esError :
             Result := '有错误';
-         esAbsent:
+         esAbsent :
             Result := '缺考';
-         esCrib:
+         esCrib :
             Result := '作弊';
       end;
    end;
 
-procedure ConvertExamineeToStrings(AExaminee: TExaminee; AStrings: TStrings);
+procedure ConvertExamineeToStrings(AExaminee : TExaminee; AStrings : TStrings);
    begin
       AStrings.Clear;
       AStrings.Add(AExaminee.ID);
@@ -224,25 +219,25 @@ procedure ConvertExamineeToStrings(AExaminee: TExaminee; AStrings: TStrings);
       AStrings.Add(IntToStr(AExaminee.RemainTime));
    end;
 
-procedure ConvertStringsToExaminee(AStrings: TStrings; var AExaminee: TExaminee);
+procedure ConvertStringsToExaminee(AStrings : TStrings; var AExaminee : TExaminee);
    begin
-      AExaminee.ID := AStrings[0];
-      AExaminee.Name := AStrings[1];
-      AExaminee.IP := AStrings[2];
-      AExaminee.Status := TExamineeStatus(StrToInt(AStrings[3]));
+      AExaminee.ID         := AStrings[0];
+      AExaminee.Name       := AStrings[1];
+      AExaminee.IP         := AStrings[2];
+      AExaminee.Status     := TExamineeStatus(StrToInt(AStrings[3]));
       AExaminee.RemainTime := StrToInt(AStrings[4]);
    end;
 { TExaminee }
 
-procedure TExaminee.Assign(AExaminee: TExaminee);
+procedure TExaminee.Assign(AExaminee : TExaminee);
    begin
-      ID := AExaminee.ID;
-      Name := AExaminee.Name;
-      IP := AExaminee.IP; // not transmit  between client and server
-      Port := AExaminee.Port; // not transmit  between client and server
-      Status := AExaminee.Status;
-      RemainTime := AExaminee.RemainTime;
-      TimeStamp := AExaminee.TimeStamp;
+      ID                    := AExaminee.ID;
+      Name                  := AExaminee.Name;
+      IP                    := AExaminee.IP;   // not transmit  between client and server
+      Port                  := AExaminee.Port; // not transmit  between client and server
+      Status                := AExaminee.Status;
+      RemainTime            := AExaminee.RemainTime;
+      TimeStamp             := AExaminee.TimeStamp;
       ScoreCompressedStream := AExaminee.ScoreCompressedStream;
    end;
 
@@ -260,13 +255,13 @@ procedure TExaminee.Decrypt;
 
 procedure TExaminee.ClearData;
    begin
-      ID := '';
-      Name := '';
-      IP := ''; // not transmit  between client and server
-      Port := 0; // not transmit  between client and server
-      Status := esNotLogined;
+      ID         := '';
+      Name       := '';
+      IP         := ''; // not transmit  between client and server
+      Port       := 0;  // not transmit  between client and server
+      Status     := esNotLogined;
       RemainTime := 0;
-      TimeStamp := 0;
+      TimeStamp  := 0;
       if Assigned(ScoreCompressedStream) then
          ScoreCompressedStream.Free;
    end;
