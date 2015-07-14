@@ -7,7 +7,7 @@ uses
    System.Classes, Vcl.Graphics,
    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CustomLoginForm, Vcl.StdCtrls,
    Vcl.Buttons, JvExControls, JvSpeedButton, cxGraphics, cxLookAndFeels,
-   cxLookAndFeelPainters, Vcl.Menus, cxButtons,netglobal, IdBaseComponent, IdComponent, IdIPWatch;
+   cxLookAndFeelPainters, Vcl.Menus, cxButtons, netglobal, IdBaseComponent, IdComponent, IdIPWatch;
 
 type
    TFrmLogin = class(TCustomLoginForm)
@@ -40,7 +40,7 @@ uses ExamClientGlobal, clientmain, commons, ExamTypeFrm;
 procedure TFrmLogin.btnStartExamClick(Sender : TObject);
    begin
       try
-         //Login();
+         Login();
          modalResult := TExamClientGlobal.InitExam;
       except
          application.NormalizeTopMosts;
@@ -65,7 +65,7 @@ procedure TFrmLogin.edtExamineeIDKeyPress(Sender : TObject; var Key : Char);
                // if examineeName.Length>0 then
                begin
                   edtExamineeName.Text := TExamClientGlobal.Examinee.Name;
-                  Login();
+                  //Login();
                   btnStartExam.Enabled := true;
                end;
             end
@@ -200,11 +200,16 @@ function TFrmLogin.GetExamineePhoto(AExamineeID : string; photoStream : TmemoryS
 
 procedure TFrmLogin.Login;
    var
-      pwd : string;
-      mr  : integer;
-      loginResult:TCommandResult;
-      sExamPath:string;
+      mr          : integer;
+      loginResult : TCommandResult;
+      sExamPath   : string;
+      aloginType  : TloginType;
+      apwd        : string;
+      atime       : integer;
    begin
+      loginResult:=crRefuseLogin;
+      apwd  := 'NULL';
+      atime := 0;
       with TExamClientGlobal do
       begin
          if BaseConfig.LoginPermissionMode = 0 then
@@ -228,37 +233,30 @@ procedure TFrmLogin.Login;
                         { TODO：中断换机续考 }
                      end;
                   end;
-               esAllowContinuteExam :
-                  begin
-                     LoginType := ltContinuteEndedExam;
-                     mr        := TExamTypeForm.ShowModelForm(pwd);
-                  end;
-               esAllowReExam :
-                  begin
-                     LoginType := ltReExamLogin;
-                     mr        := TExamTypeForm.ShowModelForm(pwd);
-                  end;
-            else
+            else // esAllowContinuteExam ,esAllowReExam,esLogined
                begin
-                  // 如果是其它状态，则不允许登录
-                  // result := 2; // refuse login
+                  { TODO -ojp -cMust : 如果有考生已经用相同考号登录，使用密码强行登录续考或重考，前一个考生将出现问题，当然老师在强行登录时应该核对考生，前一考生应该是有问题的 }
+                  // 如果是其它状态，则通过密码强行登录
+                  if TExamTypeForm.ShowModelForm(aloginType, apwd, atime)= mrOk then
+                  begin
+                     LoginType := aloginType;
+                     atime:=atime ;
+                  end;
                end;
             end;
-            loginResult:=TExamClientGlobal.Login(TExamClientGlobal.LoginType, pwd) ;
-            if loginResult<>crOk  then
-            begin
-               application.MessageBox('登录失败！', '请确认:', mb_ok);
-               exit;
-            end;
-
-         end
-         else
+         end;
+         // else
+         // begin
+         // loginResult := TExamClientGlobal.Login();
+         // end;
+         loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd, atime);
+         if loginResult <> crOK then
          begin
-            TExamClientGlobal.Login();
+            application.MessageBox('登录失败！', '请确认:', mb_ok);
+            exit;
          end;
       end;
-
-//      TExamClientGlobal.InitExam;
+      // TExamClientGlobal.InitExam;
    end;
 
 end.

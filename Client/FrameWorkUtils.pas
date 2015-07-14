@@ -30,6 +30,7 @@ begin
    Result.Top:=0;//(Panel1.Height-Result.Height)div 2;
    Result.Show
 
+
    //FCurrentfrmClassName:=theFrameClass.ClassName;
 
 end;

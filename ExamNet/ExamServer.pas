@@ -297,7 +297,7 @@ procedure TExamServer.commandSendExamineeStatus(ASender : TIdCommand);
             IP         := Context.Binding.PeerIP;
             Port       := Context.Binding.PeerPort;
          end;
-         // FExamineesManager.UpdateStatus(Examinee);
+         FExamineesManager.UpdateStatus(Examinee);
       end;
       {$IFDEF DEBUG}
       CnDebugger.LogMsgWithTag('commandSendExamineeStatus OK! exaimineeID:' + Examinee.ID, ASender.Context.Binding.PeerIP.Substring(8));
@@ -307,14 +307,22 @@ procedure TExamServer.commandSendExamineeStatus(ASender : TIdCommand);
 procedure TExamServer.CommandGetExamineeTestFilePack(ASender : TIdCommand);
    var
       packStream : TMemoryStream;
+      examineeID : string;
+      loginType  : TLoginType;
    begin
       ASender.PerformReply := False;
       with ASender, ASender.Context.Connection.IOHandler do
       begin
+         {$IFDEF DEBUG}
+         if ASender.Params <> 2 then
+            CnDebugger.LogMsgWithTag('CommandGetExamineeTestFilePack OK!', ASender.Context.Binding.PeerIP.Substring(8));
+         {$ENDIF}
+         examineeID := Params[0];
+         loginType  := Params[1];
          // CreateExamineesEQBZipFileStreamArray
          packStream := TMemoryStream.Create;
          // GetExamineeTestFilePackByExamineeStatus(Params[0],Params[1],packStream);
-         TExamServerGlobal.GlobalStkRecordInfo.AcquireTestFilePack(Params[0], Params[1], packStream);
+         TExamServerGlobal.GlobalStkRecordInfo.AcquireTestFilePack(examineeID, loginType, packStream);
          if packStream.Size <> 0 then
          begin
             try
@@ -560,6 +568,7 @@ procedure TExamServer.CommandGetBaseConfig(ASender : TIdCommand);
 
    end;
 
+{ TODO -ojp -cMust : 登录后，如果未进入考试，退出应该发送状态信息，已便能再次登录 }
 procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
    var
       Examinee   : PExaminee;
@@ -570,13 +579,20 @@ procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
       ASender.PerformReply := True;
       with ASender do
       begin
-         Assert((Params.Count = 2) or (Params.Count = 3), 'Error commandGetSysConfig params count');
-
          try
-            pwd := '';
-            if Params.Count = 3 then
-               pwd := Params[2];
-
+            {$IFDEF DEBUG}
+            if Params.Count <> 3 then
+            begin
+               CnDebugger.LogMsgWithTagLevel('CommandExamineeLogin error! parameter num not be 4', ASender.Context.Binding.PeerIP.Substring(8), 0);
+            end;
+            {$ENDIF}
+            
+            begin
+               loginType  := TLoginType(StrToInt(Params[1]));
+               pwd        := Params[2];
+               RemainTime := Params[3].ToInteger();
+            end
+            
             New(Examinee);
             try
                Examinee.ID   := Params[0];
@@ -584,18 +600,23 @@ procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
                Examinee.Port := Context.Binding.PeerPort;
                // examinee.Status := esLogined;
                // examinee.RemainTime := remainTime;
-               if FExamineesManager.Login(Examinee, TLoginType(StrToInt(Params[1])), pwd, RemainTime) = crOk then
+               // if addTime>0 then
+               // RemainTime:=RemainTime+addTime;
+               if FExamineesManager.Login(Examinee, loginType, pwd, RemainTime) = crOk then
                begin
                   Reply.Code := CMDCONSTCORRECTREPLYCODE;
                   ConvertExamineeToStrings(Examinee^, Reply.Text);
+                  {$IFDEF DEBUG}
+                  CnDebugger.LogMsgWithTag('CommandExamineeLogin OK!', ASender.Context.Binding.PeerIP.Substring(8));
+                  {$ENDIF}
                end
                else
                begin
                   Reply.Code := CMDCONSTERRORREPLYCODE;
+                  {$IFDEF DEBUG}
+                  CnDebugger.LogMsgWithTag('CommandExamineeLogin Fault!', ASender.Context.Binding.PeerIP.Substring(8));
+                  {$ENDIF}
                end;
-               {$IFDEF DEBUG}
-               CnDebugger.LogMsgWithTag('CommandExamineeLogin OK!', ASender.Context.Binding.PeerIP.Substring(8));
-               {$ENDIF}
             finally
                Dispose(Examinee);
             end;

@@ -17,17 +17,21 @@ type
       lblID : TLabel;
       edtpw : TEdit;
       Label4 : TLabel;
+      Label1 : TLabel;
+      edtAddTime : TEdit;
       procedure FormShow(Sender : TObject);
       procedure btRetryClick(Sender : TObject);
       procedure btContinueClick(Sender : TObject);
       procedure btnExitClick(Sender : TObject);
+      procedure btnAddTimeClick(Sender : TObject);
    private
       { Private declarations }
    public
       { Public declarations }
       UserPwd   : string;
+      Time:integer;
       loginType : TloginType;
-      class function ShowModelForm(out aPwd : string) : integer;
+      class function ShowModelForm(out aLoginType : TloginType; out aPwd : string; out atime : Integer) : Integer;
    end;
 
 implementation
@@ -58,54 +62,69 @@ procedure TExamTypeForm.FormShow(Sender : TObject);
       end;
    end;
 
-class function TExamTypeForm.ShowModelForm(out aPwd : string) : integer;
+class function TExamTypeForm.ShowModelForm(out aLoginType : TloginType; out aPwd : string; out atime : Integer) : Integer;
    var
       tf : TExamTypeForm;
    begin
       tf := TExamTypeForm.Create(nil);
       try
-         result := tf.ShowModal();
-         aPwd   := trim(tf.edtpw.Text);
+         result     := tf.ShowModal();
+         aPwd       := tf.UserPwd;
+         atime      := tf.Time;
+         aLoginType := tf.loginType;
       finally
          tf.Free;
       end;
    end;
 
 procedure TExamTypeForm.btRetryClick(Sender : TObject);
-   var
-      pwd : string;
    begin
-      if Length(edtpw.Text) > 0 then
-      begin
-         loginType   := ltReExamLogin;
-         UserPwd     := edtpw.Text;
-         modalresult := 8;
-      end
-      else
+      if Length(trim(edtpw.Text)) = 0 then
       begin
          Label4.caption := '请输入密码！    ';
+         exit;
       end;
+      loginType   := ltReExamLogin;
+      UserPwd     := trim(edtpw.Text);
+      time:=0;
+      modalresult := mrOK; // 8
    end;
 
 procedure TExamTypeForm.btContinueClick(Sender : TObject);
-   var
-      pwd : string;
    begin
-      if Length(edtpw.Text) > 0 then
-      begin
-         loginType   := ltContinuteEndedExam;
-         UserPwd     := edtpw.Text;
-         modalresult := 1;
-      end
-      else
+      if Length(trim(edtpw.Text)) = 0 then
       begin
          Label4.caption := '请输入密码！    ';
+         exit;
       end;
+      loginType   := ltContinuteEndedExam;
+      UserPwd     := trim(edtpw.Text);
+      Time:=0;
+      modalresult := mrOK; // 1
+   end;
+
+procedure TExamTypeForm.btnAddTimeClick(Sender : TObject);
+   begin
+      time := integer.Parse(edtAddTime.Text);
+      if not((time >= 300) and (time <= 1800)) then
+      begin
+         Label4.caption := '请输入正确的时间！300秒<=时间<=1800秒!    ';
+         exit;
+      end;
+
+      if Length(trim(edtpw.Text)) = 0 then
+      begin
+         Label4.caption := '请输入密码！    ';
+         exit;
+      end;
+      loginType := ltAddTimeExam;
+      UserPwd   := trim(edtpw.Text);
+      modalresult := mrOK; // 1
    end;
 
 procedure TExamTypeForm.btnExitClick(Sender : TObject);
    begin
-      modalresult := -3;
+      modalresult := mrAbort; // 3
    end;
 
 end.

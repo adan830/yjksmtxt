@@ -43,7 +43,7 @@ const
    // '60.173.210.154';     //
 type
 
-   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2,esGetTestPaper = 3,  esLogined = 20,
+   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2,esAllowAddTimeExam=3,esGetTestPaper = 4,  esLogined = 20,
            esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCrib = 42,esDisConnect = 90, esGradeError = 91, esExamEnded = 99);
 
    // TO-DO:增加性别，相片
@@ -67,7 +67,7 @@ type
 
    PExaminee = ^TExaminee;
 
-   TLoginType = (ltFirstLogin = 0, ltContinuteInterupt = 1, ltContinuteEndedExam = 2, ltReExamLogin = 3);
+   TLoginType = (ltFirstLogin = 0, ltContinuteInterupt = 1, ltContinuteEndedExam = 2,ltAddTimeExam=3, ltReExamLogin = 4);
 
    TCommandResult = (crOk = 1, crRefuseLogin = 2, crError = 3, crDisConnected = 4, crConnClosedGracefully = 5, crNetError = 6);
 

@@ -18,6 +18,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtAddTimePwd1: TcxTextEdit
     Left = 293
     Top = 114
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 0
     Width = 121
@@ -25,6 +26,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtAddTimePwd: TcxTextEdit
     Left = 142
     Top = 114
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 1
     Width = 121
@@ -42,6 +44,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtContPwd: TcxTextEdit
     Left = 142
     Top = 52
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 4
     Width = 121
@@ -49,6 +52,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtContPwd1: TcxTextEdit
     Left = 293
     Top = 52
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 5
     Width = 121
@@ -56,6 +60,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtRetryPwd: TcxTextEdit
     Left = 142
     Top = 81
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 6
     Width = 121
@@ -63,6 +68,7 @@ object ResetExamPwdForm: TResetExamPwdForm
   object edtRetryPwd1: TcxTextEdit
     Left = 293
     Top = 81
+    Properties.PasswordChar = '*'
     Properties.ReadOnly = False
     TabOrder = 7
     Width = 121

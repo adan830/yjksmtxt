@@ -81,6 +81,7 @@
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2_Win32)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
         <DCC_UnitSearchPath>D:\develop\yjksmtxt\debug\bin;$(BDS)\lib\win32\debug;$(BDS)\source\vcl;$(BDS)\include\windows\rtl;C:\Program Files (x86)\Embarcadero\Studio\16.0\lib\win32\debug;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -128,7 +129,6 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Program Files (x86)\FastReports\LibD22\dclfrxtee22.bpl">(untitled)</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>

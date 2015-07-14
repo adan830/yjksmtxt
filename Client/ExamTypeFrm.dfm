@@ -4,7 +4,7 @@ object ExamTypeForm: TExamTypeForm
   BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsSingle
   Caption = #35831#36873#25321#32771#35797#26041#24335#65306
-  ClientHeight = 218
+  ClientHeight = 250
   ClientWidth = 394
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
@@ -48,8 +48,8 @@ object ExamTypeForm: TExamTypeForm
     Transparent = True
   end
   object btnRetry: TCnSpeedButton
-    Left = 13
-    Top = 168
+    Left = 17
+    Top = 192
     Width = 82
     Height = 30
     Color = 15966293
@@ -69,8 +69,8 @@ object ExamTypeForm: TExamTypeForm
     OnClick = btRetryClick
   end
   object btnContinue: TCnSpeedButton
-    Left = 109
-    Top = 168
+    Left = 113
+    Top = 192
     Width = 82
     Height = 30
     Color = 15966293
@@ -90,8 +90,8 @@ object ExamTypeForm: TExamTypeForm
     OnClick = btContinueClick
   end
   object btnAddTime: TCnSpeedButton
-    Left = 204
-    Top = 168
+    Left = 208
+    Top = 192
     Width = 82
     Height = 30
     Color = 15966293
@@ -108,10 +108,11 @@ object ExamTypeForm: TExamTypeForm
     Font.Style = []
     Margin = 4
     ParentFont = False
+    OnClick = btnAddTimeClick
   end
   object CnSpeedButton1: TCnSpeedButton
-    Left = 300
-    Top = 168
+    Left = 304
+    Top = 192
     Width = 82
     Height = 30
     Color = 15966293
@@ -131,8 +132,8 @@ object ExamTypeForm: TExamTypeForm
     OnClick = btnExitClick
   end
   object lblID: TLabel
-    Left = 33
-    Top = 81
+    Left = 57
+    Top = 89
     Width = 105
     Height = 19
     Caption = #35831#36755#20837#23494#30721':'
@@ -144,16 +145,28 @@ object ExamTypeForm: TExamTypeForm
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 104
-    Top = 120
-    Width = 32
+    Left = 81
+    Top = 161
+    Width = 3
     Height = 13
-    Caption = 'Label4'
+  end
+  object Label1: TLabel
+    Left = 19
+    Top = 131
+    Width = 143
+    Height = 19
+    Caption = #24310#38271#26102#38388#65288#31186#65289':'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 5000268
+    Font.Height = -19
+    Font.Name = #23435#20307
+    Font.Style = []
+    ParentFont = False
   end
   object edtpw: TEdit
-    Left = 144
-    Top = 78
-    Width = 222
+    Left = 168
+    Top = 86
+    Width = 193
     Height = 27
     AutoSize = False
     BevelEdges = []
@@ -167,6 +180,27 @@ object ExamTypeForm: TExamTypeForm
     Font.Style = []
     MaxLength = 11
     ParentFont = False
+    PasswordChar = '*'
     TabOrder = 0
+  end
+  object edtAddTime: TEdit
+    Left = 168
+    Top = 128
+    Width = 193
+    Height = 27
+    AutoSize = False
+    BevelEdges = []
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = #23435#20307
+    Font.Style = []
+    MaxLength = 11
+    NumbersOnly = True
+    ParentFont = False
+    TabOrder = 1
   end
 end

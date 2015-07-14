@@ -15,7 +15,7 @@ unit Logger;
 
 interface
 
-uses Windows, Classes, SysUtils, StdCtrls, ComCtrls, ComObj, Messages;
+uses Windows, Classes, SysUtils, vcl.StdCtrls, vcl.ComCtrls, ComObj, Messages;
 
 const
   WRITE_LOG_DIR = 'log\'; // 记录日志默认目录

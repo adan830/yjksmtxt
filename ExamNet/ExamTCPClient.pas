@@ -30,7 +30,7 @@ type
       function CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
       function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
       function CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
-      function CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string = NULLSTR) : TCommandResult;
+      function CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string = NULLSTR; aRemainTime : Integer = 0) : TCommandResult;
 
       function CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
       function CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
@@ -263,13 +263,13 @@ function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TC
       end;
    end;
 
-function TExamTCPClient.CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string) : TCommandResult;
+function TExamTCPClient.CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string; aRemainTime : Integer) : TCommandResult;
    begin
       Result             := crError;
       FCommandProcessing := true;
       try
          try
-            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExaminee.ID + ' ' + IntToStr(Ord(AFlag)) + ' ' + ALoginPwd);
+            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExaminee.ID + ' ' + IntToStr(Ord(AFlag)) + ' ' + ALoginPwd + ' ' + aRemainTime.ToString());
             if LastCmdResult.Code = CMDCONSTCORRECTREPLYCODE then
             begin
                ConvertStringsToExaminee(LastCmdResult.Text, AExaminee);

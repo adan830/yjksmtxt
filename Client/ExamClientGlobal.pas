@@ -71,7 +71,7 @@ type
 
       class procedure SetupExamineeInfoBase(const AExaminee : TExaminee); static;
       class function Login() : TCommandResult; overload; static;
-      class function Login(LoginType : TLoginType; pwd : string) : TCommandResult; overload; static;
+      class function Login(LoginType: TLoginType; pwd: string; time: Integer) : TCommandResult; overload; static;
 
       class procedure EnableTimer;
       class procedure UnableTimer;
@@ -223,6 +223,8 @@ class procedure TExamClientGlobal.DestroyClassObject;
       i          : Integer;
       jg         : LongBool;
    begin
+      if ExamineePhoto<>nil then
+         ExamineePhoto.free;
       for i := 0 to high(FModules) do
       begin
          moduleinfo := FModules[i];
@@ -320,7 +322,7 @@ class procedure TExamClientGlobal.SetupExamineeInfoBase(const AExaminee : TExami
       end;
    end;
 
-class function TExamClientGlobal.Login(LoginType : TLoginType; pwd : string) : TCommandResult;
+class function TExamClientGlobal.Login(LoginType: TLoginType; pwd: string; time: Integer) : TCommandResult;
    begin
       Result := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType, pwd);
        if Result = crOk then
@@ -461,10 +463,10 @@ class function TExamClientGlobal.InitExam : TModalResult;
       // TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
       // TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
       // TypeForm := TTypeForm.Create(self);
-      TExamClientGlobal.Examinee.Status := esExamining;
+
       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name,
               TExamClientGlobal.Examinee.Status, TExamClientGlobal.Examinee.RemainTime);
-      TExamClientGlobal.EnableTimer;
+              
    end;
 
 class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType) : TModalResult;
