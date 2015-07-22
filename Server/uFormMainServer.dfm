@@ -149,41 +149,6 @@ object FormMainServer: TFormMainServer
           FFE003FF}
         ExplicitLeft = 584
       end
-      object img4: TImage
-        Left = 638
-        Top = 257
-        Width = 32
-        Height = 32
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        Picture.Data = {
-          055449636F6E0000010001002020100000000000E80200001600000028000000
-          2000000040000000010004000000000080020000000000000000000010000000
-          0000000000000000000080000080000000808000800000008000800080800000
-          80808000C0C0C0000000FF0000FF000000FFFF00FF000000FF00FF00FFFF0000
-          FFFFFF0000000000070070000000000000000000000000007000070000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000000000000
-          000000000000000000FF000000000000000000000000000000FF000700700000
-          000000000000000000FF000000070000000000000000000000FF0000FF000707
-          000000000000000000FF0007FF700000700000000000000000FF0007FF700FF0
-          000000000000000700000007FF707FF80070000000000000077770007F708FF8
-          00000000000000008FFFF87007708F870FF070000000700FFFFFFFFF0000FF80
-          7FF00000000000FFFFFFFFFF0000FF70FFF07000000000FFF707FFF000008F07
-          FF700000000000FFF70000007700000FFF070000000070FFFFF70007FF700008
-          F00000000000000FFFFFFFFFFF7077000070000000000000FFFFFFFFFF70FF00
-          000000000000000007FFFFFFF007FFF00000000000000000007FFFFFF70FFF70
-          0000000000000000000FFFFFFFFFFF000000000000000000700078FFFFF87000
-          700000000000000000F00000000000F0000000000000000000F87000000078F0
-          000000000000000000FFFFFFFFFFFFF0000000000000000070078FFFFFFF8700
-          7000000000000000070000000000000700000000000000000007000000000700
-          00000000FF87FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFFFF03FFFF
-          FF021FFFFF000FFFFF0008FFFF00007FFF00007FFE00001FFC00000FF8000007
-          F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
-          FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
-          FFE003FF}
-        ExplicitLeft = 643
-      end
       object btnStart: TButton
         Left = 605
         Top = 85
@@ -214,16 +179,6 @@ object FormMainServer: TFormMainServer
         TabOrder = 2
         OnClick = btnExamineeSelectClick
       end
-      object btnSaveExamineeInfo: TButton
-        Left = 605
-        Top = 223
-        Width = 97
-        Height = 25
-        Anchors = [akTop, akRight]
-        Caption = #20445#23384#32771#29983#20449#24687
-        TabOrder = 3
-        OnClick = btnSaveExamineeInfoClick
-      end
       object btnExit: TButton
         Left = 605
         Top = 412
@@ -231,7 +186,7 @@ object FormMainServer: TFormMainServer
         Height = 25
         Anchors = [akRight, akBottom]
         Caption = #36864#20986
-        TabOrder = 4
+        TabOrder = 3
         OnClick = btnExitClick
       end
       object cxGrid1: TcxGrid
@@ -240,7 +195,7 @@ object FormMainServer: TFormMainServer
         Width = 589
         Height = 434
         Anchors = [akLeft, akTop, akRight, akBottom]
-        TabOrder = 5
+        TabOrder = 4
         object tvExaminees: TcxGridTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -264,13 +219,13 @@ object FormMainServer: TFormMainServer
         end
       end
       object btnExamRecord: TButton
-        Left = 598
-        Top = 295
+        Left = 605
+        Top = 239
         Width = 97
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #25171#21360#32771#22330#35760#24405
-        TabOrder = 6
+        TabOrder = 5
         OnClick = btnExamRecordClick
       end
       object btnLock: TButton
@@ -280,16 +235,16 @@ object FormMainServer: TFormMainServer
         Height = 25
         Anchors = [akRight, akBottom]
         Caption = #38145#23450
-        TabOrder = 7
+        TabOrder = 6
       end
       object Button1: TButton
-        Left = 598
-        Top = 326
+        Left = 605
+        Top = 302
         Width = 97
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #26597#38646#20998
-        TabOrder = 8
+        TabOrder = 7
         OnClick = btnExamRecordClick
       end
     end

@@ -314,11 +314,11 @@ procedure TExamServer.CommandGetExamineeTestFilePack(ASender : TIdCommand);
       with ASender, ASender.Context.Connection.IOHandler do
       begin
          {$IFDEF DEBUG}
-         if ASender.Params <> 2 then
-            CnDebugger.LogMsgWithTag('CommandGetExamineeTestFilePack OK!', ASender.Context.Binding.PeerIP.Substring(8));
+         if ASender.Params.Count <> 2 then
+            CnDebugger.LogMsgWithTagLevel('CommandGetExamineeTestFilePack OK!', ASender.Context.Binding.PeerIP.Substring(8),0);
          {$ENDIF}
          examineeID := Params[0];
-         loginType  := Params[1];
+         loginType  := TLoginType(StrToInt(Params[1]));
          // CreateExamineesEQBZipFileStreamArray
          packStream := TMemoryStream.Create;
          // GetExamineeTestFilePackByExamineeStatus(Params[0],Params[1],packStream);
@@ -571,7 +571,8 @@ procedure TExamServer.CommandGetBaseConfig(ASender : TIdCommand);
 { TODO -ojp -cMust : 登录后，如果未进入考试，退出应该发送状态信息，已便能再次登录 }
 procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
    var
-      Examinee   : PExaminee;
+      // Examinee   : PExaminee;
+      examineeID : string;
       loginType  : TLoginType;
       pwd        : string;
       RemainTime : Integer;
@@ -586,26 +587,24 @@ procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
                CnDebugger.LogMsgWithTagLevel('CommandExamineeLogin error! parameter num not be 4', ASender.Context.Binding.PeerIP.Substring(8), 0);
             end;
             {$ENDIF}
-            
-            begin
-               loginType  := TLoginType(StrToInt(Params[1]));
-               pwd        := Params[2];
-               RemainTime := Params[3].ToInteger();
-            end
-            
-            New(Examinee);
+            examineeID:=Params[0];
+            loginType := TLoginType(StrToInt(Params[1]));
+            pwd       := Params[2];
+            // RemainTime := Params[3].ToInteger();
+
+            // New(Examinee);
             try
-               Examinee.ID   := Params[0];
-               Examinee.IP   := Context.Binding.PeerIP;
-               Examinee.Port := Context.Binding.PeerPort;
+               // Examinee.ID   := Params[0];
+               // Examinee.IP   := Context.Binding.PeerIP;
+               // Examinee.Port := Context.Binding.PeerPort;
                // examinee.Status := esLogined;
                // examinee.RemainTime := remainTime;
                // if addTime>0 then
                // RemainTime:=RemainTime+addTime;
-               if FExamineesManager.Login(Examinee, loginType, pwd, RemainTime) = crOk then
+               if FExamineesManager.Login(examineeID, loginType, pwd,Context.Binding.PeerIP,Context.Binding.PeerPort) = crOk then
                begin
                   Reply.Code := CMDCONSTCORRECTREPLYCODE;
-                  ConvertExamineeToStrings(Examinee^, Reply.Text);
+                  // ConvertExamineeToStrings(Examinee^, Reply.Text);
                   {$IFDEF DEBUG}
                   CnDebugger.LogMsgWithTag('CommandExamineeLogin OK!', ASender.Context.Binding.PeerIP.Substring(8));
                   {$ENDIF}
@@ -618,7 +617,7 @@ procedure TExamServer.CommandExamineeLogin(ASender : TIdCommand);
                   {$ENDIF}
                end;
             finally
-               Dispose(Examinee);
+               // Dispose(Examinee);
             end;
          except
             on E : Exception do

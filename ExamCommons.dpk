@@ -26,48 +26,50 @@ package ExamCommons;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$DEFINE noNOLOGIN}
+{$DEFINE USE_JCL}
 {$ENDIF IMPLICITBUILDING}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
 
 requires
-   rtl,
-   vcl,
-   dbrtl,
-   dsnap,
-   adortl,
-   JclDeveloperTools,
-   JclContainers,
-   Jcl,
-   vclimg;
+  rtl,
+  vcl,
+  dbrtl,
+  dsnap,
+  adortl,
+  JclDeveloperTools,
+  JclContainers,
+  Jcl,
+  vclimg;
 
 contains
-   Commons in 'ExamCommons\Commons.pas',
-   compress in 'ExamCommons\compress.pas',
-   DataUtils in 'ExamCommons\DataUtils.pas',
-   ScoreIni in 'ExamCommons\ScoreIni.pas',
-   uGrade in 'ExamCommons\uGrade.pas',
-   NetGlobal in 'ExamCommons\NetGlobal.pas',
-   ExamInterface in 'ExamCommons\ExamInterface.pas',
-   uDispAnswer in 'ExamCommons\uDispAnswer.pas',
-   ExamGlobal in 'ExamCommons\ExamGlobal.pas',
-   ShellModules in 'ExamCommons\ShellModules.pas',
-   DataFieldConst in 'ExamCommons\DataFieldConst.pas',
-   LogicExpEval in 'ExamCommons\LogicExpEval.pas',
-   BaseConfig in 'ExamCommons\BaseConfig.pas',
-   ExamException in 'ExamCommons\ExamException.pas',
-   ExamResourceStrings in 'ExamCommons\ExamResourceStrings.pas',
-   tq in 'ExamCommons\tq.pas',
-   LogicalExprEval in 'ExamCommons\LogicalExprEval.pas',
-   ufrmInProcess in 'ExamCommons\ufrmInProcess.pas' { frmInProcess } ,
-   CustomBmpForm in 'ExamCommons\CustomBmpForm.pas',
-   FormBmpUtils in 'ExamCommons\FormBmpUtils.pas',
-   CustomColorForm in 'ExamCommons\CustomColorForm.pas',
-   CustomLoginForm in 'ExamCommons\CustomLoginForm.pas',
-   ShadowFrame in 'ExamCommons\ShadowFrame.pas',
-   Logger in 'ExamCommons\Logger.pas',
-   CnDebug in 'ExamCommons\CnDebug.pas';
+  Commons in 'ExamCommons\Commons.pas',
+  compress in 'ExamCommons\compress.pas',
+  DataUtils in 'ExamCommons\DataUtils.pas',
+  ScoreIni in 'ExamCommons\ScoreIni.pas',
+  uGrade in 'ExamCommons\uGrade.pas',
+  NetGlobal in 'ExamCommons\NetGlobal.pas',
+  ExamInterface in 'ExamCommons\ExamInterface.pas',
+  uDispAnswer in 'ExamCommons\uDispAnswer.pas',
+  ExamGlobal in 'ExamCommons\ExamGlobal.pas',
+  ShellModules in 'ExamCommons\ShellModules.pas',
+  DataFieldConst in 'ExamCommons\DataFieldConst.pas',
+  LogicExpEval in 'ExamCommons\LogicExpEval.pas',
+  BaseConfig in 'ExamCommons\BaseConfig.pas',
+  ExamException in 'ExamCommons\ExamException.pas',
+  ExamResourceStrings in 'ExamCommons\ExamResourceStrings.pas',
+  tq in 'ExamCommons\tq.pas',
+  LogicalExprEval in 'ExamCommons\LogicalExprEval.pas',
+  ufrmInProcess in 'ExamCommons\ufrmInProcess.pas' {frmInProcess},
+  CustomBmpForm in 'ExamCommons\CustomBmpForm.pas',
+  FormBmpUtils in 'ExamCommons\FormBmpUtils.pas',
+  CustomColorForm in 'ExamCommons\CustomColorForm.pas',
+  CustomLoginForm in 'ExamCommons\CustomLoginForm.pas',
+  ShadowFrame in 'ExamCommons\ShadowFrame.pas',
+  Logger in 'ExamCommons\Logger.pas',
+  CnDebug in 'ExamCommons\CnDebug.pas';
 
 // FastMM4 in '..\Components\fastmm4\FastMM4.pas';
 
 end.
+

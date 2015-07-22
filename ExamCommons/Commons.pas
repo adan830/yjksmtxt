@@ -661,6 +661,7 @@ begin
 end;
 
 //About Directory
+///É¾³ýÄ¿Â¼
 function DeleteDir(ADicPath:TFileName):integer;
 var
   lpFileOp: TSHFileOpstruct;

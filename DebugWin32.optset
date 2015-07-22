@@ -1,10 +1,10 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
-        <DCC_RemoteDebug>true</DCC_RemoteDebug>
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
         <DCC_Define>DEBUG;noNOLOGIN;USE_JCL;$(DCC_Define)</DCC_Define>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
-        <DCC_DebugInfoInTds>true</DCC_DebugInfoInTds>
+        <DCC_DebugInfoInTds>false</DCC_DebugInfoInTds>
         <DCC_BplOutput>D:\develop\yjksmtxt\debug\bin\</DCC_BplOutput>
         <DCC_DebugInformation>2</DCC_DebugInformation>
         <DCC_DebugDCUs>true</DCC_DebugDCUs>

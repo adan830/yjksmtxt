@@ -21804,8 +21804,8 @@ object ClientMainForm: TClientMainForm
       Height = 116
     end
     object btnComplete: TCnSpeedButton
-      Left = 1
-      Top = 382
+      Left = -3
+      Top = 376
       Width = 170
       Height = 30
       Anchors = []

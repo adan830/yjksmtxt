@@ -675,6 +675,8 @@ procedure TClientMainForm.FlashPlayerFlashCall(ASender : TObject; const request 
 
 { TODO -ojp -cMust : 如果在登录状态直接关闭，必须发送信息到服务器，结束会话和连接 }
 procedure TClientMainForm.FormClose(Sender : TObject; var Action : TCloseAction);
+var
+  ksPath:string;
    begin
       {$IFDEF DEBUG}
       if ModalResult = mrAbort then
@@ -690,9 +692,10 @@ procedure TClientMainForm.FormClose(Sender : TObject; var Action : TCloseAction)
          self.Visible := false;
          dograde;
       end;
-
+      ksPath:=TExamClientGlobal.ExamPath;
       TExamClientGlobal.ExamTCPClient.Disconnect;
       TExamClientGlobal.destroyclassobject();
+      DeleteDir(TExamClientGlobal.ExamPath);
       Release;
       Application.Terminate;
       // Application.Free;

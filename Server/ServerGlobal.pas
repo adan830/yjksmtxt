@@ -45,16 +45,16 @@ uses
 
 class procedure TExamServerGlobal.CreateClassObject;
    var
-      configfile: string;
+      configfilepath: string;
    begin
       // logger := TLogger.create();
       // logger.Enabled := true;
       try
          FDmServer := TDmServer.create(nil);
          FStkRecordInfo := TStkRecordInfo.CreateStkRecordInfo;
-         configfile := ExtractFilePath(Application.ExeName);
+         configfilepath := ExtractFilePath(Application.ExeName);
          FServerCustomConfig := TServerCustomConfig.create;
-         FServerCustomConfig.SetupCustomConfig(configfile, FStkRecordInfo.BaseConfig);
+         FServerCustomConfig.SetupCustomConfig(configfilepath, FStkRecordInfo.BaseConfig);
          FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath,fserverCustomConfig.LoginPermissionModel);
          SetupGlobalOperateModules;
       except

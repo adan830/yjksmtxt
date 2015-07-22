@@ -30,7 +30,7 @@ type
       function CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
       function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
       function CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
-      function CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string = NULLSTR; aRemainTime : Integer = 0) : TCommandResult;
+      function CommandExamineeLogin(var AExamineeID : string; AFlag : TLoginType; ALoginPwd : string = 'Null') : TCommandResult;
 
       function CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
       function CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
@@ -44,7 +44,7 @@ type
 
 implementation
 
-uses Windows, IdStack, Forms, IdException, compress, IdGlobal, cndebug;
+uses Windows, IdStack, Forms, IdException, compress, IdGlobal, cndebug,system.Hash;
 
 { TTcpClient }
 // constructor TExamTCPClient.Create(AHost: string; APort: integer);
@@ -148,8 +148,9 @@ procedure TExamTCPClient.TimerTimer(Sender : TObject);
       // if (GlobalExaminee.RemainTime div GlobalSysConfig.StatusRefreshInterval)=(GlobalExaminee.RemainTime / GlobalSysConfig.StatusRefreshInterval) then
       if (not FCommandProcessing) and (Assigned(FOnTimer)) then
       begin
-         FOnTimer(Sender);
          // The following code is moved to notify event ,以减少与主程序的耦合
+         FOnTimer(Sender);
+
          // if (GlobalExaminee.Status > esLogined) and (not FCommandProcessing) then
          // begin
          // { TODO -ojp -c0 : direct update remaintime in server ,is correct ? }
@@ -263,16 +264,16 @@ function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TC
       end;
    end;
 
-function TExamTCPClient.CommandExamineeLogin(var AExaminee : TExaminee; AFlag : TLoginType; ALoginPwd : string; aRemainTime : Integer) : TCommandResult;
+function TExamTCPClient.CommandExamineeLogin(var AExamineeID : string; AFlag : TLoginType; ALoginPwd : string = 'Null') : TCommandResult;
    begin
       Result             := crError;
       FCommandProcessing := true;
       try
          try
-            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExaminee.ID + ' ' + IntToStr(Ord(AFlag)) + ' ' + ALoginPwd + ' ' + aRemainTime.ToString());
+            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExamineeID + ' ' + IntToStr(Ord(AFlag)) + ' ' + THashMD5.GetHashString( ALoginPwd));
             if LastCmdResult.Code = CMDCONSTCORRECTREPLYCODE then
             begin
-               ConvertStringsToExaminee(LastCmdResult.Text, AExaminee);
+               // ConvertStringsToExaminee(LastCmdResult.Text, AExaminee,false);
                Result := crOk;
             end;
          except
@@ -429,7 +430,7 @@ function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID : string; ALo
 function TExamTCPClient.CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
    var
       socketException : EIdSocketError;
-   begin
+   begin                        {TODO -ojp -cmust : 交卷时就众停止更改时间}
       Result             := crError;
       FCommandProcessing := true;
       try

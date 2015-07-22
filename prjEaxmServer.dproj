@@ -79,7 +79,7 @@
         <DCC_ResourcePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_ResourcePath)</DCC_ResourcePath>
         <DCC_ObjPath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_IncludePath)</DCC_IncludePath>
-        <DCC_Define>DEBUG;NODISPLAY;$(DCC_Define)</DCC_Define>
+        <DCC_Define>NODISPLAY;$(DCC_Define)</DCC_Define>
         <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
         <DCC_RangeChecking>True</DCC_RangeChecking>
         <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
@@ -132,7 +132,6 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Program Files (x86)\FastReports\LibD22\dclfrxtee22.bpl">(untitled)</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>
@@ -528,13 +527,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

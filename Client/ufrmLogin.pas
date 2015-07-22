@@ -240,7 +240,8 @@ procedure TFrmLogin.Login;
                   if TExamTypeForm.ShowModelForm(aloginType, apwd, atime)= mrOk then
                   begin
                      LoginType := aloginType;
-                     atime:=atime ;
+                     if atime>0 then
+                        examinee.RemainTime:= examinee.RemainTime+atime;
                   end;
                end;
             end;
@@ -249,7 +250,7 @@ procedure TFrmLogin.Login;
          // begin
          // loginResult := TExamClientGlobal.Login();
          // end;
-         loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd, atime);
+         loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd);
          if loginResult <> crOK then
          begin
             application.MessageBox('µÇÂ¼Ê§°Ü£¡', 'ÇëÈ·ÈÏ:', mb_ok);

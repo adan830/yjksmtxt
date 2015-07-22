@@ -29,6 +29,7 @@ type
       class function GetConnClientDB : TADOConnection; static;
       class procedure MainTimerTimer(Sender : TObject);
       class procedure UpdateStatusTimer(Sender : TObject);
+
    public
    class var
       Examinee       : TExaminee;
@@ -70,8 +71,9 @@ type
       class procedure SetEQBConn(path : string = ''; dbName : string = '考生题库.dat'; pwd : string = 'jiaping');
 
       class procedure SetupExamineeInfoBase(const AExaminee : TExaminee); static;
+      class procedure AquireExamineeInfoFromClientDB(var AExaminee : TExaminee); static;
       class function Login() : TCommandResult; overload; static;
-      class function Login(LoginType: TLoginType; pwd: string; time: Integer) : TCommandResult; overload; static;
+      class function Login(LoginType : TLoginType; pwd : string) : TCommandResult; overload; static;
 
       class procedure EnableTimer;
       class procedure UnableTimer;
@@ -88,7 +90,7 @@ implementation
 
 uses
    SysUtils, ExamGlobal, Windows, ShellModules, Commons, compress,
-   ExamInterface, tq, Forms, Variants, DataFieldConst;
+   ExamInterface, tq, Forms, Variants, DataFieldConst, datautils;
 
 // constructor TExamClientGlobal.Create();
 // begin
@@ -223,8 +225,8 @@ class procedure TExamClientGlobal.DestroyClassObject;
       i          : Integer;
       jg         : LongBool;
    begin
-      if ExamineePhoto<>nil then
-         ExamineePhoto.free;
+      if ExamineePhoto <> nil then
+         ExamineePhoto.Free;
       for i := 0 to high(FModules) do
       begin
          moduleinfo := FModules[i];
@@ -322,12 +324,35 @@ class procedure TExamClientGlobal.SetupExamineeInfoBase(const AExaminee : TExami
       end;
    end;
 
-class function TExamClientGlobal.Login(LoginType: TLoginType; pwd: string; time: Integer) : TCommandResult;
+class procedure TExamClientGlobal.AquireExamineeInfoFromClientDB(var AExaminee : TExaminee);
+   var
+      qry : TADOQuery;
    begin
-      Result := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType, pwd);
-       if Result = crOk then
+      qry := TADOQuery.Create(nil);
+      try
+         with qry, AExaminee do
+         begin
+            Connection := FConnClientDB;
+
+            SQL.Add('select * from ' + TBANAME_EXAMDB_INFO);
+            qry.Active := true;
+            qry.First;
+            if AExaminee.ID = DecryptStr(qry.FieldValues[DFNEI_EXAMINEEID]) then
+            begin
+               AExaminee.RemainTime := strtoint(DecryptStr(qry.FieldValues[DFNEI_REMAINTIME]));
+            end;
+         end;
+      finally
+         qry.Free;
+      end;
+   end;
+
+class function TExamClientGlobal.Login(LoginType : TLoginType; pwd : string) : TCommandResult;
+   begin
+      Result := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType, pwd);
+      if Result = crOk then
       begin
-         TExamClientGlobal.ExamTCPClient.OnTimer := Texamclientglobal.UpdateStatusTimer;
+         TExamClientGlobal.ExamTCPClient.OnTimer := TExamClientGlobal.UpdateStatusTimer;
       end;
    end;
 
@@ -344,25 +369,25 @@ class function TExamClientGlobal.Login() : TCommandResult;
          esNotLogined :
             begin
                TExamClientGlobal.LoginType := ltFirstLogin;
-               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType);
+               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
             end;
          esDisConnect :
             begin
                // if DirectoryExists(GlobalExamPath) then
                begin
                   TExamClientGlobal.LoginType := ltContinuteInterupt;
-                  loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType);
+                  loginResult := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
                end;
             end;
          esAllowContinuteExam :
             begin
                TExamClientGlobal.LoginType := ltContinuteEndedExam;
-               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType);
+               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
             end;
          esAllowReExam :
             begin
                TExamClientGlobal.LoginType := ltReExamLogin;
-               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee, TExamClientGlobal.LoginType);
+               loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
             end;
       else
          begin
@@ -372,7 +397,7 @@ class function TExamClientGlobal.Login() : TCommandResult;
       end;
       if Result = crOk then
       begin
-         TExamClientGlobal.ExamTCPClient.OnTimer := Texamclientglobal.UpdateStatusTimer;
+         TExamClientGlobal.ExamTCPClient.OnTimer := TExamClientGlobal.UpdateStatusTimer;
       end;
    end;
 
@@ -380,7 +405,7 @@ class procedure TExamClientGlobal.UpdateStatusTimer(Sender : TObject);
    begin
       if (TExamClientGlobal.Examinee.Status >= esLogined) then
       begin
-         { TODO -ojp -c0 : direct update remaintime in server ,is correct ? }
+         UpdateClientDBRemainTime(TExamClientGlobal.Examinee.RemainTime, TExamClientGlobal.ConnClientDB);
          TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name,
                  TExamClientGlobal.Examinee.Status, TExamClientGlobal.Examinee.RemainTime);
       end;
@@ -466,7 +491,7 @@ class function TExamClientGlobal.InitExam : TModalResult;
 
       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name,
               TExamClientGlobal.Examinee.Status, TExamClientGlobal.Examinee.RemainTime);
-              
+
    end;
 
 class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType) : TModalResult;
@@ -475,7 +500,7 @@ class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType
       TExamClientGlobal.SetGlobalExamPath;
       try
          case ALoginType of
-            ltFirstLogin, ltReExamLogin, ltContinuteEndedExam :
+            ltFirstLogin, ltReExamLogin :
                begin
                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
                   TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
@@ -492,6 +517,20 @@ class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType
                   begin
                      MessageBoxOnTopForm(Application, '找不到上次考试文件目录！', '提示:', mb_ok);
                      Result := mrCancel;
+                  end;
+               end;
+            ltContinuteEndedExam :
+               begin
+                  if directoryexists(TExamClientGlobal.ExamPath) then
+                  begin
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
+                     TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
+                  end
+                  else
+                  begin
+                     TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
+                     TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
                   end;
                end;
          end;

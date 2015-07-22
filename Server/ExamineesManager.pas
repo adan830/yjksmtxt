@@ -31,7 +31,7 @@ type
       // ==============================================================================
       procedure GetExamineeInfo(const AExamineeID : string; out AExaminee : TExaminee);
       procedure UpdateTimeStamp(const ABinding : TIdSocketHandle);
-      function Login(AExaminee : PExaminee; ALoginType : TLoginType; APwd : string; aRemainTime : integer) : TCommandResult;
+      function Login(AExamineeID: string; ALoginType: TLoginType; APwd, aPeerIP: string; aPeerPort: UInt16) : TCommandResult;
       /// 查找已存在的项，返回数组索引，如果不存在返回 -1;
       function FindItemByIPPort(const ABinding : TIdSocketHandle; AList : TList) : integer;
 
@@ -197,7 +197,7 @@ procedure TExamineesManager.GetExamineeInfo(const AExamineeID : string; out AExa
 /// /     end;
 // end;
 
-function TExamineesManager.Login(AExaminee : PExaminee; ALoginType : TLoginType; APwd : string; aRemainTime : integer) : TCommandResult;
+function TExamineesManager.Login(AExamineeID: string; ALoginType: TLoginType; APwd, aPeerIP: string; aPeerPort: UInt16) : TCommandResult;
    var
       index           : integer;
       myList          : TList;
@@ -208,31 +208,31 @@ function TExamineesManager.Login(AExaminee : PExaminee; ALoginType : TLoginType;
 
       procedure ModifyExamineeInfo(AStatus : TExamineeStatus);
          begin
-            TExaminee(myList[index]^).IP     := AExaminee.IP;
-            TExaminee(myList[index]^).Port   := AExaminee.Port;
+            TExaminee(myList[index]^).IP     := aPeerIP;
+            TExaminee(myList[index]^).Port   := aPeerPort;
             TExaminee(myList[index]^).Status := AStatus; // esLogined;
             // TExaminee(myList[index]^).RemainTime:= CONSTEXAMINENATIONTIME;
             TExaminee(myList[index]^).TimeStamp := Now;
 
-            AExaminee.Name   := TExaminee(myList[index]^).Name;
-            AExaminee.Status := AStatus; // esLogined ;
-            if (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
-                    ((ALoginType = ltContinuteEndedExam) or (ALoginType = ltAddTimeExam)) then
-               AExaminee.RemainTime :=  aRemainTime // 时间由客户端传来的确定
-            else
-               AExaminee.RemainTime := TExaminee(myList[index]^).RemainTime; // 时间由服务器端设定
+//            AExaminee.Name   := TExaminee(myList[index]^).Name;
+//            AExaminee.Status := AStatus; // esLogined ;
+//            if (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
+//                    ((ALoginType = ltContinuteEndedExam) or (ALoginType = ltAddTimeExam)) then
+//               AExaminee.RemainTime :=  aRemainTime // 时间由客户端传来的确定
+//            else
+//               AExaminee.RemainTime := TExaminee(myList[index]^).RemainTime; // 时间由服务器端设定
             // ARemainTime          := TExaminee(myList[index]^).RemainTime;
 
             // 为将examinee通过消息发出去，而创建一个临时对象，它将在事件接收过程中被释放。
             New(tempExaminee);
-            tempExaminee.Assign(AExaminee^);
+            tempExaminee.Assign(TExaminee(myList[index]^));
          end;
 
    begin
       Result := crError;
       myList := FExamineesList.LockList;
       try
-         index := FindItemByExamineeNo(AExaminee, myList);
+         index := FindItemByExamineeNo(AExamineeID, myList);
          if index <> -1 then
          begin
             currentStatus := TExaminee(myList[index]^).Status;
@@ -275,17 +275,18 @@ function TExamineesManager.Login(AExaminee : PExaminee; ALoginType : TLoginType;
             if conditionResult then
             begin
                ModifyExamineeInfo(esLogined);
-               PostMessage(FMessageHandler, CLM_Changed, longint(tempExaminee), 0);
                {$IFDEF DEBUG}
-               CnDebugger.LogMsgWithTag(msg + ' login OK!', AExaminee.IP.Substring(8));
+               CnDebugger.LogMsgWithTag(msg + ' login OK!', tempExaminee^.IP.Substring(8));
                {$ENDIF}
+               PostMessage(FMessageHandler, CLM_Changed, longint(tempExaminee), 0);
                Result := crOk;
             end
             else
             begin
                {$IFDEF DEBUG}
-               CnDebugger.LogMsgWithTag(msg + ' login refused!', AExaminee.IP.Substring(8));
+               CnDebugger.LogMsgWithTag(msg + ' login refused!', tempExaminee^.IP.Substring(8));
                {$ENDIF}
+               Dispose(tempExaminee);
                Result := crRefuseLogin;
             end;
          end

@@ -128,6 +128,7 @@ uses Variants,Vcl.StdCtrls, Classes, ExamInterface, DataFieldConst, DB, ADODB, t
   function GetDataSetByPreFix(const APreFix : string;const AConn: TADOConnection) : TDataSet;
   function GetTQIDByPreFix(const APreFix : string;const AConn: TADOConnection) :string;
   function GetDataSetBySQL(const ASQLStr : string;const AParamValue : Variant ;const AConn: TADOConnection) : TDataSet;
+  procedure UpdateClientDBRemainTime(const aremainTime : integer;const AConn: TADOConnection) ;
 
 //==============================================================================
 // 考生得分信息相关函数
@@ -317,79 +318,7 @@ begin
   end;
 end;
 
-//procedure VariantToStream (const v : Variant; Stream : TMemoryStream);
-//var
-//   p : pointer;
-//begin
-//   Stream.Position := 0;
-//   Stream.Size := VarArrayHighBound (v, 1) - VarArrayLowBound (v, 1) + 1;
-//   p := VarArrayLock (v);
-//   Stream.Write (p^, Stream.Size);
-//   VarArrayUnlock (v);
-//   Stream.Position := 0;
-//end;
-//procedure VariantToStream (const v : Variant; Stream : TMemoryStream);
-//var
-//   p : pointer;
-//   str:string;
-//   strStream:TStringStream;
-//begin
-//   Stream.Position := 0;
-//
-//   str := VarToStr(v);
-//   strStream := TStringStream.Create(str);
-//   stream.CopyFrom(strStream,strStream.Size);
-//  // UnCompressStream(Stream);
-//  // Stream.Write (p^, Stream.Size);
-//   //VarArrayUnlock (v);
-//   Stream.Position := 0;
-//end;
 
-//procedure StreamToVariant (Stream : TMemoryStream; var v : Variant);
-//var
-//   p : pointer;
-//begin
-//   v := VarArrayCreate ([0, Stream.Size - 1], varByte);
-//   p := VarArrayLock (v);
-//   Stream.Position := 0;
-//   Stream.ReadBuffer(p^, Stream.Size);
-//   VarArrayUnlock (v);
-//end;
-
-///new data access procedure
-//procedure WriteTQ2DB(const ATQ: TTQ; ATQDm: ITQDataModule);
-//var
-//  setTemp: TADODataSet;
-//  procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
-//  begin
-//     if Assigned(AStream)  then
-//       (setTemp.FieldByName(AFieldName) as TBlobField).LoadFromStream(AStream);
-//  end;
-//begin
-//    setTemp:=TADODataSet.Create(nil);
-//    with setTemp do
-//    begin
-//      try
-//        Connection:=ATQDm.GetTQDBConn;
-//        CommandText:= 'select * from 试题 where st_no= :stno';
-//        Parameters[0].Value:= ATQ.St_no;
-//        Active:=true;
-//         //如果没找到给定试题编号记录，则添加新记录，并写入试题编号
-//         //如找到则更新该记录
-//        if IsEmpty then  setTemp.AppendRecord([ATQ.St_no]); 
-//         with ATQ,setTemp do begin
-//            Edit;
-//            WriteStreamToField(DFNTQ_CONTENT,Content);
-//            WriteStreamToField(DFNTQ_STANSWER,StAnswer);
-//            WriteStreamToField(DFNTQ_ENVIRONMENT,Environment);
-//            WriteStreamToField(DFNTQ_COMMENT,Comment);
-//         end;
-//      finally
-//        Post;
-//        setTemp.Free;
-//      end;
-//    end;
-//end;
 
 procedure WriteTQStAnswerEnvironmentByID(const AID: string; ATQConn : TAdoConnection; const ATQ : TTQ);
 var
@@ -426,40 +355,7 @@ begin
     end;
 end;
 
-//procedure WriteTQStAnswerByID(const AID: string; ATQDm : ITQDataModule; const ATQ : TTQ);
-//var
-//  setTemp: TADODataSet;
-//  procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
-//  begin
-//     if Assigned(AStream)  then
-//       (setTemp.FieldByName(AFieldName) as TBlobField).LoadFromStream(AStream);
-//  end;
-//begin
-//    setTemp:=TADODataSet.Create(nil);
-//    with setTemp do
-//    begin
-//      try
-//        Connection:=ATQDm.GetTQDBConn;
-//        CommandText:= 'select * from 试题 where st_no= :stno';
-//        Parameters[0].Value:= AID;
-//        Active:=true;
-//        if not IsEmpty then
-//        begin
-//           Edit;
-//           with ATQ,setTemp do begin
-//                  //FieldValues[DFNTQ_ST_NO] := St_no;
-//                  //WriteStreamToField(DFNTQ_CONTENT,Content);
-//                  WriteStreamToField(DFNTQ_STANSWER,StAnswer);
-//                  //WriteStreamToField(DFNTQ_ENVIRONMENT,Environment);
-//                  //WriteStreamToField(DFNTQ_COMMENT,Comment);
-//           end;
-//        end;
-//      finally
-//        Post;
-//        setTemp.Free;
-//      end;
-//    end;
-//end;
+
 
 procedure AppendTQToDB(const ADS:TDataSet; const ATQ:TTQ);
    procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
@@ -675,6 +571,21 @@ begin
   end;
 end;
 
+procedure UpdateClientDBRemainTime(const aremainTime : integer;const AConn: TADOConnection) ;
+var
+  qry : TADOQuery;
+  result:integer;
+begin
+  qry := TADOQuery.Create(nil);
+  try
+    qry.Connection := AConn;
+    qry.SQL.Add(SQLSTR_UPDATECLIENTDBREAMINTIME);
+    qry.Parameters[0].Value :=EncryptStr(IntToStr( aremainTime));
+    result:=qry.ExecSQL;
+  finally
+    qry.Free;
+  end;
+end;
 {$ENDREGION}
 
 {$region '------考生信息处理相关函授------'}
@@ -696,5 +607,113 @@ begin
     end;
 end;
 {$endregion '------考生信息处理相关函授------'}
+{$REGION 'obsolete'}
+//procedure VariantToStream (const v : Variant; Stream : TMemoryStream);
+//var
+//   p : pointer;
+//begin
+//   Stream.Position := 0;
+//   Stream.Size := VarArrayHighBound (v, 1) - VarArrayLowBound (v, 1) + 1;
+//   p := VarArrayLock (v);
+//   Stream.Write (p^, Stream.Size);
+//   VarArrayUnlock (v);
+//   Stream.Position := 0;
+//end;
+//procedure VariantToStream (const v : Variant; Stream : TMemoryStream);
+//var
+//   p : pointer;
+//   str:string;
+//   strStream:TStringStream;
+//begin
+//   Stream.Position := 0;
+//
+//   str := VarToStr(v);
+//   strStream := TStringStream.Create(str);
+//   stream.CopyFrom(strStream,strStream.Size);
+//  // UnCompressStream(Stream);
+//  // Stream.Write (p^, Stream.Size);
+//   //VarArrayUnlock (v);
+//   Stream.Position := 0;
+//end;
 
+//procedure StreamToVariant (Stream : TMemoryStream; var v : Variant);
+//var
+//   p : pointer;
+//begin
+//   v := VarArrayCreate ([0, Stream.Size - 1], varByte);
+//   p := VarArrayLock (v);
+//   Stream.Position := 0;
+//   Stream.ReadBuffer(p^, Stream.Size);
+//   VarArrayUnlock (v);
+//end;
+
+///new data access procedure
+//procedure WriteTQ2DB(const ATQ: TTQ; ATQDm: ITQDataModule);
+//var
+//  setTemp: TADODataSet;
+//  procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
+//  begin
+//     if Assigned(AStream)  then
+//       (setTemp.FieldByName(AFieldName) as TBlobField).LoadFromStream(AStream);
+//  end;
+//begin
+//    setTemp:=TADODataSet.Create(nil);
+//    with setTemp do
+//    begin
+//      try
+//        Connection:=ATQDm.GetTQDBConn;
+//        CommandText:= 'select * from 试题 where st_no= :stno';
+//        Parameters[0].Value:= ATQ.St_no;
+//        Active:=true;
+//         //如果没找到给定试题编号记录，则添加新记录，并写入试题编号
+//         //如找到则更新该记录
+//        if IsEmpty then  setTemp.AppendRecord([ATQ.St_no]);
+//         with ATQ,setTemp do begin
+//            Edit;
+//            WriteStreamToField(DFNTQ_CONTENT,Content);
+//            WriteStreamToField(DFNTQ_STANSWER,StAnswer);
+//            WriteStreamToField(DFNTQ_ENVIRONMENT,Environment);
+//            WriteStreamToField(DFNTQ_COMMENT,Comment);
+//         end;
+//      finally
+//        Post;
+//        setTemp.Free;
+//      end;
+//    end;
+//end;
+//procedure WriteTQStAnswerByID(const AID: string; ATQDm : ITQDataModule; const ATQ : TTQ);
+//var
+//  setTemp: TADODataSet;
+//  procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
+//  begin
+//     if Assigned(AStream)  then
+//       (setTemp.FieldByName(AFieldName) as TBlobField).LoadFromStream(AStream);
+//  end;
+//begin
+//    setTemp:=TADODataSet.Create(nil);
+//    with setTemp do
+//    begin
+//      try
+//        Connection:=ATQDm.GetTQDBConn;
+//        CommandText:= 'select * from 试题 where st_no= :stno';
+//        Parameters[0].Value:= AID;
+//        Active:=true;
+//        if not IsEmpty then
+//        begin
+//           Edit;
+//           with ATQ,setTemp do begin
+//                  //FieldValues[DFNTQ_ST_NO] := St_no;
+//                  //WriteStreamToField(DFNTQ_CONTENT,Content);
+//                  WriteStreamToField(DFNTQ_STANSWER,StAnswer);
+//                  //WriteStreamToField(DFNTQ_ENVIRONMENT,Environment);
+//                  //WriteStreamToField(DFNTQ_COMMENT,Comment);
+//           end;
+//        end;
+//      finally
+//        Post;
+//        setTemp.Free;
+//      end;
+//    end;
+//end;
+{$ENDREGION}
 end.

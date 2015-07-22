@@ -23,92 +23,92 @@ type
 
    TThreadDataSet = class
    private
-      FDataset: TClientDataSet;
-      FLockCount: integer;
-      FSemaphore: THandle;
-      function GetIsLocked: boolean;
+      FDataset   : TClientDataSet;
+      FLockCount : integer;
+      FSemaphore : THandle;
+      function GetIsLocked : boolean;
    public
       constructor Create();
       destructor Destroy; override;
-      function TryLock(TimeOut: DWORD): TClientDataSet;
-      function Lock: TClientDataSet;
+      function TryLock(TimeOut : DWORD) : TClientDataSet;
+      function Lock : TClientDataSet;
       procedure Unlock;
-      property IsLocked: boolean read GetIsLocked;
+      property IsLocked : boolean read GetIsLocked;
    end;
 
    TStkRecordInfo = class(TObject, IExamTcpClient)
    private
-      FLock: TIdCriticalSection;
+      FLock : TIdCriticalSection;
       // FBaseConfigs:TThreadList;   //试题策略
-      FBaseConfig: TBaseConfig; // 试题策略 only first from db
-      FMemStk: TClientDataSet; // 试题记录库
-      FMemStkFile: TClientDataSet; // 试题文件库
-      FMemExaminees: TThreadDataSet;
-      FExamineeTestFilePacks: TExamineeTestFilePackArray;
+      FBaseConfig            : TBaseConfig;    // 试题策略 only first from db
+      FMemStk                : TClientDataSet; // 试题记录库
+      FMemStkFile            : TClientDataSet; // 试题文件库
+      FMemExaminees          : TThreadDataSet;
+      FExamineeTestFilePacks : TExamineeTestFilePackArray;
       // ==============================================================================
       // 在加密的考生信息记录中不能直接使用locate来查找定位记录，所以写了以下函数
       // 如果找到则定位到记录，并返回true;
       // ==============================================================================
-      function LocateExamineeRecord(AID: string; ADS: TDataSet): boolean;
-      procedure CDSExamineesCalcFields(DataSet: TDataSet);
+      function LocateExamineeRecord(AID : string; ADS : TDataSet) : boolean;
+      procedure CDSExamineesCalcFields(DataSet : TDataSet);
 
       procedure FreeExamineeTestFilePacks;
-      procedure SetupCDSExamineesStructure(ds: TClientDataSet);
+      procedure SetupCDSExamineesStructure(ds : TClientDataSet);
       procedure InitBaseConfig;
    public
 
       constructor Create();
       destructor Destroy; override;
 
-      class function CreateStkRecordInfo(): TStkRecordInfo;
+      class function CreateStkRecordInfo() : TStkRecordInfo;
 
       // abandon procedure SetupBaseConfigs();
       procedure SetupMemStk;
-      procedure SetupExamineeTestFilePacks(const APackCount: integer; const ATempPath: string);
+      procedure SetupExamineeTestFilePacks(const APackCount : integer; const ATempPath : string);
       procedure SetupMemStkFile;
       procedure SetupCDSExaminees;
 
       // ==============================================================================
       // 根据试题策略获取考生试题库信息列表，只包括试题编号
       // ==============================================================================
-      function AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringList;
+      function AcquireEQInfo(const ABaseConfig : TBaseConfig) : TStringList;
       // 获取一条记录
-      function AcquireEQRecord(const ARecordNo: String): TClientEQRecordPacket;
+      function AcquireEQRecord(const ARecordNo : String) : TClientEQRecordPacket;
       // ==============================================================================
       // 从预生成的考生测试包中，随机获取一个，装载到内存流中
       // ==============================================================================
-      procedure AcquireTestFilePack(const AExamineeID: String; const ALoginType: string; var AStream: TMemoryStream);
+      procedure AcquireTestFilePack(const AExamineeID : String; const ALoginType : TLoginType; var AStream : TMemoryStream);
       // ==============================================================================
       // 根据附加文件ID来获取文件数据到内存流
       // ==============================================================================
-      function AcquireEQFile(const AFileID: String): TMemoryStream;
-      function AcquireBaseConfig(const ABaseConfig: TBaseConfig): TStringList; // not Include EQStrategies object's list;
-      function UpdateExamineeInfo(AExamineeList: TList): integer;
+      function AcquireEQFile(const AFileID : String) : TMemoryStream;
+      function AcquireBaseConfig(const ABaseConfig : TBaseConfig) : TStringList; // not Include EQStrategies object's list;
+      function UpdateExamineeInfo(AExamineeList : TList) : integer;
       // ==============================================================================
       // 实现 Iinterface 接口的过程
       // ==============================================================================
    protected
-      FRefCount: integer;
-      function QueryInterface(const IID: TGUID; out Obj): HResult; stdcall;
-      function _AddRef: integer; stdcall;
-      function _Release: integer; stdcall;
+      FRefCount : integer;
+      function QueryInterface(const IID : TGUID; out Obj) : HResult; stdcall;
+      function _AddRef : integer; stdcall;
+      function _Release : integer; stdcall;
    public
-      property RefCount: integer read FRefCount;
+      property RefCount : integer read FRefCount;
       // ==============================================================================
       // 实现 ITQDataModule 接口的过程
       // ==============================================================================
-      function GetTQDBConn(): TADOConnection;
-      procedure GetTQFieldStream(const ASqlStr, AParamValue: string; AStream: TMemoryStream);
+      function GetTQDBConn() : TADOConnection;
+      procedure GetTQFieldStream(const ASqlStr, AParamValue : string; AStream : TMemoryStream);
       // procedure GetTQEnvironmentStream(const AStNO:string;AStream:TmemoryStream);
       // ==============================================================================
       // 实现 IExamTcpClient 接口的过程
       // ==============================================================================
-      function CommandGetEQFile(AFileID: string; out AStream: TMemoryStream): TCommandResult;
+      function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
 
       // property BaseConfigs :TThreadList read FBaseConfigs;
       // the first baseconfig from db;
-      property BaseConfig: TBaseConfig read FBaseConfig;
-      property MemStk: TClientDataSet read FMemStk;
+      property BaseConfig : TBaseConfig read FBaseConfig;
+      property MemStk : TClientDataSet read FMemStk;
 
    end;
 
@@ -116,12 +116,15 @@ implementation
 
 uses uDmServer, SysUtils, Variants,
    ServerGlobal, Windows, Commons, DataFieldConst, DataUtils, compress,
-   ufrmInProcess, ExamGlobal;
+   ufrmInProcess, ExamGlobal
+   {$IFDEF DEBUG}
+           , cndebug
+   {$ENDIF};
 
-function TStkRecordInfo.AcquireEQRecord(const ARecordNo: String): TClientEQRecordPacket;
+function TStkRecordInfo.AcquireEQRecord(const ARecordNo : String) : TClientEQRecordPacket;
    var
-      RecordData: TStringList;
-      streamRecord: TMemoryStream;
+      RecordData   : TStringList;
+      streamRecord : TMemoryStream;
    begin
       result := TClientEQRecordPacket.Create;
       with FMemStk do
@@ -139,11 +142,11 @@ function TStkRecordInfo.AcquireEQRecord(const ARecordNo: String): TClientEQRecor
 constructor TStkRecordInfo.Create;
    begin
       inherited Create;
-      FLock := TIdCriticalSection.Create;
+      FLock         := TIdCriticalSection.Create;
       FMemExaminees := TThreadDataSet.Create;
    end;
 
-class function TStkRecordInfo.CreateStkRecordInfo: TStkRecordInfo;
+class function TStkRecordInfo.CreateStkRecordInfo : TStkRecordInfo;
    begin
       result := TStkRecordInfo.Create;
       result.InitBaseConfig;
@@ -192,7 +195,7 @@ destructor TStkRecordInfo.Destroy;
 // end;
 {$ENDREGION}
 
-function TStkRecordInfo.GetTQDBConn: TADOConnection;
+function TStkRecordInfo.GetTQDBConn : TADOConnection;
    begin
       result := nil;
    end;
@@ -214,14 +217,14 @@ function TStkRecordInfo.GetTQDBConn: TADOConnection;
 // end;
 // end;
 
-procedure TStkRecordInfo.GetTQFieldStream(const ASqlStr, AParamValue: string; AStream: TMemoryStream);
+procedure TStkRecordInfo.GetTQFieldStream(const ASqlStr, AParamValue : string; AStream : TMemoryStream);
    begin
       // null
    end;
 
-function TStkRecordInfo.LocateExamineeRecord(AID: string; ADS: TDataSet): boolean;
+function TStkRecordInfo.LocateExamineeRecord(AID : string; ADS : TDataSet) : boolean;
    var
-      str1, str2: string;
+      str1, str2 : string;
    begin
       result := false;
       ADS.First;
@@ -299,15 +302,15 @@ function TStkRecordInfo.LocateExamineeRecord(AID: string; ADS: TDataSet): boolea
 
 procedure TStkRecordInfo.InitBaseConfig;
    var
-      setTemp: TADODataset;
+      setTemp : TADODataset;
    begin
       try
          setTemp := TExamServerGlobal.GlobalDmServer.GetDsStk;
          if setTemp.Active then
-            setTemp.Active := false;
+            setTemp.Active   := false;
          setTemp.CommandText := 'select * from sysconfig';
-         setTemp.Active := True;
-         FBaseConfig := TBaseConfig.Create;
+         setTemp.Active      := True;
+         FBaseConfig         := TBaseConfig.Create;
          try
             with setTemp do
             begin
@@ -319,37 +322,37 @@ procedure TStkRecordInfo.InitBaseConfig;
             setTemp.Active := false;
          end;
       except
-         on E: Exception do
+         on E : Exception do
          begin
-            TExamServerGlobal.Logger.WriteLog(e.Message);
-            raise ;
+            TExamServerGlobal.Logger.WriteLog(E.Message);
+            raise;
          end;
 
       end;
 
    end;
 
-procedure TStkRecordInfo.SetupCDSExamineesStructure(ds: TClientDataSet);
+procedure TStkRecordInfo.SetupCDSExamineesStructure(ds : TClientDataSet);
 
-      procedure AddStringField(AName: string; ASize: integer);
+      procedure AddStringField(AName : string; ASize : integer);
          begin
             with TWideStringField.Create(ds) do
             begin
                FieldName := AName;
-               Size := ASize;
+               Size      := ASize;
                FieldKind := fkData;
-               DataSet := ds;
+               DataSet   := ds;
             end;
          end;
 
    begin
       with TWideStringField.Create(ds) do
       begin
-         FieldName := DFNEI_EXAMINEEID;
-         Size := DFNLENEI_EXAMINEEID;
-         FieldKind := fkData;
+         FieldName     := DFNEI_EXAMINEEID;
+         Size          := DFNLENEI_EXAMINEEID;
+         FieldKind     := fkData;
          ProviderFlags := [pfInWhere, pfInKey];
-         DataSet := ds;
+         DataSet       := ds;
       end;
       // AddStringField(DFNEI_EXAMINEEID,DFNLENEI_EXAMINEEID);
       AddStringField(DFNEI_EXAMINEENAME, DFNLENEI_EXAMINEENAME);
@@ -361,15 +364,15 @@ procedure TStkRecordInfo.SetupCDSExamineesStructure(ds: TClientDataSet);
       with TStringField.Create(ds) do
       begin
          FieldName := DFNEI_DECRYPTEDID;
-         Size := DFNLENEI_DECRYPTEDID;
+         Size      := DFNLENEI_DECRYPTEDID;
          FieldKind := fkCalculated;
-         DataSet := ds;
+         DataSet   := ds;
       end;
       with TBlobField.Create(ds) do
       begin
          FieldName := DFNEI_SCOREINFO;
          FieldKind := fkData;
-         DataSet := ds;
+         DataSet   := ds;
       end;
    end;
 
@@ -384,21 +387,21 @@ procedure TStkRecordInfo.SetupCDSExaminees;
       begin
          // CreateDataSet;
          SetProvider(TExamServerGlobal.GlobalDmServer.prvExamineeBase);
-         CommandText := 'select * from 考生信息';
+         CommandText  := 'select * from 考生信息';
          OnCalcFields := CDSExamineesCalcFields;
-         Active := True;
-         ReadOnly := false; // notice
+         Active       := True;
+         ReadOnly     := false; // notice
       end;
    end;
 
-procedure TStkRecordInfo.CDSExamineesCalcFields(DataSet: TDataSet);
+procedure TStkRecordInfo.CDSExamineesCalcFields(DataSet : TDataSet);
    begin
       DataSet.FieldValues[DFNEI_DECRYPTEDID] := DecryptStr(DataSet.FieldByName(DFNEI_EXAMINEEID).AsString);
    end;
 
-function TStkRecordInfo.CommandGetEQFile(AFileID: string; out AStream: TMemoryStream): TCommandResult;
+function TStkRecordInfo.CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
    begin
-      result := crError;
+      result  := crError;
       AStream := AcquireEQFile(AFileID);
       if AStream.Size > 0 then
          result := crOk;
@@ -411,20 +414,20 @@ procedure TStkRecordInfo.SetupMemStk;
       begin
          SetProvider(TExamServerGlobal.GlobalDmServer.getStkProvider);
          CommandText := 'select * from 试题 ';
-         Active := True;
+         Active      := True;
       end;
    end;
 
-procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; const ATempPath: string);
+procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount : integer; const ATempPath : string);
    var
-      I: integer;
-      ZipFileStream: TMemoryStream;
-      conn: TADOConnection;
-      tempdb: TADODataset;
-      ClientDBFileStream: TMemoryStream; // used for save clientdb
-      pbHandle: integer;
+      I                  : integer;
+      ZipFileStream      : TMemoryStream;
+      conn               : TADOConnection;
+      tempdb             : TADODataset;
+      ClientDBFileStream : TMemoryStream; // used for save clientdb
+      pbHandle           : integer;
 
-      procedure SetEQBConn(path: string; dbName: string = CLIENTDB_FILENAME; pwd: string = CLIENTDBPWD);
+      procedure SetEQBConn(path : string; dbName : string = CLIENTDB_FILENAME; pwd : string = CLIENTDBPWD);
          begin
             if tempdb.Active then
                tempdb.Active := false;
@@ -434,12 +437,12 @@ procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; c
             conn.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + path + '\' + dbName + ';Mode=Share Deny None;Persist ' +
                     'Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(pwd);
             conn.Connected := True;
-            tempdb.Active := True;
+            tempdb.Active  := True;
          end;
 
-      procedure GetEQRecord(EQNo: string);
+      procedure GetEQRecord(EQNo : string);
          var
-            recordPacket: TClientEQRecordPacket;
+            recordPacket : TClientEQRecordPacket;
          begin
             recordPacket := nil;
             try
@@ -453,8 +456,8 @@ procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; c
 
       procedure PopulateExamineeBase();
          var
-            I: integer;
-            AEQInfo: TStringList;
+            I       : integer;
+            AEQInfo : TStringList;
          begin
             AEQInfo := AcquireEQInfo(FBaseConfig);
             try
@@ -468,12 +471,12 @@ procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; c
          end;
 
    begin
-      conn := TADOConnection.Create(nil);
-      conn.LoginPrompt := false;
-      tempdb := TADODataset.Create(nil);
-      tempdb.Active := false;
+      conn               := TADOConnection.Create(nil);
+      conn.LoginPrompt   := false;
+      tempdb             := TADODataset.Create(nil);
+      tempdb.Active      := false;
       tempdb.CommandText := SQLSTR_GETCLIENT_AllTQ;
-      tempdb.Connection := conn;
+      tempdb.Connection  := conn;
 
       ClientDBFileStream := AcquireEQFile(CLIENTDB_FILEID);
       try
@@ -494,7 +497,7 @@ procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; c
                      PopulateExamineeBase();
                      CreateExamEnvironmentByModules(ATempPath, TExamServerGlobal.GlobalOperateModules, tempdb);
                   finally
-                     tempdb.Active := false;
+                     tempdb.Active  := false;
                      conn.Connected := false;
                   end;
                   DirectoryCompression(ATempPath, ZipFileStream);
@@ -520,7 +523,7 @@ procedure TStkRecordInfo.SetupExamineeTestFilePacks(const APackCount: integer; c
 
 procedure TStkRecordInfo.FreeExamineeTestFilePacks;
    var
-      I: integer;
+      I : integer;
    begin
       if Length(FExamineeTestFilePacks) > 0 then
       begin
@@ -540,34 +543,34 @@ procedure TStkRecordInfo.SetupMemStkFile;
       begin
          SetProvider(TExamServerGlobal.GlobalDmServer.getStkProvider);
          CommandText := 'select * from 附加文件';
-         Active := True;
+         Active      := True;
       end;
    end;
 
-function TStkRecordInfo.UpdateExamineeInfo(AExamineeList: TList): integer;
+function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
    var
-      I: integer;
-      Item: PExaminee;
-      ds: TClientDataSet;
-      timeStr: string;
-      dstemp: TClientDataSet;
+      I       : integer;
+      Item    : PExaminee;
+      ds      : TClientDataSet;
+      timeStr : string;
+      dstemp  : TClientDataSet;
       procedure CopyRecord();
          begin
             dstemp.Append;
             dstemp.Edit;
-            dstemp.FieldValues[DFNEI_EXAMINEEID] := ds.FieldValues[DFNEI_EXAMINEEID];
+            dstemp.FieldValues[DFNEI_EXAMINEEID]   := ds.FieldValues[DFNEI_EXAMINEEID];
             dstemp.FieldValues[DFNEI_EXAMINEENAME] := ds.FieldValues[DFNEI_EXAMINEENAME];
-            dstemp.FieldValues[DFNEI_IP] := ds.FieldValues[DFNEI_IP];
-            dstemp.FieldValues[DFNEI_PORT] := ds.FieldValues[DFNEI_PORT];
-            dstemp.FieldValues[DFNEI_STATUS] := ds.FieldValues[DFNEI_STATUS];
-            dstemp.FieldValues[DFNEI_REMAINTIME] := ds.FieldValues[DFNEI_REMAINTIME];
-            dstemp.FieldValues[DFNEI_TIMESTAMP] := ds.FieldValues[DFNEI_TIMESTAMP];
+            dstemp.FieldValues[DFNEI_IP]           := ds.FieldValues[DFNEI_IP];
+            dstemp.FieldValues[DFNEI_PORT]         := ds.FieldValues[DFNEI_PORT];
+            dstemp.FieldValues[DFNEI_STATUS]       := ds.FieldValues[DFNEI_STATUS];
+            dstemp.FieldValues[DFNEI_REMAINTIME]   := ds.FieldValues[DFNEI_REMAINTIME];
+            dstemp.FieldValues[DFNEI_TIMESTAMP]    := ds.FieldValues[DFNEI_TIMESTAMP];
             (dstemp.FieldByName(DFNEI_SCOREINFO) as TBlobField).Assign(ds.FieldByName(DFNEI_SCOREINFO));
             dstemp.Post;
          end;
 
    begin
-      ds := FMemExaminees.Lock;
+      ds     := FMemExaminees.Lock;
       dstemp := TClientDataSet.Create(nil);
       try
          SetupCDSExamineesStructure(dstemp);
@@ -584,11 +587,11 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList: TList): integer;
                if LocateExamineeRecord(Item.ID, ds) then
                begin
                   ds.Edit;
-                  ds.FieldValues[DFNEI_IP] := EncryptStr(Item.IP);
-                  ds.FieldValues[DFNEI_PORT] := EncryptStr(IntToStr(Item.Port));
-                  ds.FieldValues[DFNEI_STATUS] := EncryptStr(IntToStr(Ord(Item.Status)));
+                  ds.FieldValues[DFNEI_IP]         := EncryptStr(Item.IP);
+                  ds.FieldValues[DFNEI_PORT]       := EncryptStr(IntToStr(Item.Port));
+                  ds.FieldValues[DFNEI_STATUS]     := EncryptStr(IntToStr(Ord(Item.Status)));
                   ds.FieldValues[DFNEI_REMAINTIME] := EncryptStr(IntToStr(Item.RemainTime));
-                  ds.FieldValues[DFNEI_TIMESTAMP] := EncryptStr(DateTimeToStr(Item.TimeStamp));
+                  ds.FieldValues[DFNEI_TIMESTAMP]  := EncryptStr(DateTimeToStr(Item.TimeStamp));
                   if Assigned(Item.ScoreCompressedStream) then
                   begin
                      Item.ScoreCompressedStream.Position := 0;
@@ -608,7 +611,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList: TList): integer;
          DateTimeToString(timeStr, 'yyyymmddhhnn', Now);
          { TODO : 需要修改加密 }
 
-         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\'  + timeStr + '.dat');
+         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
       finally
          dstemp.Free;
          FMemExaminees.Unlock;
@@ -616,36 +619,41 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList: TList): integer;
       result := 0;
    end;
 
-procedure TStkRecordInfo.AcquireTestFilePack(const AExamineeID: String; const ALoginType: string; var AStream: TMemoryStream);
+
+procedure TStkRecordInfo.AcquireTestFilePack(const AExamineeID : String; const ALoginType : TLoginType; var AStream : TMemoryStream);
    var
-      packCount, index: integer;
-      AStatus: TLoginType;
+      packCount, index : integer;
    begin
       packCount := High(FExamineeTestFilePacks);
       randomize;
       index := random(packCount + 1);
       { TODO -ojp -c0 : 需要考虑是否是多线程安全的 }
-      AStatus := TLoginType(strtoint(ALoginType));
-      case AStatus of
-         ltFirstLogin, ltReExamLogin:
+      case ALoginType of
+         ltFirstLogin, ltReExamLogin :
             begin
                AStream.LoadFromStream(FExamineeTestFilePacks[index]);
+               {$IFDEF DEBUG}
+               CnDebugger.LogMsg('AcquireTestFilePack server Source Test File OK! ExamineeID:' + AExamineeID);
+               {$ENDIF}
             end;
-         ltContinuteEndedExam:
+         ltContinuteEndedExam :
             begin
-               if FileExists(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + AExamineeID + '.dat') then
+               if FileExists(IncludeTrailingPathDelimiter( TExamServerGlobal.ServerCustomConfig.DataBakFolder)  + AExamineeID + '.dat') then
                begin
-                  AStream.LoadFromFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + AExamineeID + '.dat');
+                  AStream.LoadFromFile(IncludeTrailingPathDelimiter(TExamServerGlobal.ServerCustomConfig.DataBakFolder)  + AExamineeID + '.dat');
                   AStream.Position := 0;
+                  {$IFDEF DEBUG}
+                  CnDebugger.LogMsg('AcquireTestFilePack Server Bak file OK! ExamineeID:' + AExamineeID);
+                  {$ENDIF}
                end;
             end;
          // ltContinuteInterupt: no need file
       end;
    end;
 
-function TStkRecordInfo.AcquireEQFile(const AFileID: String): TMemoryStream;
+function TStkRecordInfo.AcquireEQFile(const AFileID : String) : TMemoryStream;
    var
-      tempDS: TClientDataSet;
+      tempDS : TClientDataSet;
    begin
       result := nil;
       // tempDS := FMemStkFile.Lock;
@@ -668,22 +676,22 @@ function TStkRecordInfo.AcquireEQFile(const AFileID: String): TMemoryStream;
       // end;
    end;
 
-function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringList;
+function TStkRecordInfo.AcquireEQInfo(const ABaseConfig : TBaseConfig) : TStringList;
    var
-      k, recordcount, recordno: integer;
-      flag: boolean;
-      list: TList;
-      StrategyContents: TList;
-      commandstring: string;
-      EQStrategyMainItem: TEQStrategyMainItem;
-      I, j: integer;
-      cc: integer;
-      th: array [1 .. 10] of integer;
-      tempDS: TClientDataSet;
+      k, recordcount, recordno : integer;
+      flag                     : boolean;
+      list                     : TList;
+      StrategyContents         : TList;
+      commandstring            : string;
+      EQStrategyMainItem       : TEQStrategyMainItem;
+      I, j                     : integer;
+      cc                       : integer;
+      th                       : array [1 .. 10] of integer;
+      tempDS                   : TClientDataSet;
    begin
       StrategyContents := ABaseConfig.EQStrategies;
-      result := TStringList.Create;
-      tempDS := TClientDataSet.Create(nil);
+      result           := TStringList.Create;
+      tempDS           := TClientDataSet.Create(nil);
       try
          // try
          // tempDS.Data := FMemStk.Lock.Data;
@@ -691,7 +699,7 @@ function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringLi
          // FMemStk.Unlock;
          // end;
          tempDS.Data := FMemStk.Data;
-         for I := 0 to StrategyContents.Count - 1 do
+         for I       := 0 to StrategyContents.Count - 1 do
          begin
             // commandstring:=StrategyContents.Strings[i];
             // ParseStrToStrategyMainItem(commandstring,EQStrategyMainItem);
@@ -704,7 +712,7 @@ function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringLi
                   if tempDS.Filtered then
                      tempDS.Filtered := false;
                   // if use '%' as wildcard ,the field must be TStringfield,so we use '*'
-                  tempDS.Filter := 'st_no=' + quotedStr(trim(Items[cc].param1));
+                  tempDS.Filter   := 'st_no=' + quotedStr(trim(Items[cc].param1));
                   tempDS.Filtered := True;
 
                   for k := 1 to 10 do
@@ -720,7 +728,7 @@ function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringLi
                      while k <= Items[cc].Count do
                      begin
                         recordno := random(recordcount + 1);
-                        flag := false;
+                        flag     := false;
 
                         if recordno = 0 then
                            flag := True
@@ -735,7 +743,7 @@ function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringLi
                         if not flag then
                         begin
                            th[k] := recordno;
-                           k := k + 1;
+                           k     := k + 1;
                         end;
                      end
                   end
@@ -766,9 +774,9 @@ function TStkRecordInfo.AcquireEQInfo(const ABaseConfig: TBaseConfig): TStringLi
    end;
 
 { TODO : 需要修改为ConvertBaseConfigToStrings，而且将过程放入BaseConfig中 当前没引用本函数，改为baseconfig.tostrings }
-function TStkRecordInfo.AcquireBaseConfig(const ABaseConfig: TBaseConfig): TStringList;
+function TStkRecordInfo.AcquireBaseConfig(const ABaseConfig : TBaseConfig) : TStringList;
    var
-      I: integer;
+      I : integer;
    begin
       // FLock.Enter;
       // try
@@ -781,7 +789,7 @@ function TStkRecordInfo.AcquireBaseConfig(const ABaseConfig: TBaseConfig): TStri
       // end;
    end;
 
-function TStkRecordInfo.QueryInterface(const IID: TGUID; out Obj): HResult;
+function TStkRecordInfo.QueryInterface(const IID : TGUID; out Obj) : HResult;
    begin
       if GetInterface(IID, Obj) then
          result := 0
@@ -789,12 +797,12 @@ function TStkRecordInfo.QueryInterface(const IID: TGUID; out Obj): HResult;
          result := E_NOINTERFACE;
    end;
 
-function TStkRecordInfo._AddRef: integer;
+function TStkRecordInfo._AddRef : integer;
    begin
       result := InterlockedIncrement(FRefCount);
    end;
 
-function TStkRecordInfo._Release: integer;
+function TStkRecordInfo._Release : integer;
    begin
       result := InterlockedDecrement(FRefCount);
       // if Result = 0 then
@@ -827,9 +835,9 @@ destructor TThreadDataSet.Destroy;
 // Wait for as much as TimeOut msecs to get the control.
 // Setting TimeOut to INFINITE (DWORD($FFFFFFFF)) will make the lock wait for ever.
 
-function TThreadDataSet.TryLock(TimeOut: DWORD): TClientDataSet;
+function TThreadDataSet.TryLock(TimeOut : DWORD) : TClientDataSet;
    var
-      n: DWORD;
+      n : DWORD;
    begin
       inc(FLockCount);
       n := WaitForSingleObject(FSemaphore, TimeOut);
@@ -842,7 +850,7 @@ function TThreadDataSet.TryLock(TimeOut: DWORD): TClientDataSet;
       result := FDataset;
    end;
 
-function TThreadDataSet.Lock: TClientDataSet;
+function TThreadDataSet.Lock : TClientDataSet;
    begin
       result := TryLock(INFINITE);
    end;
@@ -853,7 +861,7 @@ procedure TThreadDataSet.Unlock;
       ReleaseSemaphore(FSemaphore, 1, nil);
    end;
 
-function TThreadDataSet.GetIsLocked: boolean;
+function TThreadDataSet.GetIsLocked : boolean;
    begin
       result := (FLockCount > 0);
    end;

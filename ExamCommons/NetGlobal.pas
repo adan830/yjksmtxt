@@ -43,8 +43,9 @@ const
    // '60.173.210.154';     //
 type
 
-   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2,esAllowAddTimeExam=3,esGetTestPaper = 4,  esLogined = 20,
-           esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCrib = 42,esDisConnect = 90, esGradeError = 91, esExamEnded = 99);
+   TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2, esAllowAddTimeExam = 3, esGetTestPaper = 4, esLogined = 20,
+           esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCrib = 42, esDisConnect = 90, esGradeError = 91,
+           esExamEnded = 99);
 
    // TO-DO:增加性别，相片
    TExaminee = record
@@ -67,7 +68,7 @@ type
 
    PExaminee = ^TExaminee;
 
-   TLoginType = (ltFirstLogin = 0, ltContinuteInterupt = 1, ltContinuteEndedExam = 2,ltAddTimeExam=3, ltReExamLogin = 4);
+   TLoginType = (ltFirstLogin = 0, ltContinuteInterupt = 1, ltContinuteEndedExam = 2, ltAddTimeExam = 3, ltReExamLogin = 4);
 
    TCommandResult = (crOk = 1, crRefuseLogin = 2, crError = 3, crDisConnected = 4, crConnClosedGracefully = 5, crNetError = 6);
 
@@ -108,8 +109,6 @@ type
    // end;
 
    // TExaminee vs TStrings  Convert
-   // procedure ConvertExamineeToStrings(AExaminee :TExaminee; AStrings:TStrings);
-   // procedure ConvertStringsToExaminee(AStrings :TStrings; var AExaminee:TExaminee);
    // procedure ConvertStringsToSysConfig(AStrings :TStrings; var ASysConfig:TSysConfig);
 
 function GetStatusDisplayValue(AStatus : TExamineeStatus) : string;
@@ -214,6 +213,8 @@ procedure ConvertExamineeToStrings(AExaminee : TExaminee; AStrings : TStrings);
       AStrings.Clear;
       AStrings.Add(AExaminee.ID);
       AStrings.Add(AExaminee.Name);
+      AStrings.Add(AExaminee.Sex);
+      AStrings.Add(AExaminee.HasPhoto.ToString(TUseBoolStrs.True));
       AStrings.Add(AExaminee.IP);
       AStrings.Add(IntToStr(Ord(AExaminee.Status)));
       AStrings.Add(IntToStr(AExaminee.RemainTime));
@@ -223,9 +224,11 @@ procedure ConvertStringsToExaminee(AStrings : TStrings; var AExaminee : TExamine
    begin
       AExaminee.ID         := AStrings[0];
       AExaminee.Name       := AStrings[1];
-      AExaminee.IP         := AStrings[2];
-      AExaminee.Status     := TExamineeStatus(StrToInt(AStrings[3]));
-      AExaminee.RemainTime := StrToInt(AStrings[4]);
+      AExaminee.Sex        := AStrings[2];
+      AExaminee.HasPhoto   := StrToBool(AStrings[3]);
+      AExaminee.IP         := AStrings[4];
+      AExaminee.Status     := TExamineeStatus(StrToInt(AStrings[5]));
+      AExaminee.RemainTime := StrToInt(AStrings[6]);
    end;
 { TExaminee }
 

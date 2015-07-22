@@ -38,7 +38,6 @@ begin
          if (length(trim(edtContPwd.text))=0) or (edtContPwd.text<>trim(edtContPwd1.text)) then error:=true;
          if (length(trim(edtRetryPwd.text))=0) or (edtRetryPwd.text<>trim(edtRetryPwd1.text)) then error:=true;
          if (length(trim(edtAddTimePwd.text))=0) or (edtAddTimePwd.text<>trim(edtAddTimePwd1.text)) then error:=true;
-
       if error then
       begin
          ShowMessage('二次密码不一致，或密码不能为空，请检查！');
