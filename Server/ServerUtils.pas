@@ -27,6 +27,7 @@ type
       FRetryPwd             : string;
       FContPwd              : string;
       FAddTimePwd           : string;
+      FAdminPwd             : string;
       // FSchoolCode           : string;
       procedure setter(const Value : string);
    public
@@ -41,6 +42,7 @@ type
       property RetryPwd             : string read FRetryPwd write FRetryPwd;
       property ContPwd              : string read FContPwd write FContPwd;
       property AddTimePwd           : string read FAddTimePwd write FAddTimePwd;
+      property AdminPwd             : string read FAdminPwd write FAdminPwd;
 
       procedure SetupCustomConfig(AConfigFilePath : string; ABaseConfig : TBaseConfig);
       procedure SaveCustomConfig(AConfigFile : string);
@@ -60,6 +62,7 @@ const
    CONFIGNAME_RETRYPWD              = 'RetryPwd';
    CONFIGNAME_CONTINUEPWD           = 'ContinuePwd';
    CONFIGNAME_ADDTIMEPWD            = 'AddTimePwd';
+   CONFIGNAME_ADMINPWD              = 'AdminPwd';
 
 implementation
 
@@ -120,6 +123,7 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
                ContPwd    := ConfigFile.ReadString('Config', CONFIGNAME_CONTINUEPWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
                AddTimePwd := ConfigFile.ReadString('Config', CONFIGNAME_ADDTIMEPWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
             end;
+            AdminPwd := ConfigFile.ReadString('Config', CONFIGNAME_ADMINpWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
             // SchoolCode := ConfigFile.ReadString('Config', 'SchoolCode', '666');
          finally
             ConfigFile.Free;
@@ -135,6 +139,7 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
          RetryPwd             := THashMD5.GetHashString(ABaseConfig.RetryPwd);
          ContPwd              := THashMD5.GetHashString(ABaseConfig.RetryPwd);
          AddTimePwd           := THashMD5.GetHashString(ABaseConfig.RetryPwd);
+         AdminPwd             := THashMD5.GetHashString(ABaseConfig.RetryPwd);
          // SchoolCode := '666';
       end;
 
@@ -170,6 +175,7 @@ procedure TServerCustomConfig.SaveCustomConfig(AConfigFile : string);
             ConfigFile.WriteString('Config', CONFIGNAME_CONTINUEPWD, ContPwd);
             ConfigFile.WriteString('Config', CONFIGNAME_ADDTIMEPWD, AddTimePwd);
          end;
+         ConfigFile.WriteString('Config', CONFIGNAME_ADMINPWD, AdminPwd);
       finally
          ConfigFile.Free;
       end;

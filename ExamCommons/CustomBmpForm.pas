@@ -328,6 +328,7 @@ procedure TCustomBmpForm.WMSize(var Message: TWMSize);
 //   Rgn: HRGN;
 begin
   inherited;
+  //if fsCreating in FormState then exit;
   DrawTitle;
 //  Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
 //  SetWindowRgn(Handle, Rgn, True);

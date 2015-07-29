@@ -15,9 +15,9 @@ type
     mmo1: TMemo;
     pnl4: TPanel;
     pnl6: TPanel;
+    btnGrade: TButton;
     edtTQContent: TJvRichEdit;
     btnShowFloatForm: TCnSpeedButton;
-    btnGrade: TButton;
     procedure btnShowFloatFormClick(Sender: TObject);
     procedure btnGradeClick(Sender: TObject);
   private

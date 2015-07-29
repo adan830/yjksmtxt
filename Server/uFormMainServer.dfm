@@ -1,14 +1,15 @@
 object FormMainServer: TFormMainServer
   Left = 146
   Top = 115
-  Caption = #26381#21153#22120
-  ClientHeight = 521
-  ClientWidth = 729
+  BorderStyle = bsToolWindow
+  Caption = #23433#24509#39640#31561#23398#26657#65288#23433#24509#32771#21306#65289#35745#31639#26426#27700#24179#32771#35797#19968#32423'Windows'#26381#21153#22120
+  ClientHeight = 531
+  ClientWidth = 739
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'Tahoma'
+  Font.Color = clWhite
+  Font.Height = -19
+  Font.Name = #23435#20307
   Font.Style = []
   OldCreateOrder = False
   Position = poDesigned
@@ -16,12 +17,12 @@ object FormMainServer: TFormMainServer
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 19
   object pgServer: TcxPageControl
     Left = 0
     Top = 28
-    Width = 729
-    Height = 493
+    Width = 739
+    Height = 503
     Align = alClient
     TabOrder = 4
     Properties.ActivePage = tbshtMonitor
@@ -34,18 +35,22 @@ object FormMainServer: TFormMainServer
     LookAndFeel.NativeStyle = True
     TabSlants.Kind = skCutCorner
     OnPageChanging = pgServerPageChanging
-    ClientRectBottom = 492
+    ExplicitWidth = 729
+    ExplicitHeight = 493
+    ClientRectBottom = 502
     ClientRectLeft = 1
-    ClientRectRight = 728
-    ClientRectTop = 21
+    ClientRectRight = 738
+    ClientRectTop = 27
     object tbshtMonitor: TcxTabSheet
       Caption = #32771#35797#30417#25511
       ImageIndex = 0
+      ExplicitTop = 21
+      ExplicitHeight = 481
       DesignSize = (
-        727
-        471)
+        737
+        475)
       object img1: TImage
-        Left = 638
+        Left = 648
         Top = 47
         Width = 32
         Height = 32
@@ -80,7 +85,7 @@ object FormMainServer: TFormMainServer
         ExplicitLeft = 584
       end
       object img2: TImage
-        Left = 638
+        Left = 648
         Top = 116
         Width = 32
         Height = 32
@@ -115,7 +120,7 @@ object FormMainServer: TFormMainServer
         ExplicitLeft = 584
       end
       object img3: TImage
-        Left = 638
+        Left = 648
         Top = 185
         Width = 32
         Height = 32
@@ -150,9 +155,9 @@ object FormMainServer: TFormMainServer
         ExplicitLeft = 584
       end
       object btnStart: TButton
-        Left = 605
+        Left = 591
         Top = 85
-        Width = 97
+        Width = 135
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #24320#22987#32771#35797
@@ -160,9 +165,9 @@ object FormMainServer: TFormMainServer
         OnClick = btnStartClick
       end
       object btnEndExam: TButton
-        Left = 605
+        Left = 591
         Top = 154
-        Width = 97
+        Width = 135
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #32467#26463#32771#35797
@@ -170,9 +175,9 @@ object FormMainServer: TFormMainServer
         OnClick = btnEndExamClick
       end
       object btnExamineeSelect: TButton
-        Left = 605
+        Left = 591
         Top = 16
-        Width = 97
+        Width = 135
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #26412#22330#32771#29983#23548#20837
@@ -180,9 +185,9 @@ object FormMainServer: TFormMainServer
         OnClick = btnExamineeSelectClick
       end
       object btnExit: TButton
-        Left = 605
-        Top = 412
-        Width = 97
+        Left = 591
+        Top = 416
+        Width = 135
         Height = 25
         Anchors = [akRight, akBottom]
         Caption = #36864#20986
@@ -192,8 +197,8 @@ object FormMainServer: TFormMainServer
       object cxGrid1: TcxGrid
         Left = 3
         Top = 3
-        Width = 589
-        Height = 434
+        Width = 582
+        Height = 438
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 4
         object tvExaminees: TcxGridTableView
@@ -219,9 +224,9 @@ object FormMainServer: TFormMainServer
         end
       end
       object btnExamRecord: TButton
-        Left = 605
+        Left = 591
         Top = 239
-        Width = 97
+        Width = 135
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #25171#21360#32771#22330#35760#24405
@@ -229,18 +234,18 @@ object FormMainServer: TFormMainServer
         OnClick = btnExamRecordClick
       end
       object btnLock: TButton
-        Left = 605
-        Top = 356
-        Width = 97
+        Left = 591
+        Top = 360
+        Width = 135
         Height = 25
         Anchors = [akRight, akBottom]
         Caption = #38145#23450
         TabOrder = 6
       end
       object Button1: TButton
-        Left = 605
+        Left = 591
         Top = 302
-        Width = 97
+        Width = 135
         Height = 25
         Anchors = [akTop, akRight]
         Caption = #26597#38646#20998
@@ -252,6 +257,9 @@ object FormMainServer: TFormMainServer
       Caption = #31995#32479#37197#32622
       ImageIndex = 1
       OnShow = tbshtConfigShow
+      ExplicitTop = 21
+      ExplicitWidth = 727
+      ExplicitHeight = 471
       object grpbx1: TcxGroupBox
         Left = 24
         Top = 111
@@ -287,16 +295,25 @@ object FormMainServer: TFormMainServer
           Left = 28
           Top = 24
           Caption = #23458#25143#26426#32771#29983#25991#20214#22841#65306
+          ParentColor = False
+          ParentFont = False
+          Style.Color = clBtnFace
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object txtClientFolder: TcxMaskEdit
-          Left = 146
-          Top = 25
+          Left = 218
+          Top = 23
           Hint = #25351#23450#35813#30446#24405#26159#25351#26126#23398#29983#26426#19978#32771#29983#32771#35797#25991#20214#22841#30340#20301#32622#12290
           Properties.OnChange = ConfigChange
           Style.StyleController = cxEditStyleController1
           TabOrder = 4
           Text = 'txtClientFolder'
-          Width = 335
+          Width = 351
         end
       end
       object grpbx2: TcxGroupBox
@@ -310,16 +327,23 @@ object FormMainServer: TFormMainServer
           Left = 16
           Top = 28
           Caption = #26381#21153#22120#25968#25454#23384#25918#36335#24452#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object cbbDataFolder: TcxShellComboBox
-          Left = 146
+          Left = 216
           Top = 27
           ParentShowHint = False
           Properties.ShowFullPath = sfpAlways
           ShowHint = True
           Style.StyleController = cxEditStyleController1
           TabOrder = 1
-          Width = 337
+          Width = 353
         end
         object cxlbl2: TcxLabel
           Left = 506
@@ -408,16 +432,24 @@ object FormMainServer: TFormMainServer
         Top = 206
         Caption = #32493#32771#12289#24310#32771#12289#37325#32771#35774#32622#65306
         TabOrder = 5
-        Height = 131
+        Height = 67
         Width = 585
         object cxLabel11: TcxLabel
           Left = 16
           Top = 24
           Caption = #25805#20316#27169#24335#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object radiogrpRetryModel: TcxRadioGroup
           Left = 110
           Top = 12
+          ParentFont = False
           Properties.Columns = 2
           Properties.DefaultValue = 0
           Properties.Items = <
@@ -430,39 +462,54 @@ object FormMainServer: TFormMainServer
               Value = 1
             end>
           ItemIndex = 0
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
           TabOrder = 1
           Height = 42
-          Width = 335
+          Width = 467
         end
-        object btnResetExamPwd: TButton
-          Left = 110
-          Top = 74
-          Width = 97
-          Height = 25
-          Caption = #37325#35774#23494#30721
-          TabOrder = 2
-          OnClick = btnResetExamPwdClick
-        end
+      end
+      object btnResetExamPwd: TButton
+        Left = 134
+        Top = 400
+        Width = 97
+        Height = 25
+        Caption = #37325#35774#23494#30721
+        TabOrder = 6
+        OnClick = btnResetExamPwdClick
       end
     end
     object tbshtTQBInfo: TcxTabSheet
       Caption = #39064#24211#20449#24687
       ImageIndex = 3
+      ExplicitTop = 21
+      ExplicitHeight = 481
       object grpbx3: TcxGroupBox
         Left = 3
         Top = 3
         Caption = 'grpbx3'
         TabOrder = 0
         Height = 302
-        Width = 497
+        Width = 606
         object cxLabel1: TcxLabel
-          Left = 88
+          Left = 104
           Top = 32
           Caption = #39064#24211#21517#31216#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object edtName: TcxTextEdit
-          Left = 152
-          Top = 32
+          Left = 234
+          Top = 31
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
@@ -470,23 +517,44 @@ object FormMainServer: TFormMainServer
           Width = 257
         end
         object cxLabel2: TcxLabel
-          Left = 88
+          Left = 104
           Top = 72
           Caption = #39064#24211#31867#22411#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object cxLabel3: TcxLabel
-          Left = 88
+          Left = 104
           Top = 112
           Caption = #26377#25928#26085#26399#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object cxLabel4: TcxLabel
-          Left = 88
+          Left = 104
           Top = 152
           Caption = #25104#32489#26174#31034#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object edtType: TcxTextEdit
-          Left = 152
-          Top = 71
+          Left = 234
+          Top = 70
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
@@ -494,8 +562,8 @@ object FormMainServer: TFormMainServer
           Width = 257
         end
         object edtDuration: TcxTextEdit
-          Left = 152
-          Top = 111
+          Left = 234
+          Top = 110
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
@@ -503,8 +571,8 @@ object FormMainServer: TFormMainServer
           Width = 257
         end
         object edtScoreDisp: TcxTextEdit
-          Left = 152
-          Top = 151
+          Left = 234
+          Top = 150
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
@@ -512,8 +580,8 @@ object FormMainServer: TFormMainServer
           Width = 257
         end
         object edtStkDbFilePath: TcxTextEdit
-          Left = 151
-          Top = 257
+          Left = 233
+          Top = 256
           Enabled = False
           Properties.ReadOnly = True
           Style.StyleController = cxEditStyleController1
@@ -521,35 +589,56 @@ object FormMainServer: TFormMainServer
           Width = 257
         end
         object lbl5: TcxLabel
-          Left = 88
+          Left = 104
           Top = 256
           Caption = #39064#24211#36335#24452#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object edtTypeTime: TcxTextEdit
-          Left = 151
-          Top = 222
+          Left = 233
+          Top = 221
           Enabled = False
           Style.StyleController = cxEditStyleController1
           TabOrder = 10
           Width = 121
         end
         object cxLabel8: TcxLabel
-          Left = 53
+          Left = 47
           Top = 221
           Caption = #25171#23383#26102#38388#65288#31186#65289#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
         object edtExamTime: TcxTextEdit
-          Left = 151
-          Top = 186
+          Left = 233
+          Top = 185
           Enabled = False
           Style.StyleController = cxEditStyleController1
           TabOrder = 12
           Width = 121
         end
         object cxLabel7: TcxLabel
-          Left = 52
+          Left = 47
           Top = 184
           Caption = #32771#35797#26102#38388#65288#31186#65289#65306
+          ParentFont = False
+          Style.Font.Charset = DEFAULT_CHARSET
+          Style.Font.Color = clBlack
+          Style.Font.Height = -19
+          Style.Font.Name = #23435#20307
+          Style.Font.Style = []
+          Style.IsFontAssigned = True
         end
       end
     end

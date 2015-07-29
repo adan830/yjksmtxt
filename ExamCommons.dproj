@@ -49,10 +49,8 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Data.Win;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <DCC_MapFile>3</DCC_MapFile>
         <ImageDebugInfo>true</ImageDebugInfo>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
-        <DCC_RemoteDebug>true</DCC_RemoteDebug>
         <DCC_DependencyCheckOutputName>C:\Users\Public\Documents\RAD Studio\7.0\Bpl\ExamCommons.bpl</DCC_DependencyCheckOutputName>
         <DCC_ImageBase>00400000</DCC_ImageBase>
         <DCC_Optimize>false</DCC_Optimize>
@@ -65,12 +63,14 @@
         <DCC_Namespace>System.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
+    <Import Project="ReleaseWin32.optset" Condition="'$(Cfg_1)'!='' And Exists('ReleaseWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <Version>7.0</Version>
         <DCC_DebugInformation>0</DCC_DebugInformation>
         <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -87,7 +87,7 @@
         <DCC_IncludePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\DELPHI~1\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\yjksmtxt\debug\dcu;$(DCC_IncludePath)</DCC_IncludePath>
         <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
         <DCC_DebugVN>True</DCC_DebugVN>
-        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_MapFile>0</DCC_MapFile>
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
@@ -476,13 +476,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -595,6 +595,7 @@
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
             <CfgParent>Base</CfgParent>
+            <DependentOn>ReleaseWin32.optset</DependentOn>
         </BuildConfiguration>
     </ItemGroup>
     <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>

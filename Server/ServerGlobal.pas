@@ -3,39 +3,43 @@ unit ServerGlobal;
 interface
 
 uses
-   ServerUtils, StkRecordInfo, uGrade, uDmServer, Generics.Collections, logger;
+   ServerUtils, StkRecordInfo, uGrade, uDmServer, Generics.Collections, logger, ExamServer,ExamineesManager;
 
 const
    CMDCUSTOMCONFIGFILENAME = 'ServerConfig.Ini';
 
 type
-//TO-DO:端口被占用，服务打不开
+   // TO-DO:端口被占用，服务打不开
    TExamServerGlobal = class
    strict private
    class var
-      FAppPath: string;
-      FServerCustomConfig: TServerCustomConfig;
-      FOperateModules: TModules;
-      FDataBAKFolder: String;
+      FAppPath            : string;
+      FServerCustomConfig : TServerCustomConfig;
+      FOperateModules     : TModules;
+      FDataBAKFolder      : String;
       // FExamServer : TExamServer;
-      FStkRecordInfo: TStkRecordInfo;
-      FDmServer: TDmServer;
+      FStkRecordInfo : TStkRecordInfo;
+      FExamServer    : TExamServer;
+      FDmServer      : TDmServer;
+      FExamineesManager:TExamineesManager;
    public
       class procedure CreateClassObject;
       class procedure DestroyClassObject;
-//      class procedure SetupGlobalVariables();
+      // class procedure SetupGlobalVariables();
       class procedure SetupGlobalOperateModules();
    public
    class var
-      Inst: TExamServerGlobal;
-      logger: TLogger;
-      class property GlobalApplicationPath: string read FAppPath;
-      class property ServerCustomConfig: TServerCustomConfig read FServerCustomConfig write FServerCustomConfig;
-      class property GlobalOperateModules: TModules read FOperateModules;
-      //class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
+      Inst                                 : TExamServerGlobal;
+      logger                               : TLogger;
+      class property GlobalApplicationPath : string read FAppPath;
+      class property ServerCustomConfig    : TServerCustomConfig read FServerCustomConfig write FServerCustomConfig;
+      class property GlobalOperateModules  : TModules read FOperateModules;
+      // class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
       // class property GlobalExamServer : TExamServer read FExamServer;
-      class property GlobalStkRecordInfo: TStkRecordInfo read FStkRecordInfo;
-      class property GlobalDmServer: TDmServer read FDmServer;
+      class property GlobalStkRecordInfo : TStkRecordInfo read FStkRecordInfo;
+      class property ExamServer          : TExamServer read FExamServer;
+      class property GlobalDmServer      : TDmServer read FDmServer;
+      class property ExamineesManager     :TExamineesManager read FExamineesManager;
    end;
 
 implementation
@@ -45,20 +49,24 @@ uses
 
 class procedure TExamServerGlobal.CreateClassObject;
    var
-      configfilepath: string;
+      configfilepath : string;
    begin
       // logger := TLogger.create();
       // logger.Enabled := true;
       try
-         FDmServer := TDmServer.create(nil);
-         FStkRecordInfo := TStkRecordInfo.CreateStkRecordInfo;
-         configfilepath := ExtractFilePath(Application.ExeName);
+         FDmServer           := TDmServer.create(nil);
+         FStkRecordInfo      := TStkRecordInfo.CreateStkRecordInfo;
+         configfilepath      := ExtractFilePath(Application.ExeName);
          FServerCustomConfig := TServerCustomConfig.create;
          FServerCustomConfig.SetupCustomConfig(configfilepath, FStkRecordInfo.BaseConfig);
-         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath,fserverCustomConfig.LoginPermissionModel);
+         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath,
+                 FServerCustomConfig.LoginPermissionModel);
          SetupGlobalOperateModules;
+
+         FExamineesManager := TExamineesManager.Create();
+         FExamServer := TExamServer.Create(nil, FExamineesManager, 3000);
       except
-         on E: Exception do
+         on E : Exception do
          begin
             logger.WriteLog(E.Message);
          end;
@@ -67,8 +75,8 @@ class procedure TExamServerGlobal.CreateClassObject;
 
 class procedure TExamServerGlobal.DestroyClassObject;
    var
-      i: Integer;
-      moduleinfo: TModuleInfo;
+      i          : Integer;
+      moduleinfo : TModuleInfo;
    begin
       // for i:= FoperateModules.count - 1 downto 0 do  begin
       // moduleinfo:=FOperateModules[i];
@@ -87,6 +95,8 @@ class procedure TExamServerGlobal.DestroyClassObject;
       FStkRecordInfo.Free;
       FDmServer.Free;
       FServerCustomConfig.Free;
+      FExamServer.free;
+      FExamineesManager.free;
       // logger.Free;
       Inst := nil;
       inherited;
@@ -94,8 +104,8 @@ class procedure TExamServerGlobal.DestroyClassObject;
 
 class procedure TExamServerGlobal.SetupGlobalOperateModules();
    var
-      mc: Integer;
-      i: Integer;
+      mc : Integer;
+      i  : Integer;
       // moduleinfo :TModuleInfo;
    begin
       // FOperateModules := TList<TModuleInfo>.Create;
@@ -113,20 +123,23 @@ class procedure TExamServerGlobal.SetupGlobalOperateModules();
       end;
    end;
 
-//class procedure TExamServerGlobal.SetupGlobalVariables();
-//   begin
-//      FAppPath := ExtractFilePath(Application.ExeName);
-//      FServerCustomConfig := TServerCustomConfig.create;
-//      FServerCustomConfig.SetupCustomConfig(FAppPath, FStkRecordInfo.BaseConfig);
-//   end;
+// class procedure TExamServerGlobal.SetupGlobalVariables();
+// begin
+// FAppPath := ExtractFilePath(Application.ExeName);
+// FServerCustomConfig := TServerCustomConfig.create;
+// FServerCustomConfig.SetupCustomConfig(FAppPath, FStkRecordInfo.BaseConfig);
+// end;
 
 initialization
 
-TExamServerGlobal.logger := TLogger.create();
+TExamServerGlobal.CreateClassObject();
+TExamServerGlobal.logger         := TLogger.create();
 TExamServerGlobal.logger.Enabled := true;
-//Application.OnException := FExceptionHandle.HandleException;
+// Application.OnException := FExceptionHandle.HandleException;
 
 finalization
+
 TExamServerGlobal.logger.Free;
+TExamServerGlobal.DestroyClassObject;
 
 end.

@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, JvExStdCtrls, JvRichEdit, Vcl.Buttons, shadowframe, tq, ugrade;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, JvExStdCtrls, JvRichEdit, Vcl.Buttons, tq, ugrade;
 
 type
   TFormOperate = class(TForm)
@@ -22,7 +22,6 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnOpenClick(Sender: TObject);
   private
-    shadowframe: TShadowFrame;
     pos: TPoint;
     FAnchors: TAnchors;
     Expended: Boolean;
@@ -95,17 +94,11 @@ begin
   // CloseAllDoc; //todo
   TExamClientGlobal.ClientMainForm.visible := true;
   modalresult := 1;
-
-  shadowframe.Active := False;
 end;
 
 procedure TFormOperate.FormCreate(Sender: TObject);
 begin
   parent := nil;
-  shadowframe := TShadowFrame.Create(self);
-  shadowframe.parent := self;
-  shadowframe.ParentForm := self;
-  shadowframe.Active := true;
   if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT) then
     btnGrade.visible := true
   else
@@ -115,9 +108,9 @@ end;
 
 procedure TFormOperate.ShowForm(aModuleInfo: TModuleInfo; aTq: TTQ);
 begin
+//Shadowed:=true;
   moduleInfo := aModuleInfo;
   TestQuestion := aTq;
-  self.shadowframe.Active := true;
 
 
   Caption:= moduleInfo.Name+'²Ù×÷Ìâ';

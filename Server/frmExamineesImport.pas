@@ -237,7 +237,7 @@ procedure TExamineesImport.btnSaveClick(Sender : TObject);
                // Examinee.RemainTime := vartoint(FieldValues[DFNEI_REMAINTIME]);
                // end;
                // end;
-               if not FormMainServer.ExamineesManager.Add(Examinee) then
+               if not TExamServerGlobal.ExamineesManager.Add(Examinee) then
                   Dispose(Examinee);
             end;
          end;

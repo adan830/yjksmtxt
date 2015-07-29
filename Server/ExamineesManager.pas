@@ -11,7 +11,7 @@ type
    // TListChangedEvent =procedure(const item:TClientbak) of object;  //index=-1表示非一项改变，否则表示index项发生改变
 
    { TODO -ojp : 多线程安全问题需要保证 }
-   TExamineesManager = class
+   TExamineesManager = class(TOBject)
    private
       // 只允许指定范围内的考生登录　要求先设定范围，并显示出来
       FExamineesList  : TThreadList;
@@ -24,14 +24,16 @@ type
    protected
       // procedure Notification(AComponent: TComponent; Operation: TOperation); override;
    public
-      constructor Create(AMessageHandler : THandle);
+      constructor Create;overload;
+      constructor Create(AMessageHandler : THandle); overload;
+
       destructor Destroy; override;
       // ==============================================================================
       // GetExamineeInfo 将加密获取的考生信息
       // ==============================================================================
       procedure GetExamineeInfo(const AExamineeID : string; out AExaminee : TExaminee);
       procedure UpdateTimeStamp(const ABinding : TIdSocketHandle);
-      function Login(AExamineeID: string; ALoginType: TLoginType; APwd, aPeerIP: string; aPeerPort: UInt16) : TCommandResult;
+      function Login(AExamineeID : string; ALoginType : TLoginType; APwd, aPeerIP : string; aPeerPort : UInt16) : TCommandResult;
       /// 查找已存在的项，返回数组索引，如果不存在返回 -1;
       function FindItemByIPPort(const ABinding : TIdSocketHandle; AList : TList) : integer;
 
@@ -44,6 +46,7 @@ type
    published
       property ExamineesList : TThreadList read FExamineesList;
       property Count         : integer read GetCount;
+      property MessageHandler:THandle read FMessageHandler write FMessageHandler;
    end;
 
 const
@@ -76,7 +79,16 @@ function TExamineesManager.Add(AExaminee : PExaminee) : Boolean;
          ExamineesList.UnlockList;
       end;
    end;
-
+ constructor TExamineesManager.Create;
+   begin
+      inherited;
+      // FMessageHandler := AMessageHandler;
+      FExamineesList  := TThreadList.Create();
+      FTimer          := TTimer.Create(nil);
+      FTimer.Enabled  := False;
+      FTimer.Interval := 3000;
+      FTimer.OnTimer  := FTimerTimer;
+   end;
 constructor TExamineesManager.Create(AMessageHandler : THandle);
    begin
       inherited Create();
@@ -87,6 +99,8 @@ constructor TExamineesManager.Create(AMessageHandler : THandle);
       FTimer.Interval := 3000;
       FTimer.OnTimer  := FTimerTimer;
    end;
+
+
 
 destructor TExamineesManager.Destroy;
    var
@@ -197,7 +211,7 @@ procedure TExamineesManager.GetExamineeInfo(const AExamineeID : string; out AExa
 /// /     end;
 // end;
 
-function TExamineesManager.Login(AExamineeID: string; ALoginType: TLoginType; APwd, aPeerIP: string; aPeerPort: UInt16) : TCommandResult;
+function TExamineesManager.Login(AExamineeID : string; ALoginType : TLoginType; APwd, aPeerIP : string; aPeerPort : UInt16) : TCommandResult;
    var
       index           : integer;
       myList          : TList;
@@ -214,13 +228,13 @@ function TExamineesManager.Login(AExamineeID: string; ALoginType: TLoginType; AP
             // TExaminee(myList[index]^).RemainTime:= CONSTEXAMINENATIONTIME;
             TExaminee(myList[index]^).TimeStamp := Now;
 
-//            AExaminee.Name   := TExaminee(myList[index]^).Name;
-//            AExaminee.Status := AStatus; // esLogined ;
-//            if (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
-//                    ((ALoginType = ltContinuteEndedExam) or (ALoginType = ltAddTimeExam)) then
-//               AExaminee.RemainTime :=  aRemainTime // 时间由客户端传来的确定
-//            else
-//               AExaminee.RemainTime := TExaminee(myList[index]^).RemainTime; // 时间由服务器端设定
+            // AExaminee.Name   := TExaminee(myList[index]^).Name;
+            // AExaminee.Status := AStatus; // esLogined ;
+            // if (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
+            // ((ALoginType = ltContinuteEndedExam) or (ALoginType = ltAddTimeExam)) then
+            // AExaminee.RemainTime :=  aRemainTime // 时间由客户端传来的确定
+            // else
+            // AExaminee.RemainTime := TExaminee(myList[index]^).RemainTime; // 时间由服务器端设定
             // ARemainTime          := TExaminee(myList[index]^).RemainTime;
 
             // 为将examinee通过消息发出去，而创建一个临时对象，它将在事件接收过程中被释放。

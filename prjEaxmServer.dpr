@@ -14,7 +14,8 @@ uses
   ServerGlobal in 'Server\ServerGlobal.pas',
   frmEnterForBaseImport in 'Server\frmEnterForBaseImport.pas' {EnterForBaseImport},
   uTotalScoreForm in 'Server\uTotalScoreForm.pas' {TotalScoreForm},
-  SetExamPwd in 'Server\SetExamPwd.pas' {ResetExamPwdForm};
+  SetExamPwd in 'Server\SetExamPwd.pas' {ResetExamPwdForm},
+  ufrmServerLogin in 'Server\ufrmServerLogin.pas' {FormServerLogin};
 
 {$R *.res}
 
@@ -29,5 +30,28 @@ begin
   Application.MainFormOnTaskbar := True;
   //Application.CreateForm(TdmServer, GlobalDmServer);
   Application.CreateForm(TFormMainServer, FormMainServer);
+
+  {$IFNDEF NOLOGIN  }
+   FormMainServer.visible:=false;
+   FormMainServer.Shadowed:=false;
+   with TFormServerLogin.Create(Application) do
+      try
+         if showModal = 1 then
+         begin
+            FormMainServer.visible:=true;
+            FormMainServer.Shadowed:=true;
+            free;
+         end
+         else
+         begin
+            free;
+            Application.Terminate;
+         end;
+
+      except
+         free;
+         Application.Terminate;
+      end;
+   {$ENDIF}
   Application.Run;
 end.

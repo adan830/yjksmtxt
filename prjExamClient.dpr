@@ -3,7 +3,7 @@ program prjExamClient;
 {$R *.dres}
 
 uses
-   FastMM4,
+    FastMM4,
    Forms,
    SysUtils,
    IdException,

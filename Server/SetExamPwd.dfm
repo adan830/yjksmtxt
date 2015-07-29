@@ -3,8 +3,8 @@ object ResetExamPwdForm: TResetExamPwdForm
   Top = 0
   BorderIcons = []
   Caption = #37325#35774#23494#30721
-  ClientHeight = 202
-  ClientWidth = 496
+  ClientHeight = 225
+  ClientWidth = 432
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,11 +13,12 @@ object ResetExamPwdForm: TResetExamPwdForm
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object edtAddTimePwd1: TcxTextEdit
-    Left = 302
-    Top = 90
+    Left = 279
+    Top = 148
     ParentFont = False
     Properties.EchoMode = eemPassword
     Properties.PasswordChar = '*'
@@ -28,100 +29,12 @@ object ResetExamPwdForm: TResetExamPwdForm
     Style.Font.Name = #23435#20307
     Style.Font.Style = []
     Style.IsFontAssigned = True
-    TabOrder = 0
+    TabOrder = 8
     Width = 121
   end
   object edtAddTimePwd: TcxTextEdit
-    Left = 151
-    Top = 90
-    ParentFont = False
-    Properties.EchoMode = eemPassword
-    Properties.PasswordChar = '*'
-    Properties.ReadOnly = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-    TabOrder = 1
-    Width = 121
-  end
-  object cxLabel13: TcxLabel
-    Left = 46
-    Top = 92
-    Caption = #24310#32771#23494#30721#65306
-    ParentFont = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-  end
-  object cxLabel5: TcxLabel
-    Left = 46
-    Top = 61
-    Caption = #37325#32771#23494#30721#65306
-    ParentFont = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-  end
-  object edtContPwd: TcxTextEdit
-    Left = 151
-    Top = 28
-    ParentFont = False
-    Properties.EchoMode = eemPassword
-    Properties.PasswordChar = '*'
-    Properties.ReadOnly = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-    TabOrder = 4
-    Width = 121
-  end
-  object edtContPwd1: TcxTextEdit
-    Left = 302
-    Top = 28
-    ParentFont = False
-    Properties.EchoMode = eemPassword
-    Properties.PasswordChar = '*'
-    Properties.ReadOnly = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-    TabOrder = 5
-    Width = 121
-  end
-  object edtRetryPwd: TcxTextEdit
-    Left = 151
-    Top = 57
-    ParentFont = False
-    Properties.EchoMode = eemPassword
-    Properties.PasswordChar = '*'
-    Properties.ReadOnly = False
-    Style.Font.Charset = DEFAULT_CHARSET
-    Style.Font.Color = clWindowText
-    Style.Font.Height = -19
-    Style.Font.Name = #23435#20307
-    Style.Font.Style = []
-    Style.IsFontAssigned = True
-    TabOrder = 6
-    Width = 121
-  end
-  object edtRetryPwd1: TcxTextEdit
-    Left = 302
-    Top = 57
+    Left = 152
+    Top = 148
     ParentFont = False
     Properties.EchoMode = eemPassword
     Properties.PasswordChar = '*'
@@ -135,9 +48,97 @@ object ResetExamPwdForm: TResetExamPwdForm
     TabOrder = 7
     Width = 121
   end
-  object cxLabel6: TcxLabel
-    Left = 46
-    Top = 31
+  object lblAddTime: TcxLabel
+    Left = 41
+    Top = 146
+    Caption = #24310#32771#23494#30721#65306
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+  end
+  object lblRetry: TcxLabel
+    Left = 41
+    Top = 117
+    Caption = #37325#32771#23494#30721#65306
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+  end
+  object edtContPwd: TcxTextEdit
+    Left = 152
+    Top = 86
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 3
+    Width = 121
+  end
+  object edtContPwd1: TcxTextEdit
+    Left = 279
+    Top = 86
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 4
+    Width = 121
+  end
+  object edtRetryPwd: TcxTextEdit
+    Left = 152
+    Top = 115
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 5
+    Width = 121
+  end
+  object edtRetryPwd1: TcxTextEdit
+    Left = 279
+    Top = 115
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 6
+    Width = 121
+  end
+  object lblContinue: TcxLabel
+    Left = 41
+    Top = 88
     Caption = #32493#32771#23494#30721#65306
     ParentFont = False
     Style.Font.Charset = DEFAULT_CHARSET
@@ -148,8 +149,8 @@ object ResetExamPwdForm: TResetExamPwdForm
     Style.IsFontAssigned = True
   end
   object btnYes: TButton
-    Left = 126
-    Top = 146
+    Left = 110
+    Top = 186
     Width = 97
     Height = 25
     Caption = #30830#23450
@@ -157,12 +158,84 @@ object ResetExamPwdForm: TResetExamPwdForm
     OnClick = btnYesClick
   end
   object btnCancel: TButton
-    Left = 302
-    Top = 146
+    Left = 286
+    Top = 186
     Width = 97
     Height = 25
     Caption = #21462#28040
     ModalResult = 7
     TabOrder = 10
+  end
+  object edtAdminPwd: TcxTextEdit
+    Left = 152
+    Top = 53
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 1
+    Width = 121
+  end
+  object edtAdminPwd1: TcxTextEdit
+    Left = 279
+    Top = 53
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 2
+    Width = 121
+  end
+  object cxLabel1: TcxLabel
+    Left = 3
+    Top = 55
+    Caption = #26032#31649#29702#21592#23494#30721#65306
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+  end
+  object edtOldAdminPwd: TcxTextEdit
+    Left = 152
+    Top = 20
+    ParentFont = False
+    Properties.EchoMode = eemPassword
+    Properties.PasswordChar = '*'
+    Properties.ReadOnly = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
+    TabOrder = 0
+    Width = 121
+  end
+  object cxLabel2: TcxLabel
+    Left = 3
+    Top = 22
+    Caption = #21407#31649#29702#21592#23494#30721#65306
+    ParentFont = False
+    Style.Font.Charset = DEFAULT_CHARSET
+    Style.Font.Color = clWindowText
+    Style.Font.Height = -19
+    Style.Font.Name = #23435#20307
+    Style.Font.Style = []
+    Style.IsFontAssigned = True
   end
 end

@@ -1,0 +1,24 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <DCC_Define>RELEASE;noNOLOGIN;USE_JCL;$(DCC_Define)</DCC_Define>
+        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_DebugInfoInTds>false</DCC_DebugInfoInTds>
+        <DCC_BplOutput>D:\develop\yjksmtxt\Release\bin\</DCC_BplOutput>
+        <DCC_DebugInformation>2</DCC_DebugInformation>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_ExeOutput>D:\develop\yjksmtxt\release\bin\</DCC_ExeOutput>
+        <DCC_DcpOutput>D:\develop\yjksmtxt\release\dcp\</DCC_DcpOutput>
+        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\Release\dcu;D:\develop\yjksmtxt\Release\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_DcuOutput>D:\develop\yjksmtxt\release\dcu\</DCC_DcuOutput>
+    </PropertyGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType>OptionSet</Borland.ProjectType>
+        <BorlandProject>
+            <Delphi.Personality/>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+</Project>

@@ -60,6 +60,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Debugger_DebugSourcePath>E:\myproject\delphitemp\yjks;E:\delphi2007\source\Indy\Indy10\System\;D:\delphi2010\FastMM\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
     </PropertyGroup>
+    <Import Project="ReleaseWin32.optset" Condition="'$(Cfg_1)'!='' And Exists('ReleaseWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_DependencyCheckOutputName>release\dcu\prjExamClient.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
@@ -67,7 +68,6 @@
         <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
         <DCC_Optimize>False</DCC_Optimize>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_ExeOutput>release\dcu</DCC_ExeOutput>
         <DCC_DcuOutput>release\dcu</DCC_DcuOutput>
         <DCC_ObjOutput>E:\myprojectfor2007\delphitemp\yjks</DCC_ObjOutput>
         <DCC_HppOutput>E:\myprojectfor2007\delphitemp\yjks</DCC_HppOutput>
@@ -75,7 +75,7 @@
         <DCC_ResourcePath>D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressPrinting.System.v3.4.3\ExpressPrinting System\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumTreeList.Suite.v4.5\ExpressQuantumTreeList 4\Sources;E:\myprojectfor2007\一级考试系统\publicunit;E:\myprojectfor2007\一级考试系统\Exam;$(DCC_ResourcePath)</DCC_ResourcePath>
         <DCC_ObjPath>D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressPrinting.System.v3.4.3\ExpressPrinting System\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumTreeList.Suite.v4.5\ExpressQuantumTreeList 4\Sources;E:\myprojectfor2007\一级考试系统\publicunit;E:\myprojectfor2007\一级考试系统\Exam;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressPrinting.System.v3.4.3\ExpressPrinting System\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;D:\CodeGear\RAD Studio\5.0\devexpress\DevExpress.ExpressQuantumTreeList.Suite.v4.5\ExpressQuantumTreeList 4\Sources;E:\myprojectfor2007\一级考试系统\publicunit;E:\myprojectfor2007\一级考试系统\Exam;$(DCC_IncludePath)</DCC_IncludePath>
-        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -156,9 +156,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="debug\bin\prjExamClient.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Client\ClientMain.PAS" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>prjExamClient.exe</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -174,9 +174,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Client\ClientMain.PAS" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="debug\bin\prjExamClient.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>prjExamClient.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -556,13 +556,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -661,6 +661,7 @@
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
             <CfgParent>Base</CfgParent>
+            <DependentOn>ReleaseWin32.optset</DependentOn>
         </BuildConfiguration>
     </ItemGroup>
     <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
