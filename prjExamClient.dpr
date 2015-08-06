@@ -3,7 +3,7 @@ program prjExamClient;
 {$R *.dres}
 
 uses
-    FastMM4,
+   FastMM4,
    Forms,
    SysUtils,
    IdException,
@@ -34,6 +34,7 @@ uses
 // FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
 {$R *.res}
+{$R uac.res}
 
 begin
    {$IFDEF DEBUG}
@@ -52,7 +53,7 @@ begin
       TExamClientGlobal.SetBaseConfig();
 
    except
-      on E : Exception do
+      on E: Exception do
       begin
          // Application.MessageBox(pchar(e.Message),'ddd');
          Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！', '连接服务器失败', MB_RETRYCANCEL + MB_ICONSTOP + MB_TOPMOST);
@@ -61,15 +62,19 @@ begin
    end;
 
    {$IFDEF NOLOGIN  }
-   TExamClientGlobal.Examinee.ID := '11111100101';
+   TExamClientGlobal.Examinee.ID   := '11111100101';
+   TExamClientGlobal.Examinee.Name := '模拟1';
    TExamClientGlobal.Login();
-   TExamClientGlobal.InitExam;
+   if TExamClientGlobal.InitExam <> 1 then // <>mrok
+      Application.Terminate;
    Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
    {$ELSE}
    with TFrmLogin.Create(Application) do
       try
+         Shadowed := True;
          if showModal = 1 then
          begin
+
             Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
 
             // Application.CreateForm(TSelectForm, SelectForm);
@@ -77,9 +82,7 @@ begin
             // Application.CreateForm(TTypeForm, TypeForm);
             // Application.CreateForm(TScoreForm, ScoreForm);
             free;
-         end
-         else
-         begin
+         end else begin
             free;
             Application.Terminate;
          end;

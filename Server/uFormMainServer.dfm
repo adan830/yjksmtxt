@@ -35,8 +35,6 @@ object FormMainServer: TFormMainServer
     LookAndFeel.NativeStyle = True
     TabSlants.Kind = skCutCorner
     OnPageChanging = pgServerPageChanging
-    ExplicitWidth = 729
-    ExplicitHeight = 493
     ClientRectBottom = 502
     ClientRectLeft = 1
     ClientRectRight = 738
@@ -44,8 +42,6 @@ object FormMainServer: TFormMainServer
     object tbshtMonitor: TcxTabSheet
       Caption = #32771#35797#30417#25511
       ImageIndex = 0
-      ExplicitTop = 21
-      ExplicitHeight = 481
       DesignSize = (
         737
         475)
@@ -206,6 +202,7 @@ object FormMainServer: TFormMainServer
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          OptionsBehavior.ColumnHeaderHints = False
           OptionsCustomize.ColumnFiltering = False
           OptionsCustomize.ColumnGrouping = False
           OptionsCustomize.ColumnMoving = False
@@ -257,9 +254,6 @@ object FormMainServer: TFormMainServer
       Caption = #31995#32479#37197#32622
       ImageIndex = 1
       OnShow = tbshtConfigShow
-      ExplicitTop = 21
-      ExplicitWidth = 727
-      ExplicitHeight = 471
       object grpbx1: TcxGroupBox
         Left = 24
         Top = 111
@@ -486,8 +480,6 @@ object FormMainServer: TFormMainServer
     object tbshtTQBInfo: TcxTabSheet
       Caption = #39064#24211#20449#24687
       ImageIndex = 3
-      ExplicitTop = 21
-      ExplicitHeight = 481
       object grpbx3: TcxGroupBox
         Left = 3
         Top = 3

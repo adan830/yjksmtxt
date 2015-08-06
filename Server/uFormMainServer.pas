@@ -245,6 +245,7 @@ procedure TFormMainServer.InitGrdClientListHeader;
          Index                      := ColIndexOfExamineeNo;
          Caption                    := '准考证号';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         width:=120;
          Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
@@ -252,20 +253,23 @@ procedure TFormMainServer.InitGrdClientListHeader;
          Index                      := ColIndexOfExamineeName;
          Caption                    := '姓名';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         Width:=80;
          Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
          Index                      := ColIndexOfIP;
-         Caption                    := '客户机IP';
+         Caption                    := '学生IP';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         Width:=120;
          Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
       begin
          Index                      := ColIndexOfPort;
-         Caption                    := '客户机端口';
+         Caption                    := '端口';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         Width:=80;
          Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
@@ -273,6 +277,7 @@ procedure TFormMainServer.InitGrdClientListHeader;
          Index                      := ColIndexOfStatus;
          Caption                    := '状态';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         Width:=120;
          Options.Editing            := False;
       end;
       with tvExaminees.CreateColumn do
@@ -280,6 +285,7 @@ procedure TFormMainServer.InitGrdClientListHeader;
          Index                      := ColIndexOfRemainTime;
          Caption                    := '剩余时间';
          DataBinding.ValueTypeClass := TcxStringValueType;
+         Width:=110;
          Options.Editing            := False;
       end;
    end;

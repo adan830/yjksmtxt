@@ -2821,6 +2821,7 @@ end;
 initialization
 {$IFNDEF NDEBUG}
   FCnDebugger := TCnDebugger.Create;
+  FCnDebugger.AutoStart:=false;
   FixCallingCPUPeriod;
   {$IFDEF USE_JCL}
   InitializeCriticalSection(FCSExcept);

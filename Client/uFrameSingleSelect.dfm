@@ -10,20 +10,22 @@ object FrameSingleSelect: TFrameSingleSelect
     Width = 778
     Height = 498
     Align = alClient
+    BevelOuter = bvNone
     Caption = 'pnl1'
     TabOrder = 0
     object pnl2: TPanel
-      Left = 1
-      Top = 39
-      Width = 691
-      Height = 458
+      Left = 0
+      Top = 38
+      Width = 778
+      Height = 460
       Align = alClient
+      BevelOuter = bvNone
       Caption = 'pnl2'
       TabOrder = 0
       object pnl3: TPanel
-        Left = 1
-        Top = 1
-        Width = 689
+        Left = 0
+        Top = 0
+        Width = 778
         Height = 82
         Align = alTop
         BevelOuter = bvNone
@@ -35,7 +37,7 @@ object FrameSingleSelect: TFrameSingleSelect
         object mmo1: TMemo
           Left = 0
           Top = 0
-          Width = 689
+          Width = 778
           Height = 82
           Align = alClient
           BorderStyle = bsNone
@@ -52,20 +54,22 @@ object FrameSingleSelect: TFrameSingleSelect
         end
       end
       object pnl4: TPanel
-        Left = 1
-        Top = 377
-        Width = 689
+        Left = 0
+        Top = 380
+        Width = 778
         Height = 80
         Align = alBottom
+        BevelOuter = bvNone
         Caption = 'pnl4'
         ShowCaption = False
         TabOrder = 1
         object grdpnl1: TGridPanel
-          Left = 1
-          Top = 1
-          Width = 687
-          Height = 78
+          Left = 0
+          Top = 0
+          Width = 778
+          Height = 80
           Align = alClient
+          BevelOuter = bvNone
           Caption = 'grdpnl1'
           Color = 15921906
           ColumnCollection = <
@@ -113,11 +117,11 @@ object FrameSingleSelect: TFrameSingleSelect
           ShowCaption = False
           TabOrder = 0
           DesignSize = (
-            687
-            78)
+            778
+            80)
           object btnPrevious: TCnSpeedButton
-            Left = 45
-            Top = 24
+            Left = 56
+            Top = 25
             Width = 82
             Height = 30
             Anchors = []
@@ -136,11 +140,12 @@ object FrameSingleSelect: TFrameSingleSelect
             Margin = 4
             ParentFont = False
             OnClick = btnPreviousClick
+            ExplicitLeft = 45
             ExplicitTop = 28
           end
           object btnNext: TCnSpeedButton
-            Left = 558
-            Top = 24
+            Left = 638
+            Top = 25
             Width = 82
             Height = 30
             Anchors = []
@@ -163,10 +168,10 @@ object FrameSingleSelect: TFrameSingleSelect
             ExplicitTop = 28
           end
           object RadioGroup1: TJvRadioGroup
-            Left = 180
+            Left = 204
             Top = -12
-            Width = 342
-            Height = 76
+            Width = 387
+            Height = 78
             Align = alCustom
             Anchors = [akLeft, akTop, akRight, akBottom]
             Caption = 'RadioGroup1'
@@ -187,8 +192,8 @@ object FrameSingleSelect: TFrameSingleSelect
             EdgeBorders = []
           end
           object btnAnswer: TCnSpeedButton
-            Left = 685
-            Top = 24
+            Left = 776
+            Top = 25
             Width = 0
             Height = 30
             Anchors = []
@@ -198,7 +203,7 @@ object FrameSingleSelect: TFrameSingleSelect
             HotTrackBold = False
             HotTrackColor = 16551233
             ModernBtnStyle = bsFlat
-            Caption = #19979#19968#39064
+            Caption = #31572#26696
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWhite
             Font.Height = 14
@@ -259,22 +264,25 @@ object FrameSingleSelect: TFrameSingleSelect
             NumGlyphs = 2
             ParentFont = False
             OnClick = btnAnswerClick
+            ExplicitLeft = 685
+            ExplicitTop = 24
           end
         end
       end
       object pnl6: TPanel
-        Left = 1
-        Top = 83
-        Width = 689
-        Height = 294
+        Left = 0
+        Top = 82
+        Width = 778
+        Height = 298
         Align = alClient
+        BevelOuter = bvNone
         Caption = 'pnl6'
         TabOrder = 2
         object edtTQContent: TJvRichEdit
-          Left = 1
-          Top = 1
-          Width = 687
-          Height = 292
+          Left = 0
+          Top = 0
+          Width = 778
+          Height = 298
           Align = alClient
           BevelInner = bvNone
           BevelOuter = bvNone
@@ -293,40 +301,20 @@ object FrameSingleSelect: TFrameSingleSelect
         end
       end
     end
-    object pnl5: TPanel
-      Left = 692
-      Top = 39
-      Width = 85
-      Height = 458
-      Align = alRight
-      Caption = 'pnl5'
-      TabOrder = 1
-      object btn1: TButton
-        Left = 2
-        Top = 144
-        Width = 75
-        Height = 25
-        Caption = 'btn1'
-        TabOrder = 0
-        OnClick = btn1Click
-      end
-    end
     inline frmTqButtonList: TFrameTQButtons
-      Left = 1
-      Top = 1
-      Width = 776
+      Left = 0
+      Top = 0
+      Width = 778
       Height = 38
       Align = alTop
       AutoScroll = True
       AutoSize = True
-      TabOrder = 2
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 776
+      TabOrder = 1
+      ExplicitWidth = 778
       inherited grdpnlTQButtons: TGridPanel
-        Width = 776
+        Width = 778
         Align = alTop
-        ExplicitWidth = 776
+        ExplicitWidth = 778
       end
     end
   end

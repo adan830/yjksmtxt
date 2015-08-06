@@ -72,8 +72,6 @@
         <DCC_DependencyCheckOutputName>debug\bin\prjEaxmServer.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
         <DCC_Optimize>False</DCC_Optimize>
-        <DCC_ExeOutput>debug\bin</DCC_ExeOutput>
-        <DCC_DcuOutput>debug\dcu</DCC_DcuOutput>
         <DCC_ObjOutput>debug\dcu</DCC_ObjOutput>
         <DCC_HppOutput>debug\dcu</DCC_HppOutput>
         <DCC_ResourcePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_ResourcePath)</DCC_ResourcePath>
@@ -88,6 +86,7 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_ExeOutput>D:\develop\yjksmtxt\debug\bin\</DCC_ExeOutput>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
@@ -525,8 +524,8 @@
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>

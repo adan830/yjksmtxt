@@ -11,11 +11,14 @@ object FrameKeyType: TFrameKeyType
     Height = 52
     Align = alTop
     Alignment = taLeftJustify
+    BevelOuter = bvNone
+    Color = 16775666
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -21
     Font.Name = #40657#20307
     Font.Style = []
+    ParentBackground = False
     ParentFont = False
     TabOrder = 0
     DesignSize = (
@@ -46,20 +49,23 @@ object FrameKeyType: TFrameKeyType
     Width = 794
     Height = 451
     Align = alClient
+    BevelOuter = bvNone
     TabOrder = 1
     object spl1: TSplitter
-      Left = 1
-      Top = 181
-      Width = 792
+      Left = 0
+      Top = 180
+      Width = 794
       Height = 3
       Cursor = crVSplit
       Align = alTop
+      ExplicitLeft = 1
+      ExplicitTop = 181
       ExplicitWidth = 269
     end
     object pnl3: TPanel
-      Left = 1
-      Top = 1
-      Width = 792
+      Left = 0
+      Top = 0
+      Width = 794
       Height = 180
       Align = alTop
       BevelOuter = bvNone
@@ -67,7 +73,7 @@ object FrameKeyType: TFrameKeyType
       object sourceRich: TRichEdit
         Left = 0
         Top = 25
-        Width = 792
+        Width = 794
         Height = 155
         Align = alClient
         Color = clWhite
@@ -88,18 +94,20 @@ object FrameKeyType: TFrameKeyType
       object pnl5: TPanel
         Left = 0
         Top = 0
-        Width = 792
+        Width = 794
         Height = 25
         Align = alTop
         BevelOuter = bvNone
+        Color = 16775666
+        ParentBackground = False
         TabOrder = 1
         DesignSize = (
-          792
+          794
           25)
         object lbl1: TLabel
           Left = 145
           Top = 5
-          Width = 627
+          Width = 629
           Height = 20
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
@@ -115,18 +123,18 @@ object FrameKeyType: TFrameKeyType
       end
     end
     object pnl4: TPanel
-      Left = 1
-      Top = 184
-      Width = 792
-      Height = 266
+      Left = 0
+      Top = 183
+      Width = 794
+      Height = 268
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
       object targetRich: TRichEdit
         Left = 0
         Top = 26
-        Width = 792
-        Height = 240
+        Width = 794
+        Height = 242
         Align = alClient
         Color = clWhite
         Font.Charset = GB2312_CHARSET
@@ -145,27 +153,31 @@ object FrameKeyType: TFrameKeyType
       object pnl6: TPanel
         Left = 0
         Top = 0
-        Width = 792
+        Width = 794
         Height = 26
         Align = alTop
         BevelOuter = bvNone
+        Color = 16775666
+        ParentBackground = False
         TabOrder = 1
         DesignSize = (
-          792
+          794
           26)
         object lbl2: TLabel
           Left = 18
           Top = 4
-          Width = 771
+          Width = 773
           Height = 16
           Anchors = [akLeft, akTop, akRight]
           AutoSize = False
           Caption = #35831#22312#19979#38754#30340#32534#36753#26694#20013#24405#20837#19978#38754#30340#25991#23383#65292#34013#33394#34920#31034#27491#30830#65292#32418#33394#34920#31034#38169#35823#12290
+          Color = 16775666
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -16
           Font.Name = #23435#20307
           Font.Style = []
+          ParentColor = False
           ParentFont = False
           ExplicitWidth = 721
         end
@@ -178,6 +190,7 @@ object FrameKeyType: TFrameKeyType
     Width = 794
     Height = 41
     Align = alBottom
+    BevelOuter = bvNone
     TabOrder = 2
   end
   object timer1: TTimer

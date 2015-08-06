@@ -2,7 +2,7 @@
     <PropertyGroup>
         <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <DCC_Define>DEBUG;noNOLOGIN;USE_JCL;$(DCC_Define)</DCC_Define>
+        <DCC_Define>DEBUG;USE_JCL;$(DCC_Define)</DCC_Define>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
         <DCC_DebugInfoInTds>false</DCC_DebugInfoInTds>
         <DCC_BplOutput>D:\develop\yjksmtxt\debug\bin\</DCC_BplOutput>

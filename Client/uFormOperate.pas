@@ -4,17 +4,18 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, JvExStdCtrls, JvRichEdit, Vcl.Buttons, tq, ugrade;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, JvExStdCtrls, JvRichEdit, Vcl.Buttons, tq, ugrade,customcolorform,
+  CnButtons;
 
 type
-  TFormOperate = class(TForm)
+  TFormOperate = class(TCustomColorForm)
     pnl1: TPanel;
-    btnExitBitBtn: TBitBtn;
     txtTime: TStaticText;
-    btnOpen: TBitBtn;
     edtEQContent: TJvRichEdit;
     Timer1: TTimer;
-    btnGrade: TButton;
+    btnGrade: TCnSpeedButton;
+    btnOpen: TCnSpeedButton;
+    btnReturn: TCnSpeedButton;
     procedure btnExitBitBtnClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);

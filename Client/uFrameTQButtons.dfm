@@ -15,6 +15,7 @@ object FrameTQButtons: TFrameTQButtons
     Margins.Right = 0
     Align = alClient
     BevelEdges = []
+    BevelOuter = bvNone
     BorderWidth = 1
     Caption = 'grdpnlTQButtons'
     ColumnCollection = <

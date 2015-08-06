@@ -10,7 +10,7 @@ uses
    cxLookAndFeelPainters, Vcl.Menus, cxButtons, netglobal, IdBaseComponent, IdComponent, IdIPWatch;
 
 type
-   TFrmLogin = class(TCustomLoginForm)
+   TFrmLogin = class(TcustomLoginForm)
       edtExamineeID : TEdit;
       edtExamineeName : TEdit;
       lblID : TLabel;

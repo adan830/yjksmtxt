@@ -13,7 +13,6 @@ type
     pnl1: TPanel;
     frmTqButtonList: TFrameTQButtons;
     pnl2: TPanel;
-    pnl5: TPanel;
     pnl3: TPanel;
     pnl4: TPanel;
     pnl6: TPanel;

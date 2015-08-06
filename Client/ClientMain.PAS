@@ -26,9 +26,9 @@ type
       txtExamineeName : TStaticText;
       txtExamineeSex : TStaticText;
       txtExamineeNo : TStaticText;
-      lblTime : TLabel;
       btnComplete : TCnSpeedButton;
-      Image1 : TImage;
+    Image1: TImage;
+    lblTime: TLabel;
       procedure FormCloseQuery(Sender : TObject; var CanClose : Boolean);
       procedure FormClose(Sender : TObject; var Action : TCloseAction);
       procedure FormCreate(Sender : TObject);

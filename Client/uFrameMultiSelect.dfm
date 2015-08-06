@@ -10,20 +10,22 @@ object FrameMultiSelect: TFrameMultiSelect
     Width = 778
     Height = 460
     Align = alClient
+    BevelOuter = bvNone
     Caption = 'pnl1'
     TabOrder = 0
     object pnl2: TPanel
-      Left = 1
-      Top = 1
-      Width = 691
-      Height = 458
+      Left = 0
+      Top = 0
+      Width = 778
+      Height = 460
       Align = alClient
+      BevelOuter = bvNone
       Caption = 'pnl2'
       TabOrder = 0
       object pnl3: TPanel
-        Left = 1
-        Top = 1
-        Width = 689
+        Left = 0
+        Top = 0
+        Width = 778
         Height = 82
         Align = alTop
         BevelOuter = bvNone
@@ -35,7 +37,7 @@ object FrameMultiSelect: TFrameMultiSelect
         object mmo1: TMemo
           Left = 0
           Top = 0
-          Width = 689
+          Width = 778
           Height = 82
           Align = alClient
           BorderStyle = bsNone
@@ -52,20 +54,22 @@ object FrameMultiSelect: TFrameMultiSelect
         end
       end
       object pnl4: TPanel
-        Left = 1
-        Top = 377
-        Width = 689
+        Left = 0
+        Top = 380
+        Width = 778
         Height = 80
         Align = alBottom
+        BevelOuter = bvNone
         Caption = 'pnl4'
         ShowCaption = False
         TabOrder = 1
         object grdpnl1: TGridPanel
-          Left = 1
-          Top = 1
-          Width = 687
-          Height = 78
+          Left = 0
+          Top = 0
+          Width = 778
+          Height = 80
           Align = alClient
+          BevelOuter = bvNone
           Color = 15921906
           ColumnCollection = <
             item
@@ -111,14 +115,12 @@ object FrameMultiSelect: TFrameMultiSelect
             end>
           ShowCaption = False
           TabOrder = 0
-          ExplicitLeft = -3
-          ExplicitTop = 5
           DesignSize = (
-            687
-            78)
+            778
+            80)
           object btnPrevious: TCnSpeedButton
-            Left = 45
-            Top = 24
+            Left = 56
+            Top = 25
             Width = 82
             Height = 30
             Anchors = []
@@ -137,11 +139,12 @@ object FrameMultiSelect: TFrameMultiSelect
             Margin = 4
             ParentFont = False
             OnClick = btnPreviousClick
+            ExplicitLeft = 45
             ExplicitTop = 28
           end
           object btnNext: TCnSpeedButton
-            Left = 558
-            Top = 24
+            Left = 638
+            Top = 25
             Width = 82
             Height = 30
             Anchors = []
@@ -164,11 +167,12 @@ object FrameMultiSelect: TFrameMultiSelect
             ExplicitTop = 28
           end
           object grdpnlAnswer: TGridPanel
-            Left = 172
-            Top = 1
-            Width = 342
-            Height = 76
+            Left = 194
+            Top = 0
+            Width = 388
+            Height = 80
             Align = alClient
+            BevelOuter = bvNone
             ColumnCollection = <
               item
                 Value = 25.000327054435120000
@@ -211,10 +215,10 @@ object FrameMultiSelect: TFrameMultiSelect
             TabOrder = 0
             object chkAnswer1: TCheckBox
               AlignWithMargins = True
-              Left = 16
-              Top = 4
-              Width = 67
-              Height = 68
+              Left = 15
+              Top = 3
+              Width = 79
+              Height = 74
               Margins.Left = 15
               Align = alClient
               Caption = 'A'
@@ -228,10 +232,10 @@ object FrameMultiSelect: TFrameMultiSelect
             end
             object chkAnswer2: TCheckBox
               AlignWithMargins = True
-              Left = 101
-              Top = 4
-              Width = 66
-              Height = 68
+              Left = 112
+              Top = 3
+              Width = 78
+              Height = 74
               Margins.Left = 15
               Align = alClient
               Caption = 'B'
@@ -245,10 +249,10 @@ object FrameMultiSelect: TFrameMultiSelect
             end
             object chkAnswer3: TCheckBox
               AlignWithMargins = True
-              Left = 185
-              Top = 4
-              Width = 67
-              Height = 68
+              Left = 208
+              Top = 3
+              Width = 79
+              Height = 74
               Margins.Left = 15
               Align = alClient
               Caption = 'C'
@@ -262,10 +266,10 @@ object FrameMultiSelect: TFrameMultiSelect
             end
             object chkAnswer4: TCheckBox
               AlignWithMargins = True
-              Left = 270
-              Top = 4
-              Width = 68
-              Height = 68
+              Left = 305
+              Top = 3
+              Width = 80
+              Height = 74
               Margins.Left = 15
               Align = alClient
               Caption = 'D'
@@ -279,9 +283,9 @@ object FrameMultiSelect: TFrameMultiSelect
             end
           end
           object btnAnswer: TCnSpeedButton
-            Left = 685
-            Top = 24
-            Width = 1
+            Left = 776
+            Top = 25
+            Width = 0
             Height = 30
             Anchors = []
             Color = 15966293
@@ -290,7 +294,7 @@ object FrameMultiSelect: TFrameMultiSelect
             HotTrackBold = False
             HotTrackColor = 16551233
             ModernBtnStyle = bsFlat
-            Caption = #19979#19968#39064
+            Caption = #31572#26696
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWhite
             Font.Height = 14
@@ -351,22 +355,25 @@ object FrameMultiSelect: TFrameMultiSelect
             NumGlyphs = 2
             ParentFont = False
             OnClick = btnAnswerClick
+            ExplicitLeft = 685
+            ExplicitTop = 24
           end
         end
       end
       object pnl6: TPanel
-        Left = 1
-        Top = 83
-        Width = 689
-        Height = 294
+        Left = 0
+        Top = 82
+        Width = 778
+        Height = 298
         Align = alClient
+        BevelOuter = bvNone
         Caption = 'pnl6'
         TabOrder = 2
         object edtTQContent: TJvRichEdit
-          Left = 1
-          Top = 1
-          Width = 687
-          Height = 292
+          Left = 0
+          Top = 0
+          Width = 778
+          Height = 298
           Align = alClient
           BevelInner = bvNone
           BevelOuter = bvNone
@@ -384,17 +391,6 @@ object FrameMultiSelect: TFrameMultiSelect
           TabOrder = 0
         end
       end
-    end
-    object pnl5: TPanel
-      Left = 692
-      Top = 1
-      Width = 85
-      Height = 458
-      Align = alRight
-      Caption = 'pnl5'
-      TabOrder = 1
-      ExplicitLeft = 696
-      ExplicitTop = 6
     end
   end
   inline frmTqButtonList: TFrameTQButtons

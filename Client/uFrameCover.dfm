@@ -11,17 +11,19 @@ object FrameCover: TFrameCover
     Width = 451
     Height = 305
     Align = alClient
+    BevelOuter = bvNone
     Caption = 'Panel1'
     Color = clWhite
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
     object GridPanel1: TGridPanel
-      Left = 1
-      Top = 1
-      Width = 449
-      Height = 303
+      Left = 0
+      Top = 0
+      Width = 451
+      Height = 305
       Align = alClient
+      BevelOuter = bvNone
       Caption = 'GridPanel1'
       ColumnCollection = <
         item
@@ -53,6 +55,10 @@ object FrameCover: TFrameCover
         end>
       ShowCaption = False
       TabOrder = 0
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 449
+      ExplicitHeight = 303
       object Panel2: TPanel
         Left = -65
         Top = -48

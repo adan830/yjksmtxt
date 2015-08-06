@@ -10,49 +10,50 @@ interface
 
    type
       TShadowFrame = class(TWinControl)
-      private
-         FForm        : TForm;
-         FActive      : Boolean;
-         FShadowOffset: Integer;
-         FShadowColor : TColor;
+         private
+            FForm        : TForm;
+            FActive      : Boolean;
+            FShadowOffset: Integer;
+            FShadowColor : TColor;
 
-         FSavedWndProc  : TWndMethod;
-         FFormTransColor: TColor;
+            FSavedWndProc  : TWndMethod;
+            FFormTransColor: TColor;
 
-         FFormRgn         : HRGN;
-         FBlendBmp        : TBitmap;
-         FBlendFunc       : TBlendFunction;
-         FNeedRebuildBlend: Boolean;
+            FFormRgn         : HRGN;
+            FBlendBmp        : TBitmap;
+            FBlendFunc       : TBlendFunction;
+            FNeedRebuildBlend: Boolean;
 
-         procedure SetActive(const Value: Boolean);
-         procedure SetParentForm(const Value: TForm);
-         procedure SetShadowOffset(const Value: Integer);
-         procedure SetShadowColor(const Value: TColor);
+            procedure SetActive(const Value: Boolean);
+            procedure SetParentForm(const Value: TForm);
+            procedure SetShadowOffset(const Value: Integer);
+            procedure SetShadowColor(const Value: TColor);
 
-         procedure ThisNCHitTest(var Message: TMessage); message WM_NCHITTEST;
-         procedure ThisEraseBkgnd(var Message: TMessage); message WM_ERASEBKGND;
-         procedure FrmWindowPosChanged(var Message: TWMWindowPosChanged);
-         procedure FrmWindowPosChanging(var Message: TWMWindowPosChanging);
-      protected
-         procedure CreateParams(var Params: TCreateParams); override;
+            procedure ThisNCHitTest(var Message: TMessage); message WM_NCHITTEST;
+            procedure ThisEraseBkgnd(var Message: TMessage); message WM_ERASEBKGND;
+            procedure FrmActivateApp(var Message: TWMActivateApp);
+            procedure FrmWindowPosChanged(var Message: TWMWindowPosChanged);
+            procedure FrmWindowPosChanging(var Message: TWMWindowPosChanging);
+         protected
+            procedure CreateParams(var Params: TCreateParams); override;
 
-         procedure HookedWndProc(var Message: TMessage); virtual;
+            procedure HookedWndProc(var Message: TMessage); virtual;
 
-         procedure ReadFormSurface;
-         procedure GaussianBlur(Bmp: TBitmap; Amount: Integer);
-         procedure RebuildBlend;
-         procedure UpdateShadow;
-      public
-         constructor Create(AOwner: TComponent); override;
-         destructor Destroy; override;
+            procedure ReadFormSurface;
+            procedure GaussianBlur(Bmp: TBitmap; Amount: Integer);
+            procedure RebuildBlend;
+            procedure UpdateShadow;
+         public
+            constructor Create(AOwner: TComponent); override;
+            destructor Destroy; override;
 
-         procedure ResetShadow;
-         procedure AdjustBlendMasks(CalledFromInternal: Boolean = False);
+            procedure ResetShadow;
+            procedure AdjustBlendMasks(CalledFromInternal: Boolean = False);
 
-         property Active: Boolean read FActive write SetActive;
-         property ParentForm: TForm read FForm write SetParentForm;
-         property ShadowOffset: Integer read FShadowOffset write SetShadowOffset;
-         property ShadowColor: TColor read FShadowColor write SetShadowColor;
+            property Active: Boolean read FActive write SetActive;
+            property ParentForm: TForm read FForm write SetParentForm;
+            property ShadowOffset: Integer read FShadowOffset write SetShadowOffset;
+            property ShadowColor: TColor read FShadowColor write SetShadowColor;
 
       end;
 
@@ -60,7 +61,7 @@ implementation
 
    uses
       VCL.Dialogs, cndebug;
-      { TFormShadow }
+   { TFormShadow }
 
    constructor TShadowFrame.Create(AOwner: TComponent);
       begin
@@ -88,7 +89,7 @@ implementation
          inherited;
          with Params do
          begin
-            WndParent         := Application.Handle;
+            //WndParent         := Application.Handle;   //must not set; else error
             WindowClass.style := CS_DBLCLKS or CS_OWNDC;
             style             := WS_POPUP;
             ExStyle           := WS_EX_TOOLWINDOW or WS_EX_NOACTIVATE or WS_EX_LAYERED;
@@ -150,12 +151,34 @@ implementation
                FrmWindowPosChanging(TWMWindowPosChanging(Message));
             WM_WINDOWPOSCHANGED:
                FrmWindowPosChanged(TWMWindowPosChanged(Message));
+//            WM_ACTIVATEAPP:
+//               FrmActivateApp(TWMActivateApp(Message));
          else
+            case message.msg of
+              06,70,71:
+               cndebugger.LogMsgWithLevel('HookedWndProc:' + IntToHex(Message.Msg, 2) + '    FormName:' + FForm.Name,0);
+
+               // 134{* WM_NCACTIVATE       = $0086;*} ,
+               //06{* WM_ACTIVATE         = $0006 *};
+               //1c{* WM_ACTIVATEAPP      = $001C *} ;
+               //0210{* WM_PARENTNOTIFY     = $0210 *}
+               //02A3{* WM_MOUSELEAVE       = $02A3; *}   ;
+               //021{* WM_MOUSEACTIVATE    = $0021 *}
+               //404B{* CM_MOUSEACTIVATE          = CM_BASE + 75 *}
+               $B034{* CM_INVALIDATE             = CM_BASE + 52 *}:
+                cndebugger.LogMsgWithLevel('HookedWndProc:' + IntToHex(Message.Msg, 2) + '    FormName:' + FForm.Name,0);
+              32{*WM_SETCURSOR*},132{*WM_NCHITTEST*},45075{*CM_COLORCHANGED*},45076{*CM_FONTCHANGED*},512{*WM_MouseMove*} ,
+              14{*0E WM_GETTEXTLENGTH*},13{*0D WM_GETTEXT*}, 160{*A0 WM_NCMOUSEMOVE*}
+              :;
+               else
+                 cndebugger.LogMsgWithLevel('HookedWndProc:' + IntToHex(Message.Msg, 2) + '    FormName:' + FForm.Name,3);
+            end;
             FSavedWndProc(Message);
          end;
       end;
 
    procedure TShadowFrame.FrmWindowPosChanging(var Message: TWMWindowPosChanging);
+
       begin
          FSavedWndProc(TMessage(Message));
          with Message.WindowPos^ do
@@ -163,39 +186,47 @@ implementation
             if (FForm.WindowState <> wsNormal) or (flags and SWP_HIDEWINDOW <> 0) then
             begin
                SetWindowPos(Handle, FForm.Handle, 0, 0, 0, 0, SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE or SWP_HIDEWINDOW);
+//               cndebugger.LogMsg('TShadowFrame.FrmWindowPosChanging:setwindow' + FForm.Name);
+            end
 
-            end;
          end;
-         //cndebugger.LogMsg('TShadowFrame.FrmWindowPosChanging:' + FForm.Name);
+         cndebugger.LogMsgWithLevel('TShadowFrame.FrmWindowPosChanging:' + FForm.Name,0);
       end;
 
-   procedure TShadowFrame.FrmWindowPosChanged(var Message: TWMWindowPosChanged);
+   procedure TShadowFrame.FrmActivateApp(var Message: TWMActivateApp);
+begin
+   cndebugger.LogMsgWithLevel('TShadowFrame.FrmActivateApp:' + FForm.Name,0);
+end;
+
+procedure TShadowFrame.FrmWindowPosChanged(var Message: TWMWindowPosChanged);
       const
-         ShowingFlags: array [Boolean] of Cardinal = (SWP_NOZORDER or SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE or SWP_HIDEWINDOW,
-            SWP_NOZORDER or SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE or SWP_SHOWWINDOW);
+         ShowingFlags: array [Boolean] of Cardinal = ( { *SWP_NOZORDER or * } SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE or SWP_HIDEWINDOW,
+            { *SWP_NOZORDER or * } SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE or SWP_SHOWWINDOW);
       var
          l, t: Integer;
       begin
          FSavedWndProc(TMessage(Message));
+
          with Message.WindowPos^ do
          begin
             if flags and SWP_NOMOVE = 0 then
             begin
                l := x;
                t := y;
-            end
-            else
-            begin
+            end else begin
                l := FForm.Left;
                t := FForm.Top;
             end;
+
             if FForm.WindowState <> wsMaximized then
                RebuildBlend;
-            SetWindowPos(Handle, HWND_NOTOPMOST { * FForm.Handle* } , l - EXTSHADOWSIZE + FShadowOffset, t - EXTSHADOWSIZE + FShadowOffset, FBlendBmp.Width,
-               FBlendBmp.Height, SWP_NOACTIVATE);
-            SetWindowPos(Handle, 0, 0, 0, 0, 0, ShowingFlags[FActive and (FForm.WindowState = wsNormal)]);
-            //cndebugger.LogMsg('TShadowFrame.FrmWindowPosChanged:' + FForm.Name);
+            SetWindowPos(Handle, 0 { *FForm.Handle* } , l - EXTSHADOWSIZE + FShadowOffset, t - EXTSHADOWSIZE + FShadowOffset, FBlendBmp.Width, FBlendBmp.Height,
+               SWP_NOACTIVATE or SWP_NOZORDER);
+            SetWindowPos(Handle, FForm.Handle, 0, 0, 0, 0, ShowingFlags[FActive and (FForm.WindowState = wsNormal)]);
+
+            cndebugger.LogMsgWithLevel('TShadowFrame.FrmWindowPosChanged:' + FForm.Name,0);
          end;
+         Message.Result := 0;
       end;
 
    procedure TShadowFrame.ThisEraseBkgnd(var Message: TMessage);
@@ -219,8 +250,8 @@ implementation
       begin
          if Assigned(FForm) and FForm.HandleAllocated then
             SetWindowPos(FForm.Handle, 0, 0, 0, 0, 0, SWP_FRAMECHANGED or SWP_NOSIZE or SWP_NOMOVE { *or SWP_NOACTIVATE or SWP_NOZORDER * } );
-            // if FForm <> nil then
-            // cndebugger.LogMsg('TShadowFrame.UpdateShadow:' + booltostr(FForm.Active, True) + '_' + FForm.Name);
+          if FForm <> nil then
+          cndebugger.LogMsg('TShadowFrame.UpdateShadow:' + booltostr(FForm.Active, True) + '_' + FForm.Name);
       end;
 
    procedure TShadowFrame.RebuildBlend;
@@ -230,8 +261,8 @@ implementation
          Rct    : TRect;
          pwi    : TWindowInfo;
       begin
-            // TO-DO:出现窗口没有滚动条的异常，在floatForm窗口停靠时，如果窗口缩小时出现
-            // FBlendBmp.SaveToFile('blenadbmp0.bmp');
+         // TO-DO:出现窗口没有滚动条的异常，在floatForm窗口停靠时，如果窗口缩小时出现
+         // FBlendBmp.SaveToFile('blenadbmp0.bmp');
          if not FActive or not Assigned(FForm) or not FForm.HandleAllocated then
             Exit;
          if (FBlendBmp.Width <> FForm.Width + EXTSHADOWSIZE * 2) or (FBlendBmp.Height <> FForm.Height + EXTSHADOWSIZE * 2) then
@@ -239,8 +270,7 @@ implementation
             FNeedRebuildBlend := True;
             FBlendBmp.Width   := FForm.Width + EXTSHADOWSIZE * 2;
             FBlendBmp.Height  := FForm.Height + EXTSHADOWSIZE * 2;
-         end
-         else if FForm.TransparentColor and (FForm.TransparentColorValue <> FFormTransColor) then
+         end else if FForm.TransparentColor and (FForm.TransparentColorValue <> FFormTransColor) then
          begin
             FNeedRebuildBlend := True;
          end;
@@ -264,9 +294,7 @@ implementation
                   OffsetRgn(FFormRgn, EXTSHADOWSIZE, EXTSHADOWSIZE);
                   SelectClipRgn(FBlendBmp.Canvas.Handle, FFormRgn);
                   GetRgnBox(FFormRgn, Rct);
-               end
-               else
-               begin
+               end else begin
                   GetWindowRect(FForm.Handle, Rct);
                   OffsetRect(Rct, -Rct.Left, -Rct.Top);
                   if FForm.BorderStyle <> bsNone then
@@ -289,7 +317,7 @@ implementation
 
                AdjustBlendMasks(True);
             end;
-               // FBlendBmp.SaveToFile('blendbmp1.bmp');
+            cndebugger.LogMsg('TShadowFrame.RebuildBlend');
          end;
 
       end;
@@ -417,8 +445,8 @@ implementation
                tmpBmp.Mask(FFormTransColor);
                SetBkColor(FBlendBmp.Canvas.Handle, 0);
                SetTextColor(FBlendBmp.Canvas.Handle, $FFFFFF);
-               BitBlt(FBlendBmp.Canvas.Handle, pt.x + EXTSHADOWSIZE - FForm.Left, pt.y + EXTSHADOWSIZE - FForm.Top, tmpBmp.Width, tmpBmp.Height,
-                  tmpBmp.Canvas.Handle, 0, 0, SRCCOPY);
+               BitBlt(FBlendBmp.Canvas.Handle, pt.x + EXTSHADOWSIZE - FForm.Left, pt.y + EXTSHADOWSIZE - FForm.Top, tmpBmp.Width, tmpBmp.Height, tmpBmp.Canvas.Handle, 0,
+                  0, SRCCOPY);
             finally
                tmpBmp.Free;
             end;

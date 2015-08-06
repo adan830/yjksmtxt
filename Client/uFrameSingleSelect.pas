@@ -12,8 +12,6 @@ type
   TFrameSingleSelect = class(TFrame)
     pnl1: TPanel;
     pnl2: TPanel;
-    pnl5: TPanel;
-    btn1: TButton;
     pnl3: TPanel;
     pnl4: TPanel;
     pnl6: TPanel;
@@ -26,7 +24,6 @@ type
     frmTqButtonList: TFrameTQButtons;
     btnAnswer: TCnSpeedButton;
     procedure tqButtonClick(Sender: TObject);
-    procedure btn1Click(Sender: TObject);
     procedure btnPreviousClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
     procedure btnAnswerClick(Sender: TObject);
@@ -58,14 +55,6 @@ procedure TFrameSingleSelect.tqButtonClick(Sender: TObject);
 
     ShowCurrentTQ(bb.Tag);
     // Application.MessageBox(PChar(inttostr(bb.Tag)),'hint');
-  end;
-
-procedure TFrameSingleSelect.btn1Click(Sender: TObject);
-  var
-    bb: Integer;
-  begin
-    bb              := Random(40);
-    tqList[bb].flag := true;
   end;
 
 procedure TFrameSingleSelect.btnAnswerClick(Sender: TObject);

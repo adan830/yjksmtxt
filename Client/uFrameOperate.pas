@@ -15,11 +15,13 @@ type
     mmo1: TMemo;
     pnl4: TPanel;
     pnl6: TPanel;
-    btnGrade: TButton;
     edtTQContent: TJvRichEdit;
     btnShowFloatForm: TCnSpeedButton;
+    btnGrade: TCnSpeedButton;
+    btnOpen: TCnSpeedButton;
     procedure btnShowFloatFormClick(Sender: TObject);
     procedure btnGradeClick(Sender: TObject);
+    procedure btnOpenClick(Sender: TObject);
   private
     ModuleInfo: TModuleInfo;
     tq: TTQ;
@@ -49,6 +51,11 @@ begin
 
   self.tq.Content.Position := 0;
   edtTQContent.Lines.LoadFromStream(self.tq.Content);
+  if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT) then
+      begin
+        btnGrade.Visible                 := true;
+      end;
+  btnOpen.Caption := moduleInfo.ButtonText;
 end;
 
 procedure TFrameOperate.btnGradeClick(Sender: TObject);
@@ -66,6 +73,16 @@ begin
   finally
     GradeInfoStrings.Free;
   end;
+end;
+
+procedure TFrameOperate.btnOpenClick(Sender: TObject);
+var
+  kspath: string;
+  DllHandle: THandle;
+  delegateOpenAction: ProcOpenAction;
+begin
+  @delegateOpenAction := GetProcAddress(moduleInfo.DllHandle, PROC_OPEN_ACTION);
+  delegateOpenAction(Handle, TExamClientGlobal.ExamPath);
 end;
 
 procedure TFrameOperate.btnShowFloatFormClick(Sender: TObject);

@@ -1,7 +1,7 @@
 unit CustomColorForm;
 
-   /// from http://www.138soft.com
-   /// 自定义窗口基类
+/// from http://www.138soft.com
+/// 自定义窗口基类
 interface
 
    uses Windows, Messages, Vcl.Graphics, Vcl.Imaging.pngimage, System.Classes,
@@ -10,56 +10,56 @@ interface
    type
       TCustomColorForm = class(TForm)
          procedure Timer1Timer(Sender: TObject);
-      private
-         FShadowed  : Boolean;
-         shadowframe: TShadowFrame;
-         m_BackColor: TColorRef;
+         private
+            FShadowed  : Boolean;
+            shadowframe: TShadowFrame;
+            m_BackColor: TColorRef;
             // m_BackBMP: TBitmap;
 
-         btn_min_down, btn_min_highlight, btn_min_normal: TPngImage;
-         btn_max_down, btn_max_highlight, btn_max_normal: TPngImage;
-         btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
-         btn_close_down, btn_close_highlight, btn_close_normal: TPngImage;
+            btn_min_down, btn_min_highlight, btn_min_normal            : TPngImage;
+            btn_max_down, btn_max_highlight, btn_max_normal            : TPngImage;
+            btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
+            btn_close_down, btn_close_highlight, btn_close_normal      : TPngImage;
 
-         m_MiniButtonHover, m_MiniButtonDown  : Boolean;
-         m_MaxButtonHover, m_MaxButtonDown    : Boolean;
-         m_CloseButtonHover, m_CloseButtonDown: Boolean;
+            m_MiniButtonHover, m_MiniButtonDown  : Boolean;
+            m_MaxButtonHover, m_MaxButtonDown    : Boolean;
+            m_CloseButtonHover, m_CloseButtonDown: Boolean;
 
-         function GetRectMiniButton: TRect;
-         function GetRectMaxButton: TRect;
-         function GetRectCloseButton: TRect;
+            function GetRectMiniButton: TRect;
+            function GetRectMaxButton: TRect;
+            function GetRectCloseButton: TRect;
 
-      private
-         FTitleHeight: cardinal;
+         private
+            FTitleHeight: cardinal;
 
-         procedure WMNCCALCSIZE(var Message: TWMNCCALCSIZE); message WM_NCCALCSIZE;
-         procedure WMNCPaint(var Message: TWMNCPaint); message WM_NCPAINT;
-         procedure WMNCActivate(var Message: TWMNCActivate); message WM_NCACTIVATE;
-         procedure WMActivate(var Message: TWMActivate); message WM_ACTIVATE;
-         procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
-         procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
-         procedure WMNCHitTest(var Message: TWMNCHITTEST); message WM_NCHITTEST;
-         procedure WMSize(var Message: TWMSize); message WM_SIZE;
-         procedure WMGETMINMAXINFO(var Message: TMessage); message WM_GETMINMAXINFO;
-         procedure WMNCMouseMove(var Message: TWMNCMousemove); message WM_NCMOUSEMOVE;
-         procedure WMNCLButtonDown(var Message: TWMNCLButtonDown); message WM_NCLBUTTONDOWN;
-         procedure WMNCLButtonUp(var Message: TWMNCLButtonUp); message WM_NCLBUTTONUP;
-         procedure WMNCLBUTTONDBLCLK(var Message: TWMNCLButtonDblClk); message WM_NCLBUTTONDBLCLK;
-         procedure WMLBUTTONUP(var Message: TWMLButtonUp); message WM_LBUTTONUP;
-         procedure OnButtonUp(P: TPoint);
-         procedure DrawClient(DC: HDC);
-         procedure DrawTitle;
-         procedure SetShadowed(const Value: Boolean);
-      protected
-         procedure InitializeNewForm; override;
+            procedure WMNCCALCSIZE(var Message: TWMNCCALCSIZE); message WM_NCCALCSIZE;
+            procedure WMNCPaint(var Message: TWMNCPaint); message WM_NCPAINT;
+            procedure WMNCActivate(var Message: TWMNCActivate); message WM_NCACTIVATE;
+            procedure WMActivate(var Message: TWMActivate); message WM_ACTIVATE;
+            procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
+            procedure WMPaint(var Message: TWMPaint); message WM_PAINT;
+            procedure WMNCHitTest(var Message: TWMNCHITTEST); message WM_NCHITTEST;
+            procedure WMSize(var Message: TWMSize); message WM_SIZE;
+            procedure WMGETMINMAXINFO(var Message: TMessage); message WM_GETMINMAXINFO;
+            procedure WMNCMouseMove(var Message: TWMNCMousemove); message WM_NCMOUSEMOVE;
+            procedure WMNCLButtonDown(var Message: TWMNCLButtonDown); message WM_NCLBUTTONDOWN;
+            procedure WMNCLButtonUp(var Message: TWMNCLButtonUp); message WM_NCLBUTTONUP;
+            procedure WMNCLBUTTONDBLCLK(var Message: TWMNCLButtonDblClk); message WM_NCLBUTTONDBLCLK;
+            procedure WMLBUTTONUP(var Message: TWMLButtonUp); message WM_LBUTTONUP;
+            procedure OnButtonUp(P: TPoint);
+            procedure DrawClient(DC: HDC);
+            procedure DrawTitle;
+            procedure SetShadowed(const Value: Boolean);
+         protected
+            procedure InitializeNewForm; override;
 
-      public
-         constructor Create(AOwner: TComponent); override;
-         destructor Destroy; override;
+         public
+            constructor Create(AOwner: TComponent); override;
+            destructor Destroy; override;
 
-         property Shadowed: Boolean read FShadowed write SetShadowed;
-         property TitleHeight: cardinal read FTitleHeight write FTitleHeight default 50; // 标题栏的高度
-      published
+            property Shadowed: Boolean read FShadowed write SetShadowed;
+            property TitleHeight: cardinal read FTitleHeight write FTitleHeight default 50; // 标题栏的高度
+         published
 
       end;
 
@@ -68,8 +68,8 @@ implementation
    uses System.SysUtils, FormBmpUtils, System.Types, cndebug;
 
    const
-         // xTitleHeight: Integer  = 50; // 标题栏的高度
-      xFramWidth: Integer    = 0; // 左、右、下边框的厚度
+      // xTitleHeight: Integer  = 50; // 标题栏的高度
+      xFramWidth: Integer    = 2; // 左、右、下边框的厚度
       xHitTestWidth: Integer = 5; // HitTest预留厚度
 
    procedure TCustomColorForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
@@ -100,32 +100,17 @@ implementation
          TitleBmp.Width  := Width;
          TitleBmp.Height := FTitleHeight;
 
-         m_BackColor                 := $00F29541;
          TitleBmp.Canvas.Brush.Color := m_BackColor;
          TitleBmp.Canvas.FillRect(Rect(0, 0, Width, FTitleHeight));
-            // 先用平均颜色填充整个标题区
+         // 先用平均颜色填充整个标题区
 
-            (*
-              C.Brush.Color := clRed;
-              C.FillRect(Rect(0, 0, Width, FTitleHeight)); //标题区域
-
-              C.Brush.Color := clBlue;
-              C.FillRect(Rect(0, xTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
-
-              C.Brush.Color := clGreen;
-              C.FillRect(Rect(Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth)); //右边框
-
-              C.Brush.Color := clYellow;
-              C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
-            *)
          if m_BackColor = 0 then
             exit;
-
-            // BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, FTitleHeight, m_BackBMP.Canvas.Handle, 0, 0, SRCCOPY);
+         // BitBlt(TitleBmp.Canvas.Handle, 0, 0, Width, FTitleHeight, m_BackBMP.Canvas.Handle, 0, 0, SRCCOPY);
          DrawIconEx(TitleBmp.Canvas.Handle, 6, 6, Application.Icon.Handle, 16, 16, 0, 0, DI_NORMAL);
          TitleBmp.Canvas.Font.Assign(Font);
          TitleBmp.Canvas.Brush.Style := bsClear;
-         ExtTextOut(TitleBmp.Canvas.Handle, 26, 6, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
+         ExtTextOut(TitleBmp.Canvas.Handle, 26, 16, TitleBmp.Canvas.TextFlags, nil, PChar(Caption), Length(Caption), nil);
 
          if biMinimize in self.BorderIcons then
          begin
@@ -133,8 +118,7 @@ implementation
             if m_MiniButtonDown then
             begin
                TitleBmp.Canvas.Draw(R.Left, R.Top, btn_min_down)
-            end
-            else if m_MiniButtonHover then
+            end else if m_MiniButtonHover then
             begin
                TitleBmp.Canvas.Draw(R.Left, R.Top - 1, btn_min_highlight);
             end
@@ -152,21 +136,17 @@ implementation
                if m_MaxButtonDown then
                begin
                   TitleBmp.Canvas.Draw(R.Left, R.Top, btn_Restore_down)
-               end
-               else if m_MaxButtonHover then
+               end else if m_MaxButtonHover then
                begin
                   TitleBmp.Canvas.Draw(R.Left, R.Top - 1, btn_Restore_highlight);
                end
                else
                   TitleBmp.Canvas.Draw(R.Left, R.Top, btn_Restore_normal);
-            end
-            else
-            begin
+            end else begin
                if m_MaxButtonDown then
                begin
                   TitleBmp.Canvas.Draw(R.Left, R.Top, btn_max_down)
-               end
-               else if m_MaxButtonHover then
+               end else if m_MaxButtonHover then
                begin
                   TitleBmp.Canvas.Draw(R.Left, R.Top - 1, btn_max_highlight);
                end
@@ -176,16 +156,18 @@ implementation
          end;
 
          R := GetRectCloseButton;
-         if m_CloseButtonDown then
+         if biSystemMenu in BorderIcons then
          begin
-            TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_down);
-         end
-         else if m_CloseButtonHover then
-         begin
-            TitleBmp.Canvas.Draw(R.Left, R.Top - 1, btn_close_highlight);
-         end
-         else
-            TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_normal);
+            if m_CloseButtonDown then
+            begin
+               TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_down);
+            end else if m_CloseButtonHover then
+            begin
+               TitleBmp.Canvas.Draw(R.Left, R.Top - 1, btn_close_highlight);
+            end
+            else
+               TitleBmp.Canvas.Draw(R.Left, R.Top, btn_close_normal);
+         end;
 
          DC       := GetWindowDC(Handle);
          C        := TControlCanvas.Create;
@@ -193,24 +175,35 @@ implementation
 
          try
             C.Brush.Color := m_BackColor;
-            C.FillRect(Rect(0, 0, Width, FTitleHeight)); // 标题区域
+            // C.FillRect(Rect(0, 0, Width, height));
+            // C.FillRect(Rect(0, 0, Width, FTitleHeight)); // 标题区域
             BitBlt(DC, 0, 0, Width, FTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
-               // BitBlt(DC, 0, 0, Width, Height, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
-               // C.FillRect(Rect(0, FTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
-               // BitBlt(DC, 0, FTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, FTitleHeight, SRCCOPY);
-               //
-               // C.FillRect(Rect(Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth)); //右边框
-               // BitBlt(DC, Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, FTitleHeight, SRCCOPY);
-               //
-               // C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
-               // BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
+            // BitBlt(DC, 0, 0, Width, Height, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);
+            // C.FillRect(Rect(0, FTitleHeight, xFramWidth, Height - xFramWidth)); //左边框
+            // BitBlt(DC, 0, FTitleHeight, xFramWidth, Height - xFramWidth, m_BackBMP.Canvas.Handle, 0, FTitleHeight, SRCCOPY);
+            //
+            // C.FillRect(Rect(Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth)); //右边框
+            // BitBlt(DC, Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth, m_BackBMP.Canvas.Handle, Width - xFramWidth, FTitleHeight, SRCCOPY);
+            //
+            // C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); //下边框
+            // BitBlt(DC, 0, Height - xFramWidth, Width, Height, m_BackBMP.Canvas.Handle, 0, Height - xFramWidth, SRCCOPY);
+            // C.Brush.Color := clRed;
+            // C.FillRect(Rect(0, 0, Width, FTitleHeight)); //标题区域
+            //
+            // //C.Brush.Color := clBlue;
+            C.FillRect(Rect(0, FTitleHeight, xFramWidth, Height - xFramWidth)); // 左边框
 
+            // C.Brush.Color := clGreen;
+            C.FillRect(Rect(Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth)); // 右边框
+
+            // C.Brush.Color := clYellow;
+            C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); // 下边框
          finally
             C.Handle := 0;
             C.Free;
             ReleaseDC(Handle, DC);
             TitleBmp.Free;
-            //cndebugger.LogMsg('drawtitle:' + self.Name);
+            // cndebugger.LogMsg('drawtitle:' + self.Name);
 
          end;
 
@@ -218,14 +211,15 @@ implementation
 
    procedure TCustomColorForm.WMNCPaint(var Message: TWMNCPaint);
       begin
-         //inherited; // 调用系统默认处理。假如不处理，对于窗口上放置的从TGraphicControl继承下来的无句柄控件将无法显示。
+         // inherited; // 调用系统默认处理。假如不处理，对于窗口上放置的从TGraphicControl继承下来的无句柄控件将无法显示。
          DrawTitle;
          Message.Result := 1;
       end;
 
    procedure TCustomColorForm.WMNCActivate(var Message: TWMNCActivate);
       begin
-         DrawTitle;
+         if Message.Active then
+            DrawTitle;
          Message.Result := 1;
       end;
 
@@ -264,7 +258,9 @@ implementation
    procedure TCustomColorForm.WMActivate(var Message: TWMActivate);
       begin
          inherited;
-         DrawTitle;
+//         if mess then
+
+         //DrawTitle;
       end;
 
    procedure TCustomColorForm.WMNCHitTest(var Message: TWMNCHITTEST);
@@ -294,15 +290,17 @@ implementation
                exit;
             end;
          end;
-
-         R := GetRectCloseButton;
-         Inc(R.Top, xHitTestWidth);
-         Dec(R.Right, xHitTestWidth);
-         if PtInRect(R, P) then
+         if biSystemMenu in BorderIcons then
          begin
-            Message.Result := HTCLOSE;
-            exit;
+            R := GetRectCloseButton;
+            Inc(R.Top, xHitTestWidth);
+            if PtInRect(R, P) then
+            begin
+               Message.Result := HTCLOSE;
+               exit;
+            end;
          end;
+
          if (biMaximize in BorderIcons) then
          begin
             if PtInRect(Rect(0, 0, xHitTestWidth, xHitTestWidth), P) and (WindowState <> wsMaximized) then
@@ -325,9 +323,7 @@ implementation
                Message.Result := HTCAPTION // 标题栏
             else
                inherited;
-         end
-         else
-         begin
+         end else begin
             if PtInRect(Rect(0, 0, Width, FTitleHeight), P) then
                Message.Result := HTCAPTION // 标题栏
             else
@@ -356,18 +352,18 @@ implementation
       end;
 
    procedure TCustomColorForm.WMSize(var Message: TWMSize);
-         // var
-         // Rgn: HRGN;
+      // var
+      // Rgn: HRGN;
       begin
          inherited;
          if fsCreating in FormState then
             exit;
 
-        // DrawTitle;
-         //cndebugger.LogMsg('WMSize');
-            // Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
-            // SetWindowRgn(Handle, Rgn, True);
-            // DeleteObject(Rgn);
+         // DrawTitle;
+         // cndebugger.LogMsg('WMSize');
+         // Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
+         // SetWindowRgn(Handle, Rgn, True);
+         // DeleteObject(Rgn);
       end;
 
    constructor TCustomColorForm.Create(AOwner: TComponent);
@@ -378,8 +374,7 @@ implementation
 
    destructor TCustomColorForm.Destroy;
       begin
-            // m_BackBMP.Free;
-
+         // m_BackBMP.Free;
          btn_min_down.Free;
          btn_min_highlight.Free;
          btn_min_normal.Free;
@@ -395,6 +390,7 @@ implementation
          btn_close_down.Free;
          btn_close_highlight.Free;
          btn_close_normal.Free;
+         OutputDebugString('destrory');
          inherited;
       end;
 
@@ -405,21 +401,21 @@ implementation
          C        := TControlCanvas.Create;
          C.Handle := DC;
          try
-               (*
-                 C.Brush.Color := clDkGray;
-                 C.FillRect(ClientRect);
-               *)
+            (*
+              C.Brush.Color := clDkGray;
+              C.FillRect(ClientRect);
+            *)
             if m_BackColor > 0 then
             begin
                C.Brush.Color := m_BackColor;
                C.FillRect(ClientRect);
-                  // BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, FTitleHeight, SRCCOPY);
+               // BitBlt(C.Handle, 0, 0, ClientWidth, ClientHeight, m_BackBMP.Canvas.Handle, xFramWidth, FTitleHeight, SRCCOPY);
             end;
          finally
             C.Handle := 0;
             C.Free;
          end;
-            // cndebugger.LogMsg('drawclient');
+         // cndebugger.LogMsg('drawclient');
       end;
 
    procedure TCustomColorForm.WMGETMINMAXINFO(var Message: TMessage);
@@ -429,7 +425,7 @@ implementation
          SystemParametersInfo(SPI_GETWORKAREA, 0, @Rect, 0);
          with PMINMAXINFO(Message.LParam)^ do
          begin
-               // ptReserved: TPoint;//保留不用
+            // ptReserved: TPoint;//保留不用
 
             ptMaxSize.X := Rect.Right; // 最大范围
             ptMaxSize.Y := Rect.Bottom;
@@ -440,7 +436,7 @@ implementation
             ptMinTrackSize.X := 200; // 最小拖动范围
             ptMinTrackSize.Y := FTitleHeight;
 
-               // ptMaxTrackSize: TPoint;//最大拖动范围
+            // ptMaxTrackSize: TPoint;//最大拖动范围
          end;
       end;
 
@@ -455,20 +451,18 @@ implementation
             DrawTitle;
             SendMessage(Handle, WM_SYSCOMMAND, SC_MINIMIZE, 0);
             exit;
-         end
-         else if (biMaximize in BorderIcons) and PtInRect(GetRectMaxButton, P) and m_MaxButtonDown then
+         end else if (biMaximize in BorderIcons) and PtInRect(GetRectMaxButton, P) and m_MaxButtonDown then
          begin
             ReleaseCapture;
             m_MaxButtonDown := False;
-               // DrawTitle;
+            // DrawTitle;
             Style := GetWindowLong(Handle, GWL_STYLE);
             if Style and WS_MAXIMIZE > 0 then
                SendMessage(Handle, WM_SYSCOMMAND, SC_RESTORE, 0)
             else
                SendMessage(Handle, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
             exit;
-         end
-         else if PtInRect(GetRectCloseButton, P) and m_CloseButtonDown then
+         end else if PtInRect(GetRectCloseButton, P) and m_CloseButtonDown then
          begin
             ReleaseCapture;
             m_CloseButtonDown := False;
@@ -497,11 +491,10 @@ implementation
          begin
             shadowframe            := TShadowFrame.Create(self);
             shadowframe.ParentForm := self;
+            //shadowframe.ParentWindow:=self.Handle;
             shadowframe.Active     := true;
             shadowframe.show();
-         end
-         else
-         begin
+         end else begin
             FreeAndNil(shadowframe);
          end;
       end;
@@ -528,14 +521,12 @@ implementation
             m_MiniButtonDown := true;
             SetCapture(self.Handle);
             DrawTitle;
-         end
-         else if Message.HitTest = HTMAXBUTTON then
+         end else if Message.HitTest = HTMAXBUTTON then
          begin
             m_MaxButtonDown := true;
             SetCapture(self.Handle);
             DrawTitle;
-         end
-         else if Message.HitTest = HTCLOSE then
+         end else if Message.HitTest = HTCLOSE then
          begin
             m_CloseButtonDown := true;
             SetCapture(self.Handle);
@@ -576,7 +567,7 @@ implementation
                begin
                   m_MiniButtonHover := true;
                   DrawTitle;
-                     // Timer1.Enabled := True;
+                  // Timer1.Enabled := True;
                   exit;
                end;
             end;
@@ -596,7 +587,7 @@ implementation
                begin
                   m_MaxButtonHover := true;
                   DrawTitle;
-                     // Timer1.Enabled := True;
+                  // Timer1.Enabled := True;
                   exit;
                end;
             end;
@@ -615,11 +606,9 @@ implementation
             begin
                m_CloseButtonHover := true;
                DrawTitle;
-                  // Timer1.Enabled := True;
+               // Timer1.Enabled := True;
             end;
-         end
-         else
-         begin
+         end else begin
             if m_MiniButtonHover then
                m_MiniButtonHover := False;
             if m_MaxButtonHover then
@@ -645,7 +634,7 @@ implementation
             if m_CloseButtonHover then
             begin
                m_CloseButtonHover := False;
-                  // Timer1.Enabled := False;
+               // Timer1.Enabled := False;
                DrawTitle;
             end;
          end;
@@ -657,7 +646,7 @@ implementation
             if m_MaxButtonHover then
             begin
                m_MaxButtonHover := False;
-                  // Timer1.Enabled := False;
+               // Timer1.Enabled := False;
                DrawTitle;
             end;
          end;
@@ -669,7 +658,7 @@ implementation
             if m_MiniButtonHover then
             begin
                m_MiniButtonHover := False;
-                  // Timer1.Enabled := False;
+               // Timer1.Enabled := False;
                DrawTitle;
             end;
          end;
@@ -701,69 +690,69 @@ implementation
    procedure TCustomColorForm.InitializeNewForm;
       begin
          inherited;
+         m_BackColor  := $00F29541;
          FTitleHeight := 50;
-            // FShadowed:=true;
-            // if FShadowed then
-            // begin
-            // shadowframe            := TShadowFrame.Create(self);
-            // shadowframe.ParentForm := self;
-            // shadowframe.Active     := true;
-            // shadowframe.show();
-            // end;
-            // m_BackBMP := TBitmap.Create;
-            // m_BackBMP.LoadFromResourceName(HInstance,'ClassicSkin_bmp_Theme');
-            // FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
-         m_BackColor := clGreen;
+         // FShadowed:=true;
+         // if FShadowed then
+         // begin
+         // shadowframe            := TShadowFrame.Create(self);
+         // shadowframe.ParentForm := self;
+         // shadowframe.Active     := true;
+         // shadowframe.show();
+         // end;
+         // m_BackBMP := TBitmap.Create;
+         // m_BackBMP.LoadFromResourceName(HInstance,'ClassicSkin_bmp_Theme');
+         // FormBmpUtils.MakeBmp(m_BackBMP, m_BackColor);
          if biMinimize in self.BorderIcons then
          begin
             btn_min_down := TPngImage.Create;
             btn_min_down.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Min_Down');
-               // .LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Down.png');
+            // .LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Down.png');
 
             btn_min_highlight := TPngImage.Create;
             btn_min_highlight.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Min_Hover');
-               // btn_min_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Hover.png');
+            // btn_min_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Hover.png');
 
             btn_min_normal := TPngImage.Create;
             btn_min_normal.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Min_Normal');
-               // btn_min_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Normal.png');
+            // btn_min_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Min_Normal.png');
          end;
 
          btn_max_down := TPngImage.Create;
          btn_max_down.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Max_Down');
-            // btn_max_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Down.png');
+         // btn_max_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Down.png');
 
          btn_max_highlight := TPngImage.Create;
          btn_max_highlight.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Max_Hover');
-            // btn_max_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Hover.png');
+         // btn_max_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Hover.png');
 
          btn_max_normal := TPngImage.Create;
          btn_max_normal.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Max_Normal');
-            // btn_max_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Normal.png');
+         // btn_max_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Max_Normal.png');
 
          btn_Restore_down := TPngImage.Create;
          btn_Restore_down.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Restore_Down');
-            // btn_Restore_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Down.png');
+         // btn_Restore_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Down.png');
 
          btn_Restore_highlight := TPngImage.Create;
          btn_Restore_highlight.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Restore_Hover');
-            // btn_Restore_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Hover.png');
+         // btn_Restore_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Hover.png');
 
          btn_Restore_normal := TPngImage.Create;
          btn_Restore_normal.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Restore_Normal');
-            // btn_Restore_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Normal.png');
+         // btn_Restore_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Restore_Normal.png');
 
          btn_close_down := TPngImage.Create;
          btn_close_down.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Close_Down');
-            // btn_close_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Down.png');
+         // btn_close_down.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Down.png');
 
          btn_close_highlight := TPngImage.Create;
          btn_close_highlight.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Close_Hover');
-            // btn_close_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Hover.png');
+         // btn_close_highlight.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Hover.png');
 
          btn_close_normal := TPngImage.Create;
          btn_close_normal.LoadFromResourceName(HInstance, 'ClassicSkin_Png_Close_Normal');
-            // btn_close_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Normal.png');
+         // btn_close_normal.LoadFromFile(ExtractFilePath(Application.ExeName) + 'SysButton\Close_Normal.png');
 
       end;
 

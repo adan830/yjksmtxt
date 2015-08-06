@@ -10,12 +10,13 @@ object FrameOperate: TFrameOperate
     Width = 638
     Height = 418
     Align = alClient
+    BevelOuter = bvNone
     Caption = 'pnl2'
     TabOrder = 0
     object pnl3: TPanel
-      Left = 1
-      Top = 1
-      Width = 636
+      Left = 0
+      Top = 0
+      Width = 638
       Height = 82
       Align = alTop
       BevelOuter = bvNone
@@ -27,7 +28,7 @@ object FrameOperate: TFrameOperate
       object mmo1: TMemo
         Left = 0
         Top = 0
-        Width = 636
+        Width = 638
         Height = 82
         Align = alClient
         BorderStyle = bsNone
@@ -44,23 +45,24 @@ object FrameOperate: TFrameOperate
       end
     end
     object pnl4: TPanel
-      Left = 1
-      Top = 337
-      Width = 636
+      Left = 0
+      Top = 338
+      Width = 638
       Height = 80
       Align = alBottom
+      BevelOuter = bvNone
       Caption = 'pnl4'
       ShowCaption = False
       TabOrder = 1
       DesignSize = (
-        636
+        638
         80)
       object btnShowFloatForm: TCnSpeedButton
-        Left = 498
+        Left = 500
         Top = 24
-        Width = 82
+        Width = 115
         Height = 30
-        Anchors = []
+        Anchors = [akRight]
         Color = 15966293
         DownBold = False
         FlatBorder = False
@@ -77,35 +79,65 @@ object FrameOperate: TFrameOperate
         ParentFont = False
         OnClick = btnShowFloatFormClick
       end
-      object btnGrade: TButton
-        Left = 365
-        Top = 28
-        Width = 75
-        Height = 25
+      object btnGrade: TCnSpeedButton
+        Left = 359
+        Top = 24
+        Width = 115
+        Height = 30
+        Anchors = [akRight]
+        Color = 15966293
+        DownBold = False
+        FlatBorder = False
+        HotTrackBold = False
+        HotTrackColor = 16551233
+        ModernBtnStyle = bsFlat
         Caption = #35780#20998
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Default'
-        Font.Style = []
+        Font.Color = clWhite
+        Font.Height = 14
+        Font.Name = #23435#20307
+        Font.Style = [fsBold]
+        Margin = 4
         ParentFont = False
-        TabOrder = 0
         OnClick = btnGradeClick
+      end
+      object btnOpen: TCnSpeedButton
+        Left = 214
+        Top = 24
+        Width = 115
+        Height = 30
+        Anchors = [akRight]
+        Color = 15966293
+        DownBold = False
+        FlatBorder = False
+        HotTrackBold = False
+        HotTrackColor = 16551233
+        ModernBtnStyle = bsFlat
+        Caption = #25171#24320
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = 14
+        Font.Name = #23435#20307
+        Font.Style = [fsBold]
+        Margin = 4
+        ParentFont = False
+        OnClick = btnOpenClick
       end
     end
     object pnl6: TPanel
-      Left = 1
-      Top = 83
-      Width = 636
-      Height = 254
+      Left = 0
+      Top = 82
+      Width = 638
+      Height = 256
       Align = alClient
+      BevelOuter = bvNone
       Caption = 'pnl6'
       TabOrder = 2
       object edtTQContent: TJvRichEdit
-        Left = 1
-        Top = 1
-        Width = 634
-        Height = 252
+        Left = 0
+        Top = 0
+        Width = 638
+        Height = 256
         Align = alClient
         BevelInner = bvNone
         BevelOuter = bvNone

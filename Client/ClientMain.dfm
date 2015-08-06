@@ -1,7 +1,7 @@
 object ClientMainForm: TClientMainForm
   Left = 229
   Top = 100
-  BorderIcons = [biMinimize, biMaximize]
+  BorderIcons = [biMinimize]
   BorderStyle = bsNone
   Caption = #23433#24509#30465#35745#31639#26426#32771#35797#65306#19968#32423'Windows'
   ClientHeight = 578
@@ -21712,25 +21712,8 @@ object ClientMainForm: TClientMainForm
       Transparent = True
       OnClick = btnModuleClick
     end
-    object lblTime: TLabel
-      Left = 674
-      Top = 20
-      Width = 188
-      Height = 20
-      Anchors = [akRight, akBottom]
-      AutoSize = False
-      Color = clRed
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWhite
-      Font.Height = 14
-      Font.Name = #23435#20307
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      Layout = tlCenter
-    end
     object Image1: TImage
-      Left = 648
+      Left = 658
       Top = 20
       Width = 20
       Height = 20
@@ -21772,6 +21755,23 @@ object ClientMainForm: TClientMainForm
         5402C5081B0A14483817C0458502192018F0E02043011E2D140C1820F2DCB905
         10428418C241C189016F03890602003B}
     end
+    object lblTime: TLabel
+      Left = 684
+      Top = 20
+      Width = 177
+      Height = 20
+      Anchors = [akRight, akBottom]
+      AutoSize = False
+      Color = clRed
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Layout = tlCenter
+    end
   end
   object pnlClient: TPanel
     Left = 0
@@ -21789,23 +21789,22 @@ object ClientMainForm: TClientMainForm
     Width = 198
     Height = 532
     Align = alRight
-    BevelKind = bkFlat
     BevelOuter = bvNone
     Color = 16775666
     ParentBackground = False
     TabOrder = 2
     DesignSize = (
-      194
-      528)
+      198
+      532)
     object imgExaminee: TImage
       Left = 48
-      Top = 43
+      Top = 91
       Width = 105
       Height = 116
     end
     object btnComplete: TCnSpeedButton
-      Left = -3
-      Top = 376
+      Left = 13
+      Top = 388
       Width = 170
       Height = 30
       Anchors = []
@@ -21824,8 +21823,6 @@ object ClientMainForm: TClientMainForm
       Margin = 4
       ParentFont = False
       OnClick = btnCompleteClick
-      ExplicitLeft = 13
-      ExplicitTop = 400
     end
     object btn1: TButton
       Left = 94
@@ -21838,7 +21835,7 @@ object ClientMainForm: TClientMainForm
     end
     object txtExamineeName: TStaticText
       Left = 14
-      Top = 216
+      Top = 240
       Width = 170
       Height = 17
       AutoSize = False
@@ -21847,7 +21844,7 @@ object ClientMainForm: TClientMainForm
     end
     object txtExamineeSex: TStaticText
       Left = 14
-      Top = 256
+      Top = 280
       Width = 170
       Height = 17
       AutoSize = False
@@ -21856,7 +21853,7 @@ object ClientMainForm: TClientMainForm
     end
     object txtExamineeNo: TStaticText
       Left = 14
-      Top = 296
+      Top = 320
       Width = 170
       Height = 17
       AutoSize = False
