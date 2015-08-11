@@ -34,7 +34,6 @@ uses
 // FlashPlayerControl in 'FlashPlayerControl\FlashPlayerControl\Delphi2007\FlashPlayerControl.pas';
 
 {$R *.res}
-{$R uac.res}
 
 begin
    {$IFDEF DEBUG}
@@ -76,7 +75,7 @@ begin
          begin
 
             Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
-
+            //TExamClientGlobal.ClientMainForm.Shadowed := True;
             // Application.CreateForm(TSelectForm, SelectForm);
             // Application.CreateForm(TFloatWindow, FloatWindow);
             // Application.CreateForm(TTypeForm, TypeForm);

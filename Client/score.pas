@@ -5,12 +5,10 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, DBCtrls,ExamClientGlobal, db,
-  ExtCtrls, Buttons, Commons;
+  ExtCtrls, Buttons, Commons,CustomColorForm, CnButtons;
 
 type
-  TScoreForm = class(TForm)
-    btnReturn: TButton;
-    btnExit: TButton;
+  TScoreForm = class(TCustomColorForm)
     Panel1: TPanel;
     Panel2: TPanel;
     pnlMain: TPanel;
@@ -23,6 +21,8 @@ type
     lblType: TLabel;
     lblTotal: TLabel;
     grpOperate: TGroupBox;
+    btnExit: TCnSpeedButton;
+    btnReturn: TCnSpeedButton;
     procedure btnReturnClick(Sender: TObject);
     procedure btnExitClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -137,7 +137,7 @@ begin
       Alignment := taCenter;
       caption:=AScoreValue;
     end;    // with
-    with TButton.Create(self) do
+    with TButton.Create(self) do    //TButton.Create(self)
     begin
       parent := grpOperate;
       left :=hpos+185+65;

@@ -27,7 +27,7 @@ type
       // procedure InitExam;
       { Private declarations }
    public
-      procedure Login();
+      function Login:TCommandResult;
       { Public declarations }
    end;
 
@@ -40,8 +40,8 @@ uses ExamClientGlobal, clientmain, commons, ExamTypeFrm;
 procedure TFrmLogin.btnStartExamClick(Sender : TObject);
    begin
       try
-         Login();
-         modalResult := TExamClientGlobal.InitExam;
+         if Login()=crok then
+          modalResult := TExamClientGlobal.InitExam;
       except
          application.NormalizeTopMosts;
          application.MessageBox('生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
@@ -198,7 +198,7 @@ function TFrmLogin.GetExamineePhoto(AExamineeID : string; photoStream : TmemoryS
       end;
    end;
 
-procedure TFrmLogin.Login;
+function TFrmLogin.Login:TCommandResult;
    var
       mr          : integer;
       loginResult : TCommandResult;
@@ -251,6 +251,7 @@ procedure TFrmLogin.Login;
          // loginResult := TExamClientGlobal.Login();
          // end;
          loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd);
+         result:=loginresult;
          if loginResult <> crOK then
          begin
             application.MessageBox('登录失败！', '请确认:', mb_ok);

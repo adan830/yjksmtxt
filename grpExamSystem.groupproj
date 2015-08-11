@@ -3,7 +3,7 @@
         <ProjectGuid>{76d79fac-c9a5-42a8-82f0-96846538a7a8}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="prjEaxmServer.dproj">
+        <Projects Include="prjExamServer.dproj">
             <Dependencies>ExamCommons.dproj</Dependencies>
         </Projects>
         <Projects Include="ExamCommons.dproj">
@@ -44,14 +44,14 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="prjEaxmServer" DependsOnTargets="ExamCommons">
-        <MSBuild Projects="prjEaxmServer.dproj"/>
+    <Target Name="prjExamServer" DependsOnTargets="ExamCommons">
+        <MSBuild Projects="prjExamServer.dproj"/>
     </Target>
-    <Target Name="prjEaxmServer:Clean" DependsOnTargets="ExamCommons:Clean">
-        <MSBuild Projects="prjEaxmServer.dproj" Targets="Clean"/>
+    <Target Name="prjExamServer:Clean" DependsOnTargets="ExamCommons:Clean">
+        <MSBuild Projects="prjExamServer.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="prjEaxmServer:Make" DependsOnTargets="ExamCommons:Make">
-        <MSBuild Projects="prjEaxmServer.dproj" Targets="Make"/>
+    <Target Name="prjExamServer:Make" DependsOnTargets="ExamCommons:Make">
+        <MSBuild Projects="prjExamServer.dproj" Targets="Make"/>
     </Target>
     <Target Name="ExamCommons">
         <MSBuild Projects="ExamCommons.dproj"/>
@@ -144,13 +144,13 @@
         <MSBuild Projects="temptest\kstemptest.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="prjEaxmServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;dpkCheckTree;prjExamClient;SetQuestions;MainFrame;kstemptest"/>
+        <CallTarget Targets="prjExamServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;dpkCheckTree;prjExamClient;SetQuestions;MainFrame;kstemptest"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="prjEaxmServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;MainFrame:Clean;kstemptest:Clean"/>
+        <CallTarget Targets="prjExamServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;MainFrame:Clean;kstemptest:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="prjEaxmServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;MainFrame:Make;kstemptest:Make"/>
+        <CallTarget Targets="prjExamServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;MainFrame:Make;kstemptest:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

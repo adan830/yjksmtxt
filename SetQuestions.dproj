@@ -70,7 +70,6 @@
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_UsePackage>vcl;examcommons;MainFrame;$(DCC_UsePackage)</DCC_UsePackage>
-        <DCC_UnitSearchPath>D:\yjksmtxt\debug\dcu;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DependencyCheckOutputName>..\debug\bin\SetQuestions.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
         <DCC_ResourcePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~1\JVCL33~1\jcl\lib\d11\debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10111;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users.WINDOWS\Documents\RAD Studio\5.0\Bpl;E:\yjksmtxt\debug\dcp;$(DCC_ResourcePath)</DCC_ResourcePath>
@@ -528,13 +527,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

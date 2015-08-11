@@ -4,21 +4,22 @@ interface
 
 uses
    Windows, Messages, SysUtils, Variants, Classes, Graphics, Forms,
-   Dialogs, StdCtrls, ExtCtrls, NetGlobal, jpeg, CnButtons, Vcl.Controls;
+   Dialogs, StdCtrls, ExtCtrls, NetGlobal, jpeg, CnButtons, Vcl.Controls,customcolorForm;
 
 type
-   TExamTypeForm = class(TForm)
-      Label2 : TLabel;
-      Label3 : TLabel;
-      btnRetry : TCnSpeedButton;
-      btnContinue : TCnSpeedButton;
-      btnAddTime : TCnSpeedButton;
-      CnSpeedButton1 : TCnSpeedButton;
-      lblID : TLabel;
-      edtpw : TEdit;
-      Label4 : TLabel;
-      Label1 : TLabel;
-      edtAddTime : TEdit;
+   TExamTypeForm = class(TCustomColorForm)
+    Panel1: TPanel;
+    btnAddTime: TCnSpeedButton;
+    btnContinue: TCnSpeedButton;
+    btnRetry: TCnSpeedButton;
+    CnSpeedButton1: TCnSpeedButton;
+    edtAddTime: TEdit;
+    edtpw: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    lblID: TLabel;
       procedure FormShow(Sender : TObject);
       procedure btRetryClick(Sender : TObject);
       procedure btContinueClick(Sender : TObject);

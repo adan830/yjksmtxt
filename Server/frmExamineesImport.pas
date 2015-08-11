@@ -17,11 +17,11 @@ uses
    dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinHighContrast,
    dxSkinMetropolis, dxSkinMetropolisDark, dxSkinOffice2013DarkGray,
    dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinSevenClassic,
-   dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
-   cxNavigator;
+   dxSkinSharpPlus, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,customColorForm ,
+   cxNavigator, Vcl.ExtCtrls, CnButtons;
 
 type
-   TExamineesImport = class(TForm)
+   TExamineesImport = class(TCustomColorForm)
       tvExaminees : TcxGridDBTableView;
       cxgrdlvlGrid1Level1 : TcxGridLevel;
       grdExaminees : TcxGrid;
@@ -47,12 +47,13 @@ type
       clmnExamineesDecryptedRemainTime : TcxGridDBColumn;
       clmnExamineesDecryptedTimeStamp : TcxGridDBColumn;
       wdstrngfldExamineeBaseTimeStamp : TWideStringField;
-      btnAdd : TcxButton;
-      btnDelete : TcxButton;
-      btnSave : TcxButton;
       lbl1 : TcxLabel;
       lbl2 : TcxLabel;
-      btnExit : TcxButton;
+    Panel1: TPanel;
+    btnSave: TCnSpeedButton;
+    btnExit: TCnSpeedButton;
+    btnAdd: TCnSpeedButton;
+    btnDelete: TCnSpeedButton;
       procedure btnAddClick(Sender : TObject);
       procedure FormCreate(Sender : TObject);
       procedure btnSaveClick(Sender : TObject);

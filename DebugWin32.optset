@@ -10,7 +10,7 @@
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
         <DCC_ExeOutput>D:\develop\yjksmtxt\debug\bin\</DCC_ExeOutput>
         <DCC_DcpOutput>D:\develop\yjksmtxt\debug\dcp\</DCC_DcpOutput>
-        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\debug\dcu;D:\develop\yjksmtxt\debug\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\debug\dcu;D:\develop\yjksmtxt\debug\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCU;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCP;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcuOutput>D:\develop\yjksmtxt\debug\dcu\</DCC_DcuOutput>
     </PropertyGroup>
     <ProjectExtensions>

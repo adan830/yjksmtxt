@@ -1,143 +1,223 @@
 object ExamineesImport: TExamineesImport
   Left = 0
   Top = 0
+  BorderIcons = []
+  BorderStyle = bsToolWindow
   Caption = #32771#29983#36873#21462
-  ClientHeight = 405
-  ClientWidth = 685
+  ClientHeight = 415
+  ClientWidth = 695
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
+  Font.Color = clWhite
+  Font.Height = -19
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   OnCreate = FormCreate
   PixelsPerInch = 96
-  TextHeight = 13
-  object grdExaminees: TcxGrid
-    Left = 8
-    Top = 40
-    Width = 345
-    Height = 313
-    DragMode = dmAutomatic
+  TextHeight = 23
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 695
+    Height = 415
+    Align = alClient
+    Caption = 'Panel1'
+    Color = clWhite
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    ShowCaption = False
     TabOrder = 0
-    object tvExaminees: TcxGridDBTableView
+    ExplicitLeft = 376
+    ExplicitTop = 240
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+    DesignSize = (
+      695
+      415)
+    object btnSave: TCnSpeedButton
+      Left = 388
+      Top = 372
+      Width = 115
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
+      Caption = #20445#23384
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
+      OnClick = btnSaveClick
+    end
+    object btnExit: TCnSpeedButton
+      Left = 548
+      Top = 372
+      Width = 115
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
+      Caption = #36864#20986
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
+      OnClick = btnExitClick
+    end
+    object btnAdd: TCnSpeedButton
+      Left = 356
+      Top = 103
+      Width = 61
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
+      Caption = #28155#21152
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
+      OnClick = btnAddClick
+    end
+    object btnDelete: TCnSpeedButton
+      Left = 356
+      Top = 163
+      Width = 61
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
+      Caption = #21024#38500
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
+      OnClick = btnDeleteClick
+    end
+    object lbl2: TcxLabel
+      Left = 440
+      Top = 17
+      Caption = #24050#36873#26412#22330#32771#29983#65306
+    end
+    object lbl1: TcxLabel
+      Left = 8
+      Top = 17
+      Caption = #24635#32771#29983#24211#65306
+    end
+    object grdExaminees: TcxGrid
+      Left = 8
+      Top = 40
+      Width = 345
+      Height = 313
       DragMode = dmAutomatic
-      OnDragDrop = tvExamineesDragDrop
-      OnDragOver = tvExamineesDragOver
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dsCDSExaminees
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      OptionsCustomize.ColumnGrouping = False
-      OptionsData.Deleting = False
-      OptionsData.Editing = False
-      OptionsData.Inserting = False
-      OptionsSelection.CellSelect = False
-      OptionsSelection.MultiSelect = True
-      OptionsView.GroupByBox = False
-      object clmnExamineesDecryptedID: TcxGridDBColumn
-        Caption = #20934#32771#35777#21495
-        DataBinding.FieldName = 'DecryptedID'
-        Width = 78
+      TabOrder = 2
+      object tvExaminees: TcxGridDBTableView
+        DragMode = dmAutomatic
+        OnDragDrop = tvExamineesDragDrop
+        OnDragOver = tvExamineesDragOver
+        Navigator.Buttons.CustomButtons = <>
+        DataController.DataSource = dsCDSExaminees
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        OptionsCustomize.ColumnGrouping = False
+        OptionsData.Deleting = False
+        OptionsData.Editing = False
+        OptionsData.Inserting = False
+        OptionsSelection.CellSelect = False
+        OptionsSelection.MultiSelect = True
+        OptionsView.GroupByBox = False
+        object clmnExamineesDecryptedID: TcxGridDBColumn
+          Caption = #20934#32771#35777#21495
+          DataBinding.FieldName = 'DecryptedID'
+          Width = 78
+        end
+        object clmnExamineesDecryptedName: TcxGridDBColumn
+          Caption = #22995#21517
+          DataBinding.FieldName = 'DecryptedName'
+          Width = 60
+        end
+        object clmnExamineesDecryptedStatus: TcxGridDBColumn
+          Caption = #29366#24577
+          DataBinding.FieldName = 'DecryptedStatus'
+          Width = 39
+        end
+        object clmnExamineesDecryptedRemainTime: TcxGridDBColumn
+          Caption = #21097#20313#26102#38388
+          DataBinding.FieldName = 'DecryptedRemainTime'
+        end
+        object clmnExamineesDecryptedTimeStamp: TcxGridDBColumn
+          Caption = #32771#35797#26085#26399
+          DataBinding.FieldName = 'DecryptedTimeStamp'
+        end
       end
-      object clmnExamineesDecryptedName: TcxGridDBColumn
-        Caption = #22995#21517
-        DataBinding.FieldName = 'DecryptedName'
-        Width = 60
-      end
-      object clmnExamineesDecryptedStatus: TcxGridDBColumn
-        Caption = #29366#24577
-        DataBinding.FieldName = 'DecryptedStatus'
-        Width = 39
-      end
-      object clmnExamineesDecryptedRemainTime: TcxGridDBColumn
-        Caption = #21097#20313#26102#38388
-        DataBinding.FieldName = 'DecryptedRemainTime'
-      end
-      object clmnExamineesDecryptedTimeStamp: TcxGridDBColumn
-        Caption = #32771#35797#26085#26399
-        DataBinding.FieldName = 'DecryptedTimeStamp'
+      object cxgrdlvlGrid1Level1: TcxGridLevel
+        GridView = tvExaminees
       end
     end
-    object cxgrdlvlGrid1Level1: TcxGridLevel
-      GridView = tvExaminees
-    end
-  end
-  object cxGrid1: TcxGrid
-    Left = 440
-    Top = 40
-    Width = 237
-    Height = 313
-    DragMode = dmAutomatic
-    TabOrder = 1
-    object tvCDSTemp: TcxGridDBTableView
+    object cxGrid1: TcxGrid
+      Left = 423
+      Top = 40
+      Width = 254
+      Height = 313
       DragMode = dmAutomatic
-      OnDragDrop = tvCDSTempDragDrop
-      OnDragOver = tvCDSTempDragOver
-      Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dsCDSTemp
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
-      OptionsCustomize.ColumnGrouping = False
-      OptionsData.Deleting = False
-      OptionsData.Editing = False
-      OptionsData.Inserting = False
-      OptionsSelection.CellSelect = False
-      OptionsSelection.MultiSelect = True
-      OptionsView.GroupByBox = False
+      TabOrder = 3
+      object tvCDSTemp: TcxGridDBTableView
+        DragMode = dmAutomatic
+        OnDragDrop = tvCDSTempDragDrop
+        OnDragOver = tvCDSTempDragOver
+        Navigator.Buttons.CustomButtons = <>
+        DataController.DataSource = dsCDSTemp
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        OptionsCustomize.ColumnGrouping = False
+        OptionsData.Deleting = False
+        OptionsData.Editing = False
+        OptionsData.Inserting = False
+        OptionsSelection.CellSelect = False
+        OptionsSelection.MultiSelect = True
+        OptionsView.GroupByBox = False
+      end
+      object cxgrdlvl1: TcxGridLevel
+        GridView = tvCDSTemp
+      end
     end
-    object cxgrdlvl1: TcxGridLevel
-      GridView = tvCDSTemp
-    end
-  end
-  object btnAdd: TcxButton
-    Left = 376
-    Top = 96
-    Width = 58
-    Height = 25
-    Caption = #28155#21152
-    TabOrder = 2
-    OnClick = btnAddClick
-  end
-  object btnDelete: TcxButton
-    Left = 376
-    Top = 136
-    Width = 58
-    Height = 25
-    Caption = #21024#38500
-    TabOrder = 3
-    OnClick = btnDeleteClick
-  end
-  object btnSave: TcxButton
-    Left = 480
-    Top = 372
-    Width = 58
-    Height = 25
-    Caption = #20445#23384
-    TabOrder = 4
-    OnClick = btnSaveClick
-  end
-  object lbl1: TcxLabel
-    Left = 8
-    Top = 17
-    Caption = #24635#32771#29983#24211#65306
-  end
-  object lbl2: TcxLabel
-    Left = 440
-    Top = 17
-    Caption = #24050#36873#26412#22330#32771#29983#65306
-  end
-  object btnExit: TcxButton
-    Left = 600
-    Top = 372
-    Width = 58
-    Height = 25
-    Caption = #36864#20986
-    TabOrder = 7
-    OnClick = btnExitClick
   end
   object dsCDSExaminees: TDataSource
     DataSet = setExamineeBase
@@ -152,7 +232,7 @@ object ExamineesImport: TExamineesImport
   end
   object dsCDSTemp: TDataSource
     DataSet = cdsTemp
-    Left = 184
+    Left = 200
     Top = 8
   end
   object setExamineeBase: TADODataSet

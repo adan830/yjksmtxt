@@ -31,6 +31,7 @@ interface
 
          private
             FTitleHeight: cardinal;
+            FFrameWidth  : cardinal; // 左、右、下边框的厚度 default= 0;
 
             procedure WMNCCALCSIZE(var Message: TWMNCCALCSIZE); message WM_NCCALCSIZE;
             procedure WMNCPaint(var Message: TWMNCPaint); message WM_NCPAINT;
@@ -59,6 +60,7 @@ interface
 
             property Shadowed: Boolean read FShadowed write SetShadowed;
             property TitleHeight: cardinal read FTitleHeight write FTitleHeight default 50; // 标题栏的高度
+            property FrameWidth: Cardinal read FFrameWidth write FFrameWidth default 0;
          published
 
       end;
@@ -69,7 +71,7 @@ implementation
 
    const
       // xTitleHeight: Integer  = 50; // 标题栏的高度
-      xFramWidth: Integer    = 2; // 左、右、下边框的厚度
+
       xHitTestWidth: Integer = 5; // HitTest预留厚度
 
    procedure TCustomColorForm.WMNCCALCSIZE(var Message: TWMNCCALCSIZE);
@@ -77,10 +79,10 @@ implementation
 
          with TWMNCCALCSIZE(Message).CalcSize_Params^.rgrc[0] do
          begin
-            Inc(Left, xFramWidth);
+            Inc(Left, FFrameWidth);
             Inc(Top, FTitleHeight);
-            Dec(Right, xFramWidth);
-            Dec(Bottom, xFramWidth);
+            Dec(Right, FFrameWidth);
+            Dec(Bottom, FFrameWidth);
          end;
 
          Message.Result := 0;
@@ -191,13 +193,13 @@ implementation
             // C.FillRect(Rect(0, 0, Width, FTitleHeight)); //标题区域
             //
             // //C.Brush.Color := clBlue;
-            C.FillRect(Rect(0, FTitleHeight, xFramWidth, Height - xFramWidth)); // 左边框
+            C.FillRect(Rect(0, FTitleHeight, FFrameWidth, Height - FFrameWidth)); // 左边框
 
             // C.Brush.Color := clGreen;
-            C.FillRect(Rect(Width - xFramWidth, FTitleHeight, Width, Height - xFramWidth)); // 右边框
+            C.FillRect(Rect(Width - FFrameWidth, FTitleHeight, Width, Height - FFrameWidth)); // 右边框
 
             // C.Brush.Color := clYellow;
-            C.FillRect(Rect(0, Height - xFramWidth, Width, Height)); // 下边框
+            C.FillRect(Rect(0, Height - FFrameWidth, Width, Height)); // 下边框
          finally
             C.Handle := 0;
             C.Free;
@@ -258,9 +260,9 @@ implementation
    procedure TCustomColorForm.WMActivate(var Message: TWMActivate);
       begin
          inherited;
-//         if mess then
+         // if mess then
 
-         //DrawTitle;
+         // DrawTitle;
       end;
 
    procedure TCustomColorForm.WMNCHitTest(var Message: TWMNCHITTEST);
@@ -491,8 +493,8 @@ implementation
          begin
             shadowframe            := TShadowFrame.Create(self);
             shadowframe.ParentForm := self;
-            //shadowframe.ParentWindow:=self.Handle;
-            shadowframe.Active     := true;
+            // shadowframe.ParentWindow:=self.Handle;
+            shadowframe.Active := true;
             shadowframe.show();
          end else begin
             FreeAndNil(shadowframe);
@@ -692,6 +694,7 @@ implementation
          inherited;
          m_BackColor  := $00F29541;
          FTitleHeight := 50;
+         FFrameWidth:=0;
          // FShadowed:=true;
          // if FShadowed then
          // begin

@@ -16,37 +16,38 @@ type
 
    // ø…∂®÷∆≈‰÷√
    TServerCustomConfig = class
-   private
-      FStatusRefreshInterval : Integer;
-      FExamPath              : string; // client exam path
-      FServerDataPath        : string;
-      FDataBakFolder         : string;
-      FPhotoFolder           : string;
+      private
+         FStatusRefreshInterval : Integer;
+         FExamPath              : string; // client exam path  obsolete
+         FServerDataPath        : string;
+         FDataBakFolder         : string;
+         FPhotoFolder           : string;
 
-      FLoginPermissionModel : Integer;
-      FRetryPwd             : string;
-      FContPwd              : string;
-      FAddTimePwd           : string;
-      FAdminPwd             : string;
-      // FSchoolCode           : string;
-      procedure setter(const Value : string);
-   public
-      property StatusRefreshInterval : Integer read FStatusRefreshInterval write FStatusRefreshInterval;
-      property ExamPath              : string read FExamPath write FExamPath;
-      // property SchoolCode           : string read FSchoolCode write FSchoolCode;
-      property ServerDataPath : string read FServerDataPath write FServerDataPath;
-      property DataBakFolder  : string read FDataBakFolder write FDataBakFolder;
-      property PhotoFolder    : string read FPhotoFolder write FPhotoFolder;
+         FLoginPermissionModel : Integer;
+         FRetryPwd             : string;
+         FContPwd              : string;
+         FAddTimePwd           : string;
+         FAdminPwd             : string;
+         // FSchoolCode           : string;
+         procedure setter(const Value : string);
+      public
+         property StatusRefreshInterval : Integer read FStatusRefreshInterval write FStatusRefreshInterval;
+         property ExamPath              : string read FExamPath write FExamPath;
+         // property SchoolCode           : string read FSchoolCode write FSchoolCode;
+         property ServerDataPath : string read FServerDataPath write FServerDataPath;
+         property DataBakFolder  : string read FDataBakFolder write FDataBakFolder;
+         property PhotoFolder    : string read FPhotoFolder write FPhotoFolder;
 
-      property LoginPermissionModel : Integer read FLoginPermissionModel write FLoginPermissionModel;
-      property RetryPwd             : string read FRetryPwd write FRetryPwd;
-      property ContPwd              : string read FContPwd write FContPwd;
-      property AddTimePwd           : string read FAddTimePwd write FAddTimePwd;
-      property AdminPwd             : string read FAdminPwd write FAdminPwd;
+         property LoginPermissionModel : Integer read FLoginPermissionModel write FLoginPermissionModel;
+         property RetryPwd             : string read FRetryPwd write FRetryPwd;
+         property ContPwd              : string read FContPwd write FContPwd;
+         property AddTimePwd           : string read FAddTimePwd write FAddTimePwd;
+         property AdminPwd             : string read FAdminPwd write FAdminPwd;
 
-      procedure SetupCustomConfig(AConfigFilePath : string; ABaseConfig : TBaseConfig);
-      procedure SaveCustomConfig(AConfigFile : string);
-      procedure CreateExaminationRoomBakFolder(APath : string);
+         procedure SetupCustomConfig(AConfigFilePath : string; ABaseConfig : TBaseConfig);
+         procedure SaveCustomConfig(AConfigFile : string);
+         procedure CreateExaminationRoomBakFolder(APath : string);
+
    end;
 
    /// client list change message
@@ -76,11 +77,12 @@ procedure TServerCustomConfig.CreateExaminationRoomBakFolder(APath : string);
       folderName  : string;
       examTimeStr : string;
    begin
-      // i := 128;
-      // if GetComputerName(@s, i) then
-      // folderName := s;
-      // DateTimeToString(examTimeStr, 'yyyymmddhhnn', Now);
-      // folderName := IncludeTrailingPathDelimiter(APath) + s + '_' + examTimeStr;
+//       i := 128;
+//       if GetComputerName(@s, i) then
+//       folderName := s;
+//       DateTimeToString(examTimeStr, 'yyyymmddhhnn', Now);
+//       folderName := IncludeTrailingPathDelimiter(APath) + s + '_' + examTimeStr;
+
       folderName := IncludeTrailingPathDelimiter(APath) + 'DataBak';
       if not directoryexists(folderName) then
       begin
@@ -123,14 +125,12 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
                ContPwd    := ConfigFile.ReadString('Config', CONFIGNAME_CONTINUEPWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
                AddTimePwd := ConfigFile.ReadString('Config', CONFIGNAME_ADDTIMEPWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
             end;
-            AdminPwd := ConfigFile.ReadString('Config', CONFIGNAME_ADMINpWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
+            AdminPwd := ConfigFile.ReadString('Config', CONFIGNAME_ADMINPWD, THashMD5.GetHashString(ABaseConfig.RetryPwd));
             // SchoolCode := ConfigFile.ReadString('Config', 'SchoolCode', '666');
          finally
             ConfigFile.Free;
          end;
-      end
-      else
-      begin
+      end else begin
          StatusRefreshInterval := ABaseConfig.StatusRefreshInterval;
 
          ExamPath             := ABaseConfig.ExamPath;

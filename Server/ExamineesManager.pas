@@ -2,7 +2,7 @@ unit ExamineesManager;
 
 interface
 
-uses Classes, Controls, ExtCtrls, DB, Windows, SysUtils, IdSocketHandle, NetGlobal;
+uses Classes, Controls, ExtCtrls, DB, Windows, SysUtils, IdSocketHandle, NetGlobal, DBClient;
 
 type
 
@@ -12,41 +12,42 @@ type
 
    { TODO -ojp : 多线程安全问题需要保证 }
    TExamineesManager = class(TOBject)
-   private
-      // 只允许指定范围内的考生登录　要求先设定范围，并显示出来
-      FExamineesList  : TThreadList;
-      FMessageHandler : THandle; // 处理列表消息的窗口
-      FTimer          : TTimer;
-      function FindItemByExamineeNo(AExaminee : PExaminee; AList : TList) : integer; overload;
-      function FindItemByExamineeNo(AExamineeID : string; AList : TList) : integer; overload;
-      procedure FTimerTimer(Sender : TObject);
-      function GetCount : integer;
-   protected
-      // procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-   public
-      constructor Create;overload;
-      constructor Create(AMessageHandler : THandle); overload;
+      private
+         // 只允许指定范围内的考生登录　要求先设定范围，并显示出来
+         FExamineesList  : TThreadList;
+         FMessageHandler : THandle; // 处理列表消息的窗口
+         FTimer          : TTimer;
+         function FindItemByExamineeNo(AExaminee : PExaminee; AList : TList) : integer; overload;
+         function FindItemByExamineeNo(AExamineeID : string; AList : TList) : integer; overload;
+         procedure FTimerTimer(Sender : TOBject);
+         function GetCount : integer;
+      protected
+         // procedure Notification(AComponent: TComponent; Operation: TOperation); override;
+      public
+         constructor Create; overload;
+         constructor Create(AMessageHandler : THandle); overload;
 
-      destructor Destroy; override;
-      // ==============================================================================
-      // GetExamineeInfo 将加密获取的考生信息
-      // ==============================================================================
-      procedure GetExamineeInfo(const AExamineeID : string; out AExaminee : TExaminee);
-      procedure UpdateTimeStamp(const ABinding : TIdSocketHandle);
-      function Login(AExamineeID : string; ALoginType : TLoginType; APwd, aPeerIP : string; aPeerPort : UInt16) : TCommandResult;
-      /// 查找已存在的项，返回数组索引，如果不存在返回 -1;
-      function FindItemByIPPort(const ABinding : TIdSocketHandle; AList : TList) : integer;
+         destructor Destroy; override;
+         // ==============================================================================
+         // GetExamineeInfo 将加密获取的考生信息
+         // ==============================================================================
+         procedure GetExamineeInfo(const AExamineeID : string; out AExaminee : TExaminee);
+         procedure UpdateTimeStamp(const ABinding : TIdSocketHandle);
+         function Login(AExamineeID : string; ALoginType : TLoginType; APwd, aPeerIP : string; aPeerPort : UInt16) : TCommandResult;
+         /// 查找已存在的项，返回数组索引，如果不存在返回 -1;
+         function FindItemByIPPort(const ABinding : TIdSocketHandle; AList : TList) : integer;
 
-      procedure UpdateStatus(AExaminee : PExaminee);
-      procedure UpdateDisConnectStatus(const ABinding : TIdSocketHandle);
-      procedure UpdateScoreInfo(AExaminee : PExaminee);
-      procedure EnableTimer(AValue : Boolean);
-      procedure SaveExamineeInfo();
-      function Add(AExaminee : PExaminee) : Boolean;
-   published
-      property ExamineesList : TThreadList read FExamineesList;
-      property Count         : integer read GetCount;
-      property MessageHandler:THandle read FMessageHandler write FMessageHandler;
+         procedure UpdateStatus(AExaminee : PExaminee);
+         procedure UpdateDisConnectStatus(const ABinding : TIdSocketHandle);
+         procedure UpdateScoreInfo(AExaminee : PExaminee);
+         procedure EnableTimer(AValue : Boolean);
+         procedure SaveExamineeInfo();
+         function Add(AExaminee : PExaminee) : Boolean;
+         function GetExamineesCDS() : TClientDataSet;
+      published
+         property ExamineesList  : TThreadList read FExamineesList;
+         property Count          : integer read GetCount;
+         property MessageHandler : THandle read FMessageHandler write FMessageHandler;
    end;
 
 const
@@ -60,7 +61,7 @@ const
 implementation
 
 uses
-   Variants, ServerUtils, Forms, ServerGlobal, StkRecordInfo, cndebug;
+   Variants, ServerUtils, Forms, ServerGlobal, StkRecordInfo, datafieldconst, cndebug;
 
 function TExamineesManager.Add(AExaminee : PExaminee) : Boolean;
    var
@@ -79,7 +80,8 @@ function TExamineesManager.Add(AExaminee : PExaminee) : Boolean;
          ExamineesList.UnlockList;
       end;
    end;
- constructor TExamineesManager.Create;
+
+constructor TExamineesManager.Create;
    begin
       inherited;
       // FMessageHandler := AMessageHandler;
@@ -89,6 +91,7 @@ function TExamineesManager.Add(AExaminee : PExaminee) : Boolean;
       FTimer.Interval := 3000;
       FTimer.OnTimer  := FTimerTimer;
    end;
+
 constructor TExamineesManager.Create(AMessageHandler : THandle);
    begin
       inherited Create();
@@ -99,8 +102,6 @@ constructor TExamineesManager.Create(AMessageHandler : THandle);
       FTimer.Interval := 3000;
       FTimer.OnTimer  := FTimerTimer;
    end;
-
-
 
 destructor TExamineesManager.Destroy;
    var
@@ -172,9 +173,7 @@ procedure TExamineesManager.GetExamineeInfo(const AExamineeID : string; out AExa
             AExaminee := TExaminee(list[index]^);
             // no need score
             AExaminee.ScoreCompressedStream := nil;
-         end
-         else
-         begin
+         end else begin
             AExaminee.ID                    := AExamineeID;
             AExaminee.Name                  := CMDNOEXAMINEEINFO;
             AExaminee.ScoreCompressedStream := nil;
@@ -182,6 +181,63 @@ procedure TExamineesManager.GetExamineeInfo(const AExamineeID : string; out AExa
       finally
          FExamineesList.UnlockList;
       end;
+   end;
+
+// used for print exam record
+function TExamineesManager.GetExamineesCDS : TClientDataSet;
+   var
+      list      : TList;
+      index     : integer;
+      AExaminee : TExaminee;
+      astatus   : string;
+   begin
+      // init cds structure
+      Result := TClientDataSet.Create(nil);
+      // cdsTemp := TClientDataSet.Create(self);
+      Result.FieldDefs.Add(DFNEI_EXAMINEEID, ftString, 11);
+      Result.FieldDefs.Add(DFNEI_EXAMINEENAME, ftString, 8);
+      // cdsTemp.FieldDefs.Add('IP',ftString,15);
+      // cdsTemp.FieldDefs.Add('Port',ftInteger);
+      Result.FieldDefs.Add(DFNEI_STATUS, ftString,8);
+      Result.FieldDefs.Add(DFNEI_REMAINTIME, ftInteger);
+      // cdsTemp.FieldDefs.Add('TimeStamp',ftDateTime);
+      // cdsTemp.FieldDefs.Add('ScoreInfo',ftBlob);
+      Result.CreateDataSet;
+      // Result.Active    := True;
+
+      // update data
+      list := FExamineesList.LockList;
+      try
+         if list.Count = 0 then
+            exit;
+
+         for index := 0 to list.Count - 1 do
+         begin
+            AExaminee := TExaminee(list[index]^);
+            case AExaminee.Status of
+               esNotLogined :
+                  astatus := '缺考';
+               esAllowReExam :
+                  astatus := '允许重考';
+               esAllowContinuteExam :
+                  astatus := '允许续考';
+               esAllowAddTimeExam :
+                  astatus := '允许延考';
+               esGetTestPaper :
+                  astatus := '获取试卷';
+               esLogined, esExamining, esGrading, esSutmitAchievement, esError, esAbsent, esDisConnect, esGradeError :
+                  astatus := '异常';
+               esCheat :
+                  astatus := '作弊';
+               esExamEnded :
+                  astatus := '正常';
+            end;
+            Result.AppendRecord([AExaminee.ID, AExaminee.Name, aStatus, AExaminee.RemainTime]);
+         end;
+      finally
+         FExamineesList.UnlockList;
+      end;
+
    end;
 
 // function TExamineesManager.ExamineeLogin(AExamineeNo : string):string;
@@ -220,11 +276,11 @@ function TExamineesManager.Login(AExamineeID : string; ALoginType : TLoginType; 
       msg             : string;
       conditionResult : Boolean;
 
-      procedure ModifyExamineeInfo(AStatus : TExamineeStatus);
+      procedure ModifyExamineeInfo(astatus : TExamineeStatus);
          begin
             TExaminee(myList[index]^).IP     := aPeerIP;
             TExaminee(myList[index]^).Port   := aPeerPort;
-            TExaminee(myList[index]^).Status := AStatus; // esLogined;
+            TExaminee(myList[index]^).Status := astatus; // esLogined;
             // TExaminee(myList[index]^).RemainTime:= CONSTEXAMINENATIONTIME;
             TExaminee(myList[index]^).TimeStamp := Now;
 
@@ -263,20 +319,20 @@ function TExamineesManager.Login(AExamineeID : string; ALoginType : TLoginType; 
                   end;
                ltContinuteEndedExam :
                   begin
-                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
-                             (APwd = TExamServerGlobal.ServerCustomConfig.ContPwd) or (currentStatus = esAllowContinuteExam);
+                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and (APwd = TExamServerGlobal.ServerCustomConfig.ContPwd) or
+                             (currentStatus = esAllowContinuteExam);
                      msg := 'Examineesmanager ReExamLogin';
                   end;
                ltReExamLogin :
                   begin
-                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
-                             (APwd = TExamServerGlobal.ServerCustomConfig.RetryPwd) or (currentStatus = esAllowReExam);
+                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and (APwd = TExamServerGlobal.ServerCustomConfig.RetryPwd) or
+                             (currentStatus = esAllowReExam);
                      msg := 'Examineesmanager ReExamLogin';
                   end;
                ltAddTimeExam :
                   begin
-                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and
-                             (APwd = TExamServerGlobal.ServerCustomConfig.AddTimePwd) or (currentStatus = esallowAddTimeExam);
+                     conditionResult := (TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0) and (APwd = TExamServerGlobal.ServerCustomConfig.AddTimePwd) or
+                             (currentStatus = esAllowAddTimeExam);
                      msg := 'Examineesmanager AddTimeExam';
                   end;
             else
@@ -294,9 +350,7 @@ function TExamineesManager.Login(AExamineeID : string; ALoginType : TLoginType; 
                {$ENDIF}
                PostMessage(FMessageHandler, CLM_Changed, longint(tempExaminee), 0);
                Result := crOk;
-            end
-            else
-            begin
+            end else begin
                {$IFDEF DEBUG}
                CnDebugger.LogMsgWithTag(msg + ' login refused!', tempExaminee^.IP.Substring(8));
                {$ENDIF}
@@ -364,7 +418,7 @@ function TExamineesManager.FindItemByIPPort(const ABinding : TIdSocketHandle; AL
       end;
    end;
 
-procedure TExamineesManager.FTimerTimer(Sender : TObject);
+procedure TExamineesManager.FTimerTimer(Sender : TOBject);
    var
       myList    : TList;
       pListItem : PExaminee;
@@ -451,9 +505,7 @@ procedure TExamineesManager.UpdateStatus(AExaminee : PExaminee);
             TExaminee(myList[index]^).RemainTime := AExaminee.RemainTime;
             TExaminee(myList[index]^).TimeStamp  := Now;
             PostMessage(FMessageHandler, CLM_Changed, longint(AExaminee), 0);
-         end
-         else
-         begin
+         end else begin
             {$IFDEF DEBUG}
             CnDebugger.LogMsg('TExamineesManager UpdateStatus not find exaimineeID:' + AExaminee.ID);
             {$ENDIF}

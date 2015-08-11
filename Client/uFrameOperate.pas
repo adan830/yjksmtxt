@@ -88,7 +88,12 @@ end;
 procedure TFrameOperate.btnShowFloatFormClick(Sender: TObject);
 begin
   if TExamClientGlobal.Floatwindow = nil then
+  begin
     TExamClientGlobal.Floatwindow := TFormOperate.Create(self);
+    TExamClientGlobal.Floatwindow.FrameWidth:=2;
+    //TExamClientGlobal.Floatwindow.Shadowed:=true;
+  end;
+
 //  self.Hide;
   texamclientglobal.ClientMainForm.hide;
   texamclientglobal.ClientMainForm.hide;

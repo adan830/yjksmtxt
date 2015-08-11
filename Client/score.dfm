@@ -2,49 +2,76 @@ object ScoreForm: TScoreForm
   Left = 217
   Top = 106
   BorderIcons = []
-  BorderStyle = bsSingle
+  BorderStyle = bsToolWindow
   Caption = #25104#32489
   ClientHeight = 502
   ClientWidth = 700
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
-  Font.Color = clWindowText
-  Font.Height = -11
+  Font.Color = clWhite
+  Font.Height = -19
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
   Position = poDesktopCenter
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 24
   object Panel1: TPanel
     Left = 0
     Top = 461
     Width = 700
     Height = 41
     Align = alBottom
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
     TabOrder = 0
     DesignSize = (
       700
       41)
-    object btnExit: TButton
-      Left = 501
-      Top = 8
-      Width = 75
-      Height = 25
-      Anchors = [akTop, akRight]
+    object btnExit: TCnSpeedButton
+      Left = 424
+      Top = 6
+      Width = 115
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
       Caption = #32771#35797#32467#26463
-      TabOrder = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
       OnClick = btnExitClick
     end
-    object btnReturn: TButton
-      Left = 597
-      Top = 8
-      Width = 75
-      Height = 25
-      Anchors = [akTop, akRight]
+    object btnReturn: TCnSpeedButton
+      Left = 568
+      Top = 6
+      Width = 115
+      Height = 30
+      Anchors = [akRight]
+      Color = 15966293
+      DownBold = False
+      FlatBorder = False
+      HotTrackBold = False
+      HotTrackColor = 16551233
+      ModernBtnStyle = bsFlat
       Caption = #36820#22238#20027#30028#38754
-      TabOrder = 1
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = [fsBold]
+      Margin = 4
+      ParentFont = False
       Visible = False
       OnClick = btnReturnClick
     end
@@ -55,6 +82,9 @@ object ScoreForm: TScoreForm
     Width = 700
     Height = 41
     Align = alTop
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
     TabOrder = 1
     DesignSize = (
       700
@@ -94,11 +124,14 @@ object ScoreForm: TScoreForm
     Width = 700
     Height = 420
     Align = alClient
+    BevelOuter = bvNone
+    Color = clWhite
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
     Font.Name = 'MS Sans Serif'
     Font.Style = []
+    ParentBackground = False
     ParentFont = False
     TabOrder = 2
     object Image1: TImage

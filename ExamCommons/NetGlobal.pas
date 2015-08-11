@@ -44,7 +44,7 @@ const
 type
 
    TExamineeStatus = (esNotLogined = 0, esAllowReExam = 1, esAllowContinuteExam = 2, esAllowAddTimeExam = 3, esGetTestPaper = 4, esLogined = 20,
-           esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCrib = 42, esDisConnect = 90, esGradeError = 91,
+           esExamining = 22, esGrading = 30, esSutmitAchievement = 33, esError = 39, esAbsent = 41, esCheat = 42, esDisConnect = 90, esGradeError = 91,
            esExamEnded = 99);
 
    // TO-DO:增加性别，相片
@@ -203,7 +203,7 @@ function GetStatusDisplayValue(AStatus : TExamineeStatus) : string;
             Result := '有错误';
          esAbsent :
             Result := '缺考';
-         esCrib :
+         esCheat :
             Result := '作弊';
       end;
    end;

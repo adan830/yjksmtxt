@@ -225,7 +225,8 @@ implementation
 
    procedure TCustomLoginForm.WMNCActivate(var Message: TWMNCActivate);
       begin
-         DrawTitle;
+         if Message.Active then
+            DrawTitle;
          Message.Result := 1;
       end;
 
@@ -259,7 +260,9 @@ implementation
    procedure TCustomLoginForm.WMActivate(var Message: TWMActivate);
       begin
          inherited;
-         DrawTitle;
+//         if mess then
+
+         //DrawTitle;
       end;
 
    procedure TCustomLoginForm.WMNCHitTest(var Message: TWMNCHITTEST);
@@ -354,8 +357,10 @@ implementation
       begin
          inherited;
          if fsCreating in FormState then
-            Exit;
-         DrawTitle;
+            exit;
+
+         // DrawTitle;
+         // cndebugger.LogMsg('WMSize');
          // Rgn := CreateRoundRectRgn(0, 0, Width, Height, 5, 5);
          // SetWindowRgn(Handle, Rgn, True);
          // DeleteObject(Rgn);

@@ -87,6 +87,7 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3_Win32)'!=''">
+        <Manifest_File>uac.manifest</Manifest_File>
         <DCC_UsePackage>vcl;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_Define>LOGIN;$(DCC_Define)</DCC_Define>
         <Debugger_DebugSourcePath>D:\DelphiControls\FastMM4991\FastMM\;$(Debugger_DebugSourcePath)</Debugger_DebugSourcePath>
@@ -556,9 +557,9 @@
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

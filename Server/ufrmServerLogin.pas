@@ -4,13 +4,16 @@ interface
 
 uses
    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, JvExControls, JvSpeedButton, CustomLoginForm;
+   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, JvExControls, JvSpeedButton, CustomLoginForm,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
+  cxEdit, cxTextEdit, CnEdit, CnButtons, JvExStdCtrls, JvEdit, dxSkinsCore,
+  dxSkinsDefaultPainters;
 
 type
    TFormServerLogin = class(TCustomLoginForm)
       lblID : TLabel;
-      btnLogin : TJvSpeedButton;
-      edtPwd : TEdit;
+    btnLogin: TCnSpeedButton;
+    edtPwd: TcxTextEdit;
       procedure btnLoginClick(Sender : TObject);
    private
       { Private declarations }
