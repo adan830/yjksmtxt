@@ -1,6 +1,6 @@
 object frmMain: TfrmMain
-  Left = 233
-  Top = 129
+  Left = 219
+  Top = 123
   Caption = #19968#32423'Windows'#24179#21488#26080#32440#21270#32771#35797#21629#39064#31995#32479
   ClientHeight = 402
   ClientWidth = 667
@@ -11,13 +11,15 @@ object frmMain: TfrmMain
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesigned
+  WindowState = wsMaximized
   PixelsPerInch = 96
   TextHeight = 13
   object dxBarManager1: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
-    Font.Name = #24494#36719#38597#40657
+    Font.Name = 'Microsoft YaHei UI'
     Font.Style = []
     Categories.Strings = (
       'Default'

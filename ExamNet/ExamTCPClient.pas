@@ -8,53 +8,48 @@ uses IdTCPClient, SysUtils, IdComponent, ExtCtrls, Controls, classes,
 type
    /// implement the encapsulaton of TIDTcpClient, so  we can test convenient and separate the GUI and business logic.
    TExamTCPClient = class(TIdTCPClient, IExamTcpClient)
-   private
-      FTimer             : TTimer;
-      FCommandProcessing : Boolean;
-      FOnTimer           : TNotifyEvent;
-      procedure SetOnTimer(const Value : TNotifyEvent);
-      function GetServerIPPortConfig(filename : string) : Boolean;
+      private
+         FTimer             : TTimer;
+         FCommandProcessing : Boolean;
+         FOnTimer           : TNotifyEvent;
+         procedure SetOnTimer(const Value : TNotifyEvent);
+      public
+         // constructor Create(AHost:string;APort:integer);  reintroduce;overload;
+         constructor Create(); reintroduce;
+         destructor Destroy(); override;
+         procedure TimerTimer(Sender : TObject);
+         procedure OnConnected(Sender : TObject);
+         procedure OnDisConnected(Sender : TObject);
+         function CommandGetExamineeInfo(AExamineeID : string; var AExaminee : TExaminee) : TCommandResult;
+         function CommandGetExamineePhoto(AExamineeID : string; out AStream : TMemoryStream) : TCommandResult;
+         function CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
 
-   public
-      // constructor Create(AHost:string;APort:integer);  reintroduce;overload;
-      constructor Create(); reintroduce;
-      destructor Destroy(); override;
-      procedure TimerTimer(Sender : TObject);
-      procedure OnConnected(Sender : TObject);
-      procedure OnDisConnected(Sender : TObject);
-      function CommandGetExamineeInfo(AExamineeID : string; var AExaminee : TExaminee) : TCommandResult;
-      function CommandGetExamineePhoto(AExamineeID : string; out AStream : TMemoryStream) : TCommandResult;
-      function CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
+         function CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TCommandResult;
+         function CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
+         function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
+         function CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
+         function CommandExamineeLogin(var AExamineeID : string; AFlag : TLoginType; ALoginPwd : string = 'Null') : TCommandResult;
 
-      function CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TCommandResult;
-      function CommandGetEQInfo(out AEQInfoList : TStringList) : TCommandResult;
-      function CommandGetEQFile(AFileID : string; out AStream : TMemoryStream) : TCommandResult;
-      function CommandGetEQRecord(ANo : string; out ARecordPacket : TClientEQRecordPacket) : TCommandResult;
-      function CommandExamineeLogin(var AExamineeID : string; AFlag : TLoginType; ALoginPwd : string = 'Null') : TCommandResult;
+         function CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
+         function CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
+         // function CommandGetExamineeZipFile(AExamineeID: string; out AZipStream: TMemoryStream): TCommandResult;
+         function CommandGetExamineeTestFilePack(AExamineeID : string; ALoginType : TLoginType; AStream : TMemoryStream) : TCommandResult;
+         function SendCmd(AOut : string; const AResponse : SmallInt = -1) : SmallInt; overload;
 
-      function CommandSendScoreInfo(AExaminee : TExaminee; AScore : TScoreIni) : TCommandResult;
-      function CommandSendExamineeZipFile(AExamineeID : string; AZipStream : TMemoryStream) : TCommandResult;
-      // function CommandGetExamineeZipFile(AExamineeID: string; out AZipStream: TMemoryStream): TCommandResult;
-      function CommandGetExamineeTestFilePack(AExamineeID : string; ALoginType : TLoginType; AStream : TMemoryStream) : TCommandResult;
-      function SendCmd(AOut : string; const AResponse : SmallInt = -1) : SmallInt; overload;
-
-   public
-      property OnTimer : TNotifyEvent read FOnTimer write SetOnTimer;
+      public
+         property OnTimer : TNotifyEvent read FOnTimer write SetOnTimer;
    end;
 
 implementation
 
-uses Windows, IdStack, Forms, IdException, compress, IdGlobal, cndebug,system.Hash;
+uses Windows, IdStack, Forms, IdException, compress, IdGlobal, cndebug, system.Hash;
 
 { TTcpClient }
 // constructor TExamTCPClient.Create(AHost: string; APort: integer);
 constructor TExamTCPClient.Create();
    begin
       inherited Create();
-      if not GetServerIPPortConfig('examconfig.ini') then
-      begin
-         raise Exception.Create('读配置文件examconfig.ini出错！请检查文件');
-      end;
+
 
       // because follow reason ,we don't compelling client port
       // http://groups.google.com/group/borland.public.delphi.internet.winsock/browse_thread/thread/26200060a26213d6/2303afa1932de55c?q=boundport&lnk=nl&
@@ -91,34 +86,6 @@ destructor TExamTCPClient.Destroy;
    begin
       FTimer.free;
       inherited;
-   end;
-
-function TExamTCPClient.GetServerIPPortConfig(filename : string) : Boolean;
-   var
-      cfg     : TStringList;
-      index   : Integer;
-      ahost   : string;
-      aPort   : word;
-      MyClass : TComponent;
-   begin
-      Result := False;
-      if FileExists('examconfig.ini') then
-      begin
-         cfg := TStringList.Create;
-         try
-            cfg.LoadFromFile('examconfig.ini');
-            ahost := cfg.Values['serverip'];
-            if not word.tryparse(cfg.Values['serverport'], aPort) then
-               exit;
-            Host   := ahost;
-            port   := aPort;
-            Result := true;
-            // if trim(aip)=string.Empty then errorMessage:='配置文件中ServerIP不能为空；';
-            // if (not integer.tryparse( cfg.values['serverport'], portvalue)) then errorMessage:=errorMessage+'配置文件中ServerPort项值应为整数，默认应为3000;';
-         finally
-            cfg.free;
-         end;
-      end;
    end;
 
 procedure TExamTCPClient.OnConnected(Sender : TObject);
@@ -186,9 +153,7 @@ function TExamTCPClient.CommandGetExamineeInfo(AExamineeID : string; var AExamin
             begin
                ConvertStringsToExaminee(LastCmdResult.Text, AExaminee);
                Result := crOk;
-            end
-            else
-            begin
+            end else begin
                Result := crError;
             end;
          except
@@ -245,9 +210,7 @@ function TExamTCPClient.CommandGetBaseConfig(out ABaseConfig : TBaseConfig) : TC
                   ABaseConfig := TBaseConfig.Create;
                ABaseConfig.FromStrings(LastCmdResult.Text);
                Result := crOk;
-            end
-            else
-            begin
+            end else begin
                Result := crError;
             end;
          except
@@ -270,7 +233,7 @@ function TExamTCPClient.CommandExamineeLogin(var AExamineeID : string; AFlag : T
       FCommandProcessing := true;
       try
          try
-            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExamineeID + ' ' + IntToStr(Ord(AFlag)) + ' ' + THashMD5.GetHashString( ALoginPwd));
+            SendCmd(CMD_EXAMINEELOGIN + ' ' + AExamineeID + ' ' + IntToStr(Ord(AFlag)) + ' ' + THashMD5.GetHashString(ALoginPwd));
             if LastCmdResult.Code = CMDCONSTCORRECTREPLYCODE then
             begin
                // ConvertStringsToExaminee(LastCmdResult.Text, AExaminee,false);
@@ -430,7 +393,7 @@ function TExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID : string; ALo
 function TExamTCPClient.CommandSendExamineeStatus(AExamineeID, AExamineeName : string; AStauts : TExamineeStatus; ARemainTime : Integer) : TCommandResult;
    var
       socketException : EIdSocketError;
-   begin                        {TODO -ojp -cmust : 交卷时就众停止更改时间}
+   begin { TODO -ojp -cmust : 交卷时就众停止更改时间 }
       Result             := crError;
       FCommandProcessing := true;
       try

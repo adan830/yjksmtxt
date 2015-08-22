@@ -24,6 +24,8 @@ package MainFrame;
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
 {$DEFINE NOLOGIN}
+{$DEFINE DEBUG}
+{$DEFINE USE_JCL}
 {$ENDIF IMPLICITBUILDING}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
@@ -42,7 +44,6 @@ requires
 
 contains
   ufrmException in 'MainFrame\ufrmException.pas',
-  ufrmLogin in 'MainFrame\ufrmLogin.pas',
   ufrmMsg in 'MainFrame\ufrmMsg.pas',
   ufrmRoleManager in 'MainFrame\ufrmRoleManager.pas',
   ufrmWelcome in 'MainFrame\ufrmWelcome.pas',
@@ -58,7 +59,9 @@ contains
   uClasses in 'MainFrame\uClasses.pas',
   uException in 'MainFrame\uException.pas',
   ufrmAppBase in 'MainFrame\ufrmAppBase.pas',
+  ufrmChangePassword in 'MainFrame\ufrmChangePassword.pas',
   ufrmAppDlgBase in 'MainFrame\ufrmAppDlgBase.pas',
-  ufrmChangePassword in 'MainFrame\ufrmChangePassword.pas';
+  LoginForm in 'MainFrame\LoginForm.pas' {LoginForm};
 
 end.
+

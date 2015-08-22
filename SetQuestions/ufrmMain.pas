@@ -12,7 +12,7 @@ uses
   dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSeven,
   dxSkinSharp, dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinValentine, dxSkinXmas2008Blue, dxSkinOffice2010Black,
-  dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver,CustomColorForm,cndebug;
 
 type
   TfrmMain = class(TForm)

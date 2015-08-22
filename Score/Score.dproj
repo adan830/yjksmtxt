@@ -1,0 +1,253 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{557adaba-77e9-4aa5-bd57-dcab8c37a718}</ProjectGuid>
+        <MainSource>Score.dpr</MainSource>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <DCC_DependencyCheckOutputName>..\debug\bin\Score.exe</DCC_DependencyCheckOutputName>
+        <ProjectVersion>16.1</ProjectVersion>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Base>True</Base>
+        <AppType>Application</AppType>
+        <FrameworkType>VCL</FrameworkType>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>1</TargetedPlatforms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <SanitizedProjectName>Score</SanitizedProjectName>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Locale>2052</VerInfo_Locale>
+        <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Data.Win;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Keys>CompanyName=合肥众汇友网络有限责任公司;FileDescription=题库管理及命题系统;FileVersion=1.0.0.0;InternalName=mtxt;ProductVersion=1.0.0.0</VerInfo_Keys>
+        <UsePackages>true</UsePackages>
+        <DCC_DependencyCheckOutputName>Score.exe</DCC_DependencyCheckOutputName>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_UnitSearchPath>D:\yjksmtxt\debug\dcp;D:\yjksmtxt\debug\dcu;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_Namespace>System.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>Score_Icon1.ico</Icon_MainIcon>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_DependencyCheckOutputName>E:\myproject\delphitemp\yjks\scoreReceive\Score.exe</DCC_DependencyCheckOutputName>
+        <Version>7.0</Version>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+        <DCC_Optimize>False</DCC_Optimize>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_StackSize>16384,9437184</DCC_StackSize>
+        <DCC_ExeOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_ExeOutput>
+        <DCC_DcuOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_DcuOutput>
+        <DCC_ObjOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_ObjOutput>
+        <DCC_HppOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_HppOutput>
+        <DCC_BplOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_BplOutput>
+        <DCC_DcpOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_DcpOutput>
+        <DCC_UnitSearchPath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_ResourcePath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_ResourcePath)</DCC_ResourcePath>
+        <DCC_ObjPath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_ObjPath)</DCC_ObjPath>
+        <DCC_IncludePath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_IncludePath)</DCC_IncludePath>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_DependencyCheckOutputName>..\debug\bin\Score.exe</DCC_DependencyCheckOutputName>
+        <Version>7.0</Version>
+        <DCC_Optimize>False</DCC_Optimize>
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_StackSize>16384,9437184</DCC_StackSize>
+        <DCC_ExeOutput>..\debug\bin</DCC_ExeOutput>
+        <DCC_DcuOutput>..\debug\dcu</DCC_DcuOutput>
+        <DCC_ObjOutput>..\debug\dcu</DCC_ObjOutput>
+        <DCC_HppOutput>..\debug\dcu</DCC_HppOutput>
+        <DCC_ResourcePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10;$(DCC_ResourcePath)</DCC_ResourcePath>
+        <DCC_ObjPath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10;$(DCC_ObjPath)</DCC_ObjPath>
+        <DCC_IncludePath>E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;$(BDS)\lib\Debug;$(BDS)\RaveReports\Lib;$(BDS)\Lib\Debug\Indy10;$(DCC_IncludePath)</DCC_IncludePath>
+        <DCC_Define>DEBUG,NOLOGIN;$(DCC_Define)</DCC_Define>
+        <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
+        <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
+        <DCC_DebugVN>True</DCC_DebugVN>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_UsePackage>vcl;rtl;mainframe;$(DCC_UsePackage)</DCC_UsePackage>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Parameters/>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">0</VersionInfo>
+                    <VersionInfo Name="Build">0</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">2052</VersionInfo>
+                    <VersionInfo Name="CodePage">936</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName">合肥众汇友网络有限责任公司</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileDescription">题库管理及命题系统</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName">mtxt</VersionInfoKeys>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                </VersionInfoKeys>
+                <Source>
+                    <Source Name="MainSource">Score.dpr</Source>
+                </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k190.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp190.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxbaredititemrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxbaredititemrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpagecontroldxbarpopupmenurs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpagecontroldxbarpopupmenurs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridchartrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridchartrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridolaprs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxpivotgridolaprs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulergridrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulergridrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulerrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulerrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulertreebrowserrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulertreebrowserrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxspreadsheetrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxspreadsheetrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxverticalgridrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxverticalgridrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbardbnavrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbardbnavrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbarextdbitemsrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbarextdbitemsrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbarextitemsrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxbarextitemsrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdborrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdborrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxorgcrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxorgcrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdbtrrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdbtrrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdbxservermoders19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxdbxservermoders19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxfiredacservermoders19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxfiredacservermoders19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxflowchartrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxflowchartrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxmdsrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxmdsrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxnavbarrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxnavbarrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscorers19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscorers19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxcommonrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxcommonrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxextcommonrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxextcommonrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxgridlnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxgridlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxlclnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxlclnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxpivotgridlnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxpivotgridlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxschedulerlnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxschedulerlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxsslnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxsslnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxtllnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxtllnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxvgridlnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpscxvgridlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxdboclnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxdboclnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxdbtvlnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxdbtvlnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxfclnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxfclnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxoclnkrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsdxoclnkrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpslnksrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpslnksrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsprvwadvrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsprvwadvrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsprvwribbonrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxpsprvwribbonrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxribbonrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxribbonrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinscxschedulerpainterrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinscxschedulerpainterrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinscxschedulerpainterrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinscxschedulerpainterrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxbarspaintersrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxbarspaintersrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinsdxbarpainterrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinsdxbarpainterrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxnavbarpainterrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxnavbarpainterrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinsdxnavbarpainterrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxskinsdxnavbarpainterrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxribbonpaintersrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxskinsdxribbonpaintersrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxspellcheckerrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxspellcheckerrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtabbedmdirs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtabbedmdirs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtrmdrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtrmdrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxpscxpcprodrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dxpscxpcprodrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxgridwizardrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxgridwizardrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulerribbonstyleeventeditorrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dclcxschedulerribbonstyleeventeditorrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxiconlibraryrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxiconlibraryrs19.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtilecontrolrs19.bpl">File d:\delphicontrols\devexpress13.2.5\library\rs19\win32\bpl\dcldxtilecontrolrs19.bpl not found</Excluded_Packages>
+                </Excluded_Packages>
+            </Delphi.Personality>
+            <ModelSupport>False</ModelSupport>
+            <Platforms>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">False</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="ufrmMain.pas">
+            <Form>frmMain</Form>
+        </DCCReference>
+        <DCCReference Include="ufrmScoreReceive.pas">
+            <Form>frmScoreReceive</Form>
+        </DCCReference>
+        <DCCReference Include="ufrmConfig.pas">
+            <Form>frmConfig</Form>
+        </DCCReference>
+        <DCCReference Include="udmMain.pas">
+            <Form>dmMain</Form>
+            <DesignClass>TDataModule</DesignClass>
+        </DCCReference>
+        <DCCReference Include="ufrmBrowseSource.pas">
+            <Form>frmBrowseSource</Form>
+        </DCCReference>
+        <DCCReference Include="uPubFn.pas"/>
+        <DCCReference Include="ufrmScore.pas">
+            <Form>frmScore</Form>
+        </DCCReference>
+        <DCCReference Include="ufrmReceiveEQUseInfo.pas">
+            <Form>frmReceiveEQUseInfo</Form>
+        </DCCReference>
+        <DCCReference Include="CommandRegister.pas"/>
+        <DCCReference Include="GlobalScore.pas"/>
+        <DCCReference Include="ufrmRestoreExamFolder.pas">
+            <Form>frmRestoreExamFolder</Form>
+        </DCCReference>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+</Project>

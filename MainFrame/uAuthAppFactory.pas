@@ -43,7 +43,7 @@ type
 implementation
 
 uses
-  uAppSet, ufrmLogin, uAppUtils,forms, registry,windows,ExamException,ExamResourceStrings;
+  uAppSet, loginform, uAppUtils,forms, registry,windows,ExamException,ExamResourceStrings;
 
 { TAuthAppFactory }
 
@@ -114,7 +114,7 @@ begin
 //        end;
 
         {$IFNDEF NOLOGIN}
-        if TfrmLogin.Login(UserName, UserPassword) then
+        if TLoginForm.Login(UserName, UserPassword) then
         begin
         
           if trim(username)='' then

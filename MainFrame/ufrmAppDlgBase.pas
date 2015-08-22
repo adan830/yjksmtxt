@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ufrmAppBase, ExtCtrls, StdCtrls, Buttons, ComCtrls, Menus,cxbuttons, cxLookAndFeelPainters;
+  Dialogs, ufrmAppBase, ExtCtrls, StdCtrls, Buttons, ComCtrls, Menus,cxbuttons, cxLookAndFeelPainters,
+  cxGraphics, cxLookAndFeels, dxSkinsCore, dxSkinsDefaultPainters;
 
 type
   TfrmAppDlgBase = class(TfrmAppBase)

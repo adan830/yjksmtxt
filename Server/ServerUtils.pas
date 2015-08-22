@@ -18,7 +18,7 @@ type
    TServerCustomConfig = class
       private
          FStatusRefreshInterval : Integer;
-         FExamPath              : string; // client exam path  obsolete
+         //FExamPath              : string; // client exam path  obsolete
          FServerDataPath        : string;
          FDataBakFolder         : string;
          FPhotoFolder           : string;
@@ -32,7 +32,7 @@ type
          procedure setter(const Value : string);
       public
          property StatusRefreshInterval : Integer read FStatusRefreshInterval write FStatusRefreshInterval;
-         property ExamPath              : string read FExamPath write FExamPath;
+         //property ExamPath              : string read FExamPath write FExamPath;
          // property SchoolCode           : string read FSchoolCode write FSchoolCode;
          property ServerDataPath : string read FServerDataPath write FServerDataPath;
          property DataBakFolder  : string read FDataBakFolder write FDataBakFolder;
@@ -57,7 +57,7 @@ const
    // CLM_Deleted = WM_APP+2;
    // CLM_AllChanged= WM_APP+3;
    CONFIGNAME_SERVERDATAPATH        = 'ServerDataPath';
-   CONFIGNAME_CLIENTEXAMPATH        = 'ClientExamPath';
+   //CONFIGNAME_CLIENTEXAMPATH        = 'ClientExamPath';
    CONFIGNAME_STATUSREFRESHINTERVAL = 'StatusRefreshInterval';
    CONFIGNAME_LOGINPERMISSIONMODE   = 'LoginPermissionMode';
    CONFIGNAME_RETRYPWD              = 'RetryPwd';
@@ -104,10 +104,10 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
             else
                StatusRefreshInterval := ABaseConfig.StatusRefreshInterval;
 
-            if ConfigFile.ValueExists('Config', CONFIGNAME_CLIENTEXAMPATH) then
-               ExamPath := ConfigFile.ReadString('Config', CONFIGNAME_CLIENTEXAMPATH, ABaseConfig.ExamPath)
-            else
-               ExamPath := ABaseConfig.ExamPath;
+//            if ConfigFile.ValueExists('Config', CONFIGNAME_CLIENTEXAMPATH) then
+//               ExamPath := ConfigFile.ReadString('Config', CONFIGNAME_CLIENTEXAMPATH, ABaseConfig.ExamPath)
+//            else
+//               ExamPath := ABaseConfig.ExamPath;
 
             if ConfigFile.ValueExists('Config', CONFIGNAME_SERVERDATAPATH) then
                ServerDataPath := ConfigFile.ReadString('Config', CONFIGNAME_SERVERDATAPATH, ExcludeTrailingBackslash(AConfigFilePath))
@@ -133,7 +133,7 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
       end else begin
          StatusRefreshInterval := ABaseConfig.StatusRefreshInterval;
 
-         ExamPath             := ABaseConfig.ExamPath;
+         //ExamPath             := ABaseConfig.ExamPath;
          ServerDataPath       := ExcludeTrailingPathDelimiter(AConfigFilePath);
          LoginPermissionModel := ABaseConfig.LoginPermissionMode;
          RetryPwd             := THashMD5.GetHashString(ABaseConfig.RetryPwd);
@@ -144,7 +144,7 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
       end;
 
       DataBakFolder := IncludeTrailingPathDelimiter(ServerDataPath) + 'DataBak';
-      FPhotoFolder  := IncludeTrailingPathDelimiter(ServerDataPath) + 'ExamineePhoto';
+      FPhotoFolder  := IncludeTrailingPathDelimiter(ServerDataPath) + 'Photos';
       if not directoryexists(DataBakFolder) then
          createdir(DataBakFolder);
       if not directoryexists(FPhotoFolder) then
@@ -160,7 +160,7 @@ procedure TServerCustomConfig.SaveCustomConfig(AConfigFile : string);
 
       ConfigFile := TIniFile.Create(AConfigFile + CMDCUSTOMCONFIGFILENAME);
       try
-         ConfigFile.WriteString('Config', CONFIGNAME_CLIENTEXAMPATH, ExamPath);
+         //ConfigFile.WriteString('Config', CONFIGNAME_CLIENTEXAMPATH, ExamPath);
          // ConfigFile.WriteString('Config', 'SchoolCode', SchoolCode);
          ConfigFile.WriteString('Config', CONFIGNAME_SERVERDATAPATH, ServerDataPath);
          // ConfigFile.WriteString('Config', 'DataBakFolder', DataBakFolder);

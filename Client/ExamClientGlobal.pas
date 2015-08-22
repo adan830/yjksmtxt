@@ -63,6 +63,7 @@ type
       // destructor Destroy(); override;
       /// 从服务器获取配置数据保存到 TExamClientGlobal.Modules中
       class function SetBaseConfig() : TCommandResult;
+      class function GetClientConfig(filename : string) : Boolean;
       // 从 sysconfig表中获得加密数据 来设置数据模块中的全局变量
       class procedure SetGlobalExamPath();
 
@@ -118,6 +119,35 @@ class function TExamClientGlobal.SetBaseConfig() : TCommandResult;
             FModules[i].FillModuleInfo(FBaseConfig.Modules[i]);
          end;
          Result := crOk;
+      end;
+   end;
+class function TExamClientGlobal.GetClientConfig(filename : string) : Boolean;
+   var
+      cfg     : TStringList;
+      ahost   : string;
+      aPort   : word;
+   begin
+      Result := False;
+      if FileExists('clientconfig.ini') then
+      begin
+         cfg := TStringList.Create;
+         try
+            cfg.LoadFromFile('clientconfig.ini');
+            ahost := cfg.Values['serverip'];
+            if not word.tryparse(cfg.Values['serverport'], aPort) then
+               exit;
+               TExamClientGlobal.ExamTCPClient.Host:= ahost;
+            TExamClientGlobal.ExamTCPClient.Port   := aPort;
+
+            TExamClientGlobal.FExamPath:=cfg.values['ExamPath'];
+            if not DirectoryExists(TExamClientGlobal.FExamPath) then exit;
+
+            Result := true;
+            // if trim(aip)=string.Empty then errorMessage:='配置文件中ServerIP不能为空；';
+            // if (not integer.tryparse( cfg.values['serverport'], portvalue)) then errorMessage:=errorMessage+'配置文件中ServerPort项值应为整数，默认应为3000;';
+         finally
+            cfg.free;
+         end;
       end;
    end;
 //
@@ -182,7 +212,7 @@ class procedure TExamClientGlobal.SetGlobalExamPath();
    begin
       if Examinee.ID = EmptyStr then
          raise Exception.Create('考生ID不能为空');
-      FExamPath := FBaseConfig.ExamPath + '\' + Examinee.ID;
+      FExamPath :=IncludeTrailingPathDelimiter( FExamPath)+ Examinee.ID; // FBaseConfig.ExamPath + '\' + Examinee.ID;
    end;
 
 class procedure TExamClientGlobal.CreateClassObject;

@@ -415,7 +415,7 @@ object FormMainServer: TFormMainServer
         Color = clWhite
         ColumnCollection = <
           item
-            Value = 49.996347923022810000
+            Value = 49.996347923022820000
           end
           item
             SizeStyle = ssAbsolute
@@ -534,6 +534,7 @@ object FormMainServer: TFormMainServer
             Top = 25
             Width = 82
             Height = 30
+            Hint = #35774#32622#26381#21153#22120#23494#30721#13#10#22914#37325#32771#31561#25805#20316#27169#24335#20026#32771#29983#26426#36890#36807#23494#30721#25805#20316#65292#21017#21487#37325#35774#32622#37325#32771#31561#23494#30721
             Anchors = [akTop]
             Color = 15966293
             DownBold = False
@@ -549,6 +550,8 @@ object FormMainServer: TFormMainServer
             Font.Style = [fsBold]
             Margin = 4
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             OnClick = btnResetExamPwdClick
           end
         end
@@ -559,6 +562,7 @@ object FormMainServer: TFormMainServer
           Height = 300
           Align = alClient
           Anchors = []
+          BevelOuter = bvNone
           Caption = 'Panel2'
           Color = clWhite
           ParentBackground = False
@@ -567,25 +571,92 @@ object FormMainServer: TFormMainServer
           DesignSize = (
             600
             300)
+          object grpbx1: TcxGroupBox
+            Left = 3
+            Top = 216
+            Anchors = []
+            Caption = #32771#29983#31471
+            TabOrder = 1
+            Visible = False
+            Height = 57
+            Width = 590
+            object lbl3: TcxLabel
+              Left = 341
+              Top = 56
+              Caption = #29366#24577#21047#26032#38388#38548#65306
+              Visible = False
+            end
+            object spndtStatusRefreshInterval: TcxSpinEdit
+              Left = 435
+              Top = 52
+              Properties.MaxValue = 300.000000000000000000
+              Properties.MinValue = 3.000000000000000000
+              Properties.OnChange = ConfigChange
+              Style.StyleController = cxEditStyleController1
+              TabOrder = 1
+              Value = 3
+              Visible = False
+              Width = 65
+            end
+            object lbl4: TcxLabel
+              Left = 506
+              Top = 56
+              Caption = #65288#21333#20301#65306#31186#65289
+              Visible = False
+            end
+            object lbl2: TcxLabel
+              Left = 21
+              Top = 56
+              Caption = #23458#25143#26426#32771#29983#25991#20214#22841#65306
+              ParentColor = False
+              ParentFont = False
+              Style.Color = clWhite
+              Style.Font.Charset = DEFAULT_CHARSET
+              Style.Font.Color = clBlack
+              Style.Font.Height = -19
+              Style.Font.Name = #23435#20307
+              Style.Font.Style = []
+              Style.IsFontAssigned = True
+              Visible = False
+            end
+            object txtClientFolder: TcxMaskEdit
+              Left = 32
+              Top = 85
+              Hint = #25351#23450#35813#30446#24405#26159#25351#26126#23398#29983#26426#19978#32771#29983#32771#35797#25991#20214#22841#30340#20301#32622#12290#13#10#35831#30830#20445#35813' '#25991#20214#22841'$0d'#22312#32771#29983#26426#19978#23384#22312#65292#13#10#21542#21017#20250#20986#29616#29983#25104#32771#35797#29615#22659#20986#38169#25552#31034#65281
+              ParentShowHint = False
+              Properties.OnChange = ConfigChange
+              ShowHint = True
+              Style.StyleController = cxEditStyleController1
+              Style.TextColor = clBlue
+              StyleFocused.TextColor = clRed
+              TabOrder = 4
+              Text = 'txtClientFolder'
+              Visible = False
+              Width = 550
+            end
+          end
           object grpbx2: TcxGroupBox
             Left = 3
             Top = 0
             Align = alCustom
-            Caption = #26381#21153#22120#31471
+            Caption = #26381#21153#22120#35774#32622
             Style.BorderColor = 15966293
-            Style.Edges = [bTop]
+            Style.Edges = [bLeft, bTop, bRight, bBottom]
             Style.Shadow = False
             TabOrder = 0
             DesignSize = (
               590
-              130)
-            Height = 130
+              273)
+            Height = 273
             Width = 590
             object btnOpenFirewallPort: TCnSpeedButton
-              Left = 187
-              Top = 93
+              Left = 305
+              Top = 224
               Width = 238
               Height = 30
+              Hint = 
+                #26381#21153#22120#31243#24207#36890#36807'3000'#31471#21475#25509#21463#32771#29983#26426#30340#35775#38382#13#10#22240'Windows Server2008'#31995#32479#40664#35748#38450#28779#22681#21551#29992#13#10#27492#25353#38062#25191#34892#28155#21152#38450#28779#22681#21517 +
+                #20026'ExamServer'#20363#22806#30340#35268#21017
               Anchors = [akTop]
               Color = 15966293
               DownBold = False
@@ -601,6 +672,8 @@ object FormMainServer: TFormMainServer
               Font.Style = [fsBold]
               Margin = 4
               ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
               OnClick = btnOpenFirewallPortClick
             end
             object lbl1: TcxLabel
@@ -618,15 +691,20 @@ object FormMainServer: TFormMainServer
             object cbbDataFolder: TcxShellComboBox
               Left = 32
               Top = 60
-              Hint = #23384#25918#32771#29983#19978#25253#25991#20214#65292#40664#35748#20026#26381#21153#22120#31243#24207#25152#22312#25991#20214#22841
+              Hint = 
+                #40664#35748#20026#26381#21153#22120#31243#24207#25152#22312#25991#20214#22841#65292#23384#25918#32771#22330#35760#24405#13#10#23384#25918#32771#29983#30456#29255#25991#20214#65288#22312'Photos'#23376#30446#24405#19979#65289#13#10#23384#25918#32771#29983#25991#20214#22841#25968#25454#25991#20214#65288#22312'databa' +
+                'k'#23376#30446#24405#19979#65289
               ParentShowHint = False
+              Properties.DropDownWidth = 500
               Properties.ShowFullPath = sfpAlways
               ShowHint = True
+              Style.Shadow = True
               Style.StyleController = cxEditStyleController1
               Style.TextColor = clBlue
+              Style.PopupBorderStyle = epbsFlat
               StyleFocused.TextColor = clRed
               TabOrder = 1
-              Width = 555
+              Width = 545
             end
             object cxlbl2: TcxLabel
               Left = 506
@@ -682,46 +760,11 @@ object FormMainServer: TFormMainServer
               Visible = False
               Width = 337
             end
-          end
-          object grpbx1: TcxGroupBox
-            Left = 3
-            Top = 152
-            Anchors = []
-            Caption = #32771#29983#31471
-            TabOrder = 1
-            Height = 142
-            Width = 590
-            object lbl3: TcxLabel
-              Left = 341
-              Top = 56
-              Caption = #29366#24577#21047#26032#38388#38548#65306
-              Visible = False
-            end
-            object spndtStatusRefreshInterval: TcxSpinEdit
-              Left = 435
-              Top = 52
-              Properties.MaxValue = 300.000000000000000000
-              Properties.MinValue = 3.000000000000000000
-              Properties.OnChange = ConfigChange
-              Style.StyleController = cxEditStyleController1
-              TabOrder = 1
-              Value = 3
-              Visible = False
-              Width = 65
-            end
-            object lbl4: TcxLabel
-              Left = 506
-              Top = 56
-              Caption = #65288#21333#20301#65306#31186#65289
-              Visible = False
-            end
-            object lbl2: TcxLabel
+            object cxLabel11: TcxLabel
               Left = 21
-              Top = 24
-              Caption = #23458#25143#26426#32771#29983#25991#20214#22841#65306
-              ParentColor = False
+              Top = 117
+              Caption = #37325#32771#12289#32493#32771#12289#24310#32771#25805#20316#27169#24335#65306
               ParentFont = False
-              Style.Color = clWhite
               Style.Font.Charset = DEFAULT_CHARSET
               Style.Font.Color = clBlack
               Style.Font.Height = -19
@@ -729,26 +772,12 @@ object FormMainServer: TFormMainServer
               Style.Font.Style = []
               Style.IsFontAssigned = True
             end
-            object txtClientFolder: TcxMaskEdit
-              Left = 32
-              Top = 53
-              Hint = #25351#23450#35813#30446#24405#26159#25351#26126#23398#29983#26426#19978#32771#29983#32771#35797#25991#20214#22841#30340#20301#32622#12290#13#10#35831#30830#20445#35813' '#25991#20214#22841'$0d'#22312#32771#29983#26426#19978#23384#22312#65292#13#10#21542#21017#20250#20986#29616#29983#25104#32771#35797#29615#22659#20986#38169#25552#31034#65281
-              ParentShowHint = False
-              Properties.OnChange = ConfigChange
-              ShowHint = True
-              Style.StyleController = cxEditStyleController1
-              Style.TextColor = clBlue
-              StyleFocused.TextColor = clRed
-              TabOrder = 4
-              Text = 'txtClientFolder'
-              Width = 550
-            end
             object radiogrpRetryModel: TcxRadioGroup
-              Left = 126
-              Top = 86
+              Left = 32
+              Top = 146
               Hint = 
-                'this is a test for show hint test word'#13#10' break for when the even' +
-                't happen'
+                ' '#35774#23450#37325#32771#12289#32493#32771#12289#24310#32771#25805#20316#27169#24335#13#10#32771#29983#26426#36890#36807#23494#30721#25805#20316#27169#24335#65292#21487#30001#32769#24072#26681#25454#23494#30721#22312#32771#29983#26426#31471#26469#25805#20316#13#10#26381#21153#22120#31471#25805#20316#27169#24335#65292#30001#32769#24072#22312#26381#21153#19978#30452 +
+                #25509#35774#32622#20801#35768#37325#32771#12289#32493#32771#31561#65292#26080#39035#23494#30721
               ParentFont = False
               ParentShowHint = False
               Properties.Columns = 2
@@ -770,21 +799,9 @@ object FormMainServer: TFormMainServer
               Style.Font.Name = 'Tahoma'
               Style.Font.Style = []
               Style.IsFontAssigned = True
-              TabOrder = 5
-              Height = 45
-              Width = 461
-            end
-            object cxLabel11: TcxLabel
-              Left = 21
-              Top = 104
-              Caption = #25805#20316#27169#24335#65306
-              ParentFont = False
-              Style.Font.Charset = DEFAULT_CHARSET
-              Style.Font.Color = clBlack
-              Style.Font.Height = -19
-              Style.Font.Name = #23435#20307
-              Style.Font.Style = []
-              Style.IsFontAssigned = True
+              TabOrder = 9
+              Height = 55
+              Width = 545
             end
           end
         end
@@ -811,7 +828,7 @@ object FormMainServer: TFormMainServer
             Value = 600.000000000000000000
           end
           item
-            Value = 49.999999627470970000
+            Value = 49.999999627470960000
           end>
         ControlCollection = <
           item
@@ -1509,8 +1526,6 @@ object FormMainServer: TFormMainServer
           Left = 3.779530000000000000
           Width = 162.519790000000000000
           Height = 18.897650000000000000
-          DataSet = Form1.ReportDS
-          DataSetName = 'ReportDS'
           Memo.UTF8W = (
             '[ReportDS.ExamineeID]')
         end
@@ -1518,8 +1533,6 @@ object FormMainServer: TFormMainServer
           Left = 204.094620000000000000
           Width = 162.519790000000000000
           Height = 18.897650000000000000
-          DataSet = Form1.ReportDS
-          DataSetName = 'ReportDS'
           Memo.UTF8W = (
             '[ReportDS.ExamineeName]')
         end
@@ -1527,8 +1540,6 @@ object FormMainServer: TFormMainServer
           Left = 393.071120000000000000
           Width = 166.299320000000000000
           Height = 18.897650000000000000
-          DataSet = Form1.ReportDS
-          DataSetName = 'ReportDS'
           Memo.UTF8W = (
             '[ReportDS.ExamineeStatus]')
         end

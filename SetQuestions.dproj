@@ -82,6 +82,8 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Manifest_File>uac.manifest</Manifest_File>
+        <DCC_Define>NOLOGIN;$(DCC_Define)</DCC_Define>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_MajorVer>1</VerInfo_MajorVer>
         <VerInfo_Build>0</VerInfo_Build>
@@ -133,13 +135,7 @@
                 <Platform value="Win32">True</Platform>
             </Platforms>
             <Deployment Version="2">
-                <DeployFile LocalName="D:\yjksmtxt\debug\bin\SetQuestions.rsm" Configuration="Debug" Class="DebugSymbols">
-                    <Platform Name="Win32">
-                        <RemoteName>SetQuestions.rsm</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="D:\yjksmtxt\debug\bin\SetQuestions.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="debug\bin\SetQuestions.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>SetQuestions.exe</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -527,13 +523,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
@@ -612,6 +608,7 @@
         <DCCReference Include="SetQuestions\ufrmExpressionTree.pas">
             <Form>frmExpressionTree</Form>
         </DCCReference>
+        <DCCReference Include="SetQuestions\AccessHelper.pas"/>
         <None Include="SetQuestions\jclexpreval.txt"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>

@@ -31,7 +31,8 @@ uses
   CommandRegister in 'SetQuestions\CommandRegister.pas',
   SetQuestionsException in 'SetQuestions\SetQuestionsException.pas',
   SetQuestionsResoureStrings in 'SetQuestions\SetQuestionsResoureStrings.pas',
-  ufrmExpressionTree in 'SetQuestions\ufrmExpressionTree.pas' {frmExpressionTree};
+  ufrmExpressionTree in 'SetQuestions\ufrmExpressionTree.pas' {frmExpressionTree},
+  AccessHelper in 'SetQuestions\AccessHelper.pas';
 
 {$R *.res}
 

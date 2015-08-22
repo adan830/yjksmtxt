@@ -571,11 +571,11 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
 
    begin
       ds     := FMemExaminees.Lock;
-      dstemp := TClientDataSet.Create(nil);
+      //dstemp := TClientDataSet.Create(nil);
       try
-         SetupCDSExamineesStructure(dstemp);
-         dstemp.CreateDataSet;
-         dstemp.Active := True;
+//         SetupCDSExamineesStructure(dstemp);
+//         dstemp.CreateDataSet;
+//         dstemp.Active := True;
 
          /// save current test score to total db
          for I := 0 to AExamineeList.Count - 1 do
@@ -610,8 +610,8 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
          /// save current test score to single file
          DateTimeToString(timeStr, 'yyyymmddhhnn', Now);
          { TODO : 需要修改加密 }
-
-         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
+         ds.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
+         //dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
       finally
          dstemp.Free;
          FMemExaminees.Unlock;

@@ -59,8 +59,8 @@ class procedure TExamServerGlobal.CreateClassObject;
          configfilepath      := ExtractFilePath(Application.ExeName);
          FServerCustomConfig := TServerCustomConfig.create;
          FServerCustomConfig.SetupCustomConfig(configfilepath, FStkRecordInfo.BaseConfig);
-         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.ExamPath,
-                 FServerCustomConfig.LoginPermissionModel);
+         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval,FServerCustomConfig.LoginPermissionModel);       //, FServerCustomConfig.ExamPath
+
          SetupGlobalOperateModules;
 
          FExamineesManager := TExamineesManager.Create();

@@ -6,7 +6,7 @@ inherited frmWord: TfrmWord
   ClientWidth = 787
   OldCreateOrder = True
   ExplicitWidth = 803
-  ExplicitHeight = 652
+  ExplicitHeight = 653
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel

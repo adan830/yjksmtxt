@@ -188,23 +188,11 @@ inherited frmSysConfig: TfrmSysConfig
     TabOrder = 12
     Width = 121
   end
-  object edtExamPath: TcxTextEdit [13]
-    Left = 110
-    Top = 159
-    Style.StyleController = styleControllerEdit
-    TabOrder = 13
-    Width = 355
-  end
-  object cxLabel6: TcxLabel [14]
-    Left = 40
-    Top = 159
-    Caption = #32771#29983#36335#24452#65306
-  end
-  object cxgrpbxModules: TcxGroupBox [15]
+  object cxgrpbxModules: TcxGroupBox [13]
     Left = 471
     Top = 16
     Caption = #27169#22359#21160#24577#24211#21015#34920#65306
-    TabOrder = 15
+    TabOrder = 13
     Height = 169
     Width = 210
     object cxmModules: TcxMemo
@@ -219,11 +207,11 @@ inherited frmSysConfig: TfrmSysConfig
       Width = 206
     end
   end
-  object cxgrpbxStrategy: TcxGroupBox [16]
+  object cxgrpbxStrategy: TcxGroupBox [14]
     Left = 8
     Top = 232
     Caption = #36873#39064#31574#30053#65306
-    TabOrder = 16
+    TabOrder = 14
     Height = 226
     Width = 691
     object cxmStrategy: TcxMemo
@@ -234,24 +222,23 @@ inherited frmSysConfig: TfrmSysConfig
         'cxmStrategy')
       Style.StyleController = styleControllerEdit
       TabOrder = 0
-      ExplicitHeight = 220
       Height = 206
       Width = 687
     end
   end
-  object cxLabel5: TcxLabel [17]
+  object cxLabel5: TcxLabel [15]
     Left = 220
     Top = 95
     Caption = #29366#24577#26356#26032#38388#38548#65288#31186#65289#65306
   end
-  object edtStatusRefeshInterval: TcxTextEdit [18]
+  object edtStatusRefeshInterval: TcxTextEdit [16]
     Left = 344
     Top = 94
     Style.StyleController = styleControllerEdit
-    TabOrder = 18
+    TabOrder = 16
     Width = 121
   end
-  object cxLabel9: TcxLabel [19]
+  object cxLabel9: TcxLabel [17]
     Left = 451
     Top = 196
     AutoSize = False
@@ -259,14 +246,14 @@ inherited frmSysConfig: TfrmSysConfig
     Height = 17
     Width = 135
   end
-  object edtPwd: TcxTextEdit [20]
+  object edtPwd: TcxTextEdit [18]
     Left = 587
     Top = 194
     Style.StyleController = styleControllerEdit
-    TabOrder = 20
+    TabOrder = 18
     Width = 106
   end
-  object radiogrpRetryModel: TcxRadioGroup [21]
+  object radiogrpRetryModel: TcxRadioGroup [19]
     Left = 116
     Top = 180
     Properties.Columns = 2
@@ -281,16 +268,16 @@ inherited frmSysConfig: TfrmSysConfig
         Value = 1
       end>
     ItemIndex = 0
-    TabOrder = 21
+    TabOrder = 19
     Height = 42
     Width = 329
   end
-  object cxLabel11: TcxLabel [22]
+  object cxLabel11: TcxLabel [20]
     Left = 21
     Top = 195
     Caption = #30331#24405#35768#21487#27169#24335#65306
   end
-  object setSysConfig: TADODataSet [23]
+  object setSysConfig: TADODataSet [21]
     Connection = dmSetQuestion.stkConn
     CommandText = 'select * from sysconfig'
     Parameters = <>

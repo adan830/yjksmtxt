@@ -6,7 +6,7 @@ inherited frmAppDlgBase: TfrmAppDlgBase
   ClientWidth = 517
   OldCreateOrder = True
   ExplicitWidth = 533
-  ExplicitHeight = 378
+  ExplicitHeight = 379
   PixelsPerInch = 96
   TextHeight = 12
   object Bevel1: TBevel

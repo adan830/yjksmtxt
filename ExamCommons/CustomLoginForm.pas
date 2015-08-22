@@ -184,6 +184,8 @@ implementation
                end;
 
                r := GetRectCloseButton;
+               if biSystemMenu in BorderIcons then
+         begin
                if m_CloseButtonDown then
                begin
                   TitleBmp.canvas.Draw(r.Left, r.Top, btn_close_down);
@@ -193,6 +195,7 @@ implementation
                end
                else
                   TitleBmp.canvas.Draw(r.Left, r.Top, btn_close_normal);
+         end;
 
                // C.FillRect(Rect(0, 0, Width, xTitleHeight)); //±ÍÃ‚«¯”Ú
                // BitBlt(DC, xFramWidth, xFramWidth, Width, xTitleHeight, TitleBmp.Canvas.Handle, 0, 0, SRCCOPY);

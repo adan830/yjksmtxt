@@ -223,7 +223,7 @@ function TFrmLogin.Login:TCommandResult;
                   begin
                      if Examinee.ID = EmptyStr then
                         raise Exception.Create('考生ID不能为空');
-                     sExamPath := BaseConfig.ExamPath + '\' + Examinee.ID;
+                     sExamPath :=IncludeTrailingPathDelimiter(TExamClientGlobal.ExamPath)+ Examinee.ID;  // BaseConfig.ExamPath + '\' + Examinee.ID;
                      if DirectoryExists(sExamPath) then
                      begin
                         LoginType := ltContinuteInterupt;

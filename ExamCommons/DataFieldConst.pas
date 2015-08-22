@@ -85,7 +85,7 @@ const
    DFNEI_REMAINTIME   = 'RemainTime';
    DFNEI_TIMESTAMP    = 'Stamp';
    DFNEI_SCOREINFO    = 'ScoreInfo';
-   DFNEI_SCORE        = 'Score'; // 只用在汇兑成绩表中
+   DFNEI_SCORE        = 'Score'; // 只用在汇总成绩表中
    // 以下几个字段是用来保存解密数据的
    DFNEI_DECRYPTEDID         = 'DeCryptedID';
    DFNEI_DECRYPTEDNAME       = 'DeCryptedName';
@@ -126,6 +126,8 @@ const
    SQLSTR_GETALLEXAMINEES           = 'select ExamineeID,ExamineeName,RemainTime,Status from 考生信息';
    // select 给定试题号的记录
    SQLSTR_GETTQDATASET_BY_STNO = 'select * from 试题 where st_no = :v_stno';
+
+   SQLSTR_SYSCONFIG='select * from sysconfig';
 
 implementation
 

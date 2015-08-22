@@ -47,6 +47,10 @@ begin
    // TExamClientGlobal.ExamTCPClient := TExamTCPClient.Create(CONSTSERVERIP,CONSTSERVERPORT);
    TExamClientGlobal.ExamTCPClient := TExamTCPClient.Create();
    try
+      if not TExamClientGlobal.GetClientConfig('clientconfig.ini') then
+      begin
+         raise Exception.Create('读配置文件clietnconfig.ini出错！请检查文件');
+      end;
       { TODO : 连接服务器异常，或IP地址不正确等 }
       TExamClientGlobal.ExamTCPClient.Connect; // GlobalExamTCPClient.Connect;
       TExamClientGlobal.SetBaseConfig();

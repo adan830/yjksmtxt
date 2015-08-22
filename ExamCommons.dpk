@@ -67,7 +67,8 @@ contains
   ShadowFrame in 'ExamCommons\ShadowFrame.pas',
   Logger in 'ExamCommons\Logger.pas',
   CnDebug in 'ExamCommons\CnDebug.pas',
-  wdHintWnd in 'ExamCommons\wdHintWnd.pas';
+  wdHintWnd in 'ExamCommons\wdHintWnd.pas',
+  CustomQuestionLoginForm in 'ExamCommons\CustomQuestionLoginForm.pas';
 
 // FastMM4 in '..\Components\fastmm4\FastMM4.pas';
 

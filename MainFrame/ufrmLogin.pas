@@ -6,7 +6,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ufrmAppDlgBase, StdCtrls, Buttons, ExtCtrls, cxControls,
-  cxContainer, cxEdit, cxTextEdit, cxButtons, jpeg, cxLookAndFeelPainters, Menus, dxSkinsCore, dxSkinsDefaultPainters;
+  cxContainer, cxEdit, cxTextEdit, cxButtons, jpeg, cxLookAndFeelPainters, Menus, dxSkinsCore, dxSkinsDefaultPainters,
+  cxGraphics, cxLookAndFeels;
 
 type
   TfrmLogin = class(TfrmAppDlgBase)

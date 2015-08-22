@@ -22,7 +22,7 @@ interface
 implementation
 
 uses
-  Role, SysUtils, Forms, ufrmLogin;
+  Role, SysUtils, Forms;
 
 
 procedure InitGlobalObject();

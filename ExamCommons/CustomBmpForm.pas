@@ -20,8 +20,7 @@ interface
             btn_max_down, btn_max_highlight, btn_max_normal            : TPngImage;
             btn_Restore_down, btn_Restore_highlight, btn_Restore_normal: TPngImage;
             btn_close_down, btn_close_highlight, btn_close_normal      : TPngImage;
-            // hasShadow:BOOL;
-            // shadowFrame:TShadowFrame;
+
             m_MiniButtonHover, m_MiniButtonDown  : Boolean;
             m_MaxButtonHover, m_MaxButtonDown    : Boolean;
             m_CloseButtonHover, m_CloseButtonDown: Boolean;

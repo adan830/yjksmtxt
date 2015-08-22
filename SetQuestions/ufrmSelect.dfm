@@ -225,6 +225,7 @@ inherited frmSelect: TfrmSelect
       Width = 210
       Height = 497
       ExplicitWidth = 210
+      ExplicitHeight = 497
       DockingType = 5
       OriginalWidth = 210
       OriginalHeight = 538

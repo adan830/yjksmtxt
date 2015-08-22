@@ -33,7 +33,7 @@ type
       FExamClasify          : string;
       FLastDate             : TDate;  // realy is tdatetime but used in client so not covert
       FScoreDisplayMode     : string; // realy is integer but used in client so not covert
-      FExamPath             : string;
+      //FExamPath             : string; //set by clientconfig.ini
       FLoginPermissionMode  : integer;
       FRetryPwd             : string;
       FExamTime             : integer;
@@ -48,7 +48,7 @@ type
       property ExamClasify          : string read FExamClasify;
       property LastDate             : TDate read FLastDate; // realy is tdatetime but used in client so not covert
       property ScoreDisplayMode     : string read FScoreDisplayMode; // realy is integer but used in client so not covert
-      property ExamPath             : string read FExamPath;
+      //property ExamPath             : string read FExamPath;
       property LoginPermissionMode  : integer read FLoginPermissionMode;
       property RetryPwd             : string read FRetryPwd;
       property ExamTime             : integer read FExamTime;
@@ -66,7 +66,7 @@ type
       // 仅复制基本配置和模块，但不复制选题策略，因为只有在服务器端需要选题策略，其它系统中不需要。
       function ToStrings: TStringList;
       procedure FromStrings(AStrings: TStrings);
-      procedure ModifyCustomConfig(AInterval: integer; AexamPath: string; aLoginPermissionModel: integer);
+      procedure ModifyCustomConfig(AInterval: integer;  aLoginPermissionModel: integer);       //AexamPath: string;
    end;
 
 implementation
@@ -107,7 +107,7 @@ procedure TBaseConfig.SetConfig(AText: string);
          FExamClasify           := stringList.Values['类型'];
          FLastDate              := StrToInt64(stringList.Values['有效日期']);
          FScoreDisplayMode      := stringList.Values['显示成绩'];
-         FExamPath              := stringList.Values['考试路径'];
+         //FExamPath              := stringList.Values['考试路径'];
          FLoginPermissionMode   := strtoint(stringList.Values['登录许可模式']);
          FRetryPwd              := stringList.Values['重续延考密码'];
          FExamTime              := StrToInt(stringList.Values['考试时间']);
@@ -215,7 +215,7 @@ function TBaseConfig.ToStrings(): TStringList;
       Result.Add(FExamClasify);
       Result.Add(inttostr(trunc(FLastDate)));
       Result.Add(FScoreDisplayMode);
-      Result.Add(FExamPath); // ABaseConfig.ExamPath 可在服务器端配置
+      //Result.Add(FExamPath); // ABaseConfig.ExamPath 可在服务器端配置    move to examclient.ini config
       Result.Add(inttostr(FLoginPermissionMode));
       Result.Add(FRetryPwd); // ABaseConfig.FRetryPwd 可在服务器端配置
       Result.Add(inttostr(FStatusRefreshInterval));
@@ -235,13 +235,13 @@ procedure TBaseConfig.FromStrings(AStrings: TStrings);
       FExamClasify           := AStrings[1];
       FLastDate              := StrToInt64(AStrings[2]);
       FScoreDisplayMode      := (AStrings[3]);
-      FExamPath              := AStrings[4];
-      FLoginPermissionMode   := StrToInt64(AStrings[5]);
-      FRetryPwd              := AStrings[6];
-      FStatusRefreshInterval := StrToInt(AStrings[7]);
-      FExamTime              := StrToInt(AStrings[8]);
-      FTypeTime              := StrToInt(AStrings[9]);
-      if (AStrings.Count >= 10) and (FModules = nil) then
+      //FExamPath              := AStrings[4];
+      FLoginPermissionMode   := StrToInt64(AStrings[4]);
+      FRetryPwd              := AStrings[5];
+      FStatusRefreshInterval := StrToInt(AStrings[6]);
+      FExamTime              := StrToInt(AStrings[7]);
+      FTypeTime              := StrToInt(AStrings[8]);
+      if (AStrings.Count >= 9) and (FModules = nil) then
          FModules := TStringList.Create;
       for i       := 10 to AStrings.Count - 1 do
       begin
@@ -249,10 +249,10 @@ procedure TBaseConfig.FromStrings(AStrings: TStrings);
       end;
    end;
 
-procedure TBaseConfig.ModifyCustomConfig(AInterval: integer; AexamPath: string; aLoginPermissionModel: integer);
+procedure TBaseConfig.ModifyCustomConfig(AInterval: integer;  aLoginPermissionModel: integer);    //AexamPath: string;
    begin
       FStatusRefreshInterval := AInterval;
-      FExamPath              := AexamPath;
+      //FExamPath              := AexamPath;
       FLoginPermissionMode   := aLoginPermissionModel;
    end;
 

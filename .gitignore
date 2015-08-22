@@ -48,6 +48,7 @@
 *.projdata
 *.tvsconfig
 *.dsk
+*.skincfg
 
 # Delphi history and backups
 __history/
@@ -59,3 +60,4 @@ __history/
 #for project yjksmtxt
 Debug/
 Release/
+Temptest/

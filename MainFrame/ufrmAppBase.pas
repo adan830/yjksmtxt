@@ -4,10 +4,10 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs;
+  Dialogs,customquestionloginform;
 
 type
-  TfrmAppBase = class(TForm)
+  TfrmAppBase = class(TCustomQuestionLoginForm) //
   private
     { Private declarations }
   public
