@@ -72,7 +72,7 @@ var
 implementation
 
 uses
-  Commons, uDmServer, DataFieldConst;
+  Commons, uDmServer, DataFieldConst, Datasnap.DBClient;
 
 {$R *.dfm}
 
@@ -81,15 +81,22 @@ uses
 procedure TEnterForBaseImport.btn2Click(Sender: TObject);
 var
   str:string;
+  cd:TclientDataSet;
 begin
   if dlgOpen1.Execute then begin
       edtBmk.Text:=dlgOpen1.FileName;
       connkwxxk.Connected:=false;
       str:= 'Provider=MSDASQL.1;Persist Security Info=False;Extended Properties="DSN=Visual FoxPro Database;UID=;SourceDB='+
            ExtractFiledir(edtBmk.Text)+';SourceType=DBF;Exclusive=No;BackgroundFetch=Yes;Collate=Machine;Null=Yes;Deleted=Yes;"';
+//      str:= 'Provider=MSDASQL.1;Persist Security Info=False;Extended Properties="{Driver=dBASE Files};UID=;SourceDB='+
+//           ExtractFiledir(edtBmk.Text)+';SourceType=DBF;Exclusive=No;BackgroundFetch=Yes;Collate=Machine;Null=Yes;Deleted=Yes;"';
+//           str:= 'Provider=Microsoft.Jet.OLEDB.4.0;SourceDB='+
+//           edtBmk.Text+';Extended  Properties=dbaSE 5.0;Persist  Security  Info=False;';
       connkwxxk.ConnectionString:=str;
       tblkwxxk.TableName:=ExtractFileName(edtBmk.Text);
       tblkwxxk.active:=true;
+      cd.LoadFromFile();
+
   end;
     
 

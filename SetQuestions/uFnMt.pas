@@ -43,6 +43,7 @@ procedure doFileImport(var ATQ : TTQ; aFilter : string);
 // 从文件中导入
 procedure FileImport(var ATQ : TTQ; FileName : string);
 // 从源库中导入
+procedure ClientDbFileImport( astream:TMemoryStream; aConn : TADOConnection) ;
 function fFileImport(RecID : string; Sourcehjstr : string; sourceConn : TADOConnection) : string; overload;
 function fFileImport(RecID : string; Sourcehjstr : string; connSource : TADOConnection; connTarget : TADOConnection) : string; overload;
 
@@ -123,6 +124,27 @@ procedure FileImport(var ATQ : TTQ; FileName : string);
 
 {$ENDREGION}
 
+procedure ClientDbFileImport( astream:TMemoryStream; aConn : TADOConnection) ; overload;
+var
+      adsTarget       : TADODataSet;
+      str             : string;
+   begin
+            adsTarget := TADODataSet.Create(nil);
+            try
+                  adsTarget.Connection:=aConn;
+                  adsTarget.CommandText := 'select * from 附加文件 ';
+                  adsTarget.Active      := true;
+                  adsTarget.AppendRecord([1, CLIENTDB_FILENAME]);
+                  begin
+                     adsTarget.Edit;
+                     astream.Position:=0;
+                     (adsTarget.FieldByName('filestream') as TBlobField).LoadFromStream(astream);
+                     adsTarget.Post;
+                  end;
+            finally
+               adsTarget.Free;
+            end;
+end;
 function fFileImport(RecID : string; Sourcehjstr : string; sourceConn : TADOConnection) : string; overload;
    var
       adsSource       : TADODataSet;
@@ -373,12 +395,12 @@ procedure ExportTestQuestionsToDB(connSource : TADOConnection; connTarget : TADO
                         // FieldValues['Nd'],
                         // FieldValues['syn']
                              ]);
-                  if (integer(aModel) >= 4) then
-                  begin
-                     adsTarget.Edit;
-                     adsTarget.FieldValues[DFNTQ_ENVIRONMENT] := fFileImport(FieldValues['st_no'], FieldValues['st_hj'], connSource, connTarget);
-                     adsTarget.Post;
-                  end;
+//                  if (integer(aModel) >= 4) then
+//                  begin
+//                     adsTarget.Edit;
+//                     adsTarget.FieldValues[DFNTQ_ENVIRONMENT] := fFileImport(FieldValues['st_no'], FieldValues['st_hj'], connSource, connTarget);
+//                     adsTarget.Post;
+//                  end;
                end;
             end else begin
                // 未找到记录，错误

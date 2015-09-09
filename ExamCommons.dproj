@@ -90,6 +90,7 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <Debugger_SymbolSourcePath>D:\develop\yjksmtxt\debug\dcu;D:\develop\yjksmtxt\debug\dcp;$(Debugger_SymbolSourcePath)</Debugger_SymbolSourcePath>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ProjectExtensions>

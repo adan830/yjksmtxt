@@ -11,7 +11,9 @@ library WordModule;
   using PChar or ShortString parameters. }
 
 uses
-  FastMM4,
+  {$IFDEF DEBUG}
+   FastMM4,
+ {$ENDIF}
 //  Windows,
   SysUtils,
   Classes,

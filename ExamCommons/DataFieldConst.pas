@@ -53,7 +53,7 @@ const
    DFNTQ_KSDA        = 'ksda';
    DFNTQ_COMMENT     = 'Comment';
    DFNTQ_POINTID     = 'PointID';
-   DFNTQ_TIMESTAMP   = 'TimeStamp';
+   //DFNTQ_TIMESTAMP   = 'TimeStamp';
    DFNTQ_DIFFICULTY  = 'Difficulty'; // 试题难度
    DFNTQ_TOTALRIGHT  = 'TotalRight'; // 总正确数
    DFNTQ_TOTALUSED   = 'TotalUsed';  // 总使用数
@@ -121,7 +121,7 @@ const
    SQLSTR_GETTQID_BY_PREFIX         = 'select st_no from 试题 where st_no like :v_stno';
    SQLSTR_UPDATECLIENTDBREAMINTIME  = 'update 考生信息 set remaintime=:v_remainTime';
    SQLSTR_GETTQDATASET_BY_PREFIX    = 'select * from 试题 where st_no like :v_stno';
-   SQLSTR_GETCLIENT_EXAMINEEINFO    = 'select * from 考生信息 where ExamineeID like :v_ExamineeID';
+   SQLSTR_GETCLIENT_EXAMINEEINFO    ='select * from 考生信息 where ExamineeID';// 'select * from 考生信息 where ExamineeID like :v_ExamineeID';
    SQLSTR_GETCLIENT_AllTQ           = 'select * from 试题 ';
    SQLSTR_GETALLEXAMINEES           = 'select ExamineeID,ExamineeName,RemainTime,Status from 考生信息';
    // select 给定试题号的记录

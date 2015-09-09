@@ -1,7 +1,8 @@
 program prjExamServer;
    {.$R uac.res uac.rc}
 uses
-  FastMM4,
+{$IFDEF DEBUG}
+  FastMM4,  {$ENDIF}
   Forms,
   uFormMainServer in 'Server\uFormMainServer.pas' {FormMainServer},
   ExamineesManager in 'Server\ExamineesManager.pas',
@@ -27,6 +28,7 @@ begin
    {$ENDIF}
    // define REGISTER_EXPECTED_MEMORY_LEAK
    // NeverSleepOnMMThreadContention := True;
+
    Application.Initialize;
 
    IsMultiThread                 := True;

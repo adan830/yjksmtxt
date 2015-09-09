@@ -224,7 +224,6 @@ object frmBase: TfrmBase
       Height = 479
       Align = alLeft
       AutoSize = True
-      ExplicitHeight = 140
       DockingType = 5
       OriginalWidth = 224
       OriginalHeight = 527

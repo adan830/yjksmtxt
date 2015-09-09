@@ -19,6 +19,8 @@ object TypeForm: TTypeForm
   OnDestroy = FormDestroy
   OnKeyDown = FormKeyDown
   OnShow = FormShow
+  ExplicitWidth = 320
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 20
   object pnlTitle: TPanel
@@ -105,6 +107,7 @@ object TypeForm: TTypeForm
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 0
+        Zoom = 100
         OnKeyDown = SourceRichKeyDown
       end
       object pnl5: TPanel
@@ -160,6 +163,7 @@ object TypeForm: TTypeForm
         ParentFont = False
         ScrollBars = ssVertical
         TabOrder = 0
+        Zoom = 100
         OnChange = targetRichChange
         OnKeyDown = targetRichKeyDown
         OnKeyUp = targetRichKeyUp
@@ -211,7 +215,6 @@ object TypeForm: TTypeForm
       Height = 33
       Anchors = [akRight, akBottom]
       Caption = #36864#20986#25171#23383#39064
-      DoubleBuffered = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -231,7 +234,6 @@ object TypeForm: TTypeForm
         EE33337F333377F3337F33EEEEEE00EEEE33337F33337733337F33EEEEEEEEEE
         EE33337FFFFFFFFFFF7F33EEEEEEEEEEEE333377777777777773}
       NumGlyphs = 2
-      ParentDoubleBuffered = False
       ParentFont = False
       TabOrder = 0
       OnClick = ExitBitBtnClick

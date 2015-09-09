@@ -25,7 +25,7 @@ object FrameOperate: TFrameOperate
       ParentBackground = False
       ShowCaption = False
       TabOrder = 0
-      object mmo1: TMemo
+      object mmTQDesp: TMemo
         Left = 0
         Top = 0
         Width = 638
@@ -33,13 +33,10 @@ object FrameOperate: TFrameOperate
         Align = alClient
         BorderStyle = bsNone
         Font.Charset = DEFAULT_CHARSET
-        Font.Color = 5592405
+        Font.Color = clBlack
         Font.Height = 14
         Font.Name = #23435#20307
         Font.Style = [fsBold]
-        Lines.Strings = (
-          ''
-          #21333#39033#36873#25321#39064#65288#26412#39064#20849'40'#23567#39064#65292#27599#23567#39064'1'#20998#65292#20849'40'#20998#65289#21482#26377#19968#20010#36873#39033#26159#27491#30830#30340)
         ParentFont = False
         TabOrder = 0
       end

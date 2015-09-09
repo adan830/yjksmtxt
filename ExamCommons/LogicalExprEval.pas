@@ -93,7 +93,8 @@ begin
    cp := PChar(FExprString);
    while cp^<>#0 do
    begin
-      while (cp^ <>CONSTSTARTTOKEN) do Inc(cp);
+      while (cp^ <>CONSTSTARTTOKEN)and(cp^<>#0)  do Inc(cp);
+      if cp^=#0 then Break;
       start := cp;
       Inc(cp);
       while CharIsDigit(cp^) do Inc(cp);

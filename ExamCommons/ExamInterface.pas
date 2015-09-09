@@ -13,7 +13,7 @@ type
    end;
 
    IDataModule =interface
-     procedure SetEQBConn(path:string='';dbName:string='考生题库.dat';pwd:string=CLIENTDBPWD);
+     procedure SetEQBConn(path:string='';dbName:string=CLIENTDB_FILENAME; {'考生题库.dat';}pwd:string=CLIENTDBPWD);
      procedure AddClientEQBRec(const Values: array of const);
      procedure GetTestEnvironmentInfo(out testEnvironmentInfo: TStringList);
      function GetDbStrFieldValue(ASqlStr:string;AParamValue:string):string;

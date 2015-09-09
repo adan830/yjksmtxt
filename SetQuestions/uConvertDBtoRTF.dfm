@@ -18,13 +18,13 @@ object frmConverttoRTF: TfrmConverttoRTF
     Top = 8
     Width = 450
     Height = 266
-    AutoSize = False
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
+    SelText = ''
     TabOrder = 0
   end
   object btnConvert: TcxButton

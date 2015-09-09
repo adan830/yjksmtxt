@@ -101,7 +101,7 @@ type
       cbbExamineePhotoFolder : TcxShellComboBox;
       radiogrpRetryModel : TcxRadioGroup;
       dxBarButton1 : TdxBarButton;
-      dxBarButton2 : TdxBarButton;
+      mnbtnAddFirewallItem : TdxBarButton;
       mnbtnNormal : TdxBarButton;
       GridPanel1 : TGridPanel;
       GridPanel2 : TGridPanel;
@@ -121,7 +121,6 @@ type
       btnLock : TCnSpeedButton;
       btnExit : TCnSpeedButton;
       Image1 : TImage;
-      btnOpenFirewallPort : TCnSpeedButton;
 
       procedure FormCreate(Sender : TObject);
 
@@ -149,7 +148,7 @@ type
       procedure btnResetExamPwdClick(Sender : TObject);
       procedure barPopupMenuPopup(Sender : TObject);
       procedure btnLockClick(Sender : TObject);
-      procedure btnOpenFirewallPortClick(Sender : TObject);
+      procedure mnbtnAddFirewallItemClick(Sender : TObject);
       private
          FServerStatus : TExamServerStatus;
 
@@ -191,8 +190,8 @@ var
 implementation
 
 uses
-   uDmServer, frmExamineesImport, ServerGlobal, StkRecordInfo, frmEnterForBaseImport, IOUtils, DataFieldConst, ExamException,
-   Provider, DataUtils, Commons, setexampwd, system.Hash, ufrmserverlock, frxDBSet;
+   uDmServer, frmExamineesImport, ServerGlobal, StkRecordInfo, frmEnterForBaseImport, IOUtils, DataFieldConst,
+   Provider, DataUtils, Commons, setexampwd, system.Hash, ufrmserverlock, frxDBSet,ExamException;
 {$R *.dfm}
 
 procedure TFormMainServer.FormCloseQuery(Sender : TObject; var CanClose : Boolean);
@@ -209,7 +208,7 @@ procedure TFormMainServer.FormCloseQuery(Sender : TObject; var CanClose : Boolea
 procedure TFormMainServer.FormCreate(Sender : TObject);
    begin
       Application.OnException := HandleException;
-      // TExamServerGlobal.CreateClassObject();
+       TExamServerGlobal.CreateClassObject();
       // GlobalDmServer:=TdmServer.Create(nil);
       // GlobalStkRecordInfo := TStkRecordInfo.CreateStkRecordInfo;
       // SetupGlobalOperateModules;
@@ -492,20 +491,6 @@ procedure TFormMainServer.btnLockClick(Sender : TObject);
       end;
    end;
 
-procedure TFormMainServer.btnOpenFirewallPortClick(Sender : TObject);
-   var
-      s   : string;
-      r   : integer;
-      cmd : AnsiString;
-   begin
-      cmd := 'netsh.exe advfirewall firewall delete rule name=ExamServer';
-      r   := WinExec(pansichar(cmd), SW_Hide);
-      // Application.MessageBox(pwidechar( r.ToString()),'result');
-      cmd := 'netsh.exe advfirewall firewall add rule name=ExamServer profile=any dir=in action=allow protocol=tcp localport=3000';
-      r   := WinExec(pansichar(cmd), SW_Hide);
-      // Application.MessageBox(pwidechar( r.ToString()),'result');
-   end;
-
 procedure TFormMainServer.btnResetExamPwdClick(Sender : TObject);
    var
       resetExamPwdForm : TResetExamPwdForm;
@@ -700,6 +685,28 @@ procedure TFormMainServer.mnbtnAbsentClick(Sender : TObject);
          Port       := Values[FocusedRecordIndex, ColIndexOfPort];
       end;
       TExamServerGlobal.ExamineesManager.UpdateStatus(Examinee);
+   end;
+
+procedure TFormMainServer.mnbtnAddFirewallItemClick(Sender : TObject);
+   var
+      s   : string;
+      r   : integer;
+      cmd : AnsiString;
+   begin
+      try
+         cmd := 'netsh.exe advfirewall firewall delete rule name=ExamServer';
+         r   := WinExec(pansichar(cmd), SW_Hide);
+         // Application.MessageBox(pwidechar( r.ToString()),'result');
+         cmd := 'netsh.exe advfirewall firewall add rule name=ExamServer profile=any dir=in action=allow protocol=tcp localport=3000';
+         r   := WinExec(pansichar(cmd), SW_Hide);
+         // Application.MessageBox(pwidechar( r.ToString()),'result');
+      finally
+         if r>31 then
+            Application.MessageBox('³É¹¦Ìí¼Ó·À»ðÇ½ÀýÍâ£¡','ÌáÊ¾')
+         else
+            Application.MessageBox('Ìí¼Ó·À»ðÇ½ÀýÍâÊ§°Ü£¡','ÌáÊ¾') ;
+      end;
+
    end;
 
 procedure TFormMainServer.mnbtnAllExamineeInfoImportClick(Sender : TObject);
@@ -1084,8 +1091,11 @@ procedure TFormMainServer.CLMChanged(var message : TCLMChange);
 
 procedure TFormMainServer.HandleException(Sender : TObject; E : Exception);
    begin
+
       TExamServerGlobal.logger.WriteLog(E.message);
       Application.ShowException(E);
+      if e is ESeriousException then
+         Application.Terminate;
    end;
 
 end.

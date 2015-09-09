@@ -3,7 +3,9 @@ program prjExamClient;
 {$R *.dres}
 
 uses
+   {$IFDEF DEBUG}
    FastMM4,
+ {$ENDIF}
    Forms,
    SysUtils,
    IdException,
@@ -49,7 +51,8 @@ begin
    try
       if not TExamClientGlobal.GetClientConfig('clientconfig.ini') then
       begin
-         raise Exception.Create('读配置文件clietnconfig.ini出错！请检查文件');
+         //Application.MessageBox('配置文件ClietnConfig.ini出错！请检查配置','提示');
+         Application.Terminate;
       end;
       { TODO : 连接服务器异常，或IP地址不正确等 }
       TExamClientGlobal.ExamTCPClient.Connect; // GlobalExamTCPClient.Connect;

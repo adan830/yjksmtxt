@@ -58,6 +58,9 @@ type
 
 implementation
 
+uses
+  ExamGlobal;
+
 constructor TLogger.Create;
 begin
   InitializeCriticalSection(FCSLock);
@@ -110,7 +113,7 @@ begin
           Log := '[Error] ' + Log;
       end;
       if WRITE_LOG_ADD_TIME then
-        Log := FormatDateTime(WRITE_LOG_TIME_FORMAT, Now) + ' ' + Log + #13#10;
+        Log := FormatDateTime(WRITE_LOG_TIME_FORMAT, Now) + ' ' + Log + EOL;
 
       bytes := TEnCoding.UTF8.GetBytes(Log);
       FFileStream.Write(bytes, Length(bytes));

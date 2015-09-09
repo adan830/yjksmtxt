@@ -3,7 +3,7 @@ unit ServerGlobal;
 interface
 
 uses
-   ServerUtils, StkRecordInfo, uGrade, uDmServer, Generics.Collections, logger, ExamServer,ExamineesManager;
+   ServerUtils, StkRecordInfo, uGrade, uDmServer, Generics.Collections, logger, ExamServer, ExamineesManager;
 
 const
    CMDCUSTOMCONFIGFILENAME = 'ServerConfig.Ini';
@@ -11,35 +11,35 @@ const
 type
    // TO-DO:端口被占用，服务打不开
    TExamServerGlobal = class
-   strict private
-   class var
-      FAppPath            : string;
-      FServerCustomConfig : TServerCustomConfig;
-      FOperateModules     : TModules;
-      FDataBAKFolder      : String;
-      // FExamServer : TExamServer;
-      FStkRecordInfo : TStkRecordInfo;
-      FExamServer    : TExamServer;
-      FDmServer      : TDmServer;
-      FExamineesManager:TExamineesManager;
-   public
-      class procedure CreateClassObject;
-      class procedure DestroyClassObject;
-      // class procedure SetupGlobalVariables();
-      class procedure SetupGlobalOperateModules();
-   public
-   class var
-      Inst                                 : TExamServerGlobal;
-      logger                               : TLogger;
-      class property GlobalApplicationPath : string read FAppPath;
-      class property ServerCustomConfig    : TServerCustomConfig read FServerCustomConfig write FServerCustomConfig;
-      class property GlobalOperateModules  : TModules read FOperateModules;
-      // class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
-      // class property GlobalExamServer : TExamServer read FExamServer;
-      class property GlobalStkRecordInfo : TStkRecordInfo read FStkRecordInfo;
-      class property ExamServer          : TExamServer read FExamServer;
-      class property GlobalDmServer      : TDmServer read FDmServer;
-      class property ExamineesManager     :TExamineesManager read FExamineesManager;
+      strict private
+      class var
+         FAppPath            : string;
+         FServerCustomConfig : TServerCustomConfig;
+         FOperateModules     : TModules;
+         FDataBAKFolder      : String;
+         // FExamServer : TExamServer;
+         FStkRecordInfo    : TStkRecordInfo;
+         FExamServer       : TExamServer;
+         FDmServer         : TDmServer;
+         FExamineesManager : TExamineesManager;
+      public
+         class procedure CreateClassObject;
+         class procedure DestroyClassObject;
+         // class procedure SetupGlobalVariables();
+         class procedure SetupGlobalOperateModules();
+      public
+      class var
+         Inst                                 : TExamServerGlobal;
+         logger                               : TLogger;
+         class property GlobalApplicationPath : string read FAppPath;
+         class property ServerCustomConfig    : TServerCustomConfig read FServerCustomConfig write FServerCustomConfig;
+         class property GlobalOperateModules  : TModules read FOperateModules;
+         // class property GlobalDataBAKFolder: String read FDataBAKFolder write FDataBAKFolder;
+         // class property GlobalExamServer : TExamServer read FExamServer;
+         class property GlobalStkRecordInfo : TStkRecordInfo read FStkRecordInfo;
+         class property ExamServer          : TExamServer read FExamServer;
+         class property GlobalDmServer      : TDmServer read FDmServer;
+         class property ExamineesManager    : TExamineesManager read FExamineesManager;
    end;
 
 implementation
@@ -59,16 +59,18 @@ class procedure TExamServerGlobal.CreateClassObject;
          configfilepath      := ExtractFilePath(Application.ExeName);
          FServerCustomConfig := TServerCustomConfig.create;
          FServerCustomConfig.SetupCustomConfig(configfilepath, FStkRecordInfo.BaseConfig);
-         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval,FServerCustomConfig.LoginPermissionModel);       //, FServerCustomConfig.ExamPath
+         FStkRecordInfo.BaseConfig.ModifyCustomConfig(FServerCustomConfig.StatusRefreshInterval, FServerCustomConfig.LoginPermissionModel);
+         // , FServerCustomConfig.ExamPath
 
          SetupGlobalOperateModules;
 
-         FExamineesManager := TExamineesManager.Create();
-         FExamServer := TExamServer.Create(nil, FExamineesManager, 3000);
+         FExamineesManager := TExamineesManager.create();
+         FExamServer       := TExamServer.create(nil, FExamineesManager, 3000);
       except
          on E : Exception do
          begin
             logger.WriteLog(E.Message);
+            Application.Terminate;
          end;
       end;
    end;
@@ -95,8 +97,8 @@ class procedure TExamServerGlobal.DestroyClassObject;
       FStkRecordInfo.Free;
       FDmServer.Free;
       FServerCustomConfig.Free;
-      FExamServer.free;
-      FExamineesManager.free;
+      FExamServer.Free;
+      FExamineesManager.Free;
       // logger.Free;
       Inst := nil;
       inherited;
@@ -132,14 +134,14 @@ class procedure TExamServerGlobal.SetupGlobalOperateModules();
 
 initialization
 
-TExamServerGlobal.CreateClassObject();
 TExamServerGlobal.logger         := TLogger.create();
 TExamServerGlobal.logger.Enabled := true;
+//TExamServerGlobal.CreateClassObject();
 // Application.OnException := FExceptionHandle.HandleException;
 
 finalization
 
-TExamServerGlobal.logger.Free;
 TExamServerGlobal.DestroyClassObject;
+TExamServerGlobal.logger.Free;
 
 end.

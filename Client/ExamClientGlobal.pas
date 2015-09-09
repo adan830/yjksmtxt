@@ -3,7 +3,7 @@ unit ExamClientGlobal;
 interface
 
 uses ClientMain, ExamTCPClient, NetGlobal, Classes,
-   ExtCtrls, uGrade, ScoreIni, ADODB, floatform, select, BaseConfig, controls, uFrameSingleSelect, uFrameMultiSelect, keyboardType, uFrameOperate, uFormOperate;
+   ExtCtrls, uGrade, ScoreIni, ADODB, floatform, select, BaseConfig, controls, uFrameSingleSelect, uFrameMultiSelect, keyboardType, uFrameOperate, uFormOperate,DataFieldConst;
 
 
 // TModules = array of TModuleInfo;
@@ -14,73 +14,75 @@ uses ClientMain, ExamTCPClient, NetGlobal, Classes,
 type
    TExamClientGlobal = class
       {$REGION '---考试端全局变量----'}
-   private
-   class var
-      FExamTCPClient : TExamTCPClient;
-      FBaseConfig    : TBaseConfig;
-      FExamPath      : string;
-      FLoginType     : TLoginType;
-      FModules       : TModules;
-      FScore         : TScoreIni;
-      // FDmClient: TdmClient;
-      FConnClientDB : TADOConnection;
-      FMainTimer    : TTimer;
-   private
-      class function GetConnClientDB : TADOConnection; static;
-      class procedure MainTimerTimer(Sender : TObject);
-      class procedure UpdateStatusTimer(Sender : TObject);
+      private
+      class var
+         FExamTCPClient : TExamTCPClient;
+         FBaseConfig    : TBaseConfig;
+         FExamPath      : string;
+         FLoginType     : TLoginType;
+         FModules       : TModules;
+         FScore         : TScoreIni;
+         // FDmClient: TdmClient;
+         FConnClientDB : TADOConnection;
+         FMainTimer    : TTimer;
+      private
+         class function GetConnClientDB : TADOConnection; static;
+         class procedure MainTimerTimer(Sender : TObject);
+         class procedure UpdateStatusTimer(Sender : TObject);
 
-   public
-   class var
-      Examinee       : TExaminee;
-      ExamineePhoto  : TMemoryStream;
-      ClientMainForm : TClientMainForm;
-      // FloatWindow :TFloatWindow;
-      floatWindow                                          : TFormOperate;
-      singleFrame                                          : TFrameSingleSelect;
-      multiFrame                                           : TFrameMultiSelect;
-      typeFrame                                            : TFrameKeyType;
-      windowsFrame, WordFrame, ExcelFrame, PowerPointFrame : TFrameOperate;
-      // SelectWindow: TSelectForm;
-      // RemainTime:integer;
-      Inst : TExamClientGlobal;
-   public // global variable for ExamClient
-      class property ExamTCPClient : TExamTCPClient read FExamTCPClient write FExamTCPClient;
+      public
+      class var
+         Examinee       : TExaminee;
+         ExamineePhoto  : TMemoryStream;
+         ClientMainForm : TClientMainForm;
+         // FloatWindow :TFloatWindow;
+         floatWindow                                          : TFormOperate;
+         singleFrame                                          : TFrameSingleSelect;
+         multiFrame                                           : TFrameMultiSelect;
+         typeFrame                                            : TFrameKeyType;
+         windowsFrame, WordFrame, ExcelFrame, PowerPointFrame : TFrameOperate;
+         // SelectWindow: TSelectForm;
+         // RemainTime:integer;
+         Inst : TExamClientGlobal;
+      public // global variable for ExamClient
+         class property ExamTCPClient : TExamTCPClient read FExamTCPClient write FExamTCPClient;
 
-      // class property Examinee : TExaminee read FExaminee write FExaminee;
-      class property BaseConfig : TBaseConfig read FBaseConfig write FBaseConfig;
-      class property ExamPath   : string read FExamPath write FExamPath;
-      class property LoginType  : TLoginType read FLoginType write FLoginType;
+         // class property Examinee : TExaminee read FExaminee write FExaminee;
+         class property BaseConfig : TBaseConfig read FBaseConfig write FBaseConfig;
+         class property ExamPath   : string read FExamPath write FExamPath;
+         class property LoginType  : TLoginType read FLoginType write FLoginType;
 
-      class property Modules      : TModules read FModules write FModules;
-      class property Score        : TScoreIni read FScore write FScore;
-      class property ConnClientDB : TADOConnection read GetConnClientDB;
-      {$ENDREGION}
-   public
-      // constructor Create();
-      class procedure CreateClassObject();
-      class procedure DestroyClassObject();
-      // destructor Destroy(); override;
-      /// 从服务器获取配置数据保存到 TExamClientGlobal.Modules中
-      class function SetBaseConfig() : TCommandResult;
-      class function GetClientConfig(filename : string) : Boolean;
-      // 从 sysconfig表中获得加密数据 来设置数据模块中的全局变量
-      class procedure SetGlobalExamPath();
+         class property Modules : TModules read FModules write FModules;
+         class property Score   : TScoreIni read FScore write FScore;
+         /// this for client db
+         class property ConnClientDB : TADOConnection read GetConnClientDB;
+         {$ENDREGION}
+      public
+         // constructor Create();
+         class procedure CreateClassObject();
+         class procedure DestroyClassObject();
+         // destructor Destroy(); override;
+         /// 从服务器获取配置数据保存到 TExamClientGlobal.Modules中
+         class function SetBaseConfig() : TCommandResult;
+         class function GetClientConfig(filename : string) : boolean;
+         // 从 sysconfig表中获得加密数据 来设置数据模块中的全局变量
+         class procedure SetGlobalExamPath();
 
-      class function CreateExamEnvironmentByTestFilepack(AExamineeID : string; ALoginType : TLoginType; AEnvironmentPath : string) : Integer;
+         class function CreateExamEnvironmentByTestFilepack(AExamineeID : string; ALoginType : TLoginType; AEnvironmentPath : string) : Integer;
 
-      class procedure SetEQBConn(path : string = ''; dbName : string = '考生题库.dat'; pwd : string = 'jiaping');
+         class procedure SetEQBConn(path : string = ''; dbName : string =CLIENTDB_FILENAME; { '考生题库.dat';} pwd : string = 'jiaping');
 
-      class procedure SetupExamineeInfoBase(const AExaminee : TExaminee); static;
-      class procedure AquireExamineeInfoFromClientDB(var AExaminee : TExaminee); static;
-      class function Login() : TCommandResult; overload; static;
-      class function Login(LoginType : TLoginType; pwd : string) : TCommandResult; overload; static;
+         class procedure SetupExamineeInfoBase(const AExaminee : TExaminee); static;
+         class procedure AquireExamineeInfoFromClientDB(var AExaminee : TExaminee); static;
 
-      class procedure EnableTimer;
-      class procedure UnableTimer;
+         class function Login() : TCommandResult; overload; static;
+         class function Login(LoginType : TLoginType; pwd : string) : TCommandResult; overload; static;
 
-      class function InitExam : TModalResult;
-      class function CreateEnvironment(const ALoginType : TLoginType) : TModalResult;
+         class procedure EnableTimer;
+         class procedure UnableTimer;
+
+         class function InitExam : TModalResult;
+         class function CreateEnvironment(const ALoginType : TLoginType) : TModalResult;
 
    end;
 
@@ -91,7 +93,7 @@ implementation
 
 uses
    SysUtils, ExamGlobal, Windows, ShellModules, Commons, compress,
-   ExamInterface, tq, Forms, Variants, DataFieldConst, datautils;
+   ExamInterface, tq, Forms, Variants, datautils;
 
 // constructor TExamClientGlobal.Create();
 // begin
@@ -121,13 +123,14 @@ class function TExamClientGlobal.SetBaseConfig() : TCommandResult;
          Result := crOk;
       end;
    end;
-class function TExamClientGlobal.GetClientConfig(filename : string) : Boolean;
+
+class function TExamClientGlobal.GetClientConfig(filename : string) : boolean;
    var
-      cfg     : TStringList;
-      ahost   : string;
-      aPort   : word;
+      cfg   : TStringList;
+      ahost : string;
+      aPort : word;
    begin
-      Result := False;
+      Result := false;
       if FileExists('clientconfig.ini') then
       begin
          cfg := TStringList.Create;
@@ -135,13 +138,23 @@ class function TExamClientGlobal.GetClientConfig(filename : string) : Boolean;
             cfg.LoadFromFile('clientconfig.ini');
             ahost := cfg.Values['serverip'];
             if not word.tryparse(cfg.Values['serverport'], aPort) then
+            begin
+               Application.MessageBox('读取配置文件ClietnConfig.ini出错！' + #13#10 + '请检查是否存在ServerPort项，该项值是否为3000', '提示');
                exit;
-               TExamClientGlobal.ExamTCPClient.Host:= ahost;
-            TExamClientGlobal.ExamTCPClient.Port   := aPort;
+            end;
 
-            TExamClientGlobal.FExamPath:=cfg.values['ExamPath'];
-            if not DirectoryExists(TExamClientGlobal.FExamPath) then exit;
+            TExamClientGlobal.ExamTCPClient.Host := ahost;
+            TExamClientGlobal.ExamTCPClient.Port := aPort;
 
+            TExamClientGlobal.FExamPath := cfg.Values['ExamPath'];
+            if not DirectoryExists(TExamClientGlobal.FExamPath) then
+            begin
+               if not createdir(TExamClientGlobal.FExamPath) then
+               begin
+                  Application.MessageBox('读取配置文件ClietnConfig.ini出错！' + #13#10 + '请检查是否存在Exampath项，该项值是否为有效路径', '提示');
+                  exit;
+               end;
+            end;
             Result := true;
             // if trim(aip)=string.Empty then errorMessage:='配置文件中ServerIP不能为空；';
             // if (not integer.tryparse( cfg.values['serverport'], portvalue)) then errorMessage:=errorMessage+'配置文件中ServerPort项值应为整数，默认应为3000;';
@@ -212,7 +225,7 @@ class procedure TExamClientGlobal.SetGlobalExamPath();
    begin
       if Examinee.ID = EmptyStr then
          raise Exception.Create('考生ID不能为空');
-      FExamPath :=IncludeTrailingPathDelimiter( FExamPath)+ Examinee.ID; // FBaseConfig.ExamPath + '\' + Examinee.ID;
+      FExamPath := IncludeTrailingPathDelimiter(FExamPath) + Examinee.ID; // FBaseConfig.ExamPath + '\' + Examinee.ID;
    end;
 
 class procedure TExamClientGlobal.CreateClassObject;
@@ -229,12 +242,12 @@ class function TExamClientGlobal.CreateExamEnvironmentByTestFilepack(AExamineeID
       try
          if FExamTCPClient.CommandGetExamineeTestFilePack(AExamineeID, ALoginType, memStream) = crOk then
          begin
-            if not directoryexists(AEnvironmentPath) then
+            if not DirectoryExists(AEnvironmentPath) then
                createdir(AEnvironmentPath);
             DirectoryDecompression(AEnvironmentPath, memStream);
          end;
       finally
-         memStream.Free;
+         memStream.free;
       end;
    end;
 
@@ -256,21 +269,21 @@ class procedure TExamClientGlobal.DestroyClassObject;
       jg         : LongBool;
    begin
       if ExamineePhoto <> nil then
-         ExamineePhoto.Free;
+         ExamineePhoto.free;
       for i := 0 to high(FModules) do
       begin
          moduleinfo := FModules[i];
          jg         := FreeLibrary(moduleinfo.DllHandle);
-         moduleinfo.Free;
+         moduleinfo.free;
       end;
       FModules := nil;
       if (FBaseConfig <> nil) then
-         FBaseConfig.Free;
-      FExamTCPClient.Free;
-      FConnClientDB.Free;
-      FScore.Free;
+         FBaseConfig.free;
+      FExamTCPClient.free;
+      FConnClientDB.free;
+      FScore.free;
       if FMainTimer <> nil then
-         FMainTimer.Free;
+         FMainTimer.free;
    end;
 
 class procedure TExamClientGlobal.EnableTimer;
@@ -281,9 +294,7 @@ class procedure TExamClientGlobal.EnableTimer;
          FMainTimer.Interval := 1000;
          FMainTimer.OnTimer  := MainTimerTimer;
          FMainTimer.Enabled  := true;
-      end
-      else
-      begin
+      end else begin
          FMainTimer.OnTimer := MainTimerTimer;
          FMainTimer.Enabled := true;
       end;
@@ -293,24 +304,23 @@ class procedure TExamClientGlobal.UnableTimer;
    begin
       if FMainTimer <> nil then
       begin
-         FMainTimer.Enabled := False;
+         FMainTimer.Enabled := false;
       end;
    end;
 
-class procedure TExamClientGlobal.SetEQBConn(path : string = ''; dbName : string = '考生题库.dat'; pwd : string = 'jiaping');
+class procedure TExamClientGlobal.SetEQBConn(path : string = ''; dbName : string =CLIENTDB_FILENAME; { '考生题库.dat';} pwd : string = 'jiaping');
    var
       appPath : string;
    begin
       if FConnClientDB = nil then
       begin
          FConnClientDB                := TADOConnection.Create(nil);
-         FConnClientDB.LoginPrompt    := False;
+         FConnClientDB.LoginPrompt    := false;
          FConnClientDB.Provider       := 'Microsoft.Jet.OLEDB.4.0';
          FConnClientDB.KeepConnection := true;
+
       end;
 
-      if path = '' then
-         path := 'e:\yjksmtxt\debug\bin';
       if FileExists(path + '\' + dbName) then
       begin
          FConnClientDB.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + path + '\' + dbName + ';Mode=Share Deny None;Persist ' +
@@ -318,7 +328,9 @@ class procedure TExamClientGlobal.SetEQBConn(path : string = ''; dbName : string
       end
       else
          raise Exception.Create('找不到考生试题库！，可能是生成考试环境出错，或错误删除了该文件');
-      FConnClientDB.Connected := true;
+         FConnClientDB.Connected := true;
+     
+
    end;
 
 class function TExamClientGlobal.GetConnClientDB : TADOConnection;
@@ -350,7 +362,7 @@ class procedure TExamClientGlobal.SetupExamineeInfoBase(const AExaminee : TExami
             ExecSQL;
          end;
       finally
-         qry.Free;
+         qry.free;
       end;
    end;
 
@@ -373,7 +385,7 @@ class procedure TExamClientGlobal.AquireExamineeInfoFromClientDB(var AExaminee :
             end;
          end;
       finally
-         qry.Free;
+         qry.free;
       end;
    end;
 
@@ -406,7 +418,7 @@ class function TExamClientGlobal.Login() : TCommandResult;
                // if DirectoryExists(GlobalExamPath) then
                begin
                   TExamClientGlobal.LoginType := ltContinuteInterupt;
-                  loginResult := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
+                  loginResult                 := TExamClientGlobal.ExamTCPClient.CommandExamineeLogin(TExamClientGlobal.Examinee.ID, TExamClientGlobal.LoginType);
                end;
             end;
          esAllowContinuteExam :
@@ -436,8 +448,8 @@ class procedure TExamClientGlobal.UpdateStatusTimer(Sender : TObject);
       if (TExamClientGlobal.Examinee.Status >= esLogined) then
       begin
          UpdateClientDBRemainTime(TExamClientGlobal.Examinee.RemainTime, TExamClientGlobal.ConnClientDB);
-         TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name,
-                 TExamClientGlobal.Examinee.Status, TExamClientGlobal.Examinee.RemainTime);
+         TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.Status,
+            TExamClientGlobal.Examinee.RemainTime);
       end;
    end;
 
@@ -519,8 +531,8 @@ class function TExamClientGlobal.InitExam : TModalResult;
       // TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
       // TypeForm := TTypeForm.Create(self);
 
-      TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name,
-              TExamClientGlobal.Examinee.Status, TExamClientGlobal.Examinee.RemainTime);
+      TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.Status,
+         TExamClientGlobal.Examinee.RemainTime);
 
    end;
 
@@ -533,40 +545,39 @@ class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType
             ltFirstLogin, ltReExamLogin :
                begin
                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
-                  TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
+                  TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);            // 设置考生试题库连接
                   TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
                end;
             ltContinuteInterupt :
                begin
-                  if directoryexists(TExamClientGlobal.ExamPath) then
+                  if DirectoryExists(TExamClientGlobal.ExamPath) then
                   begin
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
-                     TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
-                  end
-                  else
-                  begin
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
+                     TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
+                  end else begin
                      MessageBoxOnTopForm(Application, '找不到上次考试文件目录！', '提示:', mb_ok);
                      Result := mrCancel;
                   end;
                end;
             ltContinuteEndedExam :
                begin
-                  if directoryexists(TExamClientGlobal.ExamPath) then
+                  if DirectoryExists(TExamClientGlobal.ExamPath) then
                   begin
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
                      TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
-                  end
-                  else
-                  begin
+                  end else begin
                      TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath); // 设置考生试题库连接
+                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
                      TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
                   end;
                end;
          end;
       except
-         MessageBoxOnTopForm(Application, '生成考试环境出现问题，请重新进入系统', '提示:', mb_ok);
-         Result := mrCancel;
+         on e : Exception do
+         begin
+            MessageBoxOnTopForm(Application, '生成考试环境出现问题，请重新进入系统' + e.Message, '提示:', mb_ok);
+            Result := mrCancel;
+         end;
       end;
 
    end;

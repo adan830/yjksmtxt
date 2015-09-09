@@ -20,9 +20,6 @@ type
     mmTargetStr: TcxMemo;
     lblTargetStr: TcxLabel;
     btnCreateTree: TcxButton;
-    btnDecrypt: TcxButton;
-    procedure btnEncryptClick(Sender: TObject);
-    procedure btnDecryptClick(Sender: TObject);
     procedure btnCreateTreeClick(Sender: TObject);
   private
     { Private declarations }
@@ -73,16 +70,6 @@ begin
    finally
       exp.Free;
    end;
-end;
-
-procedure TfrmExpressionTree.btnDecryptClick(Sender: TObject);
-begin
-  mmTargetStr.Lines.Text :=DecryptStr(mmSourceStr.Lines.Text);
-end;
-
-procedure TfrmExpressionTree.btnEncryptClick(Sender: TObject);
-begin
-  mmTargetStr.Lines.Text :=EncryptStr(mmSourceStr.Lines.Text);
 end;
 
 end.

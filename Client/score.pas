@@ -26,17 +26,12 @@ type
     procedure btnReturnClick(Sender: TObject);
     procedure btnExitClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure btnWinClick(Sender: TObject);
-    procedure btnWordClick(Sender: TObject);
-    procedure btnExcelClick(Sender: TObject);
-    procedure btnPptClick(Sender: TObject);
   private
     function SelectScoreView(amode:TFormMode;grpBox:TGroupBox;ScoreInfoStrings:TStrings):integer;
     function OperateScoreValue(ScoreInfoStrings: TStrings;chr:char=','):Single;
     function DzScoreValue(scoreLabel: TLabel;ScoreInfoStrings: TStrings;chr:char=','): integer;
     procedure ShowOperateDetailScore(ABtnTag:integer);
     procedure AddOperateDisplayControl(AItemIndex,AModuleIndex: Integer;ADisName:string;AScoreValue:string);
-    function OperateScoreView1(amode: TFormMode; grpBox: TGroupBox; ScoreInfoStrings: TStrings): Integer;
     procedure btnDetailScoreClick(Sender: TObject);
 
     { Private declarations }
@@ -69,7 +64,7 @@ end;
 procedure TScoreForm.FormShow(Sender: TObject);
 var
   ScoreInfoStrings:TStringList;
-  TotalScore:single;
+  TotalScore,operateTotalScore:single;
   i,j:Integer;
   itemScore:Single;
   itemScoreStr: string;
@@ -80,11 +75,12 @@ begin
     TotalScore := TotalScore+SelectScoreView(SINGLESELECT_MODEL,gbsingle,ScoreInfoStrings);
     TExamClientGlobal.Score.ReadSection(MODULE_MULTIPLE_NAME,ScoreInfoStrings);
     TotalScore := TotalScore+SelectScoreView(MULTISELECT_MODEL,gbMulti,ScoreInfoStrings);
+
     TExamClientGlobal.Score.ReadSection(MODULE_KEYTYPE_NAME,ScoreInfoStrings);
     itemScore := OperateScoreValue(ScoreInfoStrings,',');
     TotalScore := TotalScore+ itemScore;
     lblType.Caption := FloatToStrF(itemScore,ffFixed,4,1)+ '分';
-
+    operateTotalScore:=itemScore;
     j:=0;
     for I := 0 to length(TExamClientGlobal.Modules) - 1 do begin
       with TExamClientGlobal.Modules[i] do
@@ -96,6 +92,7 @@ begin
                   j:=j+1;
                   itemScore := OperateScoreValue(ScoreInfoStrings,DelimiterChar);
                   TotalScore := TotalScore+ itemScore;
+                  operateTotalScore:=operateTotalScore+itemscore;
                   itemScoreStr := FloatToStrF(itemScore,ffFixed,4,1)+ '分';
                   AddOperateDisplayControl(j,i,Name,itemScoreStr);
                end;
@@ -103,6 +100,7 @@ begin
          end;
       end;
    end;
+   grpOperate.Caption:='操作题得分:'+ FloatToStrF(operateTotalScore,ffFixed,4,1)+ '分';
     lblTotal.Caption := '总得分：'+floattostrf(TotalScore,ffFixed,5,1) +'分';
   finally 
     ScoreInfoStrings.Free;
@@ -113,8 +111,8 @@ procedure TScoreForm.AddOperateDisplayControl(AItemIndex,AModuleIndex:Integer;AD
 var
    hpos,vpos :Integer;
 begin
-    hpos := 20+((AItemIndex-1) div 4)*300;
-    vpos := 28+(AItemIndex-1)*32;
+    hpos := 50+((AItemIndex-1) div 4)*300;
+    vpos := 50+(AItemIndex-1)*32;
     with TLabel.Create(self) do
     begin
       parent := grpOperate;
@@ -123,8 +121,9 @@ begin
       Alignment := taRightJustify;
       width:=180;
       height:=25;
-      font.Size := 12;
-      caption:=ADisName;
+      font.Height := 14;
+      Font.Name:='宋体';
+      caption:=ADisName+':';
     end;    // with
     with TLabel.Create(self) do
     begin
@@ -133,17 +132,24 @@ begin
       top :=vpos;
       width:=55;
       height:=25;
-      font.Size := 12;
+      font.Height := 14;
+      Font.Name:='宋体';
       Alignment := taCenter;
       caption:=AScoreValue;
     end;    // with
-    with TButton.Create(self) do    //TButton.Create(self)
+    with TCnSpeedButton.Create(self) do    //TButton.Create(self)
     begin
       parent := grpOperate;
       left :=hpos+185+65;
-      top :=vpos;
-      width:=65;
+      top :=vpos-10;
+      width:=120;
       height:=25;
+      Color:=$00F3A055;
+      Font.Color:=clWhite;
+      Font.Name:='宋体';
+      Font.Height:=14;
+      flat:=True;
+      FlatBorder:=false;
       Tag  := AModuleIndex;
       Caption := '查看详细';
       OnClick := btnDetailScoreClick;
@@ -173,13 +179,16 @@ begin
       font.Size := 12;
       caption:=inttostr(i)+'.';
     end;    // with
-    with TSpeedButton.Create(self) do
+    with TCnSpeedButton.Create(self) do
     begin
       parent := GrpBox;
       left :=hpos+25;
       top :=vpos;
       width:=25;
       height:=25;
+      Color:=$00F3A055;
+      flat:=True;
+      FlatBorder:=false;
       if scoreinfo.IsRight=-1 then
       begin
         Score := score +1;
@@ -189,6 +198,7 @@ begin
       begin
         glyph:=image2.Picture.Bitmap;
       end;
+      Layout:=blGlyphRight;
         
     end;    // with
   end;    // for
@@ -204,60 +214,7 @@ begin
   result := Score ;
 
 end;
-function TScoreForm.OperateScoreView1(amode:TFormMode;grpBox:TGroupBox;ScoreInfoStrings: TStrings):Integer;
-var
-  I: Integer;
-  Score : Integer;
-  hpos,vpos:Integer;
-  scoreInfo:TScoreInfo;
-begin
-  score := 0;
-  for I := 1 to ScoreInfoStrings.Count  do    // Iterate
-  begin
-    StrToScoreInfo(ScoreInfoStrings.Strings[i-1],scoreinfo);
-    hpos := 20+((i-1) mod 10)*65;
-    vpos := 28+((i-1) div 10)*32;
-    with TLabel.Create(self) do
-    begin
-      parent := GrpBox;
-      left :=hpos;
-      top :=vpos;
-      width:=25;
-      height:=25;
-      font.Size := 12;
-      caption:=inttostr(i)+'.';
-    end;    // with
-    with TSpeedButton.Create(self) do
-    begin
-      parent := GrpBox;
-      left :=hpos+25;
-      top :=vpos;
-      width:=25;
-      height:=25;
-      if scoreinfo.IsRight=-1 then
-      begin
-        Score := score +1;
-        glyph:=image1.Picture.Bitmap
-      end
-      else
-      begin
-        glyph:=image2.Picture.Bitmap;
-      end;
-        
-    end;    // with
-  end;    // for
-  case aMode  of    //
-    SINGLESELECT_MODEL:begin
-      grpBox.Caption := ' 单项选择题得分：'+inttostr(score )+'分 ';
-    end;
-    MULTISELECT_MODEL:begin
-      score := score*2;
-      grpBox.Caption := ' 多项选择题得分：'+inttostr(score )+'分 ';
-    end;       
-  end;    // case
-  result := Score ;
 
-end;
 procedure TScoreForm.ShowOperateDetailScore(ABtnTag:integer);
 var
   GradeInfoStrings,ScoreInfoStrings:TStringList;
@@ -265,17 +222,20 @@ var
   i:integer;
   str:string;
   chr:Char;
+  strTemp:string;
 begin
   ScoreInfoStrings:=TStringList.Create;
   GradeInfoStrings:=TStringList.Create;
   try
       str := TExamClientGlobal.Modules[ABtnTag].Name;
-      ScoreInfoStrings.Text := TExamClientGlobal.Score.ReadString(str,'value','');
+//      ScoreInfoStrings.Text := TExamClientGlobal.Score.ReadString(str,'value','');
+      TExamClientGlobal.Score.ReadSection(str,ScoreInfoStrings);
       chr := TExamClientGlobal.Modules[ABtnTag].delimiterChar;
       for i := 0 to ScoreInfoStrings.Count -1 do begin
-         StrToScoreInfo(ScoreInfoStrings.Strings[i],scoreInfo,chr );
+      strTemp:=string.Copy( ScoreInfoStrings.Strings[i]);
+         StrToScoreInfo(strTemp,scoreInfo,chr );
          begin
-            str:=inttostr(scoreInfo.GIID)+chr+chr+chr+scoreInfo.EQText+chr+inttostr(scoreInfo.Points)+chr+scoreInfo.ExamineValue+chr+inttostr(scoreInfo.IsRight)+chr;
+            str:=inttostr(scoreInfo.GIID)+chr+chr+chr+scoreInfo.EQText+chr+inttostr(scoreInfo.Points)+chr+scoreInfo.exp+chr+scoreInfo.ExamineValue+chr+inttostr(scoreInfo.IsRight)+chr;
             GradeInfoStrings.Add(str );
          end;
       end;
@@ -284,25 +244,6 @@ begin
     GradeInfoStrings.Free;
     ScoreInfoStrings.Free;
   end;    // try/finally
-end;
-
-procedure TScoreForm.btnWinClick(Sender: TObject);
-begin
-  //ShowOperateScore(WINDOWS_MODEL);
-end;
-procedure TScoreForm.btnWordClick(Sender: TObject);
-begin
-  //ShowOperateScore(WORD_MODEL);
-end;
-
-procedure TScoreForm.btnExcelClick(Sender: TObject);
-begin
-  //ShowOperateScore(EXCEL_MODEL);
-end;
-
-procedure TScoreForm.btnPptClick(Sender: TObject);
-begin
-  //ShowOperateScore(POWERPOINT_MODEL);
 end;
 
 procedure TScoreForm.btnDetailScoreClick(Sender: TObject);
@@ -315,11 +256,13 @@ var
   I: Integer;
   Score : single;
   scoreInfo:TScoreInfo;
+  strTemp:string;
 begin
   score := 0;
   for I := 1 to ScoreInfoStrings.Count  do    // Iterate
   begin
-    StrToScoreInfo(ScoreInfoStrings.Strings[i-1],scoreinfo,chr);
+    strTemp:=string.Copy( ScoreInfoStrings.Strings[i-1]);
+    StrToScoreInfo(strTemp,scoreinfo,chr);
     if scoreinfo.IsRight=-1 then
     begin
       Score := score + scoreInfo.points;
@@ -334,11 +277,13 @@ var
   I: Integer;
   Score : Integer;
   scoreInfo:TScoreInfo;
+   strTemp:string;
 begin
   score := 0;
   for I := 1 to ScoreInfoStrings.Count  do    // Iterate
   begin
-    StrToScoreInfo(ScoreInfoStrings.Strings[i-1],scoreinfo,chr);
+   strTemp:=string.Copy( ScoreInfoStrings.Strings[i-1]);
+    StrToScoreInfo(strtemp,scoreinfo,chr);
     if scoreinfo.IsRight=-1 then
     begin
       Score := score + scoreInfo.points;

@@ -73,7 +73,7 @@ uses Variants,Vcl.StdCtrls, Classes, ExamInterface, DataFieldConst, DB, ADODB, t
   //procedure CompressAndWriteTQByID(var ATQ: TTQ; ATQDm: ITQDataModule; AWriteOptions: TTQWriteOptions);
 
   // 当前仅用于打字题写入考生录入文字到环境字段中
-  procedure WriteTQStAnswerEnvironmentByID(const AID: string; ATQConn : TAdoConnection; const ATQ : TTQ);
+  procedure WriteTQStAnswerEnvironmentByID(const AID: string; EnvironmentStream, answerStream: TMemoryStream; ATQConn: TADOConnection);
  // procedure WriteTQStAnswerByID(const AID: string; ATQDm : ITQDataModule; const ATQ : TTQ);
  //==============================================================================
 // 在数据集中添加一条记录，并将TTQ中的数据填充进入，
@@ -127,7 +127,7 @@ uses Variants,Vcl.StdCtrls, Classes, ExamInterface, DataFieldConst, DB, ADODB, t
 //==============================================================================
   function GetDataSetByPreFix(const APreFix : string;const AConn: TADOConnection) : TDataSet;
   function GetTQIDByPreFix(const APreFix : string;const AConn: TADOConnection) :string;
-  function GetDataSetBySQL(const ASQLStr : string;const AParamValue : Variant ;const AConn: TADOConnection) : TDataSet;
+  function GetDataSetBySQL(const ASQLStr: string; const AConn: TADOConnection) : TDataSet;
   procedure UpdateClientDBRemainTime(const aremainTime : integer;const AConn: TADOConnection) ;
 
 //==============================================================================
@@ -320,7 +320,7 @@ end;
 
 
 
-procedure WriteTQStAnswerEnvironmentByID(const AID: string; ATQConn : TAdoConnection; const ATQ : TTQ);
+procedure WriteTQStAnswerEnvironmentByID(const AID: string; EnvironmentStream, answerStream: TMemoryStream; ATQConn: TADOConnection);
 var
   setTemp: TADODataSet;
   procedure WriteStreamToField(AFieldName : string; const AStream:TMemoryStream);
@@ -340,12 +340,9 @@ begin
         if not IsEmpty then
         begin
            Edit;
-           with ATQ,setTemp do begin
-                  //FieldValues[DFNTQ_ST_NO] := St_no;
-                  //WriteStreamToField(DFNTQ_CONTENT,Content);
-                  WriteStreamToField(DFNTQ_STANSWER,StAnswer);
-                  WriteStreamToField(DFNTQ_ENVIRONMENT,Environment);
-                  //WriteStreamToField(DFNTQ_COMMENT,Comment);
+           with setTemp do begin
+                  WriteStreamToField(DFNTQ_STANSWER,answerStream);
+                  WriteStreamToField(DFNTQ_ENVIRONMENT,EnvironmentStream);
            end;
         end;
       finally
@@ -554,7 +551,7 @@ begin
   end;
 end;
 
-function GetDataSetBySQL(const ASQLStr : string;const AParamValue : Variant ;const AConn: TADOConnection) : TDataSet;
+function GetDataSetBySQL(const ASQLStr: string; const AConn: TADOConnection) : TDataSet;
 var
   ds : TADODataSet;
 begin
@@ -562,7 +559,7 @@ begin
   try
     ds.Connection := AConn;
     ds.CommandText :=ASQLStr;
-    ds.Parameters[0].Value := AParamValue;
+//    ds.Parameters[0].Value := AParamValue;
     ds.Active := True;
     Result := ds;
   except

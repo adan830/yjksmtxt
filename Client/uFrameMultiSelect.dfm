@@ -48,7 +48,8 @@ object FrameMultiSelect: TFrameMultiSelect
           Font.Style = [fsBold]
           Lines.Strings = (
             ''
-            #21333#39033#36873#25321#39064#65288#26412#39064#20849'40'#23567#39064#65292#27599#23567#39064'1'#20998#65292#20849'40'#20998#65289#21482#26377#19968#20010#36873#39033#26159#27491#30830#30340)
+            ''
+            #22810#39033#36873#25321#39064#65288#26412#39064#20849'5'#23567#39064#65292#27599#23567#39064'2'#20998#65292#20849'10'#20998#65289#33267#23569#26377#19968#20010#36873#39033#26159#27491#30830#30340)
           ParentFont = False
           TabOrder = 0
         end
@@ -173,6 +174,7 @@ object FrameMultiSelect: TFrameMultiSelect
             Height = 80
             Align = alClient
             BevelOuter = bvNone
+            Color = clWhite
             ColumnCollection = <
               item
                 Value = 25.000327054435120000
@@ -207,6 +209,7 @@ object FrameMultiSelect: TFrameMultiSelect
                 Control = chkAnswer4
                 Row = 0
               end>
+            ParentBackground = False
             RowCollection = <
               item
                 Value = 100.000000000000000000
@@ -222,11 +225,13 @@ object FrameMultiSelect: TFrameMultiSelect
               Margins.Left = 15
               Align = alClient
               Caption = 'A'
+              Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = 28
               Font.Name = 'Arial'
               Font.Style = []
+              ParentColor = False
               ParentFont = False
               TabOrder = 0
             end
@@ -239,11 +244,13 @@ object FrameMultiSelect: TFrameMultiSelect
               Margins.Left = 15
               Align = alClient
               Caption = 'B'
+              Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = 28
               Font.Name = 'Arial'
               Font.Style = []
+              ParentColor = False
               ParentFont = False
               TabOrder = 1
             end
@@ -256,11 +263,13 @@ object FrameMultiSelect: TFrameMultiSelect
               Margins.Left = 15
               Align = alClient
               Caption = 'C'
+              Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = 28
               Font.Name = 'Arial'
               Font.Style = []
+              ParentColor = False
               ParentFont = False
               TabOrder = 2
             end
@@ -273,11 +282,13 @@ object FrameMultiSelect: TFrameMultiSelect
               Margins.Left = 15
               Align = alClient
               Caption = 'D'
+              Color = clWhite
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = 28
               Font.Name = 'Arial'
               Font.Style = []
+              ParentColor = False
               ParentFont = False
               TabOrder = 3
             end

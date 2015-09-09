@@ -46,18 +46,8 @@ object frmExpressionTree: TfrmExpressionTree
     Width = 65
     Height = 25
     Anchors = [akLeft, akRight, akBottom]
-    Caption = #29983#25104#26641
+    Caption = #26657#39564
     TabOrder = 4
     OnClick = btnCreateTreeClick
-  end
-  object btnDecrypt: TcxButton
-    Left = 200
-    Top = 338
-    Width = 65
-    Height = 25
-    Anchors = [akLeft, akRight, akBottom]
-    Caption = #35299#23494
-    TabOrder = 5
-    OnClick = btnDecryptClick
   end
 end

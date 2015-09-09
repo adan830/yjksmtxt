@@ -11,7 +11,9 @@ library PptModule;
   using PChar or ShortString parameters. }
 
 uses
-  //FastMM4,
+  {$IFDEF DEBUG}
+   FastMM4,
+ {$ENDIF}
 //  windows,
   SysUtils,
   Classes,

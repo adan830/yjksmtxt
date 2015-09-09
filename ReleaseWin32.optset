@@ -1,16 +1,19 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
+        <DCC_IOChecking>true</DCC_IOChecking>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <DCC_Define>RELEASE;noNOLOGIN;USE_JCL;$(DCC_Define)</DCC_Define>
-        <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <DCC_Define>RELEASE;USE_JCL;$(DCC_Define)</DCC_Define>
+        <DCC_DebugInfoInExe>false</DCC_DebugInfoInExe>
         <DCC_DebugInfoInTds>false</DCC_DebugInfoInTds>
         <DCC_BplOutput>D:\develop\yjksmtxt\Release\bin\</DCC_BplOutput>
-        <DCC_DebugInformation>2</DCC_DebugInformation>
-        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_DebugInformation>0</DCC_DebugInformation>
+        <DCC_DebugDCUs>false</DCC_DebugDCUs>
         <DCC_ExeOutput>D:\develop\yjksmtxt\release\bin\</DCC_ExeOutput>
         <DCC_DcpOutput>D:\develop\yjksmtxt\release\dcp\</DCC_DcpOutput>
-        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\Release\dcu;D:\develop\yjksmtxt\Release\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\Release\dcu;D:\develop\yjksmtxt\Release\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCU;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCP;D:\develop\yjksmtxt\MainFrame;D:\develop\yjksmtxt\ExamCommons;D:\yjksmtxt\Components;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcuOutput>D:\develop\yjksmtxt\release\dcu\</DCC_DcuOutput>
     </PropertyGroup>
     <ProjectExtensions>

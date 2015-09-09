@@ -2,7 +2,7 @@ object FormMainServer: TFormMainServer
   Left = 146
   Top = 115
   BorderStyle = bsToolWindow
-  Caption = #23433#24509#39640#31561#23398#26657#65288#23433#24509#32771#21306#65289#35745#31639#26426#27700#24179#32771#35797#19968#32423'Windows'#26381#21153#22120
+  Caption = #39640#26657#65288#23433#24509#32771#21306#65289#35745#31639#26426#27700#24179#32771#35797#19968#32423'Windows'#26381#21153#22120
   ClientHeight = 531
   ClientWidth = 739
   Color = clBtnFace
@@ -25,7 +25,7 @@ object FormMainServer: TFormMainServer
     Height = 503
     Align = alClient
     TabOrder = 4
-    Properties.ActivePage = tbshtConfig
+    Properties.ActivePage = tbshtMonitor
     Properties.CustomButtons.Buttons = <>
     Properties.HotTrack = True
     Properties.ShowFrame = True
@@ -44,6 +44,10 @@ object FormMainServer: TFormMainServer
       Color = 16775666
       ImageIndex = 0
       ParentColor = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         737
         475)
@@ -644,38 +648,8 @@ object FormMainServer: TFormMainServer
             Style.Edges = [bLeft, bTop, bRight, bBottom]
             Style.Shadow = False
             TabOrder = 0
-            DesignSize = (
-              590
-              273)
             Height = 273
             Width = 590
-            object btnOpenFirewallPort: TCnSpeedButton
-              Left = 305
-              Top = 224
-              Width = 238
-              Height = 30
-              Hint = 
-                #26381#21153#22120#31243#24207#36890#36807'3000'#31471#21475#25509#21463#32771#29983#26426#30340#35775#38382#13#10#22240'Windows Server2008'#31995#32479#40664#35748#38450#28779#22681#21551#29992#13#10#27492#25353#38062#25191#34892#28155#21152#38450#28779#22681#21517 +
-                #20026'ExamServer'#20363#22806#30340#35268#21017
-              Anchors = [akTop]
-              Color = 15966293
-              DownBold = False
-              FlatBorder = False
-              HotTrackBold = False
-              HotTrackColor = 16551233
-              ModernBtnStyle = bsFlat
-              Caption = #25171#24320#38450#28779#22681#30340#32771#35797#26381#21153#31471#21475
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWhite
-              Font.Height = 14
-              Font.Name = #23435#20307
-              Font.Style = [fsBold]
-              Margin = 4
-              ParentFont = False
-              ParentShowHint = False
-              ShowHint = True
-              OnClick = btnOpenFirewallPortClick
-            end
             object lbl1: TcxLabel
               Left = 21
               Top = 31
@@ -1050,6 +1024,10 @@ object FormMainServer: TFormMainServer
         item
           Visible = True
           ItemName = 'dxBarButton1'
+        end
+        item
+          Visible = True
+          ItemName = 'mnbtnAddFirewallItem'
         end>
       OneOnRow = True
       Row = 0
@@ -1076,11 +1054,12 @@ object FormMainServer: TFormMainServer
       Hint = #27719#24635#19978#25253
       Visible = ivAlways
     end
-    object dxBarButton2: TdxBarButton
-      Caption = 'New Button'
+    object mnbtnAddFirewallItem: TdxBarButton
+      Caption = #28155#21152#38450#28779#22681#20363#22806
       Category = 0
-      Hint = 'New Button'
+      Hint = #28155#21152#38450#28779#22681#20363#22806
       Visible = ivAlways
+      OnClick = mnbtnAddFirewallItemClick
     end
     object pmbtnReExam: TdxBarButton
       Caption = #20801#35768#37325#32771

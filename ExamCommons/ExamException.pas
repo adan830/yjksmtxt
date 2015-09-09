@@ -43,9 +43,16 @@ type
       const AMsg: string
       );
   end;
+  /// <summary>
+  ///表示严重错误，程序必须终止
+  /// </summary>
+  ESeriousException=class(EExamException);
+  ECoreFileNotExitException      = class (ESeriousException);
+
 
   //文件不存在异常
   EFileNotExistException         = class (EExamException);
+
   //目录不存在异常
   EDirNotExistException          = class (EExamException);
   //文件夹删除异常
@@ -147,7 +154,7 @@ end;
 
 constructor EMDBConnectionException.Create(MdbFileName: string);
 begin
-  inherited Create(Format('连接数据库：%s 发生错误，请检查库文件路径或文件是否存在，是否有权限！',[mdbfilename]));
+  inherited Create(Format('连接数据库：%s 发生错误，请检查库文件路径或文件是否存在！',[mdbfilename]));
 end;
 
 end.

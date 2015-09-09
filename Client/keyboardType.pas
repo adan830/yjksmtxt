@@ -3,342 +3,352 @@ unit KeyboardType;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, tq;
+   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.ComCtrls, tq;
 
 type
-  TFrameKeyType = class(TFrame)
-    pnlTitle: TPanel;
-    lblTime: TLabel;
-    pnl1: TPanel;
-    pnl3: TPanel;
-    sourceRich: TRichEdit;
-    pnl5: TPanel;
-    lbl1: TLabel;
-    pnl4: TPanel;
-    targetRich: TRichEdit;
-    pnl6: TPanel;
-    lbl2: TLabel;
-    pnl2: TPanel;
-    timer1: TTimer;
-    spl1: TSplitter;
-    procedure sourceRichKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure targetRichChange(Sender: TObject);
-    procedure targetRichKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure targetRichKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure timer1Timer(Sender: TObject);
-  private
-    { Private declarations }
-    fFlag: boolean;
-    fCurrentPos: integer;
-    FTQ: TTQ;
-    // fLength: integer;
-    FTime: integer;
-    // used for sourceRich calu disp
-    disprow, prevPos: integer;
+   TFrameKeyType = class(TFrame)
+      pnlTitle : TPanel;
+      lblTime : TLabel;
+      pnl1 : TPanel;
+      pnl3 : TPanel;
+      sourceRich : TRichEdit;
+      pnl5 : TPanel;
+      lbl1 : TLabel;
+      pnl4 : TPanel;
+      targetRich : TRichEdit;
+      pnl6 : TPanel;
+      lbl2 : TLabel;
+      pnl2 : TPanel;
+      timer1 : TTimer;
+      spl1 : TSplitter;
+      procedure sourceRichKeyDown(Sender : TObject; var Key : Word; Shift : TShiftState);
+      procedure targetRichChange(Sender : TObject);
+      procedure targetRichKeyDown(Sender : TObject; var Key : Word; Shift : TShiftState);
+      procedure targetRichKeyUp(Sender : TObject; var Key : Word; Shift : TShiftState);
+      procedure timer1Timer(Sender : TObject);
+      private
+         { Private declarations }
+         fFlag       : boolean;
+         fCurrentPos : integer;
+         FTQ         : TTQ;
+         // fLength: integer;
+         FTime : integer;
+         // used for sourceRich calu disp
+         disprow, prevPos : integer;
 
-    procedure SetTextSize;
-    procedure SetCaret(RTF: TRichEdit; caretPos: integer);
-  protected
-  public
-    fSource: string;
-    fTarget: string;
-    constructor Create(AOwner: TComponent); override;
-    procedure HideFrame;
-    procedure ShowFrame;
-    destructor Destroy; override;
+         procedure SetTextSize;
+         procedure SetCaret(RTF : TRichEdit; caretPos : integer);
+      protected
+      public
+         fSource : string;
+         fTarget : string;
+         constructor Create(AOwner : TComponent); override;
+         procedure HideFrame;
+         procedure ShowFrame;
+         destructor Destroy; override;
 
-  end;
+   end;
 
 implementation
 
 uses
-  DataUtils, ExamClientGlobal, Commons, FrameWorkUtils, ExamGlobal;
+   DataUtils, ExamClientGlobal, Commons, FrameWorkUtils, ExamGlobal, compress;
 
 {$R *.dfm}
 
 { TFrameKeyType }
-procedure TFrameKeyType.SetCaret(RTF: TRichEdit; caretPos: integer);
-//  var
-//    i, istopline, iselstart: integer;
-//    row, col: integer;
-  begin
-//    row := disprow;
-//    if prevPos < caretPos then
-//      begin
-//        col := caretPos - prevPos;
-//        if col >= length(RTF.Lines[disprow]) then
-//          begin
-//            prevPos := prevPos + length(RTF.Lines[disprow]);
-//            disprow := disprow + 1;
-//          end;
-//      end;
-//    if (row = disprow) then
-//      exit;
-//    iselstart := prevPos + length(RTF.Lines[disprow]) + length(RTF.Lines[disprow + 1]);
+procedure TFrameKeyType.SetCaret(RTF : TRichEdit; caretPos : integer);
+   // var
+   // i, istopline, iselstart: integer;
+   // row, col: integer;
+   begin
+      // row := disprow;
+      // if prevPos < caretPos then
+      // begin
+      // col := caretPos - prevPos;
+      // if col >= length(RTF.Lines[disprow]) then
+      // begin
+      // prevPos := prevPos + length(RTF.Lines[disprow]);
+      // disprow := disprow + 1;
+      // end;
+      // end;
+      // if (row = disprow) then
+      // exit;
+      // iselstart := prevPos + length(RTF.Lines[disprow]) + length(RTF.Lines[disprow + 1]);
 
-    // 以设定票房的方式指定游标位置
-    sendmessage(RTF.Handle, em_setsel, caretPos, caretPos);
-    // 再次侦测游标位置
-    // row:=SendMessage(rtf.handle,em_linefromchar,rtf.SelStart,0);
-    // col:=rtf.SelStart-SendMessage(rtf.Handle,em_lineindex,row,0);
-    // 到游标所在位置
-    sendmessage(RTF.Handle, em_scrollcaret, 0, 0);
-    // SendMessage(rtf.Handle,EM_SCROLL,)
-    sourceRich.Enabled := true;
-    sourceRich.SetFocus;
-    sourceRich.Enabled := false;
-  end;
+      // 以设定票房的方式指定游标位置
+      sendmessage(RTF.Handle, em_setsel, caretPos, caretPos);
+      // 再次侦测游标位置
+      // row:=SendMessage(rtf.handle,em_linefromchar,rtf.SelStart,0);
+      // col:=rtf.SelStart-SendMessage(rtf.Handle,em_lineindex,row,0);
+      // 到游标所在位置
+      sendmessage(RTF.Handle, em_scrollcaret, 0, 0);
+      // SendMessage(rtf.Handle,EM_SCROLL,)
+      sourceRich.Enabled := true;
+      sourceRich.SetFocus;
+      sourceRich.Enabled := false;
+   end;
 
-procedure TFrameKeyType.targetRichChange(Sender: TObject);
-  var
-    cursorpos: integer;
+procedure TFrameKeyType.targetRichChange(Sender : TObject);
+   var
+      cursorpos : integer;
 
-    procedure SetRichFormat(re: TRichEdit; start, length: integer; color: TColor; style: TFontStyles);
-      begin
-        re.SelStart            := start;
-        re.SelLength           := length;
-        re.SelAttributes.color := color;
-        re.SelAttributes.style := style;
-        // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
-        // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
-      end;
-procedure SetSourceRichFormat(re: TRichEdit; caretPos: integer);
-      begin
-        re.SelStart            := 0;
-        re.SelLength           := caretPos;
-        re.SelAttributes.color := clblue;
-        re.SelAttributes.style := [fsUnderline];
+      procedure SetRichFormat(re : TRichEdit; start, length : integer; color : TColor; style : TFontStyles);
+         begin
+            re.SelStart            := start;
+            re.SelLength           := length;
+            re.SelAttributes.color := color;
+            re.SelAttributes.style := style;
+            // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
+            // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
+         end;
+      procedure SetSourceRichFormat(re : TRichEdit; caretPos : integer);
+         begin
+            re.SelStart            := 0;
+            re.SelLength           := caretPos;
+            re.SelAttributes.color := clblue;
+            re.SelAttributes.style := [fsUnderline];
 
-        re.SelStart            := caretPos;
-        re.SelLength           := length(re.text)-caretpos;
-        re.SelAttributes.color := clRed;
-        re.SelAttributes.style := [];
+            re.SelStart            := caretPos;
+            re.SelLength           := length(re.text) - caretPos;
+            re.SelAttributes.color := clRed;
+            re.SelAttributes.style := [];
 
-        SetCaret(sourceRich, fCurrentPos);
+            SetCaret(sourceRich, fCurrentPos);
 
-        // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
-        // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
-      end;
-     procedure CheckBlock(startPos,endPos:integer);
-     var
-        sp, len: integer;
-      begin
-        if endpos=0 then exit;
-
-        with targetRich do
-          begin
-            while startPos < endPos do
-              begin
-                sp:=startPos;
-                len             := 1;
-                if (sourceRich.text[startPos+1] = targetRich.text[startPos+1 ]) then
-                begin
-                  startPos:=startPos+1;
-                  while (sourceRich.text[startPos +1] = targetRich.text[startPos+1]) do
+            // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
+            // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
+         end;
+      procedure CheckBlock(startPos, endPos : integer);
+         var
+            sp, len : integer;
+         begin
+            if endPos = 0 then
+               exit;
+               with targetRich do
+               begin
+                  while startPos < endPos do
                   begin
-                     len:=len+1;
-                     startPos:=startPos+1;
+                     sp  := startPos;
+                     len := 1;
+                     if (sourceRich.text[startPos + 1] = targetRich.text[startPos + 1]) then
+                     begin
+                        startPos := startPos + 1;
+                        while (startPos<endpos)and(sourceRich.text[startPos + 1] = targetRich.text[startPos + 1]) do
+                        begin
+                           len      := len + 1;
+                           startPos := startPos + 1;
+                        end;
+                        SetRichFormat(targetRich, sp, len, clblue, []);
+                     end else begin
+                        startPos := startPos + 1;
+                           while (startPos<endpos)and(sourceRich.text[startPos + 1] <> targetRich.text[startPos + 1]) do
+                           begin
+                              len      := len + 1;
+                              startPos := startPos + 1;
+                           end;
+                           SetRichFormat(targetRich, sp, len, clRed, []);
+                     end;
+                     startPos := startPos + 1;
                   end;
-                  SetRichFormat(targetRich, sp, len, clblue, []);
-                end
-                else
-                  begin
-                    startPos:=startPos+1;
-                    while (sourceRich.text[startPos+1 ] <> targetRich.text[startPos +1]) do
-                    begin
-                       len:=len+1;
-                       startPos:=startPos+1;
-                    end;
-                    SetRichFormat(targetRich, sp, len, clred, []);
-                  end;
-                startPos := startPos + 1;
-              end;
-          end;
-      end;
-     procedure setTargetCaret(caretPos:integer);
-     begin
-       targetRich.SelStart:=caretPos;
-       targetRich.SelLength:=0;
-     end;
-  begin
+               end;
+         end;
+      procedure setTargetCaret(caretPos : integer);
+         begin
+            targetRich.SelStart  := caretPos;
+            targetRich.SelLength := 0;
+         end;
 
-    sendmessage(targetRich.Handle, WM_IME_ENDCOMPOSITION, 0, 0);
+   begin
+      sendmessage(targetRich.Handle, WM_IME_ENDCOMPOSITION, 0, 0);
 
-    cursorpos := targetRich.SelStart;
-    if fCurrentPos<=cursorpos then
-        CheckBlock(fCurrentPos,length(targetRich.Text))
-    else
-      CheckBlock(cursorpos,length(targetRich.Text));
+      cursorpos := targetRich.SelStart;
+      if fCurrentPos <= cursorpos then
+         CheckBlock(fCurrentPos, length(targetRich.text))
+      else
+         CheckBlock(cursorpos, length(targetRich.text));
 
-      fCurrentPos:=cursorpos;
+      fCurrentPos := cursorpos;
       setTargetCaret(fCurrentPos);
-//    if fCurrentPos>cursorpos then
+      // if fCurrentPos>cursorpos then
 
-//    if fCurrentPos < cursorpos then
-//      begin
-//         CheckBlock(fCurrentPos,cursorPos);
-//        sourceRich.SelStart := cursorpos;
-//        targetRich.SelStart := cursorpos;
-//        fCurrentPos         := cursorpos;
-//      end
-//    else
-//      begin
-//        fCurrentPos:=length(targetrich.text);
-//        CheckBlock(cursorpos,fCurrentPos);
-//        setTargetCaret(cursorpos);
-//        //SetRichFormat(sourceRich, 0, length(sourceRich.Text), clRed, []);
-//      end;
+      // if fCurrentPos < cursorpos then
+      // begin
+      // CheckBlock(fCurrentPos,cursorPos);
+      // sourceRich.SelStart := cursorpos;
+      // targetRich.SelStart := cursorpos;
+      // fCurrentPos         := cursorpos;
+      // end
+      // else
+      // begin
+      // fCurrentPos:=length(targetrich.text);
+      // CheckBlock(cursorpos,fCurrentPos);
+      // setTargetCaret(cursorpos);
+      // //SetRichFormat(sourceRich, 0, length(sourceRich.Text), clRed, []);
+      // end;
 
-    //SetRichFormat(sourceRich, 0, length(targetRich.Text), clwindowtext, [fsUnderline]);
-    if (fCurrentPos>sourceRich.GetTextLen) then  exit;
-    SetSourceRichFormat(sourceRich,fCurrentPos);
-//    SetCaret(sourceRich, fCurrentPos);
-    targetRich.SetFocus;
-  end;
+      // SetRichFormat(sourceRich, 0, length(targetRich.Text), clwindowtext, [fsUnderline]);
+      if (fCurrentPos > sourceRich.GetTextLen) then
+         exit;
+      SetSourceRichFormat(sourceRich, fCurrentPos);
+      // SetCaret(sourceRich, fCurrentPos);
+      targetRich.SetFocus;
+   end;
 
-procedure TFrameKeyType.targetRichKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-  begin
-    if ((ssctrl in Shift) and (Key = 86)) or ((ssshift in Shift) and (Key = 45)) then
-      Key := 32;
-  end;
+procedure TFrameKeyType.targetRichKeyDown(Sender : TObject; var Key : Word; Shift : TShiftState);
+   begin
+      if ((ssctrl in Shift) and (Key = 86)) or ((ssshift in Shift) and (Key = 45)) then
+         Key := 32;
+   end;
 
-procedure TFrameKeyType.targetRichKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-  var
-    cursorpos: integer;
-  begin
-    if (Key = VK_BACK) or (Key = VK_DELETE) or (Key = VK_RIGHT) or (Key = VK_LEFT) or (Key = VK_UP) or (Key = VK_DOWN) then
+procedure TFrameKeyType.targetRichKeyUp(Sender : TObject; var Key : Word; Shift : TShiftState);
+   var
+      cursorpos : integer;
+   begin
+      if (Key = VK_BACK) or (Key = VK_DELETE) or (Key = VK_RIGHT) or (Key = VK_LEFT) or (Key = VK_UP) or (Key = VK_DOWN) then
       begin
-        cursorpos := targetRich.SelStart;
-        if fCurrentPos > cursorpos then
-          fCurrentPos := cursorpos;
+         cursorpos := targetRich.SelStart;
+         if fCurrentPos > cursorpos then
+            fCurrentPos := cursorpos;
       end;
-  end;
+   end;
 
-procedure TFrameKeyType.sourceRichKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-  begin
-    Key := 32;
-  end;
+procedure TFrameKeyType.sourceRichKeyDown(Sender : TObject; var Key : Word; Shift : TShiftState);
+   begin
+      Key := 32;
+   end;
 
-constructor TFrameKeyType.Create(AOwner: TComponent);
-  var
-    stno, strAnswer, stprefix: string;
-  begin
-    inherited;
-    // Caption := TExamClientGlobal.BaseConfig.ExamName + '--打字测试';
-    pnlTitle.Caption := ' 打字测试';
-    stprefix         := ExamModuleToStPrefixWildCard(TExamModule.EMTYPE);
-    stno             := GetTQIDByPreFix(stprefix, TExamClientGlobal.ConnClientDB);
-    FTQ              := TTQ.Create();
-    TTQ.ReadTQByIDAndUnCompress(stno, TExamClientGlobal.ConnClientDB, FTQ);
-    FTQ.ReadContentToStrings(sourceRich.Lines);
-    SetTextSize();
-    strAnswer := FTQ.ReadStAnswerStr();
-    if strAnswer = '' then
-      FTime := TExamClientGlobal.BaseConfig.TypeTime
-      // FTime:=9
-    else
-      FTime := strtoint(strAnswer);
+constructor TFrameKeyType.Create(AOwner : TComponent);
+   var
+      stno, strAnswer, stprefix : string;
+   begin
+      inherited;
+      pnlTitle.Caption := ' 打字测试';
+      stprefix         := ExamModuleToStPrefixWildCard(TExamModule.EMTYPE);
+      stno             := GetTQIDByPreFix(stprefix, TExamClientGlobal.ConnClientDB);
+      FTQ              := TTQ.Create();
+      TTQ.ReadTQByIDAndUnCompress(stno, TExamClientGlobal.ConnClientDB, FTQ);
+      FTQ.ReadContentToStrings(sourceRich.Lines);
+      SetTextSize();
+      strAnswer := FTQ.ReadStAnswerStr();
+      if strAnswer = '' then
+         FTime := TExamClientGlobal.BaseConfig.TypeTime
+         // FTime:=9
+      else
+         FTime := strtoint(strAnswer);
 
-    fFlag       := false;
-    fCurrentPos := 0;
-    targetRich.OnChange:=targetRichChange;
-    // FTime:=900;
-    // timer1.Enabled:=true;
-  end;
+      fFlag               := false;
+      fCurrentPos         := 0;
+      targetRich.OnChange := targetRichChange;
+      // FTime:=900;
+      // timer1.Enabled:=true;
+   end;
 
 procedure TFrameKeyType.SetTextSize;
-  begin
-    sourceRich.SelectAll;
-    sourceRich.SelAttributes.Size := 16;
-    FTQ.ReadEnvironmentToStrings(targetRich.Lines);
-    sourceRich.SelLength := 0;
-    targetRich.SelectAll;
-    targetRich.SelAttributes.Size := 16;
-    targetRich.SelStart           := targetRich.SelLength;
-    targetRich.SelLength          := 0;
-  end;
+   begin
+      sourceRich.SelectAll;
+      sourceRich.SelAttributes.Size := 16;
+      FTQ.ReadEnvironmentToStrings(targetRich.Lines);
+      sourceRich.SelLength := 0;
+      targetRich.SelectAll;
+      targetRich.SelAttributes.Size := 16;
+      targetRich.SelStart           := targetRich.SelLength;
+      targetRich.SelLength          := 0;
+   end;
 
 procedure TFrameKeyType.ShowFrame;
-  var
-    stno: string;
-    remainTimeStr: string;
+   var
+      stno          : string;
+      remainTimeStr : string;
 
-  begin
+   begin
 
-    // remainTimeStr := ftq.ReadStAnswerStr ;
-    // if  remainTimeStr ='' then
-    // Self.Show;
-    // self.timer1.Enabled:=True;
-    // else
-    if FTime < 3 then
+      // remainTimeStr := ftq.ReadStAnswerStr ;
+      // if  remainTimeStr ='' then
+      // Self.Show;
+      // self.timer1.Enabled:=True;
+      // else
+      if FTime < 3 then
       begin
-        application.MessageBox('打字时间已用完，你不能进入！', '提示：', MB_OK);
-      end
-    else
-      begin
-        Self.Show;
-        Self.timer1.Enabled := true;
+         Application.MessageBox('打字时间已用完，你不能进入！', '提示：', MB_OK);
+      end else begin
+         Self.Show;
+         Self.timer1.Enabled := true;
       end;
 
-  end;
+   end;
 
-procedure TFrameKeyType.timer1Timer(Sender: TObject);
-  var
-    sj: string;
-  begin
-    FTime := FTime - 1;
-    if (FTime > -5) and (FTime < 0) then
+procedure TFrameKeyType.timer1Timer(Sender : TObject);
+   var
+      sj : string;
+   begin
+      FTime := FTime - 1;
+      if (FTime > -5) and (FTime < 0) then
       begin
-        // ExitBitBtnClick(self);
-        Self.HideFrame;
-        application.MessageBox('打字时间已用完，系统自动返回主界面！', '提示：', MB_OK);
+         // ExitBitBtnClick(self);
+         Self.HideFrame;
+         Application.MessageBox('打字时间已用完，系统自动返回主界面！', '提示：', MB_OK);
       end;
-    sj              := format('剩余时间:%.2d:%.2d', [FTime div 60, FTime mod 60]);
-    lblTime.Caption := sj;
-  end;
+      sj              := format('剩余时间:%.2d:%.2d', [FTime div 60, FTime mod 60]);
+      lblTime.Caption := sj;
+   end;
 
 destructor TFrameKeyType.Destroy;
-begin
-  ftq.free;
-  inherited;
-end;
+   begin
+      FTQ.free;
+      inherited;
+   end;
 
 procedure TFrameKeyType.HideFrame;
-  var
-    i, wordnum, correctnum: integer;
-    stno, stprefix: string;
-  begin
-    timer1.Enabled := false;
-    visible        := false;
+   var
+      i, wordnum, correctnum          : integer;
+      stno, stprefix                  : string;
+      environmentStream, answerStream : TMemoryStream;
+      tempStream                      : TStringStream;
+   begin
+      timer1.Enabled := false;
+      visible        := false;
 
-    stprefix := ExamModuleToStPrefixWildCard(TExamModule.EMTYPE);
-    stno     := GetTQIDByPreFix(stprefix, TExamClientGlobal.ConnClientDB);
-    FTQ.WriteStringsToEnvironment(targetRich.Lines);
-    FTQ.WriteStrToStAnswer(inttostr(FTime));
-    FTQ.CompressTQ();
+      // stprefix := ExamModuleToStPrefixWildCard(TExamModule.EMTYPE);
+      // stno     := GetTQIDByPreFix(stprefix, TExamClientGlobal.ConnClientDB);
+      stno := FTQ.St_no;
 
-    WriteTQStAnswerEnvironmentByID(stno, TExamClientGlobal.ConnClientDB, FTQ);
-    correctnum := 0;
-    for i      := 1 to length(targetRich.Text) do
+      environmentStream := TMemoryStream.Create;
+      tempStream        := TStringStream.Create(inttostr(FTime));
+      answerStream      := TMemoryStream.Create;
+      try
+         targetRich.Lines.SaveToStream(environmentStream);
+         answerStream.LoadFromStream(tempStream);
+         Compressstream(environmentStream);
+         Compressstream(answerStream);
+         WriteTQStAnswerEnvironmentByID(stno, environmentStream, answerStream, TExamClientGlobal.ConnClientDB);
+      finally
+         environmentStream.free;
+         tempStream.free;
+         answerStream.free;
+      end;
+
+      correctnum := 0;
+      for i      := 1 to length(targetRich.text) do
       begin
-        if targetRich.Text[i] = sourceRich.Text[i] then
-          begin
+         if targetRich.text[i] = sourceRich.text[i] then
+         begin
             correctnum := correctnum + 1;
-          end;
+         end;
       end;
-    wordnum := length(sourceRich.Text);
+      wordnum := length(sourceRich.text);
 
-    wordnum := round((correctnum / wordnum) * 10);
-    if wordnum < 0 then
+      wordnum := round((correctnum / wordnum) * 10);
+      if wordnum < 0 then
       begin
-        wordnum := 0;
+         wordnum := 0;
       end;
-    TExamClientGlobal.Score.WriteString(MODULE_KEYTYPE_NAME, stno + ',1,type,' + inttostr(wordnum) + ',,,-1,');
-    // ModalResult:=-1;
-    // TExamClientGlobal.ClientMainForm.Visible:=true;
-    Self.Hide;
+      TExamClientGlobal.Score.WriteString(MODULE_KEYTYPE_NAME, stno + ',1,type,' + inttostr(wordnum) + ',,,-1,');
+      // ModalResult:=-1;
+      // TExamClientGlobal.ClientMainForm.Visible:=true;
+      Self.Hide;
 
-  end;
+   end;
 
 end.

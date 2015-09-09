@@ -31,11 +31,8 @@ type
     dxBarButton1: TdxBarButton;
     mnbtnSelectConfig: TdxBarButton;
     mnSubTQBSystem: TdxBarSubItem;
-    dxBarButton2: TdxBarButton;
-    mnbtnTestStrategy: TdxBarButton;
     mnbtnConvertToRTF: TdxBarButton;
     mnbtnAddonsFile: TdxBarButton;
-    mnbtnEncrypt: TdxBarButton;
     mnbtnEncryptStr: TdxBarButton;
     mnsubSystem: TdxBarSubItem;
     mnbtnUserManager: TdxBarButton;
@@ -51,7 +48,6 @@ type
     procedure bbtnExcelClick(Sender: TObject);
     procedure bbtnPptClick(Sender: TObject);
     procedure mnbtnSelectConfigClick(Sender: TObject);
-    procedure mnbtnTestStrategyClick(Sender: TObject);
     procedure mnbtnConvertToRTFClick(Sender: TObject);
     procedure mnbtnAddonsFileClick(Sender: TObject);
     procedure mnbtnEncryptStrClick(Sender: TObject);
@@ -101,7 +97,7 @@ implementation
 uses uSysConfig, ufrmType,
   ufrmWord,ufrmWin,
   Commons, ufrmSelect, ufrmExcel, ufrmPpt, ufrmFileCheck, 
-  ufrmEQImport, ufrmEQBUseInfo, ufrmTestStrategy, uConvertDBtoRTF, 
+  ufrmEQImport, ufrmEQBUseInfo,  uConvertDBtoRTF,
   uFileAddonsImport, ufrmEncryptStr, uDmSetQuestion, ufrmRoleManager, 
   uAppUtils, SetQuestionGlobal, SetQuestionsResoureStrings, ufrmExpressionTree;
 
@@ -173,18 +169,6 @@ begin
   finally
     frmEQBUseInfo.Free;
   end;
-end;
-
-procedure TfrmMain.mnbtnTestStrategyClick(Sender: TObject);
-var
-  frmTestStrategy:TfrmTestStrategy;
-begin
-//  frmTestStrategy:=TfrmTestStrategy.Create(nil);
-//  try
-//    frmTestStrategy.showmodal;
-//  finally
-//    frmTestStrategy.Free;
-//  end;
 end;
 
 procedure TfrmMain.mnbtnUserManagerClick(Sender: TObject);

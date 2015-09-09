@@ -43,7 +43,6 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
-        <DCC_UnitSearchPath>D:\delphi2010\FastMM;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ImageBase>00400000</DCC_ImageBase>
         <DCC_DependencyCheckOutputName>C:\Users\Public\Documents\RAD Studio\7.0\Bpl\dpkCheckTree.bpl</DCC_DependencyCheckOutputName>
         <GenDll>true</GenDll>
@@ -55,6 +54,7 @@
         <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
+    <Import Project="..\ReleaseWin32.optset" Condition="'$(Cfg_1)'!='' And Exists('..\ReleaseWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <Version>7.0</Version>
         <DCC_DebugInformation>0</DCC_DebugInformation>
@@ -62,6 +62,7 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_MapFile>3</DCC_MapFile>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <CfgDependentOn>..\ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <Import Project="..\DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('..\DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -69,12 +70,13 @@
         <DCC_Optimize>false</DCC_Optimize>
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
-        <DCC_DcpOutput>$(BDSCOMMONDIR)\dcp</DCC_DcpOutput>
         <Version>7.0</Version>
         <DCC_MapFile>3</DCC_MapFile>
         <CfgDependentOn>..\DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <DCC_MapFile>0</DCC_MapFile>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ProjectExtensions>
@@ -142,6 +144,7 @@
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
             <CfgParent>Base</CfgParent>
+            <DependentOn>..\ReleaseWin32.optset</DependentOn>
         </BuildConfiguration>
     </ItemGroup>
     <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>

@@ -38,3 +38,4 @@ begin
 end;
 
 end.
+SQLSTR_GETCLIENT_EXAMINEEINFO, AConn

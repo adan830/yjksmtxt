@@ -1,7 +1,7 @@
 object FrmLogin: TFrmLogin
   Left = 0
   Top = 0
-  BorderIcons = []
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsNone
   ClientHeight = 192
   ClientWidth = 448
@@ -22,11 +22,13 @@ object FrmLogin: TFrmLogin
     Width = 86
     Height = 19
     Caption = #20934#32771#35777#21495':'
+    Color = clWhite
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 5000268
     Font.Height = -19
     Font.Name = #23435#20307
     Font.Style = []
+    ParentColor = False
     ParentFont = False
   end
   object lblName: TLabel
@@ -35,11 +37,13 @@ object FrmLogin: TFrmLogin
     Width = 88
     Height = 19
     Caption = #22995'    '#21517':'
+    Color = clWhite
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 5000268
     Font.Height = -19
     Font.Name = #23435#20307
     Font.Style = []
+    ParentColor = False
     ParentFont = False
   end
   object btnStartExam: TJvSpeedButton

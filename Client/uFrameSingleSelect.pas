@@ -33,6 +33,10 @@ type
     procedure SetupTqList;
 
     procedure ShowCurrentTQ(tqIndex: Integer);
+    /// <summary>
+    /// 保存最后试题答案
+    /// </summary>
+    procedure SaveCurrentAnswer();
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -140,13 +144,9 @@ procedure TFrameSingleSelect.SetupTqList;
       ds.Free;
     end;
   end;
-
-procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
-  var
+procedure TFrameSingleSelect.SaveCurrentAnswer();
+var
     currentTq: TTQNode;
-    s: string;
-    i, j: Integer;
-    pc: pchar;
   begin
     if (currentTQIndex > -1) then
       begin
@@ -161,6 +161,13 @@ procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
           frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 3);
 
       end;
+  end;
+
+procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
+  var
+    currentTq: TTQNode;
+  begin
+    SaveCurrentAnswer;
 
     currentTq      := tqList[tqIndex];
     currentTQIndex := tqIndex;
@@ -181,37 +188,6 @@ procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
           RadioGroup1.ItemIndex := -1;
 
       end
-    // else
-    // begin
-    // Groupbox1.Visible:=false;
-    // RadioGroup1.Visible:=false;
-    //
-    // if currentTq.TQ.St_no<>'' then
-    // begin
-    // groupbox1.Visible:=true;
-    // checkbox1.Caption:=' A ';
-    // checkbox2.Caption:=' B ';
-    // checkbox3.Caption:=' C ';
-    // checkbox4.Caption:=' D ';
-    // for i:=0 to 3 do
-    // begin
-    // (groupbox1.Controls[i] as TCheckbox).Checked:=false;
-    // end;
-    // if currentTq.flag and (currentTq.ksda<>'') then
-    // begin
-    // s:=trim(currentTq.ksda);
-    // pc:=pchar(s);
-    // for i:=0 to Length(s)-1 do
-    // begin
-    // j:=strtoint(pc[i])-1;                      //在这里要考虑非数值的情况，可能会触发异常
-    // if (j>=0) and (j<=3) then
-    // (groupbox1.Controls[j] as TCheckbox).Checked:=true;
-    // end;
-    // end;
-    // end
-    // end;
-    // end;
-    // Resize;
   end;
 
 procedure TFrameSingleSelect.HideFrame;
@@ -237,6 +213,7 @@ procedure TFrameSingleSelect.HideFrame;
       end;
 
   begin
+   SaveCurrentAnswer();
     stPrefix := ExamModuleToStPrefixWildCard(TExamModule.EMSINGLESELECT);
     adsKs    := getdatasetbyprefix(stPrefix, TExamClientGlobal.ConnClientDB);
     try
@@ -246,7 +223,7 @@ procedure TFrameSingleSelect.HideFrame;
           mynode := tqList[i];
           if (mynode.tq.St_no <> '') and (trim(mynode.ksda) <> '') then
             begin
-              if System.StrUtils.ansileftstr(mynode.tq.St_no, 1) = 'A' then
+              if System.StrUtils.ansileftstr(mynode.tq.St_no, 1) =ExamModuleToStPrefix(TExamModule.EMSINGLESELECT)  then
                 UpdateKsda(adsKs, mynode.tq.St_no, mynode.ksda);
               // if strutils.ansileftstr(mynode.TQ.St_no,1)='X' then   UpdateKsda(adsmultic,mynode.TQ.St_no,mynode.ksda);
             end;

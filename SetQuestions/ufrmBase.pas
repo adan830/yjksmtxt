@@ -367,7 +367,7 @@ begin
   j:=0;
   for I := 0 to length(StUseInfo) - 1 do
   begin
-    if i<>CurrentStUseInfoItem then
+    //if i<>CurrentStUseInfoItem then        //包含当前项目
     begin
       if StUseInfo[i].IndexOf(RecID)>=0 then
          grpStUseInfo.States[j]:=cbsChecked
@@ -379,7 +379,7 @@ begin
   //get test question form db and uncompress ,then fill the tqRecord
   if Assigned(FCurrentTQRecord) then
       FCurrentTQRecord.ClearData;
-  TTQ.ReadTQByIDAndUnCompress(RecID,DmSetQuestion.GetTQDBConn,FCurrentTQRecord);
+  TTQ.ReadTQByIDAndUnCompress(RecID,DmSetQuestion.GetTQDBConn,FCurrentTQRecord,TQReadWriteOptionsAllTQFields);
   SetPublicTQEditData;
 end;
 
@@ -477,7 +477,7 @@ var
 begin
   for I := 0 to length(name) - 1 do
   begin
-    if i<>CurrentStUseInfoItem then
+    //if i<>CurrentStUseInfoItem then  //包含当前项
     begin
       chkItem:=grpStUseInfo.Properties.Items.Add;
       chkItem.Caption:= name[i];

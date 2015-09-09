@@ -231,6 +231,7 @@ function TFrmLogin.Login:TCommandResult;
                      else
                      begin
                         { TODO：中断换机续考 }
+                        application.MessageBox(PWideChar('由于考试中断，但本地找不到中断的考生文件夹，不能进行继考！'#13#10+'请检查文件夹:'+sexampath+'是否存在！'), '提示:', mb_ok);
                      end;
                   end;
             else // esAllowContinuteExam ,esAllowReExam,esLogined

@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, JvExStdCtrls, JvRichEdit, Menus, cxLookAndFeelPainters, cxButtons,uDmSetQuestion, DB, ADODB, 
-  tq, ExamInterface, uGrade;
+  tq, ExamInterface, uGrade, cxGraphics, cxLookAndFeels, dxSkinsCore,
+  dxSkinsDefaultPainters;
 
 type
   TfrmConverttoRTF = class(TForm)

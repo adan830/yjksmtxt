@@ -12,7 +12,7 @@ type
   TFrameOperate = class(TFrame)
     pnl2: TPanel;
     pnl3: TPanel;
-    mmo1: TMemo;
+    mmTQDesp: TMemo;
     pnl4: TPanel;
     pnl6: TPanel;
     edtTQContent: TJvRichEdit;
@@ -56,6 +56,17 @@ begin
         btnGrade.Visible                 := true;
       end;
   btnOpen.Caption := moduleInfo.ButtonText;
+  if self.ModuleInfo.Name='Windows' then
+          mmTQDesp.Text:=#13#10+'    Windows操作题'#13#10+'  警告：考生不得删除考生文件夹下与试题无关的文件或文件夹，否则将影响考生成绩'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+  if self.ModuleInfo.Name='Word' then
+          mmTQDesp.Text:=#13#10+'    Word操作题'#13#10+'  请不要打开无关的Word文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+
+  if self.ModuleInfo.Name='Excel' then
+          mmTQDesp.Text:=#13#10+'    Excel操作题'#13#10+'  请不要打开无关的Excel文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+
+  if self.ModuleInfo.Name='Ppt' then
+          mmTQDesp.Text:=#13#10+'    PowerPoint操作题'#13#10+'  请不要打开无关的PowerPoint文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+
 end;
 
 procedure TFrameOperate.btnGradeClick(Sender: TObject);

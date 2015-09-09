@@ -1,7 +1,7 @@
 object FormServerLogin: TFormServerLogin
   Left = 0
   Top = 0
-  BorderIcons = []
+  BorderIcons = [biSystemMenu]
   BorderStyle = bsNone
   Caption = 'FormServerLogin'
   ClientHeight = 192

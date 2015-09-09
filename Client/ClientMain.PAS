@@ -46,11 +46,18 @@ type
       // singleFrame:TFrameSingleSelect;
       // multiFrame:TFrameMultiSelect;
       // typeFrame:TFrameKeyType;
-
+      /// <summary>
+      /// ///获取考生信息
+      /// </summary>
       procedure SendExamineeDict;
       // moved form loginForm
       // function Login(AExamineeID:string):Integer;
+
       function GetExamineeInfo(AExamineeID : string) : string;
+      /// <summary>
+/// w
+/// </summary>
+/// <param name="AScore"></param>
       procedure SaveScoreToDB(AScore : TScoreIni);
       function GetExamineeIDLength : string;
       procedure SetTabFrameStatus(tabID : integer);
@@ -204,6 +211,7 @@ procedure TClientMainForm.btn1Click(Sender : TObject);
 
 procedure TClientMainForm.btnCompleteClick(Sender : TObject);
    begin
+      SetTabFrameStatus(-1);
       ModalResult := mrOk;
       Close;
    end;
@@ -406,11 +414,19 @@ procedure TClientMainForm.SaveScoreToDB(AScore : TScoreIni);
       ds     : TDataSet;
       stream : TMemoryStream;
    begin
-      ds     := GetDataSetBySQL(SQLSTR_GETCLIENT_EXAMINEEINFO, TExamClientGlobal.Examinee.ID, TExamClientGlobal.connClientDB);
+      ds     := GetDataSetBySQL(SQLSTR_GETCLIENT_EXAMINEEINFO,  TExamClientGlobal.connClientDB);  //TExamClientGlobal.Examinee.ID,
       stream := TMemoryStream.Create;
       try
          with ds do
          begin
+            First;
+            if (DecryptStr(FieldValues[DFNEI_EXAMINEEID])<>TExamClientGlobal.Examinee.ID) then
+            begin
+               //raise Exception.Create('Error Message');
+               Application.MessageBox('未找到考生信息，无法保存成绩到本地库！','提示');
+               Exit;
+            end;
+
             Edit;
             AScore.SaveToStream(stream);
             CompressStream(stream);
@@ -427,6 +443,9 @@ procedure TClientMainForm.FormCreate(Sender : TObject);
    var
       flashStream : TResourceStream;
    begin
+      {$IFDEF DEBUG}
+          btn1.Visible:=False;
+      {$ENDIF}
       FDz      := false;
       closenum := 0;
       CreateCover;

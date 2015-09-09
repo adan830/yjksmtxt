@@ -35,7 +35,7 @@ type
 
 implementation
 
-uses DataFieldConst, Commons, forms, ServerGlobal, Windows, ExamGlobal;
+uses DataFieldConst, Commons, forms, ServerGlobal, Windows, ExamGlobal,ExamException;
 {$R *.dfm}
 
 procedure TdmServer.Close;
@@ -49,68 +49,64 @@ procedure TdmServer.connExamineeBaseBeforeConnect(Sender: TObject);
       path: string;
    begin
       path := ExtractFilePath(Application.ExeName);
-      if FileExists(path + '成绩库.mdb') then
-      begin
+      ECoreFileNotExitException.IfFalse(FileExists(path + '成绩库.mdb'),Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '程序将退出！', [path, '成绩库.mdb']));
+      //if FileExists(path + '成绩库.mdb') then
+//      begin
          connExamineeBase.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + path + '\成绩库.mdb' +
                  ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
-      end
-      else
-      begin
-         Application.MessageBox(PChar(Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '请选择成绩库，或重新配置服务系统路径！', [path, '成绩库.mdb'])), '未找到成绩库',
-                 MB_OK + MB_ICONINFORMATION + MB_TOPMOST);
-         dlgOpen1.Title := '请选择系统题库：';
-         dlgOpen1.InitialDir := path;
-         dlgOpen1.FileName := '成绩库.mdb';
-         if dlgOpen1.Execute() then
-         begin
-            StkDbFilePath := dlgOpen1.FileName;
-            connExamineeBase.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + dlgOpen1.FileName +
-                    ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
-         end
-         else
-         begin
-            { TODO : 是否要退出程序，还是继续 }
-         end;
-      end;
+//      end
+//      else
+//      begin
+//         Application.MessageBox(PChar(Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '请选择成绩库，或重新配置服务系统路径！', [path, '成绩库.mdb'])), '未找到成绩库',
+//                 MB_OK + MB_ICONINFORMATION + MB_TOPMOST);
+//         Application.Terminate;
+//         dlgOpen1.Title := '请选择系统题库：';
+//         dlgOpen1.InitialDir := path;
+//         dlgOpen1.FileName := '成绩库.mdb';
+//         if dlgOpen1.Execute() then
+//         begin
+//            StkDbFilePath := dlgOpen1.FileName;
+//            connExamineeBase.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + dlgOpen1.FileName +
+//                    ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
+//         end
+//         else
+//         begin
+//            { TODO : 是否要退出程序，还是继续 }
+//         end;
+//      end;
    end;
 
 procedure TdmServer.connStkBeforeConnect(Sender: TObject);
    var
       path: string;
    begin
-      try
          path := ExtractFilePath(Application.ExeName);
-         if FileExists(path + '系统题库.mdb') then
-         begin
+         ECoreFileNotExitException.IfFalse(FileExists(path + '系统题库.mdb'),Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '程序将退出！', [path, '系统题库.mdb']));
+//         if FileExists(path + '系统题库.mdb') then
+//         begin
             connStk.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + path + '系统题库.mdb' +
                     ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
             StkDbFilePath := path + '系统题库.mdb';
-         end
-         else
-         begin
-            Application.MessageBox(PChar(Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '请选择系统题库，或重新配置服务系统路径！', [path, '系统题库.mdb'])), '未找到系统题库',
-                    MB_OK + MB_ICONINFORMATION + MB_TOPMOST);
-            dlgOpen1.Title := '请选择系统题库：';
-            dlgOpen1.InitialDir := path;
-            dlgOpen1.FileName := '系统题库.mdb';
-            if dlgOpen1.Execute() then
-            begin
-               StkDbFilePath := dlgOpen1.FileName;
-               connStk.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + dlgOpen1.FileName +
-                       ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
-            end
-            else
-            begin
-               { TODO : 是否要退出程序，还是继续 }
-            end;
-         end;
-      except
-         on E: Exception do
-         begin
-            TExamServerGlobal.Logger.WriteLog(e.Message+'before connect');
-            raise;
-         end;
-      end;
+//         end
+//         else
+//         begin
+//            Application.MessageBox(PChar(Format('系统未能在 %s 中找到 %s 文件！' + ExamGlobal.CR + '请选择系统题库，或重新配置服务系统路径！', [path, '系统题库.mdb'])), '未找到系统题库',
+//                    MB_OK + MB_ICONINFORMATION + MB_TOPMOST);
+//            Application.Terminate;
+//            dlgOpen1.Title := '请选择系统题库：';
+//            dlgOpen1.InitialDir := path;
+//            dlgOpen1.FileName := '系统题库.mdb';
+//            if dlgOpen1.Execute() then
+//            begin
+//               StkDbFilePath := dlgOpen1.FileName;
+//               connStk.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;Data Source=' + dlgOpen1.FileName +
+//                       ';Persist Security Info=False;Jet OLEDB:Database Password=' + DecryptStr(SYSDBPWD);
+//            end
+//            else
+//            begin
+//               { TODO : 是否要退出程序，还是继续 }
+//            end;
+//         end;
    end;
 
 function TdmServer.GetDsStk: TADODataSet;

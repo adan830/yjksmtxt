@@ -243,7 +243,7 @@ procedure TBaseConfig.FromStrings(AStrings: TStrings);
       FTypeTime              := StrToInt(AStrings[8]);
       if (AStrings.Count >= 9) and (FModules = nil) then
          FModules := TStringList.Create;
-      for i       := 10 to AStrings.Count - 1 do
+      for i       := 9 to AStrings.Count - 1 do
       begin
          FModules.Add(AStrings[i]);
       end;

@@ -98,7 +98,7 @@ begin
   FTQ.WriteStrToStAnswer(inttostr(FTime));
   FTQ.CompressTQ();
 
-   WriteTQStAnswerEnvironmentByID(stno,TExamClientGlobal.ConnClientDB,FTQ);
+   //WriteTQStAnswerEnvironmentByID(stno,TExamClientGlobal.ConnClientDB,FTQ);
    correctnum:=0;
    for i :=1  to length(TargetRich.Text)  do
    begin

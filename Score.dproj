@@ -61,6 +61,7 @@
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <Icon_MainIcon>Score_Icon1.ico</Icon_MainIcon>
     </PropertyGroup>
+    <Import Project="ReleaseWin32.optset" Condition="'$(Cfg_1)'!='' And Exists('ReleaseWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_DependencyCheckOutputName>E:\myproject\delphitemp\yjks\scoreReceive\Score.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
@@ -81,6 +82,7 @@
         <DCC_ObjPath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_IncludePath)</DCC_IncludePath>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -530,12 +532,12 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
@@ -584,6 +586,7 @@
         <BuildConfiguration Include="Release">
             <Key>Cfg_1</Key>
             <CfgParent>Base</CfgParent>
+            <DependentOn>ReleaseWin32.optset</DependentOn>
         </BuildConfiguration>
     </ItemGroup>
     <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>

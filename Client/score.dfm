@@ -4,7 +4,7 @@ object ScoreForm: TScoreForm
   BorderIcons = []
   BorderStyle = bsToolWindow
   Caption = #25104#32489
-  ClientHeight = 502
+  ClientHeight = 531
   ClientWidth = 700
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object ScoreForm: TScoreForm
   TextHeight = 24
   object Panel1: TPanel
     Left = 0
-    Top = 461
+    Top = 490
     Width = 700
     Height = 41
     Align = alBottom
@@ -27,6 +27,7 @@ object ScoreForm: TScoreForm
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitTop = 461
     DesignSize = (
       700
       41)
@@ -50,6 +51,7 @@ object ScoreForm: TScoreForm
       Font.Style = [fsBold]
       Margin = 4
       ParentFont = False
+      Spacing = 6
       OnClick = btnExitClick
     end
     object btnReturn: TCnSpeedButton
@@ -122,7 +124,7 @@ object ScoreForm: TScoreForm
     Left = 0
     Top = 41
     Width = 700
-    Height = 420
+    Height = 449
     Align = alClient
     BevelOuter = bvNone
     Color = clWhite
@@ -134,6 +136,7 @@ object ScoreForm: TScoreForm
     ParentBackground = False
     ParentFont = False
     TabOrder = 2
+    ExplicitHeight = 420
     object Image1: TImage
       Left = 568
       Top = 24
@@ -254,29 +257,6 @@ object ScoreForm: TScoreForm
         E8E8}
       Visible = False
     end
-    object lblTypeName: TLabel
-      Left = 16
-      Top = 256
-      Width = 185
-      Height = 20
-      Alignment = taRightJustify
-      AutoSize = False
-      Caption = #25171#23383#39064#24471#20998#65306
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      ParentFont = False
-    end
-    object lblType: TLabel
-      Left = 216
-      Top = 256
-      Width = 57
-      Height = 16
-      AutoSize = False
-      Caption = 'lblType'
-    end
     object gbSingle: TGroupBox
       Left = 8
       Top = 7
@@ -296,7 +276,7 @@ object ScoreForm: TScoreForm
       Top = 177
       Width = 681
       Height = 73
-      Caption = 'gbSingle'
+      Caption = 'gbMulti'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -307,10 +287,10 @@ object ScoreForm: TScoreForm
     end
     object grpOperate: TGroupBox
       Left = 6
-      Top = 267
+      Top = 256
       Width = 681
-      Height = 147
-      Caption = 'gbSingle'
+      Height = 187
+      Caption = 'gbOperate'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -318,6 +298,35 @@ object ScoreForm: TScoreForm
       Font.Style = []
       ParentFont = False
       TabOrder = 2
+      object lblTypeName: TLabel
+        Left = 49
+        Top = 20
+        Width = 180
+        Height = 20
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = #25171#23383#39064#24471#20998':'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = 14
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
+      object lblType: TLabel
+        Left = 235
+        Top = 21
+        Width = 57
+        Height = 16
+        AutoSize = False
+        Caption = 'lblType'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = 14
+        Font.Name = #23435#20307
+        Font.Style = []
+        ParentFont = False
+      end
     end
   end
 end

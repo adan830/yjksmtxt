@@ -88,9 +88,9 @@ object frmMain: TfrmMain
       Visible = ivAlways
     end
     object mnbtnSelectConfig: TdxBarButton
-      Caption = #35797#39064#36873#29992#37197#32622
+      Caption = #32771#35797#24211#36873#29992#21450#23548#20986
       Category = 0
-      Hint = #35797#39064#36873#29992#37197#32622
+      Hint = #32771#35797#24211#36873#29992#21450#23548#20986
       Visible = ivAlways
       OnClick = mnbtnSelectConfigClick
     end
@@ -105,6 +105,10 @@ object frmMain: TfrmMain
         end
         item
           Visible = True
+          ItemName = 'mnbtnSelectConfig'
+        end
+        item
+          Visible = True
           ItemName = 'mnbtnFileCheck'
         end
         item
@@ -113,19 +117,11 @@ object frmMain: TfrmMain
         end
         item
           Visible = True
-          ItemName = 'mnbtnSelectConfig'
-        end
-        item
-          Visible = True
-          ItemName = 'mnbtnTestStrategy'
-        end
-        item
-          Visible = True
-          ItemName = 'mnbtnConvertToRTF'
-        end
-        item
-          Visible = True
           ItemName = 'mnbtnAddonsFile'
+        end
+        item
+          Visible = True
+          ItemName = 'mnbtnExpression'
         end
         item
           Visible = True
@@ -133,25 +129,8 @@ object frmMain: TfrmMain
         end
         item
           Visible = True
-          ItemName = 'mnbtnEncrypt'
-        end
-        item
-          Visible = True
-          ItemName = 'mnbtnExpression'
+          ItemName = 'mnbtnConvertToRTF'
         end>
-    end
-    object dxBarButton2: TdxBarButton
-      Caption = 'New Button'
-      Category = 0
-      Hint = 'New Button'
-      Visible = ivAlways
-    end
-    object mnbtnTestStrategy: TdxBarButton
-      Caption = #35797#39064#31574#30053
-      Category = 0
-      Hint = #35797#39064#31574#30053
-      Visible = ivAlways
-      OnClick = mnbtnTestStrategyClick
     end
     object mnbtnConvertToRTF: TdxBarButton
       Caption = #36716#25442#25968#25454#24211#21040'RTF'#26684#24335
@@ -166,12 +145,6 @@ object frmMain: TfrmMain
       Hint = #38468#21152#25991#20214
       Visible = ivAlways
       OnClick = mnbtnAddonsFileClick
-    end
-    object mnbtnEncrypt: TdxBarButton
-      Caption = 'New Button'
-      Category = 0
-      Hint = 'New Button'
-      Visible = ivAlways
     end
     object mnbtnEncryptStr: TdxBarButton
       Caption = #23383#31526#20018#21152#35299#23494
@@ -198,9 +171,9 @@ object frmMain: TfrmMain
       OnClick = mnbtnUserManagerClick
     end
     object mnbtnExpression: TdxBarButton
-      Caption = #34920#36798#24335
+      Caption = #34920#36798#24335#26657#39564
       Category = 0
-      Hint = #34920#36798#24335
+      Hint = #34920#36798#24335#26657#39564
       Visible = ivAlways
       OnClick = mnbtnExpressionClick
     end

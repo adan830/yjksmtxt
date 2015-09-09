@@ -23,7 +23,6 @@ uses
   SetQuestionGlobal in 'SetQuestions\SetQuestionGlobal.pas',
   ufrmEQImport in 'SetQuestions\ufrmEQImport.pas' {frmEQImport},
   ufrmEQBUseInfo in 'SetQuestions\ufrmEQBUseInfo.pas' {frmEQBUseInfo},
-  ufrmTestStrategy in 'SetQuestions\ufrmTestStrategy.pas' {frmTestStrategy},
   uConvertDBtoRTF in 'SetQuestions\uConvertDBtoRTF.pas' {frmConverttoRTF},
   uFileAddonsImport in 'SetQuestions\uFileAddonsImport.pas' {frmAddonsFile},
   ufrmModifyTQNo in 'SetQuestions\ufrmModifyTQNo.pas' {frmModifyTQNo},
@@ -35,6 +34,7 @@ uses
   AccessHelper in 'SetQuestions\AccessHelper.pas';
 
 {$R *.res}
+
 
 var
   AppFactory : TAuthAppFactory;
