@@ -10,7 +10,7 @@ uses
    cxGrid, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, cxContainer,
    cxTextEdit, ADODB, cxBlobEdit, cxRichEdit, dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter,
    cxLookAndFeels, cxNavigator, Vcl.ComCtrls, Winapi.ShlObj, cxShellCommon,
-   cxMaskEdit, cxDropDownEdit, cxShellComboBox;
+   cxMaskEdit, cxDropDownEdit, cxShellComboBox, cxCheckBox;
 
 type
    TfrmEQBUseInfo = class(TForm)
@@ -20,13 +20,6 @@ type
       grdSelectTableDBTableView1 : TcxGridDBTableView;
       grdSelectTableDBTableView1DBColumn : TcxGridDBColumn;
       grdSelectTableDBTableView1DBColumn1 : TcxGridDBColumn;
-      grdSelectTableDBTableView1DBColumn2 : TcxGridDBColumn;
-      grdSelectTableDBTableView1DBColumn3 : TcxGridDBColumn;
-      grdSelectTableDBTableView1DBColumn4 : TcxGridDBColumn;
-      grdSelectTableDBTableView1WIN : TcxGridDBColumn;
-      grdSelectTableDBTableView1Word : TcxGridDBColumn;
-      grdSelectTableDBTableView1Excel : TcxGridDBColumn;
-      grdSelectTableDBTableView1Ppt : TcxGridDBColumn;
       dsStUseInfo : TDataSource;
       cbbDataFolder : TcxShellComboBox;
       procedure FormCreate(Sender : TObject);

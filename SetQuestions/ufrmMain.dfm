@@ -136,14 +136,14 @@ object frmMain: TfrmMain
       Caption = #36716#25442#25968#25454#24211#21040'RTF'#26684#24335
       Category = 0
       Hint = #36716#25442#25968#25454#24211#21040'RTF'#26684#24335
-      Visible = ivAlways
+      Visible = ivNever
       OnClick = mnbtnConvertToRTFClick
     end
     object mnbtnAddonsFile: TdxBarButton
       Caption = #38468#21152#25991#20214
       Category = 0
       Hint = #38468#21152#25991#20214
-      Visible = ivAlways
+      Visible = ivNever
       OnClick = mnbtnAddonsFileClick
     end
     object mnbtnEncryptStr: TdxBarButton
@@ -264,7 +264,7 @@ object frmMain: TfrmMain
       Caption = #25991#20214#26816#26597
       Category = 2
       Hint = #25991#20214#26816#26597
-      Visible = ivAlways
+      Visible = ivNever
       OnClick = mnbtnFileCheckClick
     end
     object mnbtnEQimport: TdxBarButton
