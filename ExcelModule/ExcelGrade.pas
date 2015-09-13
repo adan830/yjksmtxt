@@ -18,8 +18,8 @@ uses uGrade,Classes, ufrmInProcess, ExamGlobal;
   function FillChartGradeInfo(AWordBook, AWorkSheet: Variant; var GradeInfo: TGradeInfo; aFillMode : TFillGradeMode): Integer;   //图表评分
   function FillCellGradeInfo(AWordBook, AWorkSheet: Variant; var GradeInfo: TGradeInfo; aFillMode : TFillGradeMode): Integer;   //单元格评分
   function FillSheetGradeInfo(AWordBook, AWorkSheet: Variant; var GradeInfo: TGradeInfo; aFillMode : TFillGradeMode): Integer;   //工作表评分
-  function FillBorderGradeInfo(AWordBook:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;   //边框评分
-  function FillInteriorGradeInfo(AWordBook:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;   //底纹
+  function FillBorderGradeInfo(AWordBook, AWorkSheet:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;   //边框评分
+  function FillInteriorGradeInfo(AWordBook, AWorkSheet:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;   //底纹
   function strObjtoStrings(strObj:String):TStrings;
   //调用Word获得参数值，填充GradeInfo记录
   //本函数调用一系列子类函数      //afillmode: -1:standardvalue 1: examinevalue
@@ -227,8 +227,8 @@ begin
   try
     case GradeInfo.ID of
        10..15    : result := FillFontGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
-       20..22    : result := FillBorderGradeInfo(AWordBook,gradeinfo,aFillMode);
-       30..32    : result := FillInteriorGradeInfo(AWordBook,gradeinfo,aFillMode);
+       20..22    : result := FillBorderGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
+       30..32    : result := FillInteriorGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
        50..70    : result := FillChartGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
        100..110    : result := FillCellGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
        150..160    : result := FillSheetGradeInfo(AWordBook,AWorkSheet,gradeinfo,aFillMode);
@@ -310,21 +310,20 @@ begin
   end;
 end;
 
-function FillBorderGradeInfo(AWordBook:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;
+function FillBorderGradeInfo(AWordBook, AWorkSheet:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;
 var
   value:string;
   cell1,cell2:olevariant;
   myrange:variant;
   objstrings:TStrings;
   edgeindex:cardinal;
-  WorkSheet:Variant;
 begin
   objstrings := strObjtoStrings(gradeinfo.ObjStr);
   if objstrings<>nil then
   begin
     cell1:=objstrings.Strings[0];
     cell2:=cell1;
-    myrange := WorkSheet.Range[cell1,cell2];
+    myrange := AWorkSheet.Range[cell1,cell2];
     try
       if objstrings.Count=2 then
       begin
@@ -402,16 +401,15 @@ begin
   end;    // try/except
 end;
 
-function FillInteriorGradeInfo(AWordBook:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;
+function FillInteriorGradeInfo(AWordBook, AWorkSheet:Variant;var GradeInfo: TGradeInfo;aFillMode : TFillGradeMode): Integer;
 var
   value:string;
   cell1,cell2:olevariant;
   objInterior:variant;
-  WorkSheet:Variant;
 begin
   cell1:=GradeInfo.ObjStr;
   cell2:=cell1;
-  objInterior := WorkSheet.Range[cell1,cell2].interior;
+  objInterior := AWorkSheet.Range[cell1,cell2].interior;
   case GradeInfo.ID of
     30: value := vartostr(objInterior.color);   //底纹颜色
     31: value := vartostr(objInterior.pattern);   //底纹图案

@@ -74,7 +74,7 @@ procedure TfrmEQBUseInfo.doExport();
 
       TaccessHelper.CreateSysQuestionBase(mdbFile, pwd);
       TaccessHelper.AddTrustedLocation(mdbpath);
-      TaccessHelper.EncryptionBase(mdbFile, pwd);
+      //TaccessHelper.EncryptionBase(mdbFile, pwd);
       connTarget := TaccessHelper.GetMdbConnection(mdbFile, pwd);
       // connTarget := GetExportDBconn();
       try

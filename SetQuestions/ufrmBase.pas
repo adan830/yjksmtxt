@@ -711,6 +711,7 @@ var
   str:string;
 begin
    aStringList.Clear;
+
    with tvGradeInfo.DataController do
    begin
      i := FocusedRowIndex;

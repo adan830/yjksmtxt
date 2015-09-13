@@ -27,7 +27,7 @@ uses
   dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
   dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
   dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
-  cxNavigator;
+  cxNavigator, cxPC;
 
 type
   TfrmExcel = class(TfrmBase)
@@ -129,7 +129,7 @@ begin
   GradeInfoStrings:= TStringList.Create;
   try
     GridToGradeInfoStrings(tvGradeInfo,GradeInfoStrings,'~');
-    FillGrades(ExtractFilePath(bedtAnswerFile.Text),ExtractFileName(bedtAnswerFile.Text),GradeInfoStrings,fmStandvalue);
+    FillGrades(ExtractFilePath(bedtAnswerFile.Text),ExtractFileName(bedtAnswerFile.Text),GradeInfoStrings,fmExamValue);
     TfrmDispAnswer.ShowForm(GradeInfoStrings,'~');
   finally // wrap up
     GradeInfoStrings.Free;
@@ -152,9 +152,10 @@ begin
   inherited;
   StrList:=TStringList.Create;
    try
-      GridRowToGradeInfoStrings(tvGradeInfo,StrList,',');
+   StrList.DefaultEncoding:=TEncoding.UTF8;
+      GridRowToGradeInfoStrings(tvGradeInfo,StrList,'~');
       FillGrades(ExtractFilePath(bedtAnswerFile.Text),ExtractFileName(bedtAnswerFile.Text),StrList,fmStandValue);
-      FillGridRowWithGradeInfo(StrList,tvGradeInfo,',');
+      FillGridRowWithGradeInfo(StrList,tvGradeInfo,'~');
    finally
       StrList.Free;
    end;
@@ -209,9 +210,9 @@ begin
                             GridToGradeInfoStrings(tvGradeInfo,StrList,AGradeInfoDelimiter);
                             //FillGrades(ExtractFilePath(bedtAnswerFile.Text),ExtractFileName(bedtAnswerFile.Text),StrList,fmStandvalue);
                             FCurrentTQRecord.StAnswer.Clear;
-                            StrList.SaveToStream(FCurrentTQRecord.StAnswer);
+                            StrList.SaveToStream(FCurrentTQRecord.StAnswer,TEncoding.UTF8);
                             //必须保存后再更新，否则由于转换过程中字符串发生变化产生错误
-                            //SetupGradeInfoGrid(StrList,tvGradeInfo);
+                            SetupGradeInfoGrid(StrList,tvGradeInfo,'~');
                           end;
                      end;
       end;

@@ -5,8 +5,8 @@ inherited frmExcel: TfrmExcel
   ClientHeight = 615
   ClientWidth = 787
   OldCreateOrder = True
-  ExplicitWidth = 795
-  ExplicitHeight = 649
+  ExplicitWidth = 803
+  ExplicitHeight = 654
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -97,6 +97,7 @@ inherited frmExcel: TfrmExcel
           OptionsData.Appending = True
           OptionsSelection.CellSelect = False
           OptionsView.CellAutoHeight = True
+          OptionsView.ColumnAutoWidth = True
           OptionsView.GroupByBox = False
           Styles.ContentOdd = cxStyle5
           Styles.StyleSheet = GridTableViewStyleSheetDevExpress
@@ -276,6 +277,7 @@ inherited frmExcel: TfrmExcel
       Width = 220
       Height = 531
       ExplicitWidth = 220
+      ExplicitHeight = 531
       DockingType = 5
       OriginalWidth = 220
       OriginalHeight = 578

@@ -445,6 +445,8 @@ procedure TClientMainForm.FormCreate(Sender : TObject);
    begin
       {$IFDEF DEBUG}
           btn1.Visible:=False;
+      {$ELSE}
+         btn1.Visible:=false;
       {$ENDIF}
       FDz      := false;
       closenum := 0;

@@ -6,7 +6,7 @@
         <DCC_DependencyCheckOutputName>debug\bin\prjExamClient.exe</DCC_DependencyCheckOutputName>
         <MainSource>prjExamClient.dpr</MainSource>
         <ProjectVersion>17.2</ProjectVersion>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Base>True</Base>
         <AppType>Application</AppType>
         <FrameworkType>VCL</FrameworkType>
@@ -78,6 +78,7 @@
         <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Manifest_File>uac.manifest</Manifest_File>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Debugger_IncludeSystemVars>true</Debugger_IncludeSystemVars>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -558,8 +559,8 @@
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

@@ -25,7 +25,7 @@ uses
   dxSkinMetropolisDark, dxSkinOffice2010Black, dxSkinOffice2010Blue,
   dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
-  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator;
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator, cxPC;
 
 type
   TfrmWin = class(TfrmBase)
@@ -126,7 +126,7 @@ begin
                             FCurrentTQRecord.StAnswer.Clear;
                             StrList.SaveToStream(FCurrentTQRecord.StAnswer);
                             //必须保存后再更新，否则由于转换过程中字符串发生变化产生错误
-                            //SetupGradeInfoGrid(StrList,tvGradeInfo);
+                            SetupGradeInfoGrid(StrList,tvGradeInfo);
                           end;
 //                         StrList.Clear;
 //                          GridToEnvironmentInfoStrings(tvEnvironmentInfo,StrList);

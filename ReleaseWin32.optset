@@ -13,7 +13,7 @@
         <DCC_DebugDCUs>false</DCC_DebugDCUs>
         <DCC_ExeOutput>D:\develop\yjksmtxt\release\bin\</DCC_ExeOutput>
         <DCC_DcpOutput>D:\develop\yjksmtxt\release\dcp\</DCC_DcpOutput>
-        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\Release\dcu;D:\develop\yjksmtxt\Release\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCU;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCP;D:\develop\yjksmtxt\MainFrame;D:\develop\yjksmtxt\ExamCommons;D:\yjksmtxt\Components;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>D:\delphicontrols\dev14.2.2XE8\Sources;D:\develop\yjksmtxt\Release\dcu;D:\develop\yjksmtxt\Release\dcp;D:\DelphiControls\cnvcl_20150408\Source\Common;D:\DelphiControls\cnvcl_20150408\Source\Graphics;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCU;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32;D:\DelphiControls\dev14.2.2XE8\Library\RS22\Win32\DCP;D:\develop\yjksmtxt\MainFrame;D:\develop\yjksmtxt\ExamCommons;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcuOutput>D:\develop\yjksmtxt\release\dcu\</DCC_DcuOutput>
     </PropertyGroup>
     <ProjectExtensions>

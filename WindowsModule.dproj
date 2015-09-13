@@ -6,7 +6,7 @@
         <DCC_DependencyCheckOutputName>debug\bin\WindowsModule.dll</DCC_DependencyCheckOutputName>
         <MainSource>WindowsModule.dpr</MainSource>
         <ProjectVersion>17.2</ProjectVersion>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Base>True</Base>
         <AppType>Library</AppType>
         <FrameworkType>None</FrameworkType>

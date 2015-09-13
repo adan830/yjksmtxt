@@ -5,8 +5,8 @@ inherited frmPpt: TfrmPpt
   ClientHeight = 614
   ClientWidth = 787
   OldCreateOrder = True
-  ExplicitWidth = 795
-  ExplicitHeight = 648
+  ExplicitWidth = 803
+  ExplicitHeight = 653
   PixelsPerInch = 96
   TextHeight = 13
   inherited Panel1: TPanel
@@ -97,6 +97,7 @@ inherited frmPpt: TfrmPpt
           OptionsData.Appending = True
           OptionsSelection.CellSelect = False
           OptionsView.CellAutoHeight = True
+          OptionsView.ColumnAutoWidth = True
           OptionsView.GroupByBox = False
           Styles.ContentOdd = cxStyle5
           Styles.StyleSheet = GridTableViewStyleSheetDevExpress

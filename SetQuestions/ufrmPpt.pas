@@ -26,7 +26,7 @@ uses
   dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSilver,
   dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinTheAsphaltWorld,
   dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
-  cxNavigator;
+  cxNavigator, cxPC;
 
 type
   TfrmPpt = class(TfrmBase)
@@ -148,7 +148,7 @@ begin
                             FCurrentTQRecord.StAnswer.Clear;
                             StrList.SaveToStream(FCurrentTQRecord.StAnswer);
                             //必须保存后再更新，否则由于转换过程中字符串发生变化产生错误
-                            //SetupGradeInfoGrid(StrList,tvGradeInfo);
+                            SetupGradeInfoGrid(StrList,tvGradeInfo);
                           end;
                      end;
       end;
