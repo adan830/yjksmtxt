@@ -6,7 +6,7 @@
         <DCC_DependencyCheckOutputName>debug\bin\WordModule.dll</DCC_DependencyCheckOutputName>
         <MainSource>WordModule.dpr</MainSource>
         <ProjectVersion>17.2</ProjectVersion>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Base>True</Base>
         <AppType>Library</AppType>
         <FrameworkType>None</FrameworkType>

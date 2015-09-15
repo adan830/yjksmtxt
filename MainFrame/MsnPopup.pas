@@ -203,7 +203,7 @@ Function IsNT4: Boolean;
 
 Implementation
 
-{$R *.res}
+//{$R *.res}
 
 Function IsNT4: Boolean;
 Var

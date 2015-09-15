@@ -23,6 +23,7 @@ type
       cxLabel1 : TcxLabel;
       btnEQImport : TcxButton;
       btnExit : TcxButton;
+    chkImportOldBase: TCheckBox;
       procedure btnEQImportClick(Sender : TObject);
       procedure bedtSourceFilePropertiesButtonClick(Sender : TObject; AButtonIndex : Integer);
       procedure btnExitClick(Sender : TObject);

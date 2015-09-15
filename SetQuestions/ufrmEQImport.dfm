@@ -76,4 +76,12 @@ object frmEQImport: TfrmEQImport
     TabOrder = 5
     OnClick = btnExitClick
   end
+  object chkImportOldBase: TCheckBox
+    Left = 296
+    Top = 104
+    Width = 97
+    Height = 17
+    Caption = #23548#20837#32769#24211
+    TabOrder = 6
+  end
 end

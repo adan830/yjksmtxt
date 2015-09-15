@@ -136,7 +136,7 @@ object frmMain: TfrmMain
       Caption = #36716#25442#25968#25454#24211#21040'RTF'#26684#24335
       Category = 0
       Hint = #36716#25442#25968#25454#24211#21040'RTF'#26684#24335
-      Visible = ivNever
+      Visible = ivAlways
       OnClick = mnbtnConvertToRTFClick
     end
     object mnbtnAddonsFile: TdxBarButton
