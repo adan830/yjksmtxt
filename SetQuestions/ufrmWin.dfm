@@ -155,7 +155,7 @@ inherited frmWin: TfrmWin
         BevelKind = bkFlat
         Font.Charset = GB2312_CHARSET
         Font.Color = clWindowText
-        Font.Height = -13
+        Font.Height = 14
         Font.Name = #23435#20307
         Font.Style = []
         ParentFont = False

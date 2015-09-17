@@ -23,7 +23,7 @@ object frmConverttoRTF: TfrmConverttoRTF
     Height = 161
     Font.Charset = GB2312_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
+    Font.Height = 14
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
@@ -79,5 +79,14 @@ object frmConverttoRTF: TfrmConverttoRTF
     Caption = #23548#20837#35797#39064
     TabOrder = 5
     OnClick = btnConvertClick
+  end
+  object btnUpdateFont: TcxButton
+    Left = 200
+    Top = 272
+    Width = 75
+    Height = 25
+    Caption = #26356#26032#23383#20307
+    TabOrder = 6
+    OnClick = btnUpdateFontClick
   end
 end

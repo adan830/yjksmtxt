@@ -5,6 +5,7 @@ inherited frmSelect: TfrmSelect
   ClientHeight = 581
   ClientWidth = 837
   OldCreateOrder = True
+  ExplicitTop = -53
   ExplicitWidth = 853
   ExplicitHeight = 620
   PixelsPerInch = 96
@@ -137,7 +138,7 @@ inherited frmSelect: TfrmSelect
           Align = alClient
           Font.Charset = GB2312_CHARSET
           Font.Color = clWindowText
-          Font.Height = -11
+          Font.Height = 14
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
@@ -161,7 +162,7 @@ inherited frmSelect: TfrmSelect
           Align = alClient
           Font.Charset = GB2312_CHARSET
           Font.Color = clWindowText
-          Font.Height = -13
+          Font.Height = 14
           Font.Name = #23435#20307
           Font.Style = []
           ParentFont = False
