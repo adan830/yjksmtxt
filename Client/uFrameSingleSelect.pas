@@ -176,9 +176,10 @@ procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
     edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
     frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
     edtTQContent.SetSelection(0,length( edtTQContent.Text),false);
-            edtTQContent.SelAttributes.Height:=24;
+            edtTQContent.SelAttributes.Height:=14;
             edtTQContent.SelAttributes.Name:='ËÎÌו';
      edtTQContent.SelAttributes.Color:=$00333333;
+     edtTQContent.SetSelection(0,0,false);
     if currentTq.tq.St_no <> string.Empty then
       begin
         if currentTq.flag and (currentTq.ksda <> '') then

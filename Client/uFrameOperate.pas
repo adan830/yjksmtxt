@@ -51,21 +51,29 @@ begin
 
   self.tq.Content.Position := 0;
   edtTQContent.Lines.LoadFromStream(self.tq.Content);
+
+    edtTQContent.SetSelection(0,length( edtTQContent.Text),false);
+            edtTQContent.SelAttributes.Height:=14;
+            edtTQContent.SelAttributes.Name:='宋体';
+     edtTQContent.SelAttributes.Color:=$00333333;
+     edtTQContent.SetSelection(0,0,false);
+
   if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT) then
       begin
         btnGrade.Visible                 := true;
       end;
   btnOpen.Caption := moduleInfo.ButtonText;
   if self.ModuleInfo.Name='Windows' then
-          mmTQDesp.Text:=#13#10+'    Windows操作题'#13#10+'  警告：考生不得删除考生文件夹下与试题无关的文件或文件夹，否则将影响考生成绩'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+          mmTQDesp.Text:=EOL+'  注意事项：Windows操作题'+EOL+'     考生不得删除考生文件夹下与试题无关的文件或文件夹，否则将影响考生成绩，可利用浮动窗口降低主界面对操作软件的影响';
   if self.ModuleInfo.Name='Word' then
-          mmTQDesp.Text:=#13#10+'    Word操作题'#13#10+'  请不要打开无关的Word文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+          mmTQDesp.Text:=EOL+'  注意事项：Word操作题'+EOL+'     请不要打开无关的Word文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Word中对所给工作表完成以下操作：';
 
   if self.ModuleInfo.Name='Excel' then
-          mmTQDesp.Text:=#13#10+'    Excel操作题'#13#10+'  请不要打开无关的Excel文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+          mmTQDesp.Text:=EOL+'  注意事项：Excel操作题'+EOL+'     请不要打开无关的Excel文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Excel中对所给工作表完成以下操作：';
+;
 
   if self.ModuleInfo.Name='Ppt' then
-          mmTQDesp.Text:=#13#10+'    PowerPoint操作题'#13#10+'  请不要打开无关的PowerPoint文档，经常存盘'#13#10+'  可利用浮动窗口降低主界面对操作软件的影响';
+          mmTQDesp.Text:=EOL+'  注意事项：PowerPoint操作题'+EOL+'     请不要打开无关的PowerPoint文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请使用PowerPoint完成以下操作：';
 
 end;
 

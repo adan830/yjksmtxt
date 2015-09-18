@@ -32,11 +32,11 @@ object FrameOperate: TFrameOperate
         Height = 82
         Align = alClient
         BorderStyle = bsNone
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = 14
+        Font.Charset = GB2312_CHARSET
+        Font.Color = 5592405
+        Font.Height = 16
         Font.Name = #23435#20307
-        Font.Style = [fsBold]
+        Font.Style = []
         ParentFont = False
         TabOrder = 0
       end

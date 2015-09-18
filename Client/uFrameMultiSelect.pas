@@ -185,6 +185,14 @@ procedure TFrameMultiSelect.ShowCurrentTQ(tqIndex : Integer);
       // lblCodeText.Caption := currentTq^.CodeText;
       currentTq.tq.ReadContentToStrings(edtTQContent.Lines);
       edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
+      edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
+    frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
+    edtTQContent.SetSelection(0,length( edtTQContent.Text),false);
+            edtTQContent.SelAttributes.Height:=14;
+            edtTQContent.SelAttributes.Name:='ËÎÌו';
+     edtTQContent.SelAttributes.Color:=$00333333;
+     edtTQContent.SetSelection(0,0,false);
+
       frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
       // edtTQContent.Font.Height:=14;
       // edtTQContent.Font.Name:='ËÎÌו';

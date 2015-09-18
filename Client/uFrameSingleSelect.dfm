@@ -26,7 +26,7 @@ object FrameSingleSelect: TFrameSingleSelect
         Left = 0
         Top = 0
         Width = 778
-        Height = 82
+        Height = 62
         Align = alTop
         BevelOuter = bvNone
         Caption = 'pnl3'
@@ -38,17 +38,18 @@ object FrameSingleSelect: TFrameSingleSelect
           Left = 0
           Top = 0
           Width = 778
-          Height = 82
+          Height = 62
           Align = alClient
           BorderStyle = bsNone
-          Font.Charset = DEFAULT_CHARSET
+          Font.Charset = GB2312_CHARSET
           Font.Color = 5592405
           Font.Height = 14
           Font.Name = #23435#20307
-          Font.Style = [fsBold]
+          Font.Style = []
           Lines.Strings = (
             ''
-            #21333#39033#36873#25321#39064#65288#26412#39064#20849'40'#23567#39064#65292#27599#23567#39064'1'#20998#65292#20849'40'#20998#65289#21482#26377#19968#20010#36873#39033#26159#27491#30830#30340)
+            #27880#24847#20107#39033#65306
+            '    '#21333#39033#36873#25321#39064#65288#26412#39064#20849'30'#23567#39064#65292#27599#23567#39064'1'#20998#65292#20849'30'#20998#65289#21482#26377#19968#20010#36873#39033#26159#27491#30830#30340#12290)
           ParentFont = False
           TabOrder = 0
         end
@@ -271,18 +272,20 @@ object FrameSingleSelect: TFrameSingleSelect
       end
       object pnl6: TPanel
         Left = 0
-        Top = 82
+        Top = 62
         Width = 778
-        Height = 298
+        Height = 318
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pnl6'
         TabOrder = 2
+        ExplicitTop = 82
+        ExplicitHeight = 298
         object edtTQContent: TJvRichEdit
           Left = 0
           Top = 0
           Width = 778
-          Height = 298
+          Height = 318
           Align = alClient
           BevelInner = bvNone
           BevelOuter = bvNone
@@ -298,6 +301,7 @@ object FrameSingleSelect: TFrameSingleSelect
           ReadOnly = True
           SelText = ''
           TabOrder = 0
+          ExplicitHeight = 298
         end
       end
     end
