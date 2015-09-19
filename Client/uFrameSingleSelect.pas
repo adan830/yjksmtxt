@@ -27,6 +27,7 @@ type
     procedure btnPreviousClick(Sender: TObject);
     procedure btnNextClick(Sender: TObject);
     procedure btnAnswerClick(Sender: TObject);
+
   private
     tqList: TObjectList<TTQNode>;
     currentTQIndex: Integer;
@@ -41,6 +42,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     procedure HideFrame;
+    procedure ShowFrame;
   end;
 
 implementation
@@ -56,7 +58,7 @@ procedure TFrameSingleSelect.tqButtonClick(Sender: TObject);
     bb: TCnSpeedButton;
   begin
     bb := Sender as TCnSpeedButton;
-
+    SaveCurrentAnswer;
     ShowCurrentTQ(bb.Tag);
     // Application.MessageBox(PChar(inttostr(bb.Tag)),'hint');
   end;
@@ -64,25 +66,34 @@ procedure TFrameSingleSelect.tqButtonClick(Sender: TObject);
 procedure TFrameSingleSelect.btnAnswerClick(Sender: TObject);
   var
     mynode: TTQNode;
+    index:Integer;
   begin
     if currentTQIndex <> -1 then
       begin
+         index:=RadioGroup1.ItemIndex ;
         mynode := tqList[currentTQIndex];
         if mynode.tq.St_no <> '' then
           TfrmDispAnswer.ShowForm(mynode);
+        RadioGroup1.ItemIndex:=index;
       end;
   end;
 
 procedure TFrameSingleSelect.btnNextClick(Sender: TObject);
   begin
     if currentTQIndex < tqList.Count - 1 then
-      ShowCurrentTQ(currentTQIndex + 1);
+            begin
+            SaveCurrentAnswer;
+         ShowCurrentTQ(currentTQIndex + 1);
+      end;
   end;
 
 procedure TFrameSingleSelect.btnPreviousClick(Sender: TObject);
   begin
     if currentTQIndex > 0 then
-      ShowCurrentTQ(currentTQIndex - 1);
+            begin
+            SaveCurrentAnswer;
+         ShowCurrentTQ(currentTQIndex - 1);
+      end;
   end;
 
 constructor TFrameSingleSelect.Create(AOwner: TComponent);
@@ -167,7 +178,7 @@ procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
   var
     currentTq: TTQNode;
   begin
-    SaveCurrentAnswer;
+
 
     currentTq      := tqList[tqIndex];
     currentTQIndex := tqIndex;
@@ -191,6 +202,13 @@ procedure TFrameSingleSelect.ShowCurrentTQ(tqIndex: Integer);
 
       end
   end;
+
+procedure TFrameSingleSelect.ShowFrame;
+begin
+if currentTQIndex < tqList.Count  then
+      ShowCurrentTQ(currentTQIndex);
+   Self.Show;
+end;
 
 procedure TFrameSingleSelect.HideFrame;
   var
@@ -240,3 +258,5 @@ procedure TFrameSingleSelect.HideFrame;
   end;
 
 end.
+
+

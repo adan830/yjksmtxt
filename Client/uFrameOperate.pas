@@ -31,6 +31,7 @@ type
   public
     procedure SetModuleTq(aModuleInfo: TModuleInfo);
     procedure HideFrame;
+    procedure ShowFrame;
   end;
 
 implementation
@@ -75,6 +76,11 @@ begin
   if self.ModuleInfo.Name='Ppt' then
           mmTQDesp.Text:=EOL+'  注意事项：PowerPoint操作题'+EOL+'     请不要打开无关的PowerPoint文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请使用PowerPoint完成以下操作：';
 
+end;
+
+procedure TFrameOperate.ShowFrame;
+begin
+   Self.Show;
 end;
 
 procedure TFrameOperate.btnGradeClick(Sender: TObject);

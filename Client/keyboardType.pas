@@ -103,35 +103,49 @@ procedure TFrameKeyType.targetRichChange(Sender : TObject);
             // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
             // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
          end;
-      procedure SetSourceRichFormat(re : TRichEdit; caretPos : integer);
+      procedure SetSourceRichCaretPos( caretPos : integer);
          begin
-            re.SelStart            := 0;
-            re.SelLength           := caretPos;
-            re.SelAttributes.color := clblue;
-            re.SelAttributes.style := [fsUnderline];
-
-            re.SelStart            := caretPos;
-            re.SelLength           := length(re.text) - caretPos;
-            re.SelAttributes.color := clRed;
-            re.SelAttributes.style := [];
-
+            sourceRich.SelStart            := 0;
+            sourceRich.SelLength           := caretPos;
+            sourceRich.SelAttributes.color := clblue;
+            sourceRich.SelAttributes.style := [fsUnderline];
+            if caretPos<Length(sourceRich.Text) then
+            begin
+               sourceRich.SelStart            := caretPos;
+               sourceRich.SelLength           := length(sourceRich.text) - caretPos;
+               sourceRich.SelAttributes.color := clRed;
+               sourceRich.SelAttributes.style := [];
+            end;
             SetCaret(sourceRich, fCurrentPos);
 
             // SendMessage(targetRich.Handle,WM_DISPLAYCHANGE,0,0);
             // OutputDebugStringW(PWideChar(re.SelText+inttostr(color)+re.Name ));
          end;
-      procedure CheckBlock(startPos, endPos : integer);
+      procedure CheckBlock(startPos:integer);
          var
-            sp, len : integer;
+            sp, len,endPos ,sourceLen,targetLen: integer;
          begin
-            if endPos = 0 then
+            targetLen:=length(targetRich.text);
+            if targetLen = 0 then
                exit;
+
+               sourceLen:=Length(sourceRich.Text);
+               if targetLen>sourceLen then
+                  endpos:=sourceLen
+               else
+                  endpos:=targetLen;
+
                with targetRich do
                begin
                   while startPos < endPos do
                   begin
                      sp  := startPos;
                      len := 1;
+//                     if startPos>=sourceLen then
+//                     begin
+//                              len      := endPos-startpos;
+//                           SetRichFormat(targetRich, sp, len, clRed, []);
+//                     end else
                      if (sourceRich.text[startPos + 1] = targetRich.text[startPos + 1]) then
                      begin
                         startPos := startPos + 1;
@@ -153,6 +167,12 @@ procedure TFrameKeyType.targetRichChange(Sender : TObject);
                      startPos := startPos + 1;
                   end;
                end;
+               if targetLen>=sourceLen then
+               begin
+                   len      := targetLen-sourceLen;
+                   sp:=sourceLen;
+                   SetRichFormat(targetRich, sp, len, clRed, []);
+               end;
          end;
       procedure setTargetCaret(caretPos : integer);
          begin
@@ -165,9 +185,9 @@ procedure TFrameKeyType.targetRichChange(Sender : TObject);
 
       cursorpos := targetRich.SelStart;
       if fCurrentPos <= cursorpos then
-         CheckBlock(fCurrentPos, length(targetRich.text))
+         CheckBlock(fCurrentPos)
       else
-         CheckBlock(cursorpos, length(targetRich.text));
+         CheckBlock(cursorpos);
 
       fCurrentPos := cursorpos;
       setTargetCaret(fCurrentPos);
@@ -189,9 +209,9 @@ procedure TFrameKeyType.targetRichChange(Sender : TObject);
       // end;
 
       // SetRichFormat(sourceRich, 0, length(targetRich.Text), clwindowtext, [fsUnderline]);
-      if (fCurrentPos > sourceRich.GetTextLen) then
-         exit;
-      SetSourceRichFormat(sourceRich, fCurrentPos);
+//      if (fCurrentPos > sourceRich.GetTextLen) then
+//         exit;
+      SetSourceRichCaretPos( fCurrentPos);
       // SetCaret(sourceRich, fCurrentPos);
       targetRich.SetFocus;
    end;

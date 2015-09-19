@@ -33,7 +33,6 @@ object frmDispAnswer: TfrmDispAnswer
     ParentFont = False
     ReadOnly = True
     TabOrder = 0
-    ExplicitTop = 51
   end
   object grdAnswer: TStringGrid
     Left = 0

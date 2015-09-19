@@ -42,6 +42,7 @@ type
       public
          constructor Create(AOwner : TComponent); override;
          procedure HideFrame;
+         procedure ShowFrame;
    end;
 
 implementation
@@ -57,7 +58,7 @@ procedure TFrameMultiSelect.tqButtonClick(Sender : TObject);
       bb : TCnSpeedButton;
    begin
       bb := Sender as TCnSpeedButton;
-
+      SaveCurrentAnswer;
       ShowCurrentTQ(bb.Tag);
       // Application.MessageBox(PChar(inttostr(bb.Tag)),'hint');
    end;
@@ -77,13 +78,19 @@ procedure TFrameMultiSelect.btnAnswerClick(Sender : TObject);
 procedure TFrameMultiSelect.btnNextClick(Sender : TObject);
    begin
       if currentTQIndex < tqList.Count - 1 then
+      begin
+      SaveCurrentAnswer;
          ShowCurrentTQ(currentTQIndex + 1);
+      end;
    end;
 
 procedure TFrameMultiSelect.btnPreviousClick(Sender : TObject);
    begin
       if currentTQIndex > 0 then
+      begin
+         SaveCurrentAnswer;
          ShowCurrentTQ(currentTQIndex - 1);
+      end;
    end;
 
 constructor TFrameMultiSelect.Create(AOwner : TComponent);
@@ -178,8 +185,6 @@ procedure TFrameMultiSelect.ShowCurrentTQ(tqIndex : Integer);
       i, j      : Integer;
       pc        : pchar;
    begin
-      SaveCurrentAnswer;
-
       currentTq      := tqList[tqIndex];
       currentTQIndex := tqIndex;
       // lblCodeText.Caption := currentTq^.CodeText;
@@ -187,16 +192,13 @@ procedure TFrameMultiSelect.ShowCurrentTQ(tqIndex : Integer);
       edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
       edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
     frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
+
     edtTQContent.SetSelection(0,length( edtTQContent.Text),false);
             edtTQContent.SelAttributes.Height:=14;
             edtTQContent.SelAttributes.Name:='ËÎÌו';
      edtTQContent.SelAttributes.Color:=$00333333;
      edtTQContent.SetSelection(0,0,false);
 
-      frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
-      // edtTQContent.Font.Height:=14;
-      // edtTQContent.Font.Name:='ËÎÌו';
-      // edtTQContent.Font.Color:=$00333333;
       if currentTq.tq.St_no <> '' then
       begin
          chkAnswer1.Checked := false;
@@ -216,6 +218,13 @@ procedure TFrameMultiSelect.ShowCurrentTQ(tqIndex : Integer);
          end;
       end
    end;
+
+procedure TFrameMultiSelect.ShowFrame;
+begin
+if currentTQIndex < tqList.Count  then
+      ShowCurrentTQ(currentTQIndex);
+   self.Show;
+end;
 
 procedure TFrameMultiSelect.HideFrame;
    var

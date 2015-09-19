@@ -327,17 +327,15 @@ procedure TClientMainForm.SetTabFrameStatus(tabID : integer);
                begin
                   btnSingleSelect.Down := true;
                   if singleFrame = nil then
-                     singleFrame := LoadFrameByClassName(TFrameSingleSelect, pnlClient) as TFrameSingleSelect
-                  else
-                     singleFrame.show;
+                     singleFrame := LoadFrameByClassName(TFrameSingleSelect, pnlClient) as TFrameSingleSelect;
+                  singleFrame.ShowFrame;
                end;
             2 :
                begin
                   btnMultiSelect.Down := true;
                   if multiFrame = nil then
-                     multiFrame := LoadFrameByClassName(TFrameMultiSelect, pnlClient) as TFrameMultiSelect
-                  else
-                     multiFrame.show;
+                     multiFrame := LoadFrameByClassName(TFrameMultiSelect, pnlClient) as TFrameMultiSelect;
+                  multiFrame.ShowFrame;
                end;
             3 :
                begin
@@ -351,7 +349,7 @@ procedure TClientMainForm.SetTabFrameStatus(tabID : integer);
                   btnWindows.Down := true;
                   if windowsFrame = nil then
                      windowsFrame := LoadFrameByClassName(TFrameOperate, pnlClient, TExamModule.EMWINDOWS) as TFrameOperate;
-                  windowsFrame.show;
+                  windowsFrame.ShowFrame;
                   // if TExamClientGlobal.Floatwindow = nil then
                   // TExamClientGlobal.Floatwindow := TFloatWindow.Create(self);
                   // self.Hide;
@@ -363,21 +361,21 @@ procedure TClientMainForm.SetTabFrameStatus(tabID : integer);
                   btnWord.Down := true;
                   if wordFrame = nil then
                      wordFrame := LoadFrameByClassName(TFrameOperate, pnlClient, TExamModule.EMWORD) as TFrameOperate;
-                  wordFrame.show;
+                  wordFrame.ShowFrame;
                end;
             6 :
                begin
                   btnExcel.Down := true;
                   if excelFrame = nil then
                      excelFrame := LoadFrameByClassName(TFrameOperate, pnlClient, TExamModule.EMEXCEL) as TFrameOperate;
-                  excelFrame.show;
+                  excelFrame.ShowFrame;
                end;
             7 :
                begin
                   btnPowerPoint.Down := true;
                   if powerPointFrame = nil then
                      powerPointFrame := LoadFrameByClassName(TFrameOperate, pnlClient, TExamModule.EMPOWERPOINT) as TFrameOperate;
-                  powerPointFrame.show;
+                  powerPointFrame.ShowFrame;
                end;
          end;
       end;

@@ -28,7 +28,7 @@ begin
    Result.Align:=alClient;
    Result.Left:=0;//(Panel1.Width-Result.Width)div 2;
    Result.Top:=0;//(Panel1.Height-Result.Height)div 2;
-   Result.Show
+   //Result.Show
 
 
    //FCurrentfrmClassName:=theFrameClass.ClassName;
@@ -62,7 +62,7 @@ begin
    end;
     (result as TFrameOperate).SetModuleTq(module);
 
-   Result.Show
+   //Result.Show
 
    //FCurrentfrmClassName:=theFrameClass.ClassName;
 

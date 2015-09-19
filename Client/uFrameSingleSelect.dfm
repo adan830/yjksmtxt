@@ -279,8 +279,6 @@ object FrameSingleSelect: TFrameSingleSelect
         BevelOuter = bvNone
         Caption = 'pnl6'
         TabOrder = 2
-        ExplicitTop = 82
-        ExplicitHeight = 298
         object edtTQContent: TJvRichEdit
           Left = 0
           Top = 0
@@ -301,7 +299,6 @@ object FrameSingleSelect: TFrameSingleSelect
           ReadOnly = True
           SelText = ''
           TabOrder = 0
-          ExplicitHeight = 298
         end
       end
     end

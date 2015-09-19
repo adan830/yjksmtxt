@@ -52,7 +52,6 @@ object FrameMultiSelect: TFrameMultiSelect
             '    '#22810#39033#36873#25321#39064#65288#26412#39064#20849'5'#23567#39064#65292#27599#23567#39064'2'#20998#65292#20849'10'#20998#65289#33267#23569#26377#19968#20010#36873#39033#26159#27491#30830#30340#12290)
           ParentFont = False
           TabOrder = 0
-          ExplicitHeight = 82
         end
       end
       object pnl4: TPanel
@@ -381,8 +380,6 @@ object FrameMultiSelect: TFrameMultiSelect
         BevelOuter = bvNone
         Caption = 'pnl6'
         TabOrder = 2
-        ExplicitTop = 82
-        ExplicitHeight = 298
         object edtTQContent: TJvRichEdit
           Left = 0
           Top = 0
@@ -403,7 +400,6 @@ object FrameMultiSelect: TFrameMultiSelect
           ReadOnly = True
           SelText = ''
           TabOrder = 0
-          ExplicitHeight = 298
         end
       end
     end
