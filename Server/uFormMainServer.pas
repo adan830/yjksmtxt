@@ -265,6 +265,10 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 120;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
       with tvExaminees.CreateColumn do
       begin
@@ -273,6 +277,22 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 80;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
+      end;
+      with tvExaminees.CreateColumn do
+      begin
+         Index                      := ColIndexOfExamineeSex;
+         Caption                    := 'ÐÔ±ð';
+         DataBinding.ValueTypeClass := TcxStringValueType;
+         width                      := 50;
+         Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
       with tvExaminees.CreateColumn do
       begin
@@ -281,6 +301,10 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 120;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
       with tvExaminees.CreateColumn do
       begin
@@ -289,6 +313,10 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 80;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
       with tvExaminees.CreateColumn do
       begin
@@ -297,6 +325,10 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 120;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
       with tvExaminees.CreateColumn do
       begin
@@ -305,6 +337,10 @@ procedure TFormMainServer.InitGrdClientListHeader;
          DataBinding.ValueTypeClass := TcxStringValueType;
          width                      := 110;
          Options.Editing            := False;
+         HeaderAlignmentHorz:=taCenter;
+         PropertiesClass :=  TcxTextEditProperties;
+         TcxTextEditProperties(Properties).Alignment.Vert  :=  taVCenter;
+         TcxTextEditProperties(Properties).Alignment.Horz  :=  taCenter;
       end;
    end;
 
@@ -330,6 +366,7 @@ procedure TFormMainServer.pmbtnContinuteExamClick(Sender : TObject);
       begin
          ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
          Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Sex       := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
          Status     := esAllowContinuteExam;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
          IP         := Values[FocusedRecordIndex, ColIndexOfIP];
@@ -347,6 +384,7 @@ procedure TFormMainServer.pmbtnReExamClick(Sender : TObject);
       begin
          ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
          Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Sex       := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
          Status     := esAllowReExam;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
          IP         := Values[FocusedRecordIndex, ColIndexOfIP];
@@ -647,6 +685,7 @@ procedure TFormMainServer.RefreshData;
                Examinee                          := TExaminee(myList[i]^);
                Values[i, ColIndexOfExamineeNo]   := Examinee.ID;
                Values[i, ColIndexOfExamineeName] := Examinee.Name;
+               Values[i, ColIndexOfExamineeSex] := Examinee.Sex;
                Values[i, ColIndexOfIP]           := Examinee.IP;
                Values[i, ColIndexOfPort]         := inttostr(Examinee.Port);
                Values[i, ColIndexOfRemainTime]   := inttostr(Examinee.RemainTime);
@@ -679,6 +718,7 @@ procedure TFormMainServer.mnbtnAbsentClick(Sender : TObject);
       begin
          ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
          Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Sex       := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
          Status     := esAbsent;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
          IP         := Values[FocusedRecordIndex, ColIndexOfIP];
@@ -723,6 +763,7 @@ procedure TFormMainServer.mnbtnCribClick(Sender : TObject);
       begin
          ID         := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
          Name       := Values[FocusedRecordIndex, ColIndexOfExamineeName];
+         Sex       := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
          Status     := esCheat;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
          IP         := Values[FocusedRecordIndex, ColIndexOfIP];

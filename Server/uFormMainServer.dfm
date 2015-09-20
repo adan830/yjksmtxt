@@ -44,10 +44,6 @@ object FormMainServer: TFormMainServer
       Color = 16775666
       ImageIndex = 0
       ParentColor = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         737
         475)
@@ -1120,8 +1116,13 @@ object FormMainServer: TFormMainServer
       TextColor = clBlack
     end
     object cxStyle4: TcxStyle
-      AssignedValues = [svColor, svTextColor]
+      AssignedValues = [svColor, svFont, svTextColor]
       Color = 16247513
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 14
+      Font.Name = 'Tahoma'
+      Font.Style = []
       TextColor = clBlack
     end
     object cxStyle5: TcxStyle
@@ -1134,7 +1135,7 @@ object FormMainServer: TFormMainServer
       Color = 14811135
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = 14
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       TextColor = clNavy

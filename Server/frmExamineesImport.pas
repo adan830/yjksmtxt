@@ -54,6 +54,9 @@ type
     btnExit: TCnSpeedButton;
     btnAdd: TCnSpeedButton;
     btnDelete: TCnSpeedButton;
+    setExamineeBaseExamineeSex: TStringField;
+    setExamineeBaseDecryptedSex: TStringField;
+    tvExamineesColumnDecryptedSex: TcxGridDBColumn;
       procedure btnAddClick(Sender : TObject);
       procedure FormCreate(Sender : TObject);
       procedure btnSaveClick(Sender : TObject);
@@ -128,6 +131,7 @@ procedure TExamineesImport.setExamineeBaseCalcFields(DataSet : TDataSet);
       begin
          FieldValues[DFNEI_DECRYPTEDID]         := DecryptStr(FieldByName(DFNEI_EXAMINEEID).AsString);
          FieldValues[DFNEI_DECRYPTEDNAME]       := DecryptStr(FieldByName(DFNEI_EXAMINEENAME).AsString);
+         FieldValues[DFNEI_DECRYPTEDSEX]       :=  DecryptStr(FieldByName(DFNEI_EXAMINEESEX).AsString);
          FieldValues[DFNEI_DECRYPTEDSTATUS]     := DecryptStr(FieldByName(DFNEI_STATUS).AsString);
          FieldValues[DFNEI_DECRYPTEDREMAINTIME] := DecryptStr(FieldByName(DFNEI_REMAINTIME).AsString);
          FieldValues[DFNEI_DECRYPTEDTIMESTAMP]  := DecryptStr(FieldByName(DFNEI_TIMESTAMP).AsString);
@@ -216,6 +220,7 @@ procedure TExamineesImport.btnSaveClick(Sender : TObject);
                  if field value is null ,can't convert variant to string ,so add vartostr }
                Examinee.ID   := VarToStr(FieldValues[DFNEI_EXAMINEEID]);
                Examinee.Name := VarToStr(FieldValues[DFNEI_EXAMINEENAME]);
+               Examinee.Sex := VarToStr(FieldValues[DFNEI_EXAMINEESEX]);
                Examinee.IP   := '';
                Examinee.Port := 0;
 
@@ -275,6 +280,7 @@ procedure TExamineesImport.FormCreate(Sender : TObject);
       // cdsTemp := TClientDataSet.Create(self);
       cdsTemp.FieldDefs.Add(DFNEI_EXAMINEEID, ftString, 11);
       cdsTemp.FieldDefs.Add(DFNEI_EXAMINEENAME, ftString, 8);
+      cdsTemp.FieldDefs.Add(DFNEI_EXAMINEESEX, ftString, 8);
       // cdsTemp.FieldDefs.Add('IP',ftString,15);
       // cdsTemp.FieldDefs.Add('Port',ftInteger);
       cdsTemp.FieldDefs.Add(DFNEI_STATUS, ftInteger);
@@ -287,6 +293,7 @@ procedure TExamineesImport.FormCreate(Sender : TObject);
       tvCDSTemp.DataController.CreateAllItems;
       TcxGridDBColumn(tvCDSTemp.Columns[0]).Caption := '准考证号';
       TcxGridDBColumn(tvCDSTemp.Columns[1]).Caption := '姓名';
+      TcxGridDBColumn(tvCDSTemp.Columns[1]).Caption := '性别';
       TcxGridDBColumn(tvCDSTemp.Columns[2]).Caption := '状态';
       TcxGridDBColumn(tvCDSTemp.Columns[3]).Caption := '剩余时间';
    end;

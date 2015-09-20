@@ -53,10 +53,11 @@ type
 const
    ColIndexOfExamineeNo   = 0;
    ColIndexOfExamineeName = 1;
-   ColIndexOfIP           = 2;
-   ColIndexOfPort         = 3;
-   ColIndexOfStatus       = 4;
-   ColIndexOfRemainTime   = 5;
+   ColIndexOfExamineeSex  = 2;
+   ColIndexOfIP           = 3;
+   ColIndexOfPort         = 4;
+   ColIndexOfStatus       = 5;
+   ColIndexOfRemainTime   = 6;
 
 implementation
 

@@ -79,6 +79,7 @@ const
    // data field name const for 考生信息 table
    DFNEI_EXAMINEEID   = 'ExamineeID';
    DFNEI_EXAMINEENAME = 'ExamineeName';
+   DFNEI_EXAMINEESEX  = 'ExamineeSex';
    DFNEI_IP           = 'IP';
    DFNEI_PORT         = 'Port';
    DFNEI_STATUS       = 'Status';
@@ -89,6 +90,7 @@ const
    // 以下几个字段是用来保存解密数据的
    DFNEI_DECRYPTEDID         = 'DeCryptedID';
    DFNEI_DECRYPTEDNAME       = 'DeCryptedName';
+   DFNEI_DECRYPTEDSEX       = 'DeCryptedSex';
    DFNEI_DECRYPTEDSTATUS     = 'DeCryptedStatus';
    DFNEI_DECRYPTEDIP         = 'DeCryptedIP';
    DFNEI_DECRYPTEDPORT       = 'DeCryptedPort';
@@ -97,6 +99,7 @@ const
    // data field length const for 考生信息 table
    DFNLENEI_EXAMINEEID   = 24; // Text type
    DFNLENEI_EXAMINEENAME = 20; // Text type
+   DFNLENEI_EXAMINESEX   = 20; // Text type
    DFNLENEI_IP           = 32; // Text type
    DFNLENEI_PORT         = 32; // Text type
    DFNLENEI_STATUS       = 20; // Text type
@@ -123,7 +126,7 @@ const
    SQLSTR_GETTQDATASET_BY_PREFIX    = 'select * from 试题 where st_no like :v_stno';
    SQLSTR_GETCLIENT_EXAMINEEINFO    ='select * from 考生信息 where ExamineeID';// 'select * from 考生信息 where ExamineeID like :v_ExamineeID';
    SQLSTR_GETCLIENT_AllTQ           = 'select * from 试题 ';
-   SQLSTR_GETALLEXAMINEES           = 'select ExamineeID,ExamineeName,RemainTime,Status from 考生信息';
+   SQLSTR_GETALLEXAMINEES           = 'select ExamineeID,ExamineeName,ExamineeSex,RemainTime,Status from 考生信息';
    // select 给定试题号的记录
    SQLSTR_GETTQDATASET_BY_STNO = 'select * from 试题 where st_no = :v_stno';
 

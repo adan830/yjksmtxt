@@ -34,10 +34,6 @@ object ExamineesImport: TExamineesImport
     ParentFont = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitLeft = 376
-    ExplicitTop = 240
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     DesignSize = (
       695
       415)
@@ -172,6 +168,10 @@ object ExamineesImport: TExamineesImport
           DataBinding.FieldName = 'DecryptedName'
           Width = 60
         end
+        object tvExamineesColumnDecryptedSex: TcxGridDBColumn
+          Caption = #24615#21035
+          DataBinding.FieldName = 'DecryptedSex'
+        end
         object clmnExamineesDecryptedStatus: TcxGridDBColumn
           Caption = #29366#24577
           DataBinding.FieldName = 'DecryptedStatus'
@@ -250,6 +250,9 @@ object ExamineesImport: TExamineesImport
     object wdstrngfldExamineeBaseExamineeName: TWideStringField
       FieldName = 'ExamineeName'
     end
+    object setExamineeBaseExamineeSex: TStringField
+      FieldName = 'ExamineeSex'
+    end
     object wdstrngfldExamineeBaseStatus: TWideStringField
       FieldName = 'Status'
     end
@@ -263,6 +266,12 @@ object ExamineesImport: TExamineesImport
       FieldKind = fkCalculated
       FieldName = 'DecryptedName'
       Size = 8
+      Calculated = True
+    end
+    object setExamineeBaseDecryptedSex: TStringField
+      DisplayWidth = 2
+      FieldKind = fkCalculated
+      FieldName = 'DecryptedSex'
       Calculated = True
     end
     object strngfldExamineeBaseDecryptedStatus: TStringField

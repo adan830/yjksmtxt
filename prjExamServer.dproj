@@ -79,7 +79,6 @@
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <DCC_OutputXMLDocumentation>true</DCC_OutputXMLDocumentation>
         <DCC_DependencyCheckOutputName>debug\bin\prjEaxmServer.exe</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
@@ -89,7 +88,7 @@
         <DCC_ResourcePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_ResourcePath)</DCC_ResourcePath>
         <DCC_ObjPath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>$(BDS)\lib\Debug;$(BDS)\Lib\Debug\Indy10;E:\DELPHI~3\JVCL33~1\jcl\lib\d11\debug;E:\yjksmtxt\debug\dcu;E:\yjksmtxt\ExamCommons;C:\Documents and Settings\All Users\Documents\RAD Studio\5.0\Bpl;$(DCC_IncludePath)</DCC_IncludePath>
-        <DCC_Define>NODISPLAY;$(DCC_Define)</DCC_Define>
+        <DCC_Define>NOLOGIN;NODISPLAY;$(DCC_Define)</DCC_Define>
         <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
         <DCC_RangeChecking>True</DCC_RangeChecking>
         <DCC_GenerateStackFrames>True</DCC_GenerateStackFrames>
@@ -145,6 +144,20 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\MobileWizardExpert220.bpl">File c:\program files (x86)\embarcadero\studio\16.0\bin\MobileWizardExpert220.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl">File C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>
@@ -540,13 +553,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
