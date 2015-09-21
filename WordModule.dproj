@@ -69,7 +69,6 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
         <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
@@ -82,7 +81,6 @@
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <DCC_DependencyCheckOutputName>debug\bin\WordModule.dll</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
-        <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
         <DCC_DcuOutput>debug\dcu</DCC_DcuOutput>
         <DCC_ObjOutput>debug\dcu</DCC_ObjOutput>
         <DCC_HppOutput>debug\dcu</DCC_HppOutput>

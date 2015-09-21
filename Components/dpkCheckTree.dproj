@@ -61,7 +61,6 @@
         <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_MapFile>3</DCC_MapFile>
-        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <CfgDependentOn>..\ReleaseWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <Import Project="..\DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('..\DebugWin32.optset')"/>

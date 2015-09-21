@@ -469,7 +469,7 @@ begin
    ReportDS := TfrxDBDataset.Create(nil);
    try
       examineeCDS := TExamServerGlobal.ExamineesManager.GetExamineesCDS;
-      examineeCDS.SaveToFile();
+//      examineeCDS.SaveToFile();
       // examineeCDS.LoadFromFile('examineecds.dat');
       ReportDS.DataSet := examineeCDS;
       // examineeCDS.SaveToFile('examineecds.dat');

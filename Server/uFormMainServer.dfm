@@ -44,10 +44,6 @@ object FormMainServer: TFormMainServer
       Color = 16775666
       ImageIndex = 0
       ParentColor = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         737
         475)
