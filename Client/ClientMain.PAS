@@ -211,6 +211,7 @@ procedure TClientMainForm.btn1Click(Sender : TObject);
 
 procedure TClientMainForm.btnCompleteClick(Sender : TObject);
    begin
+      TExamClientGlobal.typeFrame.HideFrame;
       SetTabFrameStatus(-1);
       ModalResult := mrOk;
       Close;
@@ -224,76 +225,6 @@ procedure TClientMainForm.btnModuleClick(Sender : TObject);
       btn := Sender as TJvSpeedButton;
       tag := btn.tag;
       SetTabFrameStatus(tag);
-      // with TExamClientGlobal do
-      // begin
-      // case tag of
-      // 1:
-      // begin
-      // btnMultiSelect.Down := false;
-      // btnType.Down := false;
-      // btnOperate.Down := false;
-      // if (multiFrame <> nil) and (multiFrame.Showing) then
-      // multiFrame.HideFrame;
-      // if (typeFrame <> nil) and (typeFrame.Showing) then
-      // typeFrame.HideFrame;
-      //
-      // if singleFrame = nil then
-      // singleFrame := LoadFrameByClassName(TFrameSingleSelect, pnlClient)
-      // as TFrameSingleSelect
-      // else
-      // singleFrame.show;
-      // end;
-      // 2:
-      // begin
-      // btnSingleSelect.Down := false;
-      // btnType.Down := false;
-      // btnOperate.Down := false;
-      // if (singleFrame <> nil) and (singleFrame.Showing) then
-      // singleFrame.HideFrame;
-      // if (typeFrame <> nil) and (typeFrame.Showing) then
-      // typeFrame.HideFrame;
-      //
-      // if multiFrame = nil then
-      // multiFrame := LoadFrameByClassName(TFrameMultiSelect, pnlClient)
-      // as TFrameMultiSelect
-      // else
-      // multiFrame.show;
-      //
-      // end;
-      // 3:
-      // begin
-      // btnSingleSelect.Down := false;
-      // btnMultiSelect.Down := false;
-      // btnOperate.Down := false;
-      // if (singleFrame <> nil) and (singleFrame.Showing) then
-      // singleFrame.HideFrame;
-      // if (multiFrame <> nil) and (multiFrame.Showing) then
-      // multiFrame.HideFrame;
-      //
-      // if typeFrame = nil then
-      // typeFrame := LoadFrameByClassName(TFrameKeyType, pnlClient)
-      // as TFrameKeyType;
-      // typeFrame.ShowFrame;
-      // end;
-      // 4:
-      // begin
-      // btnSingleSelect.Down := false;
-      // btnMultiSelect.Down := false;
-      // btnType.Down := false;
-      // if (singleFrame <> nil) and (singleFrame.Showing) then
-      // singleFrame.HideFrame;
-      // if (multiFrame <> nil) and (multiFrame.Showing) then
-      // multiFrame.HideFrame;
-      // if (typeFrame <> nil) and (typeFrame.Showing) then
-      // typeFrame.HideFrame;
-      //
-      // if TExamClientGlobal.Floatwindow = nil then
-      // TExamClientGlobal.Floatwindow := TFloatWindow.Create(self);
-      // self.Hide;
-      // TExamClientGlobal.Floatwindow.ShowModalwithShadow;
-      // end;
-      // end;
-      // end;
    end;
 
 procedure TClientMainForm.SetTabFrameStatus(tabID : integer);
@@ -492,6 +423,9 @@ procedure TClientMainForm.CloseCover;
       self.pnlClient.show;
       TExamClientGlobal.Examinee.Status := esExamining;
       TExamClientGlobal.EnableTimer;
+      if TExamClientGlobal.typeFrame = nil then
+                     TExamClientGlobal.typeFrame := LoadFrameByClassName(TFrameKeyType, pnlClient) as TFrameKeyType;
+      SetTabFrameStatus(1);
    end;
 
 procedure TClientMainForm.dograde;
@@ -510,6 +444,7 @@ procedure TClientMainForm.dograde;
       try
          SingleSelectGrade(AOnProcess);
          MultiSelectGrade(AOnProcess);
+         //texamclientglobal.typeFrame.HideFrame;
          OperationGrade(AOnProcess, TExamClientGlobal.connClientDB, TExamClientGlobal.ExamPath);
       finally
          PMEndProcess(pbHandle);

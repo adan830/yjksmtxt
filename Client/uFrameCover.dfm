@@ -1,15 +1,17 @@
 object FrameCover: TFrameCover
   Left = 0
   Top = 0
-  Width = 451
-  Height = 305
+  Width = 513
+  Height = 364
   Align = alClient
   TabOrder = 0
+  ExplicitWidth = 451
+  ExplicitHeight = 305
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 451
-    Height = 305
+    Width = 513
+    Height = 364
     Align = alClient
     BevelOuter = bvNone
     Caption = 'Panel1'
@@ -17,11 +19,13 @@ object FrameCover: TFrameCover
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitWidth = 451
+    ExplicitHeight = 305
     object GridPanel1: TGridPanel
       Left = 0
       Top = 0
-      Width = 451
-      Height = 305
+      Width = 513
+      Height = 364
       Align = alClient
       BevelOuter = bvNone
       Caption = 'GridPanel1'
@@ -55,13 +59,11 @@ object FrameCover: TFrameCover
         end>
       ShowCaption = False
       TabOrder = 0
-      ExplicitLeft = 1
-      ExplicitTop = 1
-      ExplicitWidth = 449
-      ExplicitHeight = 303
+      ExplicitWidth = 451
+      ExplicitHeight = 305
       object Panel2: TPanel
-        Left = -65
-        Top = -48
+        Left = -33
+        Top = -18
         Width = 580
         Height = 400
         Align = alClient
@@ -69,6 +71,8 @@ object FrameCover: TFrameCover
         Caption = 'Panel2'
         ShowCaption = False
         TabOrder = 0
+        ExplicitLeft = -64
+        ExplicitTop = -47
         object imgExaminee: TImage
           Left = 160
           Top = 189

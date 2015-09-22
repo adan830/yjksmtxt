@@ -5,7 +5,7 @@
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
         <DCC_Namespace>vcl;$(DCC_Namespace)</DCC_Namespace>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <DCC_Define>RELEASE;USE_JCL;$(DCC_Define)</DCC_Define>
+        <DCC_Define>RELEASE;USE_JCL;SERVERLOG;$(DCC_Define)</DCC_Define>
         <DCC_DebugInfoInExe>false</DCC_DebugInfoInExe>
         <DCC_DebugInfoInTds>false</DCC_DebugInfoInTds>
         <DCC_BplOutput>D:\develop\yjksmtxt\Release\bin\</DCC_BplOutput>

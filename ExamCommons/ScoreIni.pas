@@ -8,6 +8,7 @@ type
   private
     FSections: TStringList;
     function AddSection(const Section: string): TStrings;
+    function OperateScoreValue(ScoreInfoStrings: TStrings; chr: char): Single;
   public
     constructor Create();
     destructor Destroy; override;
@@ -28,7 +29,7 @@ type
 implementation
 
 uses
-  SysUtils, uGrade,Commons;
+  SysUtils, uGrade,Commons, ExamGlobal;
 
 { TScoreIni }
 
@@ -84,25 +85,63 @@ end;
 function TScoreIni.GetScoreValue: Integer;
 var
   I,j: Integer;
-  list : TStringList;
+  ScoreInfoStrings : TStringList;
   scoreinfo : TScoreInfo;
-  zf : Integer;
+  zf:Single;
 begin
-  Result := 0;
   zf := 0;
-  list := TStringList.Create;
+  ScoreInfoStrings := TStringList.Create;
   try
-    for I := 0 to FSections.Count - 1 do begin
-    ReadSectionByIndex(i,list);
-      for j := 0 to List.Count - 1 do begin
-        StrToScoreInfo(list[j],scoreinfo);
-        if (scoreinfo.IsRight=-1) then zf := zf + scoreinfo.Points;
+    ReadSection(MODULE_SINGLE_NAME,ScoreInfoStrings);
+    for j := 0 to ScoreInfoStrings.Count - 1 do begin
+        StrToScoreInfo(ScoreInfoStrings[j],scoreinfo);
+        if (scoreinfo.IsRight=-1) then zf := zf + 1;
       end;
-    end;
+    ScoreInfoStrings.Clear;
+   ReadSection(MODULE_MULTIPLE_NAME,ScoreInfoStrings);
+   for j := 0 to ScoreInfoStrings.Count - 1 do begin
+        StrToScoreInfo(ScoreInfoStrings[j],scoreinfo);
+        if (scoreinfo.IsRight=-1) then zf := zf + 2;
+      end;
+
+    ReadSection(MODULE_KEYTYPE_NAME,ScoreInfoStrings);
+    if ScoreInfoStrings.Count>0 then
+        StrToScoreInfo(ScoreInfoStrings[0],scoreinfo);
+    zf :=zf+ scoreinfo.Points;
+    ReadSection('Windows',ScoreInfoStrings);
+    zf :=zf+ OperateScoreValue(ScoreInfoStrings,',');
+    ReadSection('Word',ScoreInfoStrings);
+    zf :=zf+ OperateScoreValue(ScoreInfoStrings,',');
+    ReadSection('Excel',ScoreInfoStrings);
+    zf :=zf+ OperateScoreValue(ScoreInfoStrings,'~');
+    ReadSection('Ppt',ScoreInfoStrings);
+    zf :=zf+ OperateScoreValue(ScoreInfoStrings,',');
   finally
-    list.Free;
+    ScoreInfoStrings.Free;
   end;
-  zf := Trunc(zf /10);
+  result:=Trunc( zf);
+end;
+
+
+function TScoreIni.OperateScoreValue(ScoreInfoStrings: TStrings;chr:char): Single;
+var
+  I: Integer;
+  Score : single;
+  scoreInfo:TScoreInfo;
+  strTemp:string;
+begin
+  score := 0;
+  for I := 1 to ScoreInfoStrings.Count  do    // Iterate
+  begin
+    strTemp:=string.Copy( ScoreInfoStrings.Strings[i-1]);
+    StrToScoreInfo(strTemp,scoreinfo,chr);
+    if scoreinfo.IsRight=-1 then
+    begin
+      Score := score + scoreInfo.points;
+    end
+  end;    // for
+  score:= score/10;
+  result := Score;
 end;
 
 procedure TScoreIni.GetStrings(List: TStrings);

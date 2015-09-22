@@ -281,14 +281,7 @@ procedure TFrameKeyType.ShowFrame;
    var
       stno          : string;
       remainTimeStr : string;
-
    begin
-
-      // remainTimeStr := ftq.ReadStAnswerStr ;
-      // if  remainTimeStr ='' then
-      // Self.Show;
-      // self.timer1.Enabled:=True;
-      // else
       if FTime < 3 then
       begin
          Application.MessageBox('打字时间已用完，你不能进入！', '提示：', MB_OK);

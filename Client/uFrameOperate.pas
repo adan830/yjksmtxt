@@ -59,6 +59,11 @@ begin
      edtTQContent.SelAttributes.Color:=$00333333;
      edtTQContent.SetSelection(0,0,false);
 
+     if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT) then
+        btnGrade.Visible                 := true
+       else
+             btnGrade.Visible:=false;
+
   if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT) then
       begin
         btnGrade.Visible                 := true;

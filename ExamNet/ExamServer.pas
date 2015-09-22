@@ -225,7 +225,6 @@ procedure TExamServer.ExamServerOnDisconnect(AContext : TIdContext);
    var
       Examinee : PExaminee;
    begin
-      {$IFNDEF NODISPLAY }
       New(Examinee);
       with Examinee^ do
       begin
@@ -236,15 +235,22 @@ procedure TExamServer.ExamServerOnDisconnect(AContext : TIdContext);
          IP   := AContext.Connection.Socket.Binding.PeerIP;
          Port := AContext.Connection.Socket.Binding.PeerPort;
       end;
-      FExamineesManager.UpdateDisConnectStatus(AContext.Binding);
+      //FExamineesManager.UpdateDisConnectStatus(AContext.Binding);
+      {$IFDEF SERVERLOG}
+            TExamServerGlobal.logger.WriteLog('ExamServerOnDisconnect-jpp:'+Examinee^.ID+examinee^.ip);
+       {$ENDIF}
+
       {$IFDEF DEBUG}
       CnDebugger.LogMsgWithTag('ExamServerOnDisconnect OK! ', AContext.Binding.PeerIP.Substring(8));
-      {$ENDIF}
       {$ENDIF}
    end;
 
 procedure TExamServer.ExamServerListenException(AThread : TIdListenerThread; AException : Exception);
    begin
+   {$IFDEF SERVERLOG}
+            TExamServerGlobal.logger.WriteLog('ServerListenException:'+AException.Message);
+       {$ENDIF}
+
       {$IFDEF DEBUG}
       // TExamServerGlobal.logger.WriteLog('ServerListenException:'+AException.Message);
       {$IFDEF DEBUG}
@@ -257,6 +263,10 @@ procedure TExamServer.ExamServerListenException(AThread : TIdListenerThread; AEx
 
 procedure TExamServer.ExamServerException(AContext : TIdContext; AException : Exception);
    begin
+   {$IFDEF SERVERLOG}
+            TExamServerGlobal.logger.WriteLog('ServerException-jpp:'+AException.Message);
+       {$ENDIF}
+
       {$IFDEF DEBUG}
       // TExamServerGlobal.logger.WriteLog('ServerException:'+AException.Message);
       {$IFDEF DEBUG}
@@ -269,6 +279,10 @@ procedure TExamServer.ExamServerException(AContext : TIdContext; AException : Ex
 
 procedure TExamServer.CmdHandleException(ACommand : String; AContext : TIdContext);
    begin
+    {$IFDEF SERVERLOG}
+            TExamServerGlobal.logger.WriteLog('CmdhandleException-jpp:'+Acommand);
+       {$ENDIF}
+
       {$IFDEF DEBUG}
       // TExamServerGlobal.logger.WriteLog('CmdhandleException:'+Acommand);
       {$IFDEF DEBUG}

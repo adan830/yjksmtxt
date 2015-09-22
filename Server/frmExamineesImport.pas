@@ -98,7 +98,7 @@ procedure TExamineesImport.btnAddClick(Sender : TObject);
                begin
                   with tvExaminees.Controller.SelectedRecords[i] do
                   begin
-                     cdsTemp.AppendRecord([VarToStr(Values[0]), VarToStr(Values[1]), VarToStr(Values[2])]);
+                     cdsTemp.AppendRecord([VarToStr(Values[0]), VarToStr(Values[1]), VarToStr(Values[2]),VarToStr(Values[3])]);
                   end;
                end;
             end;
@@ -166,7 +166,7 @@ procedure TExamineesImport.AddRecord(ARecord : TcxCustomGridRecord);
       if ARecord is TcxGridGroupRow then
          Exit;
       if not IsSelected(cdsTemp, ARecord.Values[0]) then
-         cdsTemp.AppendRecord([ARecord.DisplayTexts[0], ARecord.DisplayTexts[1], ARecord.DisplayTexts[2]]);
+         cdsTemp.AppendRecord([ARecord.DisplayTexts[0], ARecord.DisplayTexts[1], ARecord.DisplayTexts[2], ARecord.DisplayTexts[3]]);
    end;
 
 procedure TExamineesImport.tvCDSTempDragOver(Sender, Source : TObject; X, Y : Integer; State : TDragState; var Accept : Boolean);
@@ -227,7 +227,7 @@ procedure TExamineesImport.btnSaveClick(Sender : TObject);
                Examinee.TimeStamp             := 0;
                Examinee.ScoreCompressedStream := nil;
 
-               Examinee.Status     := esNotLogined; // TExamineeStatus(vartoint(FieldValues['Status']));
+               Examinee.Status     := esNotLogined; //  TExamineeStatus(vartoint(FieldValues['Status']));
                Examinee.RemainTime := TExamServerGlobal.GlobalStkRecordInfo.BaseConfig.ExamTime;
                if FileExists(Examinee.ID + '.jpg') then
                   Examinee.HasPhoto := True
@@ -257,14 +257,14 @@ procedure TExamineesImport.btnSaveClick(Sender : TObject);
          begin
             /// 当考生状态为 esExamEnded 时，导入时，需确认，其它状态一律原样导入
             /// 导入后的考生，初始化状态全为esFirstLogin
-//            if (TExamineeStatus(vartoint(FieldValues[DFNEI_STATUS])) = esExamEnded) then
-//            begin
-//               if Application.MessageBox(PChar('考生：' + FieldByName(DFNEI_EXAMINEEID).AsString + '已完成了一次考试，是否重考？'), '请确认', MB_YESNO) = ID_YES then
-//               begin
-//                  AddNewExaminee();
-//               end;
-//            end
-//            else
+            if (TExamineeStatus(vartoint(FieldValues[DFNEI_STATUS])) = esExamEnded) then
+            begin
+               if Application.MessageBox(PChar('考生：' + FieldByName(DFNEI_EXAMINEEID).AsString + '已完成了一次考试，是否重考？'), '请确认', MB_YESNO) = ID_YES then
+               begin
+                  AddNewExaminee();
+               end;
+            end
+            else
             begin
                AddNewExaminee();
             end;
@@ -293,9 +293,9 @@ procedure TExamineesImport.FormCreate(Sender : TObject);
       tvCDSTemp.DataController.CreateAllItems;
       TcxGridDBColumn(tvCDSTemp.Columns[0]).Caption := '准考证号';
       TcxGridDBColumn(tvCDSTemp.Columns[1]).Caption := '姓名';
-      TcxGridDBColumn(tvCDSTemp.Columns[1]).Caption := '性别';
-      TcxGridDBColumn(tvCDSTemp.Columns[2]).Caption := '状态';
-      TcxGridDBColumn(tvCDSTemp.Columns[3]).Caption := '剩余时间';
+      TcxGridDBColumn(tvCDSTemp.Columns[2]).Caption := '性别';
+      TcxGridDBColumn(tvCDSTemp.Columns[3]).Caption := '状态';
+      TcxGridDBColumn(tvCDSTemp.Columns[4]).Caption := '剩余时间';
    end;
 
 class procedure TExamineesImport.FormShow();
