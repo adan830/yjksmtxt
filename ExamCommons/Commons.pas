@@ -31,7 +31,7 @@ type
 //==============================================================================
 // 格式化选择题评分信息字符串
 //==============================================================================
-   function FormatSelectGradeInfo(AID, AExamValue: string; IsRight: Boolean): string;
+   function FormatSelectGradeInfo(AID,AFz, AExamValue: string; IsRight: Boolean): string;
   //将字符串转换成 TGradeInfo 记录
 //    procedure StrToGradeInfo( Content:string;var GradeInfo:TGradeInfo);  overload ;
     function StrToGradeInfo(Content:string;var GradeInfo:TGradeInfo;chr:char=','):Integer; //stdcall;
@@ -705,12 +705,12 @@ begin
 end;
 
 
-function FormatSelectGradeInfo(AID, AExamValue: string; IsRight: Boolean): string;
+function FormatSelectGradeInfo(AID,AFz, AExamValue: string; IsRight: Boolean): string;
 var
   isRightText :string;
 begin
   if IsRight  then isRightText := '-1' else isRightText := '1';
-  Result := AID+',0,,0,,'+AExamValue+','+isrighttext+',';
+  Result := AID+',0,,'+AFz+',,'+AExamValue+','+isrighttext+',';
 end;
 
 function GradeInfoStringsToScoreInfoStrings(EQID:string;GradeInfoStrings:TStrings;chr:char=','):TStrings;

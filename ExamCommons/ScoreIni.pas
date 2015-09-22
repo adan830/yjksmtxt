@@ -18,6 +18,7 @@ type
     procedure EraseSection(const Section: string); override;
     procedure GetStrings(List: TStrings);
     procedure ReadSection(const Section: string; Strings: TStrings); override;
+    procedure ReadSectionByIndex(const index: integer; Strings: TStrings);
     procedure SetStrings(List: TStrings);
     procedure SaveToStream(AStream:TStream);
 
@@ -92,7 +93,7 @@ begin
   list := TStringList.Create;
   try
     for I := 0 to FSections.Count - 1 do begin
-      ReadSection(FSections.Names[i],list);
+    ReadSectionByIndex(i,list);
       for j := 0 to List.Count - 1 do begin
         StrToScoreInfo(list[j],scoreinfo);
         if (scoreinfo.IsRight=-1) then zf := zf + scoreinfo.Points;
@@ -167,6 +168,25 @@ begin
     if I >= 0 then
     begin
       SectionStrings := TStrings(FSections.Objects[I]);
+      for J := 0 to SectionStrings.Count - 1 do
+        Strings.Add(SectionStrings[J]);
+    end;
+  finally
+    Strings.EndUpdate;
+  end;
+end;
+
+procedure TScoreIni.ReadSectionByIndex(const index: integer; Strings: TStrings);
+var
+  J: Integer;
+  SectionStrings: TStrings;
+begin
+  Strings.BeginUpdate;
+  try
+    Strings.Clear;
+    if index >= 0 then
+    begin
+      SectionStrings := TStrings(FSections.Objects[index]);
       for J := 0 to SectionStrings.Count - 1 do
         Strings.Add(SectionStrings[J]);
     end;

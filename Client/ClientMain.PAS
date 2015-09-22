@@ -85,7 +85,7 @@ procedure OnProcess(AMessage : string; AStep : integer = 1);
 implementation
 
 uses floatform, XMLIntf, XMLDoc,
-   ufrmExit, ADODB, Select, KeyType, SelectGrade, score, ExamGlobal,
+    ADODB, Select, KeyType, SelectGrade, score, ExamGlobal,
    ufrmInProcess, Commons, compress, DB, DataUtils, DataFieldConst, tq,
    ExamClientGlobal, FrameWorkUtils, uFrameOperate, cndebug;
 
@@ -525,15 +525,6 @@ procedure TClientMainForm.dograde;
       begin
          scoreForm := TScoreForm.Create(Application);
          scoreForm.ShowModal;
-      end;
-      if TExamClientGlobal.BaseConfig.ExamClasify = EXAMINATIONTYPEFORMAL then
-      begin
-         frmExit := TfrmExit.Create(Application);
-         if zf = 0 then
-            frmExit.Label1.Caption := '注意考生成绩为：0分!  考试成功结束，请离开考场！'
-         else
-            frmExit.Label1.Caption := '           考试成功结束，请离开考场！          ';
-         frmExit.ShowModal;
       end;
 
       if TExamClientGlobal.BaseConfig.ExamClasify = EXAMINATIONTYPEFORMAL then

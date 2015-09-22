@@ -53,11 +53,11 @@ begin
         if FieldByName(DFNTQ_KSDA).Text = tq.ReadStAnswerStr then
         begin
           fs:=fs+1;
-          str:=FormatSelectGradeInfo(tq.St_no,FieldByName(DFNTQ_KSDA).Text,True);
+          str:=FormatSelectGradeInfo(tq.St_no,'1',FieldByName(DFNTQ_KSDA).Text,True);
         end
         else
         begin
-          str:=FormatSelectGradeInfo(tq.St_no,FieldByName(DFNTQ_KSDA).Text,False);
+          str:=FormatSelectGradeInfo(tq.St_no,'1',FieldByName(DFNTQ_KSDA).Text,False);
         end;
         AScoreInfo.Add(str);
         ads.Next;
@@ -98,11 +98,11 @@ begin
           if FieldByName(DFNTQ_KSDA).Text = tq.ReadStAnswerStr  then
           begin
             fs:=fs+2;
-            str:=FormatSelectGradeInfo(tq.St_no,FieldByName(DFNTQ_KSDA).Text,true);
+            str:=FormatSelectGradeInfo(tq.St_no,'2',FieldByName(DFNTQ_KSDA).Text,true);
           end
           else
           begin
-            str:=FormatSelectGradeInfo(tq.St_no,FieldByName(DFNTQ_KSDA).Text,False);
+            str:=FormatSelectGradeInfo(tq.St_no,'2',FieldByName(DFNTQ_KSDA).Text,False);
           end;
           AScoreInfo.Add(str);
           ADS.Next;
