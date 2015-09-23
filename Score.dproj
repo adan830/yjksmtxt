@@ -26,6 +26,12 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
         <Cfg_2>true</Cfg_2>
         <CfgParent>Base</CfgParent>
@@ -43,11 +49,9 @@
         <VerInfo_Locale>2052</VerInfo_Locale>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;Winapi;Data.Win;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=合肥众汇友网络有限责任公司;FileDescription=题库管理及命题系统;FileVersion=1.0.0.0;InternalName=mtxt;ProductVersion=1.0.0.0</VerInfo_Keys>
-        <UsePackages>true</UsePackages>
         <DCC_DependencyCheckOutputName>Score.exe</DCC_DependencyCheckOutputName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UnitSearchPath>D:\yjksmtxt\debug\dcp;D:\yjksmtxt\debug\dcu;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_Namespace>System.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -63,18 +67,18 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_MapFile>3</DCC_MapFile>
         <DCC_StackSize>16384,9437184</DCC_StackSize>
-        <DCC_ExeOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_ExeOutput>
-        <DCC_DcuOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_DcuOutput>
-        <DCC_ObjOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_ObjOutput>
-        <DCC_HppOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_HppOutput>
-        <DCC_BplOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_BplOutput>
-        <DCC_DcpOutput>E:\myproject\delphitemp\yjks\scoreReceive</DCC_DcpOutput>
-        <DCC_UnitSearchPath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_ResourcePath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_ResourcePath)</DCC_ResourcePath>
         <DCC_ObjPath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_ObjPath)</DCC_ObjPath>
         <DCC_IncludePath>E:\myproject\delphitemp\yjks\scoreReceive;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressBars.Suite.v5.5.3\ExpressBars 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressCommon Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressDataController\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressEditors Library 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressExport Library\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressLibrary\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressPageControl 2\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\ExpressQuantumGrid 5\Sources;C:\Program Files\Borland\BDS\4.0\devexpress\DevExpress.ExpressQuantumGrid.Suite.v5.15\XP Theme Manager\Sources;$(DCC_IncludePath)</DCC_IncludePath>
-        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_UsePackage>Examcommons;MainFrame;vcl;rtl;$(DCC_UsePackage)</DCC_UsePackage>
+        <UsePackages>true</UsePackages>
+        <DCC_MapFile>0</DCC_MapFile>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -95,7 +99,8 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <DCC_UsePackage>vcl;rtl;mainframe;$(DCC_UsePackage)</DCC_UsePackage>
+        <UsePackages>true</UsePackages>
+        <DCC_UsePackage>vcl;rtl;mainframe;examcommons;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -134,6 +139,18 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\MobileWizardExpert220.bpl">File c:\program files (x86)\embarcadero\studio\16.0\bin\MobileWizardExpert220.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <ModelSupport>False</ModelSupport>
@@ -523,13 +540,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>

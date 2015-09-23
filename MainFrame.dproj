@@ -26,6 +26,12 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_2)'!=''">
         <Cfg_2>true</Cfg_2>
         <CfgParent>Base</CfgParent>
@@ -64,6 +70,9 @@
         <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <CfgDependentOn>ReleaseWin32.optset</CfgDependentOn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -120,7 +129,6 @@
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\MobileWizardExpert220.bpl">File c:\program files (x86)\embarcadero\studio\16.0\bin\MobileWizardExpert220.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl">File C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
@@ -128,7 +136,6 @@
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
@@ -473,13 +480,13 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
