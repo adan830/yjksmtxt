@@ -4,7 +4,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="prjExamServer.dproj">
-            <Dependencies>ExamCommons.dproj</Dependencies>
+            <Dependencies/>
         </Projects>
         <Projects Include="ExamCommons.dproj">
             <Dependencies/>
@@ -44,13 +44,13 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="prjExamServer" DependsOnTargets="ExamCommons">
+    <Target Name="prjExamServer">
         <MSBuild Projects="prjExamServer.dproj"/>
     </Target>
-    <Target Name="prjExamServer:Clean" DependsOnTargets="ExamCommons:Clean">
+    <Target Name="prjExamServer:Clean">
         <MSBuild Projects="prjExamServer.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="prjExamServer:Make" DependsOnTargets="ExamCommons:Make">
+    <Target Name="prjExamServer:Make">
         <MSBuild Projects="prjExamServer.dproj" Targets="Make"/>
     </Target>
     <Target Name="ExamCommons">
