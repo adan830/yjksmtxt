@@ -60,6 +60,6 @@ begin
       Application.Run;
    end
    else
-      Application.MessageBox('已经有一个实例在运行', '提示', mb_OK);
+      Application.MessageBox('您已经运行了考试服务器程序!', '提示', mb_OK);
 
 end.

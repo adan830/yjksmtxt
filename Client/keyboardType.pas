@@ -341,17 +341,17 @@ procedure TFrameKeyType.HideFrame;
          tempStream.free;
          answerStream.free;
       end;
+      wordnum := length(sourceRich.text);
+      if length(targetRich.text)<wordnum then
+         wordnum:=length(targetRich.text);
 
       correctnum := 0;
-      for i      := 1 to length(targetRich.text) do
+      for i      := 1 to wordnum do
       begin
          if targetRich.text[i] = sourceRich.text[i] then
-         begin
             correctnum := correctnum + 1;
-         end;
       end;
       wordnum := length(sourceRich.text);
-
       wordnum := round((correctnum / wordnum) * 10);
       if wordnum < 0 then
       begin
