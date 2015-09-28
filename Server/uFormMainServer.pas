@@ -1130,7 +1130,6 @@ begin
 
       if (index <> -1) then
       begin
-
          // Cells[ColIndexOfExamineeNo,index]:=Item.ExamineeNo;
          // Cells[ColIndexOfExamineeName,index]:=Item.ExamineeName;
          Values[index, ColIndexOfIP] := Item.IP;

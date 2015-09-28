@@ -307,6 +307,12 @@ function TExamineesManager.Login(AExamineeID : string; ALoginType : TLoginType; 
          if index <> -1 then
          begin
             currentStatus := TExaminee(myList[index]^).Status;
+            if currentStatus in [esLogined,esExamining,esGrading,esSutmitAchievement] then
+            begin
+               conditionResult:=false;
+               msg:=format('Examineesmanager Current Status is %d', [ord(currentStatus)]);
+            end
+            else
             case ALoginType of
                ltFirstLogin :
                   begin

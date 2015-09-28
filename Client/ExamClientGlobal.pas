@@ -526,11 +526,7 @@ class procedure TExamClientGlobal.MainTimerTimer(Sender : TObject);
 class function TExamClientGlobal.InitExam : TModalResult;
    begin
       Result := TExamClientGlobal.CreateEnvironment(TExamClientGlobal.LoginType);
-      // TExamClientGlobal.ClientMainForm:=TClientMainForm.Create(self);
-      // TExamClientGlobal.FloatWindow := TFloatWindow.Create(self);
-      // TExamClientGlobal.SelectWindow := TSelectForm.Create(self);
-      // TypeForm := TTypeForm.Create(self);
-
+      TExamClientGlobal.Examinee.Status:= esLogined;
       TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.Status,
          TExamClientGlobal.Examinee.RemainTime);
 
