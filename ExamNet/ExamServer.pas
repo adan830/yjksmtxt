@@ -11,7 +11,12 @@ interface
 uses
    IdGlobal, IdCmdTCPServer, Classes, ExamineesManager, IdSchedulerOfThreadPool, IdServerInterceptLogFile, IdContext,
    IdCustomTCPServer, SysUtils, IdCommandHandlers;
-
+const
+/// <summary>
+/// 最大生成考生文件包数
+/// 如果大于些数，以些常数为准，以减少生成时间
+/// </summary>
+   TestFilePacksCount=150;
 type
    TExamServer       = class;
    ECommandException = class(Exception);

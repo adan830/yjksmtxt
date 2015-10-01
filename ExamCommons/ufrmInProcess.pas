@@ -31,9 +31,9 @@ type
     procedure SetMax(const Value: integer);
     procedure SetMin(const Value: integer);
     procedure SetPosition(const Value: integer);
-    { Private declarations }
+  protected
+    procedure CreateParams(var Params: TCreateParams); override;
   public
-    { Public declarations }
     constructor Create(AOwner: TComponent;AApp:TApplication);
     property Info : string read GetInfo write SetInfo;
     property Min : integer read GetMin write SetMin;
@@ -178,6 +178,18 @@ constructor TfrmInProcess.Create(AOwner: TComponent; AApp: TApplication);
 begin
    inherited Create(AOwner);
    FApp:= AApp;
+end;
+
+procedure TfrmInProcess.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+   with Params do
+     begin
+       //Style :=ws_overlapped;
+       params.ExStyle:=params.exstyle or ws_ex_topmost or WS_EX_TOOLWINDOW;
+       //WndParent:=mainform.Handle;
+       WndParent :=GetDesktopWindow;//0;   //     //¸¸´°ÌåÎª×ÀÃæ
+     end;
 end;
 
 procedure TfrmInProcess.FormCreate(Sender: TObject);
