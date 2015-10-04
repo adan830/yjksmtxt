@@ -1086,10 +1086,11 @@ object FormMainServer: TFormMainServer
       OnClick = mnbtnCribClick
     end
     object mnbtnNormal: TdxBarButton
-      Caption = #27491#24120
+      Caption = #26410#30331#24405
       Category = 1
-      Hint = #27491#24120
+      Hint = #26410#30331#24405
       Visible = ivAlways
+      OnClick = mnbtnNormalClick
     end
   end
   object cxStyleRepository1: TcxStyleRepository

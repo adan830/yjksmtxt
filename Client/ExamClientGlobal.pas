@@ -74,6 +74,7 @@ type
 
          class procedure SetupExamineeInfoBase(const AExaminee : TExaminee); static;
          class procedure AquireExamineeInfoFromClientDB(var AExaminee : TExaminee); static;
+         class function VerifiesExamineeIDFromClientDB(AExaminee: TExaminee): boolean; static;
 
          class function Login() : TCommandResult; overload; static;
          class function Login(LoginType : TLoginType; pwd : string) : TCommandResult; overload; static;
@@ -93,7 +94,7 @@ implementation
 
 uses
    SysUtils, ExamGlobal, Windows, ShellModules, Commons, compress,
-   ExamInterface, tq, Forms, Variants, datautils;
+   ExamInterface, tq, Forms, Variants, datautils,ExamException;
 
 // constructor TExamClientGlobal.Create();
 // begin
@@ -388,6 +389,27 @@ class procedure TExamClientGlobal.AquireExamineeInfoFromClientDB(var AExaminee :
          qry.free;
       end;
    end;
+class function TExamClientGlobal.VerifiesExamineeIDFromClientDB(AExaminee : TExaminee):boolean;
+   var
+      qry : TADOQuery;
+   begin
+      result:=false;
+      qry := TADOQuery.Create(nil);
+      try
+         with qry, AExaminee do
+         begin
+            Connection := FConnClientDB;
+
+            SQL.Add('select * from ' + TBANAME_EXAMDB_INFO);
+            qry.Active := true;
+            qry.First;
+            if AExaminee.ID = DecryptStr(qry.FieldValues[DFNEI_EXAMINEEID]) then
+               result:=true;
+         end;
+      finally
+         qry.free;
+      end;
+   end;
 
 class function TExamClientGlobal.Login(LoginType : TLoginType; pwd : string) : TCommandResult;
    begin
@@ -555,23 +577,26 @@ class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType
                      Result := mrCancel;
                   end;
                end;
-            ltContinuteEndedExam :
+            ltContinuteEndedExam:
                begin
-                  if DirectoryExists(TExamClientGlobal.ExamPath) then
-                  begin
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
-                     TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
-                  end else begin
+                  if not DirectoryExists(TExamClientGlobal.ExamPath) then
                      TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
-                     TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
-                     TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
-                  end;
+                  TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
+                  EExamException.IfFalse( TExamClientGlobal.VerifiesExamineeIDFromClientDB(TExamClientGlobal.Examinee),'考生文件夹中准考号与登录号不一致！'); // 校验考生
+                  TExamClientGlobal.AquireExamineeInfoFromClientDB(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
+               end;
+            ltAddTimeExam :
+               begin
+                  if not DirectoryExists(TExamClientGlobal.ExamPath) then
+                     TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
+                  TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);                     // 设置考生试题库连接
+                  EExamException.IfFalse( TExamClientGlobal.VerifiesExamineeIDFromClientDB(TExamClientGlobal.Examinee),'考生文件夹中准考号与登录号不一致！'); // 校验考生
                end;
          end;
       except
          on e : Exception do
          begin
-            MessageBoxOnTopForm(Application, '生成考试环境出现问题，请重新进入系统' + e.Message, '提示:', mb_ok);
+            MessageBoxOnTopForm(Application, '生成考试环境出现问题，请重新进入系统'+EOL + e.Message, '提示:', mb_ok);
             Result := mrCancel;
          end;
       end;

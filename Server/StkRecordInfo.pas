@@ -636,7 +636,7 @@ procedure TStkRecordInfo.AcquireTestFilePack(const AExamineeID : String; const A
                CnDebugger.LogMsg('AcquireTestFilePack server Source Test File OK! ExamineeID:' + AExamineeID);
                {$ENDIF}
             end;
-         ltContinuteEndedExam :
+         ltContinuteEndedExam,ltAddTimeExam:
             begin
                if FileExists(IncludeTrailingPathDelimiter( TExamServerGlobal.ServerCustomConfig.DataBakFolder)  + AExamineeID + '.dat') then
                begin

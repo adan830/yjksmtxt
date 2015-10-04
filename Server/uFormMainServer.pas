@@ -146,6 +146,7 @@ type
       procedure barPopupMenuPopup(Sender: TObject);
       procedure btnLockClick(Sender: TObject);
       procedure mnbtnAddFirewallItemClick(Sender: TObject);
+    procedure mnbtnNormalClick(Sender: TObject);
    private
       FServerStatus: TExamServerStatus;
 
@@ -160,6 +161,7 @@ type
       procedure LoadConfigControlValue;
       procedure SetExamBaseInfo();
       function GetUnnormalExamineeInfoCDS(cdsSource: TClientDataSet): TClientDataSet;
+    procedure UpdateExamineeManagerStatus(examineeStatus: TExamineeStatus);
    protected
       procedure CLMChanged(var message: TCLMChange); message CLM_Changed;
       // procedure CLMAdd(var message:TCLMChange);message CLM_Added;
@@ -354,42 +356,13 @@ begin
 end;
 
 procedure TFormMainServer.pmbtnContinuteExamClick(Sender: TObject);
-var
-   Examinee: PExaminee;
-   // Examinee will be put in the message ,so we'll dynamic alloc mem
 begin
-
-   New(Examinee);
-   with Examinee^, tvExaminees.DataController do
-      begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Sex := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
-         Status := esAllowContinuteExam;
-         RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
-      end;
-   TExamServerGlobal.ExamineesManager.UpdateStatus(Examinee);
+   UpdateExamineeManagerStatus(esAllowContinuteExam);
 end;
 
 procedure TFormMainServer.pmbtnReExamClick(Sender: TObject);
-var
-   Examinee: PExaminee;
-   // Examinee will be put in the message ,so we'll dynamic alloc mem
 begin
-   New(Examinee);
-   with Examinee^, tvExaminees.DataController do
-      begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Sex := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
-         Status := esAllowReExam;
-         RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
-      end;
-   TExamServerGlobal.ExamineesManager.UpdateStatus(Examinee);
+   UpdateExamineeManagerStatus(esAllowReExam);
 end;
 
 // procedure TFormMainServer.GetClientInfoCommand(
@@ -718,22 +691,8 @@ begin
 end;
 
 procedure TFormMainServer.mnbtnAbsentClick(Sender: TObject);
-var
-   Examinee: PExaminee;
-   // Examinee will be put in the message ,so we'll dynamic alloc mem
 begin
-   New(Examinee);
-   with Examinee^, tvExaminees.DataController do
-      begin
-         ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
-         Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
-         Sex := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
-         Status := esAbsent;
-         RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
-         IP := Values[FocusedRecordIndex, ColIndexOfIP];
-         Port := Values[FocusedRecordIndex, ColIndexOfPort];
-      end;
-   TExamServerGlobal.ExamineesManager.UpdateStatus(Examinee);
+   UpdateExamineeManagerStatus(esAbsent);
 end;
 
 procedure TFormMainServer.mnbtnAddFirewallItemClick(Sender: TObject);
@@ -764,6 +723,15 @@ begin
 end;
 
 procedure TFormMainServer.mnbtnCribClick(Sender: TObject);
+begin
+   UpdateExamineeManagerStatus(esCheat);
+end;
+procedure TFormMainServer.mnbtnNormalClick(Sender: TObject);
+begin
+   UpdateExamineeManagerStatus(esNotLogined);
+end;
+
+procedure TFormMainServer.UpdateExamineeManagerStatus(examineeStatus:TExamineeStatus);
 var
    Examinee: PExaminee;
    // Examinee will be put in the message ,so we'll dynamic alloc mem
@@ -774,7 +742,7 @@ begin
          ID := Values[FocusedRecordIndex, ColIndexOfExamineeNo];
          Name := Values[FocusedRecordIndex, ColIndexOfExamineeName];
          Sex := Values[FocusedRecordIndex, ColIndexOfExamineeSex];
-         Status := esCheat;
+         Status := examineeStatus;
          RemainTime := strtoint(Values[FocusedRecordIndex, ColIndexOfRemainTime]);
          IP := Values[FocusedRecordIndex, ColIndexOfIP];
          Port := Values[FocusedRecordIndex, ColIndexOfPort];
