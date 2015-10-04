@@ -136,6 +136,7 @@ object FormOperate: TFormOperate
     TabOrder = 1
   end
   object Timer1: TTimer
+    Enabled = False
     Interval = 200
     OnTimer = Timer1Timer
     Left = 496

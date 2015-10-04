@@ -30,7 +30,7 @@ type
     moduleInfo: TModuleInfo;
     TestQuestion: TTQ;
 
-    procedure WMMOVING(var Msg: TMessage); message WM_MOVING;
+    procedure WMMOVING(var Msg: TMessage); //message WM_MOVING;
   public
     procedure CreateParams(var Params: TCreateParams); override;
     procedure ShowForm(aModuleInfo: TModuleInfo; aTq: TTQ);
@@ -124,7 +124,7 @@ end;
 
 procedure TFormOperate.Timer1Timer(Sender: TObject);
 const
-  cOffset = 2;
+  cOffset = 12;
 var
   curHandle: THandle;
   curPoint: TPoint;

@@ -76,9 +76,6 @@
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
-        <DCC_DebugInfoInTds>true</DCC_DebugInfoInTds>
-        <DCC_MapFile>3</DCC_MapFile>
-        <DCC_RemoteDebug>true</DCC_RemoteDebug>
         <DCC_DependencyCheckOutputName>debug\bin\WindowsModule.dll</DCC_DependencyCheckOutputName>
         <Version>7.0</Version>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -94,6 +91,7 @@
     </PropertyGroup>
     <Import Project="DebugWin32.optset" Condition="'$(Cfg_2_Win32)'!='' And Exists('DebugWin32.optset')"/>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_MapFile>0</DCC_MapFile>
         <DCC_UnitSearchPath>D:\develop\yjksmtxt\debug\bin;$(BDS)\lib\win32\debug;$(BDS)\source\vcl;$(BDS)\include\windows\rtl;C:\Program Files (x86)\Embarcadero\Studio\16.0\lib\win32\debug;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -141,6 +139,8 @@
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k220.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\MobileWizardExpert220.bpl">File c:\program files (x86)\embarcadero\studio\16.0\bin\MobileWizardExpert220.bpl not found</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl">File C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>
