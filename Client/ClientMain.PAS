@@ -373,7 +373,7 @@ procedure TClientMainForm.FormCreate(Sender : TObject);
       flashStream : TResourceStream;
    begin
       {$IFDEF DEBUG}
-          btn1.Visible:=False;
+          btn1.Visible:=true;
       {$ELSE}
          btn1.Visible:=false;
       {$ENDIF}

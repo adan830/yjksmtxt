@@ -483,15 +483,25 @@ class procedure TExamClientGlobal.MainTimerTimer(Sender : TObject);
       begin
          RemainTime := RemainTime - 1;
          sj         := format('%.2d:%.2d', [RemainTime div 60, RemainTime mod 60]);
-         {$IFDEF FLASH}
-         ClientMainForm.SetFlashRemainTime(sj);
-         {$ENDIF}
          if Assigned(ClientMainForm) and ClientMainForm.Showing then
             ClientMainForm.lblTime.Caption := '考试剩余时间:' + sj;
          if Assigned(floatWindow) and floatWindow.Showing then
          begin
             floatWindow.txtTime.Caption := '剩余:' + sj;
          end;
+         if Examinee.RemainTime=300 then
+             MessageBoxOnTopForm(application,'还有5分钟考试结束，请保存好文档','警告', mb_ok);
+         if RemainTime<=0 then
+          begin
+             FMainTimer.Enabled:=false;
+             if Assigned(floatWindow) and floatWindow.Showing then
+             begin
+                floatWindow.btnExitBitBtnClick(floatwindow);
+                floatWindow.Visible:=false;
+             end;
+            ClientMainForm.ModalResult :=mrOK;
+            ClientMainForm.Close;
+          end;
       end;
       // only Examining update time
 
@@ -505,39 +515,16 @@ class procedure TExamClientGlobal.MainTimerTimer(Sender : TObject);
       // sj:=format('%.2d:%.2d',[TExamClientGlobal.RemainTime div 60,TExamClientGlobal.RemainTime mod 60]);
       // ClientMainForm.stTime.Caption:=sj;
 
-      // todo2009120
-      // if TExamClientGlobal.RemainTime<490 then
-      // TExamClientGlobal.ClientMainForm.SetFlashRemainTime(sj);
-      // if assigned(FloatWindow) then
-      // begin
-      // Floatwindow.stTime.caption:=sj;
-      // Floatwindow.stTime1.caption:='时间：'+sj;
-      // end;
-      //
-      //
-      // if TExamClientGlobal.RemainTime=300 then
-      // MessageBoxOnTopForm(application,'还有5分钟考试结束，请保存好文档','警告', mb_ok);
-      // if TExamClientGlobal.RemainTime<=0 then
-      // begin
-      // MainTimer.Enabled:=false;
-      // if floatWindow.Visible then
-      // begin
-      // floatWindow.ExitBitBtnClick(floatwindow);
-      // floatWindow.Visible:=false;
-      // end;
-      // if SelectForm.Visible then
-      // begin
-      // SelectForm.btnReturnclick(SelectForm);
-      // SelectForm.visible:=false;
-      // end;
+
+
+
       //
       // if typeForm.visible then
       // begin
       // typeForm.ExitBitBtnClick(typeForm);
       // typeForm.visible:=false;
       // end;
-      // TExamClientGlobal.ClientMainForm.ModalResult :=-1;
-      // TExamClientGlobal.ClientMainForm.Close;
+
       // //mainform.btnJJClick(mainform);
       //
       // end;
