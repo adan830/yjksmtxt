@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinsDefaultPainters, ComCtrls, ShlObj, cxShellCommon, cxDropDownEdit, cxShellComboBox, cxLabel, cxControls, cxContainer, cxEdit,
   cxTextEdit, cxMaskEdit, cxButtonEdit, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons, 
-  ExamGlobal, ufrmException;
+  ExamGlobal, ufrmException, cxGraphics, cxLookAndFeels;
 
 type
   TfrmRestoreExamFolder = class(TForm)

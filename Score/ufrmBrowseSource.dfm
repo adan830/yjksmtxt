@@ -37,13 +37,20 @@ object frmBrowseSource: TfrmBrowseSource
       DataController.Summary.SummaryGroups = <>
       OptionsData.Deleting = False
       OptionsData.Inserting = False
+      OptionsSelection.CellSelect = False
       OptionsView.Footer = True
       object clmnSourceExamineeNo: TcxGridDBColumn
+        Caption = #20934#32771#35777#21495
         DataBinding.FieldName = 'ExamineeID'
         Width = 99
       end
       object clmnSourceExamineeName: TcxGridDBColumn
+        Caption = #22995#21517
         DataBinding.FieldName = 'ExamineeName'
+      end
+      object tvSourceSex: TcxGridDBColumn
+        Caption = #24615#21035
+        DataBinding.FieldName = 'ExamineeSex'
       end
       object clmnSourceIP: TcxGridDBColumn
         DataBinding.FieldName = 'IP'
@@ -53,12 +60,15 @@ object frmBrowseSource: TfrmBrowseSource
         Width = 51
       end
       object clmnSourceStatus: TcxGridDBColumn
+        Caption = #29366#24577
         DataBinding.FieldName = 'Status'
       end
       object clmnSourceRemainTime: TcxGridDBColumn
+        Caption = #21097#20313#26102#38388
         DataBinding.FieldName = 'RemainTime'
       end
       object clmnSourceTimeStamp: TcxGridDBColumn
+        Caption = #26102#38388
         DataBinding.FieldName = 'Stamp'
       end
     end
@@ -90,7 +100,6 @@ object frmBrowseSource: TfrmBrowseSource
         Kind = bkEllipsis
       end>
     TabOrder = 3
-    Text = 'edtSource'
     OnClick = edtSourceClick
     Width = 473
   end

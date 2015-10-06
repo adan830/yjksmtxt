@@ -45,34 +45,6 @@ object dmMain: TdmMain
     OnCalcFields = cdsSourceCalcFields
     Left = 312
     Top = 24
-    object wdstrngfldSourceExamineeID: TWideStringField
-      FieldName = 'ExamineeID'
-      Size = 24
-    end
-    object wdstrngfldSourceExamineeName: TWideStringField
-      FieldName = 'ExamineeName'
-    end
-    object wdstrngfldSourceIP: TWideStringField
-      FieldName = 'IP'
-      Size = 32
-    end
-    object wdstrngfldSourcePort: TWideStringField
-      FieldName = 'Port'
-      Size = 30
-    end
-    object wdstrngfldSourceStatus: TWideStringField
-      FieldName = 'Status'
-    end
-    object wdstrngfldSourceRemainTime: TWideStringField
-      FieldName = 'RemainTime'
-      Size = 24
-    end
-    object wdstrngfldSourceTimeStamp: TWideStringField
-      FieldName = 'Stamp'
-    end
-    object blbfldSourceScoreInfo: TBlobField
-      FieldName = 'ScoreInfo'
-    end
   end
   object dspSource: TDataSetProvider
     DataSet = qrySource
@@ -163,37 +135,8 @@ object dmMain: TdmMain
   end
   object cdsSourceFromFile: TClientDataSet
     Aggregates = <>
-    FileName = 'E:\yjksmtxt\debug\bin\111200805071031.dat'
     Params = <>
     Left = 312
     Top = 128
-    object wdstrngfldSourceFromFileExamineeID: TWideStringField
-      FieldName = 'ExamineeID'
-      Size = 24
-    end
-    object wdstrngfldSourceFromFileExamineeName: TWideStringField
-      FieldName = 'ExamineeName'
-    end
-    object wdstrngfldSourceFromFileIP: TWideStringField
-      FieldName = 'IP'
-      Size = 32
-    end
-    object wdstrngfldSourceFromFilePort: TWideStringField
-      FieldName = 'Port'
-      Size = 30
-    end
-    object wdstrngfldSourceFromFileStatus: TWideStringField
-      FieldName = 'Status'
-    end
-    object wdstrngfldSourceFromFileRemainTime: TWideStringField
-      FieldName = 'RemainTime'
-      Size = 24
-    end
-    object wdstrngfldSourceFromFileTimeStamp: TWideStringField
-      FieldName = 'Stamp'
-    end
-    object blbfldSourceFromFileScoreInfo: TBlobField
-      FieldName = 'ScoreInfo'
-    end
   end
 end

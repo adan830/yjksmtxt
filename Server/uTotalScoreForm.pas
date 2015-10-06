@@ -6,7 +6,8 @@ uses
    Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
    Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Winapi.ShlObj, cxShellCommon, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
    cxEdit, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB, cxDBData, Vcl.StdCtrls, cxGridLevel, cxGridCustomTableView,
-   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxLabel, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxShellComboBox, Datasnap.DBClient;
+   cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, cxLabel, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxShellComboBox, Datasnap.DBClient,
+  dxSkinsCore, dxSkinsDefaultPainters, dxSkinscxPCPainter;
 
 type
    TTotalScoreForm = class(TForm)

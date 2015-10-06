@@ -14,8 +14,8 @@ object frmScoreReceive: TfrmScoreReceive
   PixelsPerInch = 96
   TextHeight = 13
   object btnScore: TcxButton
-    Left = 80
-    Top = 296
+    Left = 160
+    Top = 272
     Width = 75
     Height = 25
     Caption = #27719#24635#25104#32489
@@ -31,7 +31,6 @@ object frmScoreReceive: TfrmScoreReceive
         Kind = bkEllipsis
       end>
     TabOrder = 1
-    Text = 'edtSource'
     OnClick = edtSourceClick
     Width = 473
   end

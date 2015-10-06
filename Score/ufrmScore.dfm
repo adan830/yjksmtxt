@@ -1,9 +1,9 @@
 object frmScore: TfrmScore
   Left = 0
   Top = 0
-  Width = 720
-  Height = 493
   Caption = #27719#24635#25104#32489
+  ClientHeight = 454
+  ClientWidth = 719
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,19 +13,20 @@ object frmScore: TfrmScore
   OldCreateOrder = False
   OnClose = FormClose
   DesignSize = (
-    712
-    459)
+    719
+    454)
   PixelsPerInch = 96
   TextHeight = 13
   object cxGrid1: TcxGrid
     Left = 8
     Top = 32
-    Width = 689
-    Height = 401
+    Width = 385
+    Height = 362
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object tvscore: TcxGridDBTableView
-      NavigatorButtons.ConfirmDelete = False
+      Navigator.Buttons.CustomButtons = <>
+      OnFocusedRecordChanged = tvscoreFocusedRecordChanged
       DataController.DataSource = dmMain.dsScore
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <
@@ -34,72 +35,42 @@ object frmScore: TfrmScore
           Column = tvscorestatus
         end>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.CancelOnExit = False
+      OptionsData.Deleting = False
+      OptionsData.DeletingConfirmation = False
+      OptionsData.Editing = False
+      OptionsData.Inserting = False
+      OptionsSelection.CellSelect = False
       OptionsView.Footer = True
-      object tvscorezkh: TcxGridDBColumn
-        DataBinding.FieldName = 'zkh'
+      object tvscoreExamineeID: TcxGridDBColumn
+        Caption = #20934#32771#21495
+        DataBinding.FieldName = 'ExamineeID'
       end
-      object tvscorexm: TcxGridDBColumn
-        DataBinding.FieldName = 'xm'
+      object tvscoreName: TcxGridDBColumn
+        Caption = #22995#21517
+        DataBinding.FieldName = 'ExamineeName'
       end
-      object tvscorezsj: TcxGridDBColumn
-        DataBinding.FieldName = 'zsj'
+      object tvscorexSex: TcxGridDBColumn
+        Caption = #24615#21035
+        DataBinding.FieldName = 'ExamineeSex'
       end
       object tvscorestatus: TcxGridDBColumn
+        Caption = #29366#24577
         DataBinding.FieldName = 'status'
       end
-      object tvscorexz1_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'xz1_fs'
-      end
-      object tvscorepd_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'pd_fs'
-      end
-      object tvscoredz_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'dz_fs'
-      end
-      object tvscorewin_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'win_fs'
-      end
-      object tvscoreword_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'word_fs'
-      end
-      object tvscoreexcel_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'excel_fs'
-      end
-      object tvscoreppt_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'ppt_fs'
-      end
-      object tvscoreie_fs: TcxGridDBColumn
-        DataBinding.FieldName = 'ie_fs'
+      object tvscoreRemainTime: TcxGridDBColumn
+        Caption = #21097#20313#26102#38388
+        DataBinding.FieldName = 'RemainTime'
       end
       object tvscorezf: TcxGridDBColumn
-        DataBinding.FieldName = 'zf'
+        Caption = #24635#20998
+        DataBinding.FieldName = 'Score'
       end
-      object tvscorexzinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'xzinfo'
+      object tvsScoreInfo: TcxGridDBColumn
+        Caption = #35780#20998#20449#24687
+        DataBinding.FieldName = 'ScoreInfo'
         PropertiesClassName = 'TcxBlobEditProperties'
-      end
-      object tvscorepdinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'pdinfo'
-        PropertiesClassName = 'TcxBlobEditProperties'
-      end
-      object tvscoredzinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'dzinfo'
-      end
-      object tvscorewininfo: TcxGridDBColumn
-        DataBinding.FieldName = 'wininfo'
-        PropertiesClassName = 'TcxBlobEditProperties'
-      end
-      object tvscorewordinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'wordinfo'
-        PropertiesClassName = 'TcxBlobEditProperties'
-      end
-      object tvscoreexcelinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'excelinfo'
-        PropertiesClassName = 'TcxBlobEditProperties'
-      end
-      object tvscorepptinfo: TcxGridDBColumn
-        DataBinding.FieldName = 'pptinfo'
-        PropertiesClassName = 'TcxBlobEditProperties'
+        Visible = False
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -122,5 +93,21 @@ object frmScore: TfrmScore
     Height = 25
     Caption = 'cxButton2'
     TabOrder = 2
+  end
+  object edtUnCompressedScoreInfo: TJvRichEdit
+    Left = 399
+    Top = 32
+    Width = 306
+    Height = 361
+    Anchors = [akTop, akRight, akBottom]
+    Font.Charset = GB2312_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    SelText = ''
+    TabOrder = 3
   end
 end

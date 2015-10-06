@@ -32,7 +32,7 @@ type
     procedure edtSourceClick(Sender: TObject);
     procedure btnScoreClick(Sender: TObject);
   private
-    procedure DecryptExamineeInfoCDS(cds: TClientDataSet);
+//    procedure DecryptExamineeInfoCDS(cds: TClientDataSet);
     function GetScoreValue(const scoreStream: TMemoryStream): Integer;
     { Private declarations }
   public
@@ -44,7 +44,7 @@ var
 
 implementation
 
-uses udmMain, uPubFn, DataFieldConst, Commons, compress, ScoreIni;
+uses udmMain, uPubFn, DataFieldConst, Commons, compress, ScoreIni,datautils;
 
 {$R *.dfm}
 
@@ -60,18 +60,23 @@ var
     end;
     result := StrToInt(str);
   end;
-  procedure SoureToTotal(const cdsSource : TClientDataSet;var cdsTotal :TClientDataSet;const score:Integer;const scoreStream:TMemoryStream);
+  procedure SoureToTotal(const cdsSource : TClientDataSet;var cdsTotal :TClientDataSet;const score:Integer);//;const scoreStream:TMemoryStream);
   begin
     with cdsTotal do
     begin
       Edit;
       FieldValues[DFNEI_EXAMINEENAME] := cdsSource.FieldValues[DFNEI_EXAMINEENAME];
+      FieldValues[DFNEI_EXAMINEESEX] := cdsSource.FieldValues[DFNEI_EXAMINEESEX];
+      FieldValues[DFNEI_IP] := cdsSource.FieldValues[DFNEI_IP];
+      FieldValues[DFNEI_PORT] := cdsSource.FieldValues[DFNEI_PORT];
       { TODO : need complete }
-      //FieldValues[DFNEI_REMAINTIME] := StrToInt(cdsSource.FieldValues[DFNEI_REMAINTIME]);
       FieldValues[DFNEI_STATUS] := myStrToint(cdsSource.FieldValues[DFNEI_STATUS]);
+      FieldValues[DFNEI_REMAINTIME] := cdsSource.FieldValues[DFNEI_REMAINTIME];
+      FieldValues[DFNEI_TIMESTAMP] := cdsSource.FieldValues[DFNEI_TIMESTAMP];
       FieldValues[DFNEI_SCORE] := score;
-      scoreStream.Position :=0;
-      (FieldByName(DFNEI_SCOREINFO) as TBlobField).LoadFromStream(scoreStream);
+      //scoreStream.Position :=0;
+      //(FieldByName(DFNEI_SCOREINFO) as TBlobField).LoadFromStream(scoreStream);
+      (FieldByName(DFNEI_SCOREINFO) as TBlobField).Assign(cdsSource);
       post;
     end;
   end;
@@ -83,14 +88,14 @@ begin
   if edtSource.Text<>'' then begin
     //清空当前数据集
     if dmMain.cdsSource.Active then begin
-      dmMain.cdsSource.EmptyDataSet;
+      dmMain.connSource.Connected:=false;
+      //dmMain.cdsSource.EmptyDataSet;
       dmMain.cdsSource.Active := false;
     end;
     //设置源数据集
     if SetSourceConn(edtSource.Text) then begin
-      dmMain.dsSource.DataSet := nil;
-      //dmMain.cdsSource.Active := true;
-      DecryptExamineeInfoCDS(dmMain.cdsSource);
+      dmmain.cdsSource.IndexFieldNames :='';
+      DecryptExamineeInfoCDS(dmMain.cdsSource,true);
       dmmain.cdsSource.IndexFieldNames :=DFNEI_EXAMINEEID;
     end;      
   end else application.MessageBox('上报库路径为空','错误');
@@ -109,18 +114,18 @@ begin
         application.ProcessMessages;
         scoreStream.Clear;
         (fieldbyname(DFNEI_SCOREINFO) as TBlobField).SaveToStream(scoreStream);
-        UnCompressStream(scorestream);
+        //UnCompressStream(scorestream);
         score := GetScoreValue(scoreStream);
         if dmMain.cdsScore.Locate(DFNEI_EXAMINEEID,dmMain.cdsSource.FieldValues[DFNEI_EXAMINEEID],[ loCaseInsensitive ]) then  begin
           //更新数据
           if score >dmMain.cdsScore.FieldByName(DFNEI_SCORE).AsInteger then
           begin
-            SoureToTotal(dmMain.cdsSource,dmMain.cdsScore,score,scoreStream);
+            SoureToTotal(dmMain.cdsSource,dmMain.cdsScore,score);//,scoreStream);
             edtUpdateNum.Text := inttostr(strtoint(edtUpdateNum.Text)+1); //显示更新记录数
           end;
         end else  begin    //添加新数据
              dmMain.cdsScore.AppendRecord([FieldValues[DFNEI_EXAMINEEID] ]);
-             SoureToTotal(dmMain.cdsSource,dmMain.cdsScore,score,scoreStream);
+             SoureToTotal(dmMain.cdsSource,dmMain.cdsScore,score);//,scoreStream);
              edtInsertNum.Text := inttostr(strtoint(edtInsertNum.Text)+1); //显示添加记录数
         end;
         next;
@@ -152,29 +157,6 @@ begin
    edtTime.Text :=  inttostr(strtoint(edttime.text)+1);
 end;
 
-procedure TfrmScoreReceive.DecryptExamineeInfoCDS(cds:TClientDataSet);
-begin
-  with cds do
-  begin
-    if not Active  then   active := True;
-    first;
-    while not eof do
-    begin
-      edit;
-      fieldvalues[DFNEI_EXAMINEEID] := DecryptStr(Fieldbyname(DFNEI_EXAMINEEID).AsString);
-      fieldvalues[DFNEI_EXAMINEENAME] := DecryptStr(Fieldbyname(DFNEI_EXAMINEENAME).AsString);
-      fieldvalues[DFNEI_IP] := DecryptStr(Fieldbyname(DFNEI_IP).AsString);
-      fieldvalues[DFNEI_PORT] := DecryptStr(Fieldbyname(DFNEI_PORT).AsString);
-      fieldvalues[DFNEI_STATUS] := DecryptStr(Fieldbyname(DFNEI_STATUS).AsString);
-      fieldvalues[DFNEI_REMAINTIME] := DecryptStr(Fieldbyname(DFNEI_REMAINTIME).AsString);
-      fieldvalues[DFNEI_TIMESTAMP] := DecryptStr(Fieldbyname(DFNEI_TIMESTAMP).AsString);
-      //fieldvalues[DFNEI_SCOREINFO] := DecryptStr(Fieldbyname(DFNEI_TIMESTAMP).AsString);
-      post;
-      next;
-    end;
-    First;
-  end;
-end;
 
 function TfrmScoreReceive.GetScoreValue(const scoreStream: TMemoryStream) : Integer;
 var
@@ -188,4 +170,5 @@ begin
     ScoreIni.Free;
   end;
 end;
+
 end.

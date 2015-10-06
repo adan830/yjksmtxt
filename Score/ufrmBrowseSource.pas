@@ -43,12 +43,13 @@ type
     clmnSourceTimeStamp: TcxGridDBColumn;
     edtUnCompressedScoreInfo: TJvRichEdit;
     ckbxSingleExam: TcxCheckBox;
+    tvSourceSex: TcxGridDBColumn;
     procedure edtSourceClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
     procedure tvSourceFocusedRecordChanged(Sender: TcxCustomGridTableView; APrevFocusedRecord, AFocusedRecord: TcxCustomGridRecord;
       ANewItemRecordFocusingChanged: Boolean);
   private
-    procedure DecryptExamineeInfoCDS(cds:TClientDataSet);
+//    procedure DecryptExamineeInfoCDS(cds:TClientDataSet);
     { Private declarations }
   public
     { Public declarations }
@@ -59,53 +60,58 @@ var
 
 implementation
 
-uses udmMain, uPubFn, DataFieldConst, compress, Commons;
+uses udmMain, uPubFn, DataFieldConst, compress, Commons,datautils;
 
 {$R *.dfm}
 
 procedure TfrmBrowseSource.btnBrowseClick(Sender: TObject);
 var
-  I: Integer;
-  str1,str2:string;
+   filename:string;
 begin
   btnBrowse.Enabled := false;
-  if edtSource.Text<>'' then
-  begin
-    tvsource.BeginUpdate;
-    //清空当前数据集
-    if dmMain.cdsSource.Active then
-    begin
-      dmMain.cdsSource.EmptyDataSet;
-      dmMain.cdsSource.Active := false;
-    end;
-    if dmMain.cdsSourceOriginal.Active then
-    begin
-      dmMain.cdsSourceOriginal.EmptyDataSet;
-      dmMain.cdsSourceOriginal.Active := false;
-    end;
-    if ckbxSingleExam.Checked then begin
-      dmMain.cdsSourcefromfile.LoadFromFile(edtSource.Text);
-      DecryptExamineeInfoCDS(dmMain.cdsSourcefromfile);
-      dmMain.dsSource.DataSet := dmMain.cdsSourcefromfile;
-    end else begin
-      if SetSourceConn(edtSource.Text) then
-      begin
-        if chkOriginal.Checked then begin
-          dmMain.dsSource.DataSet := dmMain.cdsSourceoriginal;
-          dmMain.cdsSourceoriginal.Active := true;
-        end else begin
-          DecryptExamineeInfoCDS(dmMain.cdsSource);
-          dmMain.dsSource.DataSet := dmMain.cdsSource;
-        end;
-      end;
-    end; 
-//      tvsource.ClearItems;
-//      tvSource.DataController.CreateAllItems;
-      tvsource.EndUpdate;
-  end
-  else
-    application.MessageBox('上报库路径为空','错误');
-    btnBrowse.Enabled:= true;
+  try
+     filename:=edtSource.text;
+     if filename<>'' then
+     begin
+       tvsource.BeginUpdate;
+       //清空当前数据集
+       if dmMain.cdsSource.Active then
+       begin
+         dmMain.cdsSource.EmptyDataSet;
+         dmMain.cdsSource.Active := false;
+       end;
+       if dmMain.cdsSourceOriginal.Active then
+       begin
+         dmMain.cdsSourceOriginal.EmptyDataSet;
+         dmMain.cdsSourceOriginal.Active := false;
+       end;
+
+       dmMain.dsSource.DataSet:=nil;
+       if ckbxSingleExam.Checked then begin
+         dmMain.cdsSourcefromfile.LoadFromFile(filename);
+         DecryptExamineeInfoCDS(dmMain.cdsSourcefromfile);
+         dmMain.dsSource.DataSet := dmMain.cdsSourcefromfile;
+       end else begin
+         if SetSourceConn(filename) then
+         begin
+           if chkOriginal.Checked then begin
+             dmMain.dsSource.DataSet := dmMain.cdsSourceoriginal;
+             dmMain.cdsSourceoriginal.Active := true;
+           end else begin
+             DecryptExamineeInfoCDS(dmMain.cdsSource);
+             dmMain.dsSource.DataSet := dmMain.cdsSource;
+           end;
+         end;
+       end;
+   //      tvsource.ClearItems;
+   //      tvSource.DataController.CreateAllItems;
+         tvsource.EndUpdate;
+     end
+     else
+       application.MessageBox('上报库路径为空','错误');
+  finally
+     btnBrowse.Enabled:= true;
+  end;
 end;
 
 procedure TfrmBrowseSource.edtSourceClick(Sender: TObject);
@@ -132,30 +138,6 @@ begin
     finally
       stream.Free;
     end;
-  end;
-end;
-
-procedure TfrmBrowseSource.DecryptExamineeInfoCDS(cds:TClientDataSet);
-begin
-  with cds do
-  begin
-    if not Active  then   active := True;
-    first;
-    while not eof do
-    begin
-      edit;
-      fieldvalues[DFNEI_EXAMINEEID] := DecryptStr(Fieldbyname(DFNEI_EXAMINEEID).AsString);
-      fieldvalues[DFNEI_EXAMINEENAME] := DecryptStr(Fieldbyname(DFNEI_EXAMINEENAME).AsString);
-      fieldvalues[DFNEI_IP] := DecryptStr(Fieldbyname(DFNEI_IP).AsString);
-      fieldvalues[DFNEI_PORT] := DecryptStr(Fieldbyname(DFNEI_PORT).AsString);
-      fieldvalues[DFNEI_STATUS] := DecryptStr(Fieldbyname(DFNEI_STATUS).AsString);
-      fieldvalues[DFNEI_REMAINTIME] := DecryptStr(Fieldbyname(DFNEI_REMAINTIME).AsString);
-      fieldvalues[DFNEI_TIMESTAMP] := DecryptStr(Fieldbyname(DFNEI_TIMESTAMP).AsString);
-      //fieldvalues[DFNEI_SCOREINFO] := DecryptStr(Fieldbyname(DFNEI_TIMESTAMP).AsString);
-      post;
-      next;
-    end;
-    First;
   end;
 end;
 

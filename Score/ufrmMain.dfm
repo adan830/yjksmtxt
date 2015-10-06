@@ -16,8 +16,8 @@ object frmMain: TfrmMain
   object dxBarManager1: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'Tahoma'
+    Font.Height = -12
+    Font.Name = 'Microsoft YaHei UI'
     Font.Style = []
     Categories.Strings = (
       'Default'
@@ -35,7 +35,7 @@ object frmMain: TfrmMain
     DockControlHeights = (
       0
       0
-      26
+      28
       0)
     object dxBarManager1Bar1: TdxBar
       Caption = 'MainMenu'
@@ -65,6 +65,19 @@ object frmMain: TfrmMain
       UseOwnFont = False
       Visible = True
       WholeRow = True
+    end
+    object dxBarButton1: TdxBarButton
+      Caption = 'New Button'
+      Category = 0
+      Hint = 'New Button'
+      Visible = ivAlways
+    end
+    object mnbtnRestoreExamFolder: TdxBarButton
+      Caption = #36824#21407#32771#35797#25991#20214#22841
+      Category = 0
+      Hint = #36824#21407#32771#35797#25991#20214#22841
+      Visible = ivAlways
+      OnClick = mnbtnRestoreExamFolderClick
     end
     object mnConfig: TdxBarButton
       Caption = #31995#32479#37197#32622
@@ -140,19 +153,6 @@ object frmMain: TfrmMain
       Hint = #25509#25910#35797#39064#20351#29992#20449#24687
       Visible = ivAlways
       OnClick = mnbtnEQUseInfoClick
-    end
-    object dxBarButton1: TdxBarButton
-      Caption = 'New Button'
-      Category = 0
-      Hint = 'New Button'
-      Visible = ivAlways
-    end
-    object mnbtnRestoreExamFolder: TdxBarButton
-      Caption = #36824#21407#32771#35797#25991#20214#22841
-      Category = 0
-      Hint = #36824#21407#32771#35797#25991#20214#22841
-      Visible = ivAlways
-      OnClick = mnbtnRestoreExamFolderClick
     end
   end
 end

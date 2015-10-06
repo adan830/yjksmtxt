@@ -356,6 +356,7 @@ procedure TStkRecordInfo.SetupCDSExamineesStructure(ds : TClientDataSet);
       end;
       // AddStringField(DFNEI_EXAMINEEID,DFNLENEI_EXAMINEEID);
       AddStringField(DFNEI_EXAMINEENAME, DFNLENEI_EXAMINEENAME);
+      AddStringField(DFNEI_EXAMINEESEX, DFNLENEI_EXAMINESEX);
       AddStringField(DFNEI_IP, DFNLENEI_IP);
       AddStringField(DFNEI_PORT, DFNLENEI_PORT);
       AddStringField(DFNEI_STATUS, DFNLENEI_STATUS);
@@ -560,6 +561,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
             dstemp.Edit;
             dstemp.FieldValues[DFNEI_EXAMINEEID]   := ds.FieldValues[DFNEI_EXAMINEEID];
             dstemp.FieldValues[DFNEI_EXAMINEENAME] := ds.FieldValues[DFNEI_EXAMINEENAME];
+            dstemp.FieldValues[DFNEI_EXAMINEESEX] := ds.FieldValues[DFNEI_EXAMINEESEX];
             dstemp.FieldValues[DFNEI_IP]           := ds.FieldValues[DFNEI_IP];
             dstemp.FieldValues[DFNEI_PORT]         := ds.FieldValues[DFNEI_PORT];
             dstemp.FieldValues[DFNEI_STATUS]       := ds.FieldValues[DFNEI_STATUS];
@@ -571,7 +573,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
 
    begin
       ds     := FMemExaminees.Lock;
-      dstemp := TClientDataSet.Create(nil);
+      dstemp := TClientDataSet.Create(NIL);
       try
          SetupCDSExamineesStructure(dstemp);
          dstemp.CreateDataSet;

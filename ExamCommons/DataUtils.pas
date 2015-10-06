@@ -193,6 +193,7 @@ begin
       edit;
       fieldvalues[DFNEI_EXAMINEEID] := DecryptStr(Fieldbyname(DFNEI_EXAMINEEID).AsString);
       fieldvalues[DFNEI_EXAMINEENAME] := DecryptStr(Fieldbyname(DFNEI_EXAMINEENAME).AsString);
+      fieldvalues[DFNEI_EXAMINEESEX] := DecryptStr(Fieldbyname(DFNEI_EXAMINEESEX).AsString);
       fieldvalues[DFNEI_IP] := DecryptStr(Fieldbyname(DFNEI_IP).AsString);
       fieldvalues[DFNEI_PORT] := DecryptStr(Fieldbyname(DFNEI_PORT).AsString);
       fieldvalues[DFNEI_STATUS] := DecryptStr(Fieldbyname(DFNEI_STATUS).AsString);
@@ -243,7 +244,7 @@ begin
       stream.Position := 0;
       UnCompressStream(stream);
       stream.Position := 0;
-      (FieldByName('DFNEI_SCOREINFO') as TBlobField).LoadFromStream(stream);
+      (FieldByName(DFNEI_SCOREINFO) as TBlobField).LoadFromStream(stream);
     finally
       stream.Free;
     end;
