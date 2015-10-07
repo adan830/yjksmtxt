@@ -1,0 +1,179 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+    <ProjectExtensions>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="release\bin\SetQuestions.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>SetQuestions.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExcelModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>ExcelModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\PptModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>PptModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dsnap220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>dsnap220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Data\GradeInfo.mdb" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>GradeInfo.mdb</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="SetQuestions\jclexpreval.txt" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>jclexpreval.txt</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="debug\bin\SetQuestions.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>SetQuestions.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclimg220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>vclimg220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>vcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\WordModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>WordModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Data\系统题库.mdb" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>系统题库.mdb</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="release\bin\WindowsModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>WindowsModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="SetQuestions\jclexpreval.txt" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>jclexpreval.txt</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+</Project>

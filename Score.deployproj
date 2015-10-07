@@ -1,0 +1,328 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+    <ProjectExtensions>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Data\汇总成绩.mdb" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>汇总成绩.mdb</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\cxDataRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>cxDataRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dsnap220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dsnap220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\midas.dll" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>midas.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\dxGDIPlusRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dxGDIPlusRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\dxThemeRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dxThemeRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclimg220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vclimg220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\dxCoreRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dxCoreRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dsnap220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dsnap220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcldb220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vcldb220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclimg220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vclimg220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="debug\bin\Score.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>Score.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="mainframe.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>mainframe.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="examcommons.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>examcommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\dxSkinsCoreRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dxSkinsCoreRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\midas.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>midas.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="dpkCheckTree.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>dpkCheckTree.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclx220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>vclx220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\Score.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>Score.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\cxEditorsRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>cxEditorsRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\cxLibraryRS22.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>cxLibraryRS22.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+    </ItemGroup>
+</Project>

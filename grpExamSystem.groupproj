@@ -34,7 +34,7 @@
             <Dependencies/>
         </Projects>
         <Projects Include="Score.dproj">
-            <Dependencies>Components\dpkCheckTree.dproj</Dependencies>
+            <Dependencies/>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -134,13 +134,13 @@
     <Target Name="MainFrame:Make">
         <MSBuild Projects="MainFrame.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Score" DependsOnTargets="dpkCheckTree">
+    <Target Name="Score">
         <MSBuild Projects="Score.dproj"/>
     </Target>
-    <Target Name="Score:Clean" DependsOnTargets="dpkCheckTree:Clean">
+    <Target Name="Score:Clean">
         <MSBuild Projects="Score.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="Score:Make" DependsOnTargets="dpkCheckTree:Make">
+    <Target Name="Score:Make">
         <MSBuild Projects="Score.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">

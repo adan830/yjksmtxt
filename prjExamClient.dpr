@@ -71,11 +71,6 @@ begin
                if showModal = 1 then
                   begin
                      Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
-                     // TExamClientGlobal.ClientMainForm.Shadowed := True;
-                     // Application.CreateForm(TSelectForm, SelectForm);
-                     // Application.CreateForm(TFloatWindow, FloatWindow);
-                     // Application.CreateForm(TTypeForm, TypeForm);
-                     // Application.CreateForm(TScoreForm, ScoreForm);
                      free;
                   end
                else

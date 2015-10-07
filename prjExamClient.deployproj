@@ -1,0 +1,309 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('$(BDS)\bin\CodeGear.Deployment.targets')" Project="$(BDS)\bin\CodeGear.Deployment.targets"/>
+    <ProjectExtensions>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+    <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Client\skins\Exam_top.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>Exam_top.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Client\skins\photo.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>photo.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="release\bin\PptModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>PptModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dsnap220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>dsnap220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>vcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Client\ClientMain.PAS" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ClientMain.PAS</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclimg220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>vclimg220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="debug\bin\prjExamClient.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>prjExamClient.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>vcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\WordModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>WordModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="prjExamClient.todo" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>prjExamClient.todo</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="ExamCommons.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Client\skins\photo.png" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>photo.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dsnap220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>dsnap220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Client\ClientMain.PAS" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ClientMain.PAS</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="release\bin\prjExamClient.exe" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>prjExamClient.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExcelModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ExcelModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ClientConfig.ini" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ClientConfig.ini</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\vclimg220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>vclimg220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="Client\skins\Exam_top.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>Exam_top.png</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="prjExamClient.todo" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>prjExamClient.todo</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\WindowsModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>WindowsModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+</Project>

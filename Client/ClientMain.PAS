@@ -454,7 +454,7 @@ procedure TClientMainForm.dograde;
       TExamClientGlobal.Examinee.Status := esSutmitAchievement;
       TExamClientGlobal.ExamTCPClient.CommandSendScoreInfo(TExamClientGlobal.Examinee, TExamClientGlobal.score);
       SendExamineeDict();
-      zf := TExamClientGlobal.score.GetScoreValue;
+
       if (TExamClientGlobal.BaseConfig.ExamClasify = EXAMENATIONTYPESIMULATION) and (TExamClientGlobal.BaseConfig.ScoreDisplayMode = SCOREDISPLAYMODECLIENT)
       then
       begin
@@ -464,6 +464,7 @@ procedure TClientMainForm.dograde;
 
       if TExamClientGlobal.BaseConfig.ExamClasify = EXAMINATIONTYPEFORMAL then
       begin
+         zf := TExamClientGlobal.score.GetScoreValue;
          if zf = 0 then
             MessageBoxOnTopForm(Application, '注意考生成绩为：0分!     考试成功结束，请离开考场！', '提示：', mb_Ok)
          else
