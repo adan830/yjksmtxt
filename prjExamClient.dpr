@@ -32,7 +32,7 @@ begin
    if GetLastError <> ERROR_ALREADY_EXISTS then
       begin
          Application.Initialize;
-         Application.MainFormOnTaskbar := True;
+         Application.MainFormOnTaskbar := false;
          Application.Title := '一级WINDOWS无纸化考试系统';
          TExamClientGlobal.CreateClassObject();
          // Application.CreateForm(TDmClient, TExamClientGlobal.DmClient);
@@ -67,10 +67,12 @@ begin
          {$ELSE}
          with TFrmLogin.Create(Application) do
             try
+               ShowWindow(Application.Handle, sw_minimize);
                Shadowed := True;
                if showModal = 1 then
                   begin
                      Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
+                     //ShowWindow(Application.Handle, sw_max);
                      free;
                   end
                else

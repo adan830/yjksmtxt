@@ -29,7 +29,7 @@ type
   private
     function SelectScoreView(amode:TFormMode;grpBox:TGroupBox;ScoreInfoStrings:TStrings):integer;
     function OperateScoreValue(ScoreInfoStrings: TStrings;chr:char=','):Single;
-    function DzScoreValue(scoreLabel: TLabel;ScoreInfoStrings: TStrings;chr:char=','): integer;
+    function DzScoreValue(ScoreInfoStrings: TStrings;chr:char=','): Single;
     procedure ShowOperateDetailScore(ABtnTag:integer);
     procedure AddOperateDisplayControl(AItemIndex,AModuleIndex: Integer;ADisName:string;AScoreValue:string);
     procedure btnDetailScoreClick(Sender: TObject);
@@ -77,7 +77,7 @@ begin
     TotalScore := TotalScore+SelectScoreView(MULTISELECT_MODEL,gbMulti,ScoreInfoStrings);
 
     TExamClientGlobal.Score.ReadSection(MODULE_KEYTYPE_NAME,ScoreInfoStrings);
-    itemScore := OperateScoreValue(ScoreInfoStrings,',');
+    itemScore := DzScoreValue(ScoreInfoStrings,',');
     TotalScore := TotalScore+ itemScore;
     lblType.Caption := FloatToStrF(itemScore,ffFixed,4,1)+ '·Ö';
     operateTotalScore:=itemScore;
@@ -272,25 +272,9 @@ begin
   result := Score;
 end;
 
-function TScoreForm.DzScoreValue(scoreLabel: TLabel;ScoreInfoStrings: TStrings;chr:char=','): integer;
-var
-  I: Integer;
-  Score : Integer;
-  scoreInfo:TScoreInfo;
-   strTemp:string;
+function TScoreForm.DzScoreValue(ScoreInfoStrings: TStrings;chr:char=','): single;
 begin
-  score := 0;
-  for I := 1 to ScoreInfoStrings.Count  do    // Iterate
-  begin
-   strTemp:=string.Copy( ScoreInfoStrings.Strings[i-1]);
-    StrToScoreInfo(strtemp,scoreinfo,chr);
-    if scoreinfo.IsRight=-1 then
-    begin
-      Score := score + scoreInfo.points;
-    end
-  end;    // for
-  scoreLabel.caption := inttostr(score)+ '·Ö';
-  result := Score;
+  result:=OperateScoreValue(ScoreInfoStrings,chr)*10;
 end;
 
 end.
