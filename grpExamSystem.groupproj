@@ -36,6 +36,9 @@
         <Projects Include="Score.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="EJWordModule\EJWordModule.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -143,14 +146,23 @@
     <Target Name="Score:Make">
         <MSBuild Projects="Score.dproj" Targets="Make"/>
     </Target>
+    <Target Name="EJWordModule">
+        <MSBuild Projects="EJWordModule\EJWordModule.dproj"/>
+    </Target>
+    <Target Name="EJWordModule:Clean">
+        <MSBuild Projects="EJWordModule\EJWordModule.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EJWordModule:Make">
+        <MSBuild Projects="EJWordModule\EJWordModule.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="prjExamServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;dpkCheckTree;prjExamClient;SetQuestions;MainFrame;Score"/>
+        <CallTarget Targets="prjExamServer;ExamCommons;WindowsModule;WordModule;ExcelModule;PptModule;dpkCheckTree;prjExamClient;SetQuestions;MainFrame;Score;EJWordModule"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="prjExamServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;MainFrame:Clean;Score:Clean"/>
+        <CallTarget Targets="prjExamServer:Clean;ExamCommons:Clean;WindowsModule:Clean;WordModule:Clean;ExcelModule:Clean;PptModule:Clean;dpkCheckTree:Clean;prjExamClient:Clean;SetQuestions:Clean;MainFrame:Clean;Score:Clean;EJWordModule:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="prjExamServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;MainFrame:Make;Score:Make"/>
+        <CallTarget Targets="prjExamServer:Make;ExamCommons:Make;WindowsModule:Make;WordModule:Make;ExcelModule:Make;PptModule:Make;dpkCheckTree:Make;prjExamClient:Make;SetQuestions:Make;MainFrame:Make;Score:Make;EJWordModule:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

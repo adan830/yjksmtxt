@@ -21,6 +21,7 @@ type
          //FExamPath              : string; // client exam path  obsolete
          FServerDataPath        : string;
          FDataBakFolder         : string;
+         FRoomDataFolder         : string;
          FPhotoFolder           : string;
 
          FLoginPermissionModel : Integer;
@@ -36,6 +37,7 @@ type
          // property SchoolCode           : string read FSchoolCode write FSchoolCode;
          property ServerDataPath : string read FServerDataPath write FServerDataPath;
          property DataBakFolder  : string read FDataBakFolder write FDataBakFolder;
+         property RoomDataFolder  : string read FRoomDataFolder write FRoomDataFolder;
          property PhotoFolder    : string read FPhotoFolder write FPhotoFolder;
 
          property LoginPermissionModel : Integer read FLoginPermissionModel write FLoginPermissionModel;
@@ -143,10 +145,13 @@ procedure TServerCustomConfig.SetupCustomConfig(AConfigFilePath : string; ABaseC
          // SchoolCode := '666';
       end;
 
-      DataBakFolder := IncludeTrailingPathDelimiter(ServerDataPath) + 'DataBak';
+      DataBakFolder := IncludeTrailingPathDelimiter(ServerDataPath) + 'ExamineeData';
+      FRoomDataFolder  := IncludeTrailingPathDelimiter(ServerDataPath) + 'RoomData';
       FPhotoFolder  := IncludeTrailingPathDelimiter(ServerDataPath) + 'Photos';
       if not directoryexists(DataBakFolder) then
          createdir(DataBakFolder);
+      if not directoryexists(FRoomDataFolder) then
+         createdir(FRoomDataFolder);
       if not directoryexists(FPhotoFolder) then
          createdir(FPhotoFolder);
    end;

@@ -398,7 +398,7 @@ begin
   RegisterComponents('FrameWork', [TCheckTree]);
 end;
 
-{$R checkcommonbitmap.res}
+//{$R checkcommonbitmap.res}
 
 {-- General Utilities ----------------}
 var

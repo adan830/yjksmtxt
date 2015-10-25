@@ -68,7 +68,7 @@ object frmBrowseSource: TfrmBrowseSource
         DataBinding.FieldName = 'RemainTime'
       end
       object clmnSourceTimeStamp: TcxGridDBColumn
-        Caption = #26102#38388
+        Caption = #32771#35797#26085#26399
         DataBinding.FieldName = 'Stamp'
       end
     end

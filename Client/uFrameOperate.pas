@@ -70,16 +70,16 @@ begin
       end;
   btnOpen.Caption := moduleInfo.ButtonText;
   if self.ModuleInfo.Name='Windows' then
-          mmTQDesp.Text:=EOL+'  注意事项：Windows操作题'+EOL+'     考生不得删除考生文件夹下与试题无关的文件或文件夹，否则将影响考生成绩，可利用浮动窗口降低主界面对操作软件的影响';
+          mmTQDesp.Text:=EOL+'  注意事项：Windows操作题(满分8分)'+EOL+'     考生不得删除考生文件夹下与试题无关的文件或文件夹，否则将影响考生成绩，可利用浮动窗口降低主界面对操作软件的影响';
   if self.ModuleInfo.Name='Word' then
-          mmTQDesp.Text:=EOL+'  注意事项：Word操作题'+EOL+'     请不要打开无关的Word文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Word中对所给工作表完成以下操作：';
+          mmTQDesp.Text:=EOL+'  注意事项：Word操作题(满分18分)'+EOL+'     请不要打开无关的Word文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Word中对所给工作表完成以下操作：';
 
   if self.ModuleInfo.Name='Excel' then
-          mmTQDesp.Text:=EOL+'  注意事项：Excel操作题'+EOL+'     请不要打开无关的Excel文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Excel中对所给工作表完成以下操作：';
+          mmTQDesp.Text:=EOL+'  注意事项：Excel操作题(满分14分)'+EOL+'     请不要打开无关的Excel文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请在Excel中对所给工作表完成以下操作：';
 ;
 
   if self.ModuleInfo.Name='Ppt' then
-          mmTQDesp.Text:=EOL+'  注意事项：PowerPoint操作题'+EOL+'     请不要打开无关的PowerPoint文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请使用PowerPoint完成以下操作：';
+          mmTQDesp.Text:=EOL+'  注意事项：PowerPoint操作题(满分10分)'+EOL+'     请不要打开无关的PowerPoint文档，经常存盘,可利用浮动窗口降低主界面对操作软件的影响'+EOL+'     请使用PowerPoint完成以下操作：';
 
 end;
 

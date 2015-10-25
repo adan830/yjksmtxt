@@ -3,7 +3,8 @@ unit ExamClientGlobal;
 interface
 
 uses ClientMain, ExamTCPClient, NetGlobal, Classes,
-   ExtCtrls, uGrade, ScoreIni, ADODB, floatform, select, BaseConfig, controls, uFrameSingleSelect, uFrameMultiSelect, keyboardType, uFrameOperate, uFormOperate,DataFieldConst;
+   ExtCtrls, uGrade, ScoreIni, ADODB, floatform, select, BaseConfig, controls, uFrameSingleSelect, uFrameMultiSelect, keyboardType, uFrameOperate, uFormOperate,DataFieldConst,
+  System.SysUtils;
 
 
 // TModules = array of TModuleInfo;
@@ -84,6 +85,7 @@ type
 
          class function InitExam : TModalResult;
          class function CreateEnvironment(const ALoginType : TLoginType) : TModalResult;
+         class procedure OnExceptionProc(sender:TObject;E:Exception);
 
    end;
 
@@ -93,8 +95,8 @@ type
 implementation
 
 uses
-   SysUtils, ExamGlobal, Windows, ShellModules, Commons, compress,
-   ExamInterface, tq, Forms, Variants, datautils,ExamException;
+    ExamGlobal, Windows, ShellModules, Commons, compress,
+   ExamInterface, tq, Forms, Variants, datautils,ExamException,IdExceptionCore,idstack;
 
 // constructor TExamClientGlobal.Create();
 // begin
@@ -467,11 +469,17 @@ class function TExamClientGlobal.Login() : TCommandResult;
 
 class procedure TExamClientGlobal.UpdateStatusTimer(Sender : TObject);
    begin
-      if (TExamClientGlobal.Examinee.Status >= esLogined) then
-      begin
-         UpdateClientDBRemainTime(TExamClientGlobal.Examinee.RemainTime, TExamClientGlobal.ConnClientDB);
-         TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.Status,
-            TExamClientGlobal.Examinee.RemainTime);
+   try
+         if (TExamClientGlobal.Examinee.Status >= esLogined) then
+               begin
+                  UpdateClientDBRemainTime(TExamClientGlobal.Examinee.RemainTime, TExamClientGlobal.ConnClientDB);
+                  TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, TExamClientGlobal.Examinee.Status,
+                     TExamClientGlobal.Examinee.RemainTime);
+               end;
+      except on E: EIdSocksError do
+         begin
+
+         end;
       end;
    end;
 
@@ -532,6 +540,16 @@ class procedure TExamClientGlobal.MainTimerTimer(Sender : TObject);
 
    end;
 
+class procedure TExamClientGlobal.OnExceptionProc(sender: TObject; E: Exception);
+begin
+   if E is EIdSocketError then
+   begin
+      ExamTCPClient.Disconnect;
+       Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！'+EOL+'程序将退出！', '连接服务器失败', MB_OK + MB_ICONSTOP + MB_TOPMOST);
+                  Application.terminate;
+   end;
+end;
+
 class function TExamClientGlobal.InitExam : TModalResult;
    begin
       Result := TExamClientGlobal.CreateEnvironment(TExamClientGlobal.LoginType);
@@ -547,12 +565,19 @@ class function TExamClientGlobal.CreateEnvironment(const ALoginType : TLoginType
       TExamClientGlobal.SetGlobalExamPath;
       try
          case ALoginType of
-            ltFirstLogin, ltReExamLogin :
+            ltFirstLogin:
                begin
                   TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
                   TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);            // 设置考生试题库连接
                   TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
                end;
+            ltReExamLogin:
+            begin
+                  TExamClientGlobal.CreateExamEnvironmentByTestFilepack(TExamClientGlobal.Examinee.ID, ALoginType, TExamClientGlobal.ExamPath);
+                  TExamClientGlobal.Examinee.RemainTime:=TExamClientGlobal.FBaseConfig.ExamTime;
+                  TExamClientGlobal.SetEQBConn(TExamClientGlobal.ExamPath);            // 设置考生试题库连接
+                  TExamClientGlobal.SetupExamineeInfoBase(TExamClientGlobal.Examinee); // 以备上报评分时获得考生信息
+            end;
             ltContinuteInterupt :
                begin
                   if DirectoryExists(TExamClientGlobal.ExamPath) then

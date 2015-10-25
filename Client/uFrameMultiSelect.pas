@@ -190,7 +190,6 @@ procedure TFrameMultiSelect.ShowCurrentTQ(tqIndex : Integer);
       // lblCodeText.Caption := currentTq^.CodeText;
       currentTq.tq.ReadContentToStrings(edtTQContent.Lines);
       edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
-      edtTQContent.Lines[0] := inttostr(currentTQIndex + 1) + '.' + edtTQContent.Lines[0];
     frmTqButtonList.UpdateCompletedFlag(currentTQIndex, 2);
 
     edtTQContent.SetSelection(0,length( edtTQContent.Text),false);

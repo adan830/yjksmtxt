@@ -52,7 +52,7 @@ begin
             on E: Exception do
                begin
                   // Application.MessageBox(pchar(e.Message),'ddd');
-                  Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！', '连接服务器失败', MB_RETRYCANCEL + MB_ICONSTOP + MB_TOPMOST);
+                  Application.MessageBox('连接服务器失败！请检查服务器程序是否运行、网络是否正常！', '连接服务器失败', MB_OK + MB_ICONSTOP + MB_TOPMOST);
                   Application.Terminate;
                end;
          end;
@@ -72,6 +72,7 @@ begin
                if showModal = 1 then
                   begin
                      Application.CreateForm(TClientMainForm, TExamClientGlobal.ClientMainForm);
+                     application.OnException:=TExamClientGlobal.OnExceptionProc;
                      //ShowWindow(Application.Handle, sw_max);
                      free;
                   end

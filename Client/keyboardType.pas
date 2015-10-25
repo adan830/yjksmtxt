@@ -244,7 +244,7 @@ constructor TFrameKeyType.Create(AOwner : TComponent);
       stno, strAnswer, stprefix : string;
    begin
       inherited;
-      pnlTitle.Caption := ' 打字测试';
+      pnlTitle.Caption := ' 打字测试(满分10分)';
       stprefix         := ExamModuleToStPrefixWildCard(TExamModule.EMTYPE);
       stno             := GetTQIDByPreFix(stprefix, TExamClientGlobal.ConnClientDB);
       FTQ              := TTQ.Create();

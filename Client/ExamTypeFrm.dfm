@@ -4,8 +4,8 @@ object ExamTypeForm: TExamTypeForm
   BorderIcons = []
   BorderStyle = bsToolWindow
   Caption = #35831#36873#25321#32771#35797#26041#24335#65306
-  ClientHeight = 250
-  ClientWidth = 394
+  ClientHeight = 268
+  ClientWidth = 398
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,59 +20,17 @@ object ExamTypeForm: TExamTypeForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 394
-    Height = 250
+    Width = 398
+    Height = 268
     Align = alClient
     Caption = 'Panel1'
     Color = clWhite
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    object btnAddTime: TCnSpeedButton
-      Left = 208
-      Top = 192
-      Width = 82
-      Height = 30
-      Color = 15966293
-      DownBold = False
-      FlatBorder = False
-      HotTrackBold = False
-      HotTrackColor = 16551233
-      ModernBtnStyle = bsFlat
-      Caption = #24310#26102#32493#32771
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = 14
-      Font.Name = #23435#20307
-      Font.Style = []
-      Margin = 4
-      ParentFont = False
-      OnClick = btnAddTimeClick
-    end
-    object btnContinue: TCnSpeedButton
-      Left = 113
-      Top = 192
-      Width = 82
-      Height = 30
-      Color = 15966293
-      DownBold = False
-      FlatBorder = False
-      HotTrackBold = False
-      HotTrackColor = 16551233
-      ModernBtnStyle = bsFlat
-      Caption = #32493#12288#32771
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = 14
-      Font.Name = #23435#20307
-      Font.Style = []
-      Margin = 4
-      ParentFont = False
-      OnClick = btContinueClick
-    end
     object btnRetry: TCnSpeedButton
-      Left = 17
-      Top = 192
+      Left = 72
+      Top = 224
       Width = 82
       Height = 30
       Color = 15966293
@@ -92,8 +50,8 @@ object ExamTypeForm: TExamTypeForm
       OnClick = btRetryClick
     end
     object CnSpeedButton1: TCnSpeedButton
-      Left = 304
-      Top = 192
+      Left = 240
+      Top = 224
       Width = 82
       Height = 30
       Color = 15966293
@@ -112,7 +70,7 @@ object ExamTypeForm: TExamTypeForm
       ParentFont = False
       OnClick = btnExitClick
     end
-    object Label1: TLabel
+    object lbltime: TLabel
       Left = 19
       Top = 131
       Width = 143
@@ -213,6 +171,31 @@ object ExamTypeForm: TExamTypeForm
       ParentFont = False
       PasswordChar = '*'
       TabOrder = 1
+    end
+    object rgExamType: TJvRadioGroup
+      Left = 31
+      Top = 158
+      Width = 354
+      Height = 50
+      Margins.Top = 0
+      Align = alCustom
+      Anchors = [akLeft, akTop, akRight, akBottom]
+      Caption = 'rgExamType'
+      Columns = 3
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = 14
+      Font.Name = #23435#20307
+      Font.Style = []
+      Items.Strings = (
+        #37325#32771
+        #32493#32771
+        #24310#26102#32493#32771)
+      ParentFont = False
+      TabOrder = 2
+      OnClick = rgExamTypeClick
+      CaptionVisible = False
+      EdgeBorders = []
     end
   end
 end

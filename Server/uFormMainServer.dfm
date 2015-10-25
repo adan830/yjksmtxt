@@ -280,6 +280,7 @@ object FormMainServer: TFormMainServer
         Font.Style = [fsBold]
         Margin = 4
         ParentFont = False
+        Visible = False
       end
       object btnLock: TCnSpeedButton
         Left = 607
@@ -358,6 +359,7 @@ object FormMainServer: TFormMainServer
           F0000007F0000007F000000FF000000FF000001FF800001FFC00003FFE00007F
           FF0000FFFF8000FFFF00007FFF00007FFF00007FFF00007FFF00007FFF8000FF
           FFE003FF}
+        Visible = False
       end
       object cxGrid1: TcxGrid
         Left = 3

@@ -104,7 +104,7 @@ const
    DFNLENEI_PORT         = 32; // Text type
    DFNLENEI_STATUS       = 20; // Text type
    DFNLENEI_REMAINTIME   = 24; // Text type
-   DFNLENEI_TIMESTAMP    = 20; // Text type
+   DFNLENEI_TIMESTAMP    = 50; // Text type
    // DFNLENEI_SCOREINFO   = 'ScoreInfo';     // Ole
    // 以下几个字段是用来保存解密数据的
    DFNLENEI_DECRYPTEDID         = 11;

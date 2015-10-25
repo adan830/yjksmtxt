@@ -613,7 +613,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
          DateTimeToString(timeStr, 'yyyymmddhhnn', Now);
 
          //ds.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
-         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.ServerDataPath + '\' + timeStr + '.dat');
+         dstemp.SaveToFile(TExamServerGlobal.ServerCustomConfig.RoomDataFolder + '\' + timeStr + '.dat');
       finally
          dstemp.Free;
          FMemExaminees.Unlock;

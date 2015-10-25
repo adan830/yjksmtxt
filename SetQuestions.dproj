@@ -153,15 +153,9 @@
                 <Platform value="Win32" Profile="win32">True</Platform>
             </Platforms>
             <Deployment Version="2">
-                <DeployFile LocalName="release\bin\ExamCommons.bpl" Configuration="Release" Class="File">
-                    <Platform Name="Win32">
-                        <RemoteName>ExamCommons.bpl</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="release\bin\SetQuestions.exe" Configuration="Release" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>SetQuestions.exe</RemoteName>
+                <DeployFile LocalName="SetQuestions\jclexpreval.txt" Configuration="Release" Class="ProjectFile">
+                    <Platform Name="All Platforms">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -171,13 +165,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="release\bin\ExcelModule.dll" Configuration="Release" Class="File">
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Configuration="Debug" Class="DependencyPackage">
                     <Platform Name="Win32">
-                        <RemoteName>ExcelModule.dll</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\Win32\rtl220.bpl" Configuration="Release" Class="DependencyPackage">
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\cxDataRS22.bpl" Configuration="Debug" Class="DependencyPackage">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -199,27 +192,17 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Configuration="Release" Class="DependencyPackage">
-                    <Platform Name="Win32">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\Win32\dbrtl220.bpl" Configuration="Release" Class="DependencyPackage">
-                    <Platform Name="Win32">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Configuration="Release" Class="DependencyPackage">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Configuration="Release" Class="DependencyPackage">
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\dxGDIPlusRS22.bpl" Configuration="Debug" Class="DependencyPackage">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="$(BDS)\Redist\Win32\adortl220.bpl" Configuration="Release" Class="DependencyPackage">
+                <DeployFile LocalName="$(BDS)\Redist\Win32\vcl220.bpl" Configuration="Debug" Class="DependencyPackage">
                     <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
@@ -246,9 +229,24 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\dxThemeRS22.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
                 <DeployFile LocalName="release\bin\WordModule.dll" Configuration="Release" Class="File">
                     <Platform Name="Win32">
                         <RemoteName>WordModule.dll</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\adortl220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="ExamCommons.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -258,15 +256,134 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="release\bin\WindowsModule.dll" Configuration="Release" Class="File">
+                <DeployFile LocalName="$(BDS)\Redist\Win32\dsnap220.bpl" Configuration="Debug" Class="DependencyPackage">
                     <Platform Name="Win32">
-                        <RemoteName>WindowsModule.dll</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\dxCoreRS22.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="release\bin\ExamCommons.bpl" Configuration="Release" Class="File">
+                    <Platform Name="Win32">
+                        <RemoteName>ExamCommons.bpl</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\vcldb220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="SetQuestions\jclexpreval.txt" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="release\bin\SetQuestions.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>SetQuestions.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="release\bin\ExcelModule.dll" Configuration="Release" Class="File">
+                    <Platform Name="Win32">
+                        <RemoteName>ExcelModule.dll</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\rtl220.bpl" Configuration="Release" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\rtl220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\vclimg220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\dbrtl220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Configuration="Release" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\dbrtl220.bpl" Configuration="Release" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Configuration="Release" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\dxSkinsCoreRS22.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\adortl220.bpl" Configuration="Release" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="MainFrame.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="release\bin\SetQuestions" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="All Platforms">
+                        <RemoteName>SetQuestions.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="dpkCheckTree.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDS)\Redist\Win32\vclx220.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="release\bin\WindowsModule.dll" Configuration="Release" Class="File">
+                    <Platform Name="Win32">
+                        <RemoteName>WindowsModule.dll</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\cxEditorsRS22.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="$(BDSCOMMONDIR)\Bpl\cxLibraryRS22.bpl" Configuration="Debug" Class="DependencyPackage">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -650,9 +767,9 @@
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSSimulator" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
             </Deployment>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
