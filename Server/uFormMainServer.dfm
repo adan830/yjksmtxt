@@ -2,7 +2,7 @@ object FormMainServer: TFormMainServer
   Left = 146
   Top = 115
   BorderStyle = bsToolWindow
-  Caption = #39640#26657#65288#23433#24509#32771#21306#65289#35745#31639#26426#27700#24179#32771#35797#19968#32423'Windows'#26381#21153#22120
+  Caption = #20840#22269#39640#31561#23398#26657#65288#23433#24509#32771#21306#65289#35745#31639#26426#27700#24179#32771#35797#19968#32423#26381#21153#22120
   ClientHeight = 531
   ClientWidth = 739
   Color = clBtnFace
@@ -1050,7 +1050,7 @@ object FormMainServer: TFormMainServer
       Caption = #27719#24635#19978#25253
       Category = 0
       Hint = #27719#24635#19978#25253
-      Visible = ivAlways
+      Visible = ivNever
     end
     object mnbtnAddFirewallItem: TdxBarButton
       Caption = #28155#21152#38450#28779#22681#20363#22806

@@ -211,10 +211,13 @@ procedure TClientMainForm.btn1Click(Sender : TObject);
 
 procedure TClientMainForm.btnCompleteClick(Sender : TObject);
    begin
-      TExamClientGlobal.typeFrame.HideFrame;
-      SetTabFrameStatus(-1);
-      ModalResult := mrOk;
-      Close;
+      if MessageDlg('你真的要交卷吗？',mtConfirmation,[mbYes,mbNo],-1)=mrYes then
+      begin
+         TExamClientGlobal.typeFrame.HideFrame;
+         SetTabFrameStatus(-1);
+         ModalResult := mrOk;
+         Close;
+      end;
    end;
 
 procedure TClientMainForm.btnModuleClick(Sender : TObject);
