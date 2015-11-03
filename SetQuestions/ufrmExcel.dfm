@@ -277,7 +277,6 @@ inherited frmExcel: TfrmExcel
       Width = 220
       Height = 531
       ExplicitWidth = 220
-      ExplicitHeight = 531
       DockingType = 5
       OriginalWidth = 220
       OriginalHeight = 578

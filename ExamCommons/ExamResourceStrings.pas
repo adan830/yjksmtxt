@@ -33,9 +33,9 @@ RSScoring             = '正在对 %s 进行评分，请等待！';
 //==============================================================================
 // 打开文件对话框文档过滤字符
 //==============================================================================
-RSWordDocFilter            = 'Word文档|*.doc';
-RSExcelDocFilter           = 'Excel文档|*.xls';
-RSPptDocFilter             = 'PowerPoint文档|*.ppt';
+RSWordDocFilter            = 'Word文档|*.docx';
+RSExcelDocFilter           = 'Excel文档|*.xlsx';
+RSPptDocFilter             = 'PowerPoint文档|*.pptx';
 
 
 implementation

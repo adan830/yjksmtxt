@@ -13,7 +13,7 @@ uses
    procedure OpenAction(AHandle:THandle;APath:string;ADocName:TFileName=NULL_STR); stdcall;
 
 const
-  DOCNAME = 'Wordst.doc';
+  DOCNAME = 'Wordst.docx';
 implementation
 uses
    ShellAPI, Windows;

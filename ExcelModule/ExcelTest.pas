@@ -13,7 +13,7 @@ uses
    procedure OpenAction(AHandle:THandle;APath:string;ADocName:TFileName=NULL_STR); stdcall;
 
 const
-  DOCNAME = 'Excelst.xls' ;
+  DOCNAME = 'Excelst.xlsx' ;
 implementation
 uses
    ShellAPI, Windows;

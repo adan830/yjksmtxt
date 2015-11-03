@@ -90,7 +90,7 @@ begin
     //Open the answer file,when clicked
     OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\word文档\';
     //OpenDialog1.FileName:=trim(edtStNo.Text)+'.doc';
-    OpenDialog1.Filter:='Word文档|*.doc';
+    OpenDialog1.Filter:=RSWordDocFilter;//'Word文档|*.doc';
     if OpenDialog1.Execute then
     begin
       bedtAnswerfile.Text:=OpenDialog1.FileName;
@@ -287,7 +287,7 @@ var
   environmentItem:TEnvironmentItem;
 begin
     OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\word文档\';
-    OpenDialog1.FileName:=trim(edtStNo.Text)+'.doc';
+    OpenDialog1.FileName:=trim(edtStNo.Text)+'.docx';
     OpenDialog1.Filter:=RSWordDocFilter;
     if OpenDialog1.Execute then
     begin

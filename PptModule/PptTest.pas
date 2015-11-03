@@ -13,7 +13,7 @@ uses
    procedure OpenAction(AHandle:THandle;APath:string;ADocName:TFileName=NULL_STR); stdcall;
 
 const
-  DOCNAME = 'powerpointst.ppt';
+  DOCNAME = 'powerpointst.pptx';
   CONSTPREFIX ='G';
   CONSTDLLNAME ='Ppt';
   CONSTBUTTONTEXT ='打开演示文稿';

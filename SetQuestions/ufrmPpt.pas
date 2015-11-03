@@ -88,7 +88,7 @@ procedure TfrmPpt.bedtAnswerFilePropertiesButtonClick(Sender: TObject;
 begin
   //Open the answer file,when clicked
   OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\Ppt文档\';
-  OpenDialog1.Filter:='PowerPoint文档|*.ppt';
+  OpenDialog1.Filter:=RSPptDocFilter;//'PowerPoint文档|*.ppt';
   if OpenDialog1.Execute then
   begin
     bedtAnswerfile.Text:=OpenDialog1.FileName;
@@ -262,7 +262,7 @@ begin
 //  if CurrentFormAction in [faModify,faAppend,faInsert] then
 //  begin
     OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\Ppt文档\';
-    OpenDialog1.FileName:=trim(edtStNo.Text)+'.ppt';
+    OpenDialog1.FileName:=trim(edtStNo.Text)+'.pptx';
     OpenDialog1.Filter:=RSPptDocFilter;
     if OpenDialog1.Execute then
     begin

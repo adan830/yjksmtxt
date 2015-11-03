@@ -277,7 +277,6 @@ inherited frmWord: TfrmWord
       Width = 220
       Height = 530
       ExplicitWidth = 220
-      ExplicitHeight = 530
       DockingType = 5
       OriginalWidth = 220
       OriginalHeight = 578

@@ -16,7 +16,7 @@ function SelectScore(amode:TFormMode;ScoreInfoStrings: TStrings):Integer;
 procedure GetScore(dataset:TDataset;var score:scorearray );
 
 implementation
-uses sysutils,forms, udmMain;
+uses sysutils,forms, udmMain,commons,examglobal;
 procedure GetDBPath(var srcpath:string;var tagpath:string);
 var
   configList: TStringList;
@@ -53,7 +53,7 @@ end;
 function SetSourceConn(dbfilename:string):boolean ;
 begin
   dmMain.connSource.Connected :=false;
-  dmmain.connSource.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;User ID=admin;Data Source='+dbfilename+';Mode=Share Deny None;Extended Properties="";Jet OLEDB:System database="";Jet OLEDB:Registry Path="";Jet OLEDB:Database Password=;Jet OLEDB:Engine Type=5;';
+  dmmain.connSource.ConnectionString := 'Provider=Microsoft.Jet.OLEDB.4.0;User ID=admin;Data Source='+dbfilename+';Mode=Share Deny None;Extended Properties="";Jet OLEDB:System database="";Jet OLEDB:Registry Path="";Jet OLEDB:Engine Type=5;;Jet OLEDB:Database Password='+ DecryptStr(SYSDBPWD);
   try
     dmMain.connSource.Connected := true;
     result := true;

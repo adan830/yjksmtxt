@@ -211,7 +211,7 @@ procedure TClientMainForm.btn1Click(Sender : TObject);
 
 procedure TClientMainForm.btnCompleteClick(Sender : TObject);
    begin
-      if MessageDlg('你真的要交卷吗？',mtConfirmation,[mbYes,mbNo],-1)=mrYes then
+      if MessageDlg('真的要交卷吗？',mtConfirmation,[mbYes,mbNo],-1)=mrYes then
       begin
          TExamClientGlobal.typeFrame.HideFrame;
          SetTabFrameStatus(-1);

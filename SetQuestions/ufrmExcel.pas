@@ -93,7 +93,7 @@ begin
     //Open the answer file,when clicked
     OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\Excel文档\';
     //OpenDialog1.FileName:=trim(edtStNo.Text)+'.xls';
-    OpenDialog1.Filter:='Excel文档|*.xls';
+    OpenDialog1.Filter:=RSExcelDocFilter; //'Excel文档|*.xls';
     if OpenDialog1.Execute then
     begin
       bedtAnswerfile.Text:=OpenDialog1.FileName;
@@ -258,7 +258,7 @@ begin
 //  if CurrentFormAction in [faModify,faAppend,faInsert] then
 //  begin
     OpenDialog1.InitialDir:=extractFilePath(application.ExeName)+'database\Excel文档\';
-    OpenDialog1.FileName:=trim(edtStNo.Text)+'.xls';
+    OpenDialog1.FileName:=trim(edtStNo.Text)+'.xlsx';
     OpenDialog1.Filter:=RSExcelDocFilter;
     if OpenDialog1.Execute then
     begin

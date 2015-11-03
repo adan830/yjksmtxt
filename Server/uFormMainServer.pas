@@ -108,7 +108,6 @@ type
       btnConfigCancel: TCnSpeedButton;
       btnConfigEdit: TCnSpeedButton;
       btnResetExamPwd: TCnSpeedButton;
-      Report: TfrxReport;
       btnGrade: TCnSpeedButton;
       btnStart: TCnSpeedButton;
       btnEndExam: TCnSpeedButton;
@@ -387,12 +386,12 @@ end;
 
 procedure TFormMainServer.barPopupMenuPopup(Sender: TObject);
 begin
-   if TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0 then
-      begin
-         pmbtnReExam.Enabled := False;
-         pmbtnContinuteExam.Enabled := False;
-      end
-   else
+//   if TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0 then
+//      begin
+//         pmbtnReExam.Enabled := False;
+//         pmbtnContinuteExam.Enabled := False;
+//      end
+//   else
       begin
          pmbtnReExam.Enabled := True;
          pmbtnContinuteExam.Enabled := True;

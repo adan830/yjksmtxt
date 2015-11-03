@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<TfrxReport Version="5.1.5" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="39637.3709795949" ReportOptions.Description.Text="" ReportOptions.LastChange="42224.9396841898" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
+<TfrxReport Version="5.1.5" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="4095" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="39637.3709795949" ReportOptions.Description.Text="" ReportOptions.LastChange="42311.9052652083" ScriptLanguage="PascalScript" ScriptText.Text="begin&#13;&#10;&#13;&#10;end.">
   <Datasets>
-    <item DataSet="ReportDS" DataSetName="ReportDS"/>
+    <item DataSetName="ReportDS"/>
   </Datasets>
   <Variables>
     <item Name=" MyVar"/>
@@ -29,18 +29,16 @@
       <TfrxMemoView Name="Memo7" Left="317.48052" Top="0" Width="71.81060622" Height="22.67718" Font.Charset="1" Font.Color="-16777208" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="8" Frame.Width="2" ParentFont="False" Style="Header line" Text="课程代号:"/>
       <TfrxMemoView Name="Memo9" Left="476.22078" Top="0" Width="71.81060622" Height="22.67718" Font.Charset="1" Font.Color="-16777208" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="8" Frame.Width="2" ParentFont="False" Style="Header line" Text="考场编号:"/>
       <TfrxMemoView Name="Memo11" Left="0" Top="37.7953" Width="128.50355622" Height="22.67718" Font.Charset="1" Font.Color="-16777208" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="8" Frame.Width="2" ParentFont="False" Style="Header line" Text="缺考及作弊记录:"/>
-      <TfrxMemoView Name="vSchoolName" Left="75.5906" Top="3.77953" Width="185.19697" Height="18.89765" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[vSchoolName]"/>
       <TfrxMemoView Name="vCode" Left="389.29159" Top="3.77953" Width="79.37013" Height="18.89765" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="[vCode]"/>
       <TfrxMemoView Name="vExamID" Left="548.03185" Top="0" Width="162.51979" Height="18.89765" Text="[vExamID]"/>
     </TfrxPageHeader>
-    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="18.89765" Left="0" Top="249.44898" Width="718.1107" ColumnWidth="0" ColumnGap="0" DataSet="ReportDS" DataSetName="ReportDS" RowCount="0">
-      <TfrxMemoView Name="ReportDSExamineeID" Left="11.33859" Top="0" Width="192.75603" Height="18.89765" DataSet="ReportDS" DataSetName="ReportDS" Text="[ReportDS.&#34;ExamineeID&#34;]"/>
-      <TfrxMemoView Name="ReportDSExamineeName" Left="211.65368" Top="0" Width="158.74026" Height="18.89765" DataSet="ReportDS" DataSetName="ReportDS" Text="[ReportDS.&#34;ExamineeName&#34;]"/>
-      <TfrxMemoView Name="ReportDSStatus" Left="381.73253" Top="0" Width="158.74026" Height="18.89765" DataSet="ReportDS" DataSetName="ReportDS" Text="[ReportDS.&#34;Status&#34;]"/>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="18.89765" Left="0" Top="249.44898" Width="718.1107" ColumnWidth="0" ColumnGap="0" DataSetName="ReportDS" RowCount="0">
+      <TfrxMemoView Name="ReportDSExamineeID" Left="11.33859" Top="0" Width="192.75603" Height="18.89765" DataSetName="ReportDS" Text="[ReportDS.&#34;ExamineeID&#34;]"/>
+      <TfrxMemoView Name="ReportDSExamineeName" Left="211.65368" Top="0" Width="158.74026" Height="18.89765" DataSetName="ReportDS" Text="[ReportDS.&#34;ExamineeName&#34;]"/>
+      <TfrxMemoView Name="ReportDSStatus" Left="381.73253" Top="0" Width="158.74026" Height="18.89765" DataSetName="ReportDS" Text="[ReportDS.&#34;Status&#34;]"/>
     </TfrxMasterData>
     <TfrxFooter Name="Footer1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Height="56.69295" Left="0" Top="291.02381" Width="718.1107">
       <TfrxMemoView Name="Memo17" Left="7.55906" Top="30.23624" Width="98.26731622" Height="22.67718" Font.Charset="1" Font.Color="-16777208" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="8" Frame.Width="2" ParentFont="False" Style="Header line" Text="监考人员签名："/>
-      <TfrxMemoView Name="Memo3" Left="128.50402" Top="30.23624" Width="94.48825" Height="18.89765" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" ParentFont="False" Text="adfas"/>
     </TfrxFooter>
   </TfrxReportPage>
 </TfrxReport>
