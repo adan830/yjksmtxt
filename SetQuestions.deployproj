@@ -170,6 +170,14 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="SetQuestions\jclexpreval.txt" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>SetQuestions\</RemoteDir>
+            <RemoteName>jclexpreval.txt</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
             <RemoteDir>SetQuestions\</RemoteDir>
             <RemoteName>ExamCommons.bpl</RemoteName>
@@ -186,14 +194,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="SetQuestions\jclexpreval.txt" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>SetQuestions\</RemoteDir>
-            <RemoteName>jclexpreval.txt</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="release\bin\SetQuestions.exe" Condition="'$(Config)'=='Release'">
             <RemoteDir>SetQuestions\</RemoteDir>

@@ -1259,4 +1259,25 @@ object FormMainServer: TFormMainServer
     Top = 8
     PixelsPerInch = 96
   end
+  object Report: TfrxReport
+    Version = '5.1.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42312.865652303240000000
+    ReportOptions.LastChange = 42312.865652303240000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 449
+    Top = 87
+    Datasets = <>
+    Variables = <>
+    Style = <>
+  end
 end

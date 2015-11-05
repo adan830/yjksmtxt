@@ -117,6 +117,7 @@ type
       btnLock: TCnSpeedButton;
       btnExit: TCnSpeedButton;
       Image1: TImage;
+    Report: TfrxReport;
 
       procedure FormCreate(Sender: TObject);
 

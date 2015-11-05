@@ -107,14 +107,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="prjExamClient.todo" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamClient\</RemoteDir>
-            <RemoteName>prjExamClient.todo</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="ExamCommons.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>prjExamClient\</RemoteDir>
             <RemoteName>ExamCommons.bpl</RemoteName>
@@ -150,14 +142,6 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
-        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamClient\</RemoteDir>
-            <RemoteName>ExamCommons.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="Client\ClientMain.PAS" Condition="'$(Config)'=='Debug'">
             <RemoteDir>prjExamClient\</RemoteDir>
             <RemoteName>ClientMain.PAS</RemoteName>
@@ -174,6 +158,14 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamClient\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>prjExamClient\</RemoteDir>
