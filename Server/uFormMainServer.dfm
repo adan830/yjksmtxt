@@ -196,7 +196,7 @@ object FormMainServer: TFormMainServer
       end
       object btnEndExam: TCnSpeedButton
         Left = 607
-        Top = 143
+        Top = 140
         Width = 115
         Height = 30
         Anchors = [akRight]

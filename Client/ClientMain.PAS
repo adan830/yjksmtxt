@@ -673,7 +673,7 @@ procedure TClientMainForm.FormCloseQuery(Sender : TObject; var CanClose : Boolea
       else if TExamClientGlobal.Examinee.Status = esLogined then
       begin
          // send close
-         TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, esNotLogined,
+         TExamClientGlobal.ExamTCPClient.CommandSendExamineeStatus(TExamClientGlobal.Examinee.ID, TExamClientGlobal.Examinee.Name, esAbsent,
                  TExamClientGlobal.Examinee.RemainTime);
          //TExamClientGlobal.ExamTCPClient.DisconnectNotifyPeer();
          CanClose := true;

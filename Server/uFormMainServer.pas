@@ -208,6 +208,7 @@ procedure TFormMainServer.FormCreate(Sender: TObject);
 begin
    Application.OnException := HandleException;
    TExamServerGlobal.CreateClassObject();
+   self.Caption:=self.Caption+'('+ TExamServerGlobal.GlobalStkRecordInfo.BaseConfig.ExamClasify+')';
    // GlobalDmServer:=TdmServer.Create(nil);
    // GlobalStkRecordInfo := TStkRecordInfo.CreateStkRecordInfo;
    // SetupGlobalOperateModules;

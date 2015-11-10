@@ -113,12 +113,6 @@ object ExamTypeForm: TExamTypeForm
       ParentFont = False
       Transparent = True
     end
-    object Label4: TLabel
-      Left = 81
-      Top = 161
-      Width = 3
-      Height = 13
-    end
     object lblID: TLabel
       Left = 57
       Top = 89
@@ -173,7 +167,7 @@ object ExamTypeForm: TExamTypeForm
       TabOrder = 1
     end
     object rgExamType: TJvRadioGroup
-      Left = 31
+      Left = 44
       Top = 158
       Width = 354
       Height = 50

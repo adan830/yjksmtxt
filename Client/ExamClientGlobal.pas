@@ -497,8 +497,16 @@ class procedure TExamClientGlobal.MainTimerTimer(Sender : TObject);
          begin
             floatWindow.txtTime.Caption := '剩余:' + sj;
          end;
-         if Examinee.RemainTime=300 then
-             MessageBoxOnTopForm(application,'还有5分钟考试结束，请保存好文档','警告', mb_ok);
+//         if Examinee.RemainTime=300 then
+//         begin
+//            if Assigned(floatWindow) and floatWindow.Showing then
+//            begin
+//               floatWindow.Hide;
+//               MessageBoxOnTopForm(application,'还有5分钟考试结束，请保存好文档','警告', mb_ok);
+//                floatWindow.Show;
+//            end else
+//            MessageBoxOnTopForm(application,'还有5分钟考试结束，请保存好文档','警告', mb_ok);
+//         end;
          if RemainTime<=0 then
           begin
              FMainTimer.Enabled:=false;

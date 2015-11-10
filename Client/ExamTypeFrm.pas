@@ -16,7 +16,6 @@ type
       lbltime: TLabel;
       Label2: TLabel;
       Label3: TLabel;
-      Label4: TLabel;
       lblID: TLabel;
       rgExamType: TJvRadioGroup;
       procedure FormShow(Sender: TObject);
@@ -115,7 +114,7 @@ procedure TExamTypeForm.btRetryClick(Sender: TObject);
 begin
    if Length(trim(edtpw.Text)) = 0 then
       begin
-         Label4.caption := '请输入密码！    ';
+         Label3.Caption := '请输入密码！    ';
          exit;
       end;
    UserPwd := trim(edtpw.Text);
@@ -131,11 +130,13 @@ begin
          end;
       2:
          begin
-            Time := integer.Parse(edtAddTime.Text);
+            loginType := ltContinuteEndedExam;
+            integer.TryParse(edtAddTime.Text,Time);
             if not((Time >= 300) and (Time <= 1800)) then
                begin
-                  Label4.caption := '请输入正确的时间！300秒<=时间<=1800秒!    ';
-                  exit;
+//                  Label4.caption := '请输入正确的时间！300秒<=时间<=1800秒!    ';
+                  edtAddTime.Text:= '请输入正确的时间！300秒<=时间<=1800秒!    ';
+                  modalresult := mrNone;
                end;
          end;
    else
@@ -158,7 +159,7 @@ procedure TExamTypeForm.btContinueClick(Sender: TObject);
 begin
    if Length(trim(edtpw.Text)) = 0 then
       begin
-         Label4.caption := '请输入密码！    ';
+         Label3.Caption:= '请输入密码！    ';
          exit;
       end;
    loginType := ltContinuteEndedExam;
@@ -172,13 +173,13 @@ begin
    Time := integer.Parse(edtAddTime.Text);
    if not((Time >= 300) and (Time <= 1800)) then
       begin
-         Label4.caption := '请输入正确的时间！300秒<=时间<=1800秒!    ';
+         edtAddTime.Text:= '请输入正确的时间！300秒<=时间<=1800秒!    ';
          exit;
       end;
 
    if Length(trim(edtpw.Text)) = 0 then
       begin
-         Label4.caption := '请输入密码！    ';
+         Label3.Caption:= '请输入密码！    ';
          exit;
       end;
    loginType := ltAddTimeExam;

@@ -4,17 +4,44 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <ItemGroup Condition="'$(Platform)'=='Win32'">
-        <DeployFile Include="release\bin\PptModule.dll" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="release\bin\prjExamServer.exe" Condition="'$(Config)'=='Release'">
             <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>PptModule.dll</RemoteName>
+            <RemoteName>prjExamServer.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="debug\bin\prjExamServer.exe" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>prjExamServer.exe</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExcelModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>ExcelModule.dll</RemoteName>
             <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="Server\examrecord.fr3" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Release'">
             <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>examrecord.fr3</RemoteName>
+            <RemoteName>rtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="release\bin\PptModule.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>PptModule.dll</RemoteName>
             <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -37,9 +64,61 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>Jcl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>dbrtl220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
         <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Release'">
             <RemoteDir>prjExamServer\</RemoteDir>
             <RemoteName>JclDeveloperTools220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>JclContainers220.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\midas.dll" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>midas.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Server\examrecord.fr3" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>examrecord.fr3</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>adortl220.bpl</RemoteName>
             <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
@@ -96,112 +175,17 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>ExamCommons.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="release\bin\prjExamServer.exe" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>prjExamServer.exe</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="debug\bin\prjExamServer.exe" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>prjExamServer.exe</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="release\bin\ExcelModule.dll" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>ExcelModule.dll</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\Redist\Win32\rtl220.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>rtl220.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\Jcl220.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>Jcl220.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\Redist\Win32\dbrtl220.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>dbrtl220.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>JclContainers220.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\bin\midas.dll" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>midas.dll</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="Server\examrecord.fr3" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>examrecord.fr3</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="$(BDS)\Redist\Win32\adortl220.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>adortl220.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="Data\kwxtdck.dbf" Condition="'$(Config)'=='Release'">
-            <RemoteDir>prjExamServer\</RemoteDir>
-            <RemoteName>kwxtdck.dbf</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="release\bin\WindowsModule.dll" Condition="'$(Config)'=='Release'">
             <RemoteDir>prjExamServer\</RemoteDir>
             <RemoteName>WindowsModule.dll</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>prjExamServer\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
             <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>

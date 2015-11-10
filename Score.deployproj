@@ -4,6 +4,14 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <ItemGroup Condition="'$(Platform)'=='Win32'">
+        <DeployFile Include="Data\汇总成绩.mdb" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>汇总成绩.mdb</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclContainers220.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Score\</RemoteDir>
             <RemoteName>JclContainers220.bpl</RemoteName>
@@ -12,14 +20,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="Data\汇总成绩.mdb" Condition="'$(Config)'=='Release'">
-            <RemoteDir>Score\</RemoteDir>
-            <RemoteName>汇总成绩.mdb</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="$(BDSCOMMONDIR)\Bpl\cxDataRS22.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Score\</RemoteDir>
@@ -128,6 +128,14 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
+            <RemoteDir>Score\</RemoteDir>
+            <RemoteName>ExamCommons.bpl</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\Redist\Win32\vcldb220.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Score\</RemoteDir>
             <RemoteName>vcldb220.bpl</RemoteName>
@@ -136,14 +144,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
             <Required>True</Required>
-        </DeployFile>
-        <DeployFile Include="release\bin\ExamCommons.bpl" Condition="'$(Config)'=='Release'">
-            <RemoteDir>Score\</RemoteDir>
-            <RemoteName>ExamCommons.bpl</RemoteName>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
         </DeployFile>
         <DeployFile Include="$(BDSCOMMONDIR)\Bpl\JclDeveloperTools220.bpl" Condition="'$(Config)'=='Debug'">
             <RemoteDir>Score\</RemoteDir>

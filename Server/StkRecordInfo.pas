@@ -152,7 +152,7 @@ class function TStkRecordInfo.CreateStkRecordInfo : TStkRecordInfo;
       result.InitBaseConfig;
       result.SetupMemStk;
       result.SetupMemStkFile;
-      result.SetupCDSExaminees;
+
    end;
 
 destructor TStkRecordInfo.Destroy;
@@ -378,9 +378,6 @@ procedure TStkRecordInfo.SetupCDSExamineesStructure(ds : TClientDataSet);
    end;
 
 procedure TStkRecordInfo.SetupCDSExaminees;
-   // var
-   // setTemp:TADODataset;
-   // tempCDS:TClientDataSet;
    begin
       FMemExaminees.FDataset := TClientDataSet.Create(nil);
       SetupCDSExamineesStructure(FMemExaminees.FDataset);
@@ -572,6 +569,7 @@ function TStkRecordInfo.UpdateExamineeInfo(AExamineeList : TList) : integer;
          end;
 
    begin
+      TExamServerGlobal.GlobalStkRecordInfo.SetupCDSExaminees;
       ds     := FMemExaminees.Lock;
       dstemp := TClientDataSet.Create(NIL);
       try
