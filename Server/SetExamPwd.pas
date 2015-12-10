@@ -45,13 +45,15 @@ procedure TResetExamPwdForm.btnYesClick(Sender : TObject);
       error : Boolean;
       pwd   : string;
    begin
+      error:=false;
       pwd := THashMD5.GetHashString(trim(edtOldAdminPwd.text));
       if pwd <> TExamServerGlobal.ServerCustomConfig.AdminPwd then
          application.MessageBox('原管理员密码不正确，请重新输入！', '提示:', mb_ok)
       else
       begin
          if (length(trim(edtAdminPwd.text)) = 0) or (edtAdminPwd.text <> trim(edtAdminPwd1.text)) then
-            error := true;
+           error := true;
+
          if TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0 then
          begin
             if (length(trim(edtContPwd.text)) = 0) or (edtContPwd.text <> trim(edtContPwd1.text)) then
@@ -66,6 +68,14 @@ procedure TResetExamPwdForm.btnYesClick(Sender : TObject);
             ShowMessage('二次密码不一致，或密码不能为空，请检查！');
             exit;
          end;
+         TExamServerGlobal.ServerCustomConfig.AdminPwd:= THashMD5.GetHashString(trim(edtAdminPwd.text));
+         if TExamServerGlobal.ServerCustomConfig.LoginPermissionModel = 0 then
+         begin
+            TExamServerGlobal.ServerCustomConfig.ContPwd:= THashMD5.GetHashString(trim(edtContPwd.text));
+            TExamServerGlobal.ServerCustomConfig.RetryPwd:=  THashMD5.GetHashString(trim(edtContPwd.text));
+            TExamServerGlobal.ServerCustomConfig.AddTimePwd:=THashMD5.GetHashString(trim(edtAddTimePwd.text));
+         end;
+         TExamServerGlobal.ServerCustomConfig.SaveCustomConfig(ExtractFilePath(Application.ExeName));
          self.ModalResult := mrYes;
       end;
    end;
