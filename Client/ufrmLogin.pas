@@ -3,9 +3,9 @@ unit ufrmLogin;
 interface
 
 uses
-   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CustomLoginForm,
-   Vcl.StdCtrls, Vcl.Buttons, JvExControls, JvSpeedButton, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus, cxButtons, netglobal, IdBaseComponent,
-   IdComponent, IdIPWatch;
+   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+   CustomLoginForm, Vcl.StdCtrls, Vcl.Buttons, JvExControls, JvSpeedButton, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Vcl.Menus,
+   cxButtons, netglobal, IdBaseComponent, IdComponent, IdIPWatch;
 
 type
    TFrmLogin = class(TcustomLoginForm)
@@ -16,6 +16,7 @@ type
       btnStartExam: TJvSpeedButton;
       procedure edtExamineeIDKeyPress(Sender: TObject; var Key: Char);
       procedure btnStartExamClick(Sender: TObject);
+      procedure edtExamineeIDChange(Sender: TObject);
    private
       examineeID, examineeName: string;
 
@@ -31,7 +32,7 @@ type
 
 implementation
 
-uses ExamClientGlobal, clientmain, commons, ExamTypeFrm,ExamGlobal;
+uses ExamClientGlobal, clientmain, commons, ExamTypeFrm, ExamGlobal;
 
 {$R *.dfm}
 
@@ -48,6 +49,29 @@ begin
    end;
 end;
 
+procedure TFrmLogin.edtExamineeIDChange(Sender: TObject);
+begin
+   if (length(edtExamineeID.Text) = 11) then
+      begin
+         if GetExamineeInfo(edtExamineeID.Text, TExamClientGlobal.Examinee) then
+            begin
+               TExamClientGlobal.ExamTCPClient.CommandGetExamineePhoto(TExamClientGlobal.Examinee.ID, TExamClientGlobal.ExamineePhoto);
+               // if examineeName.Length>0 then
+               begin
+                  edtExamineeName.Text := TExamClientGlobal.Examinee.Name;
+                  // Login();
+                  btnStartExam.Enabled := true;
+               end;
+            end
+         else
+            begin
+               edtExamineeName.Text := '';
+               btnStartExam.Enabled := false;
+            end;
+      end
+
+end;
+
 procedure TFrmLogin.edtExamineeIDKeyPress(Sender: TObject; var Key: Char);
 var
    sMessage: string;
@@ -59,7 +83,8 @@ begin
             begin
                if GetExamineeInfo(edtExamineeID.Text, TExamClientGlobal.Examinee) then
                   begin
-                     TExamClientGlobal.ExamTCPClient.CommandGetExamineePhoto(TExamClientGlobal.Examinee.ID, TExamClientGlobal.ExamineePhoto);
+                     TExamClientGlobal.ExamTCPClient.CommandGetExamineePhoto(TExamClientGlobal.Examinee.ID,
+                       TExamClientGlobal.ExamineePhoto);
                      // if examineeName.Length>0 then
                      begin
                         edtExamineeName.Text := TExamClientGlobal.Examinee.Name;
@@ -144,30 +169,32 @@ begin
       begin
          if BaseConfig.LoginPermissionMode = 0 then
             begin
-               if Examinee.Status in [esLogined, esExamining, esGrading, esSutmitAchievement] then   //当前这几种状态表示当前已登录考试，不允许其他考生登录
+               if Examinee.Status in [esLogined, esExamining, esGrading, esSutmitAchievement] then // 当前这几种状态表示当前已登录考试，不允许其他考生登录
                   begin
-                     application.MessageBox(PWideChar('该准考证号已被登录考试，你不能进行考试!'+EOL+'请核对准考证号或报告监考老师！'), '提示:', mb_ok);
+                     application.MessageBox(PWideChar('该准考证号已被登录考试，你不能进行考试!' + EOL + '请核对准考证号或报告监考老师！'), '提示:', mb_ok);
                   end
                else
-               begin
-                  case Examinee.Status of
-                     esNotLogined:
-                        LoginType := ltFirstLogin;
-                     esDisConnect:
-                        begin
-                           if Examinee.ID = EmptyStr then
-                              raise Exception.Create('考生ID不能为空');
-                           sExamPath := IncludeTrailingPathDelimiter(TExamClientGlobal.ExamPath) + Examinee.ID; // BaseConfig.ExamPath + '\' + Examinee.ID;
-                           if DirectoryExists(sExamPath) then
-                              begin
-                                 LoginType := ltContinuteInterupt;
-                              end
-                           else
-                              begin
-                                 { TODO：中断换机续考 }
-                                 application.MessageBox(PWideChar('由于考试中断，但本地找不到中断的考生文件夹，不能进行继考！'#13#10 + '请检查文件夹:' + sExamPath + '是否存在！'), '提示:', mb_ok);
-                              end;
-                        end;
+                  begin
+                     case Examinee.Status of
+                        esNotLogined:
+                           LoginType := ltFirstLogin;
+                        esDisConnect:
+                           begin
+                              if Examinee.ID = EmptyStr then
+                                 raise Exception.Create('考生ID不能为空');
+                              sExamPath := IncludeTrailingPathDelimiter(TExamClientGlobal.ExamPath) + Examinee.ID;
+                              // BaseConfig.ExamPath + '\' + Examinee.ID;
+                              if DirectoryExists(sExamPath) then
+                                 begin
+                                    LoginType := ltContinuteInterupt;
+                                 end
+                              else
+                                 begin
+                                    { TODO：中断换机续考 }
+                                    application.MessageBox(PWideChar('由于考试中断，但本地找不到中断的考生文件夹，不能进行继考！'#13#10 + '请检查文件夹:' + sExamPath +
+                                      '是否存在！'), '提示:', mb_ok);
+                                 end;
+                           end;
                      else // esAllowContinuteExam ,esAllowReExam,esLogined
                         begin
                            { TODO -ojp -cMust : 如果有考生已经用相同考号登录，使用密码强行登录续考或重考，前一个考生将出现问题，当然老师在强行登录时应该核对考生，前一考生应该是有问题的 }
@@ -179,17 +206,16 @@ begin
                                     Examinee.RemainTime := Examinee.RemainTime + atime;
                               end;
                         end;
+                     end;
+                     loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd);
+                     result := loginResult;
+                     if loginResult <> crok then
+                        begin
+                           application.MessageBox('登录失败！', '请确认:', mb_ok);
+                           exit;
+                        end;
                   end;
-                  loginResult := TExamClientGlobal.Login(TExamClientGlobal.LoginType, apwd);
-               result := loginResult;
-               if loginResult <> crok then
-                  begin
-                     application.MessageBox('登录失败！', '请确认:', mb_ok);
-                     exit;
-                  end;
-               end;
             end;
-
 
       end;
    // TExamClientGlobal.InitExam;

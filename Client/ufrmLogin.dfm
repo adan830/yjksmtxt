@@ -8108,6 +8108,7 @@ object FrmLogin: TFrmLogin
     MaxLength = 11
     ParentFont = False
     TabOrder = 0
+    OnChange = edtExamineeIDChange
     OnKeyPress = edtExamineeIDKeyPress
   end
   object edtExamineeName: TEdit
