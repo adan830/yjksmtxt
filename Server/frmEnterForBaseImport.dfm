@@ -243,7 +243,6 @@ object EnterForBaseImport: TEnterForBaseImport
     Properties.Depth = 1
     Properties.PenWidth = 5
     Properties.WordWrap = True
-    ExplicitWidth = 656
     Height = 47
     Width = 559
   end
@@ -285,7 +284,7 @@ object EnterForBaseImport: TEnterForBaseImport
     IndexName = 'DecryptedID'
     Parameters = <>
     Left = 136
-    Top = 40
+    Top = 32
     object wdstrngfldExamineeBaseExamineeID: TWideStringField
       FieldName = 'ExamineeID'
       Size = 24

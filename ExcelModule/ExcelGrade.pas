@@ -154,7 +154,7 @@ begin
     case GradeInfo.ID of
       50: begin
             if ChartObj.hastitle then
-              value := chartObj.ChartTitle.Caption //文本内容
+              value := strFilter(chartObj.ChartTitle.Caption,GetModuleDelimiterChar()) //文本内容
             else
               value := '';
           end;

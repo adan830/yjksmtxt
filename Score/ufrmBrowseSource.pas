@@ -22,7 +22,7 @@ uses
   dxSkinMetropolisDark, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
   dxSkinOffice2013White, dxSkinSevenClassic, dxSkinSharpPlus,
   dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxNavigator,
-  JvExStdCtrls, JvRichEdit;
+  JvExStdCtrls, JvRichEdit, Vcl.ExtCtrls;
 
 type
   TfrmBrowseSource = class(TForm)
@@ -44,6 +44,8 @@ type
     edtUnCompressedScoreInfo: TJvRichEdit;
     ckbxSingleExam: TcxCheckBox;
     tvSourceSex: TcxGridDBColumn;
+    Splitter1: TSplitter;
+    Panel1: TPanel;
     procedure edtSourceClick(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
     procedure tvSourceFocusedRecordChanged(Sender: TcxCustomGridTableView; APrevFocusedRecord, AFocusedRecord: TcxCustomGridRecord;
@@ -125,7 +127,7 @@ end;
 procedure TfrmBrowseSource.tvSourceFocusedRecordChanged(Sender: TcxCustomGridTableView; APrevFocusedRecord, AFocusedRecord: TcxCustomGridRecord;
   ANewItemRecordFocusingChanged: Boolean);
 var
-  stream : TMemoryStream;
+  stream ,tempStream: TMemoryStream;
 begin
   stream := TMemoryStream.Create;
   with dmMain.dsSource.DataSet do begin
@@ -134,11 +136,16 @@ begin
       (FieldByName(DFNEI_SCOREINFO) as TBlobField).SaveToStream(stream);
       stream.Position := 0;
       UnCompressStream(stream);
+      stream.Position:=0;
       edtUnCompressedScoreInfo.Lines.LoadFromStream(stream);
     finally
       stream.Free;
     end;
   end;
 end;
+
+
+
+
 
 end.

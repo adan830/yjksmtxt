@@ -3,7 +3,7 @@ object frmScoreReceive: TfrmScoreReceive
   Top = 0
   Caption = #25104#32489#25509#25910
   ClientHeight = 405
-  ClientWidth = 643
+  ClientWidth = 609
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -82,6 +82,23 @@ object frmScoreReceive: TfrmScoreReceive
     Top = 56
     Caption = #24403#21069#35760#24405#65306
   end
+  object lbError: TListBox
+    Left = 344
+    Top = 43
+    Width = 225
+    Height = 313
+    ItemHeight = 13
+    TabOrder = 10
+  end
+  object btnExportErrorRecord: TcxButton
+    Left = 480
+    Top = 362
+    Width = 89
+    Height = 25
+    Caption = #23548#20986#38169#35823#35760#24405
+    TabOrder = 11
+    OnClick = btnExportErrorRecordClick
+  end
   object OpenDialog1: TOpenDialog
     Left = 576
     Top = 8
@@ -89,7 +106,7 @@ object frmScoreReceive: TfrmScoreReceive
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 384
-    Top = 136
+    Left = 304
+    Top = 72
   end
 end

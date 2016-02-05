@@ -73,6 +73,7 @@
         <CfgDependentOn>DebugWin32.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_OutputDRCFile>true</DCC_OutputDRCFile>
         <Manifest_File>None</Manifest_File>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -118,18 +119,6 @@
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp220.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\MobileWizardExpert220.bpl">File c:\program files (x86)\embarcadero\studio\16.0\bin\MobileWizardExpert220.bpl not found</Excluded_Packages>
                     <Excluded_Packages Name="C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl">File C:\Program Files (x86)\Raize\CS5\Bin\CodeSiteExpressPkg_Design220.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsCoreRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsDesignHelperRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxNavBarPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinsdxBarsPaintersRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxDLPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinsdxBarPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dxSkinscxSchedulerPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxPCPainterRS22.bpl not found</Excluded_Packages>
-                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl">File C:\Users\Public\Documents\Embarcadero\Studio\16.0\Bpl\dcldxSkinscxEditorsHelperRS22.bpl not found</Excluded_Packages>
                 </Excluded_Packages>
             </Delphi.Personality>
             <Platforms>

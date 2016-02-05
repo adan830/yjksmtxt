@@ -107,7 +107,7 @@ begin
     ReadSection(MODULE_KEYTYPE_NAME,ScoreInfoStrings);
     if ScoreInfoStrings.Count>0 then
     begin
-       StrToScoreInfo(ScoreInfoStrings[0],scoreinfo);
+       StrToScoreInfo(ScoreInfoStrings[0],scoreinfo) ;
        zf :=zf+ scoreinfo.Points;
     end;
     ReadSection('Windows',ScoreInfoStrings);

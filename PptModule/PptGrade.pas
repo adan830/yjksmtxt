@@ -361,7 +361,7 @@ begin
         75 : value := vartostr(objShape.actionsettings.item(1).action);       //鼠标单击动作类型
         76 :  begin
                 if objShape.actionsettings.item(1).action=$00000007 then      //鼠标单击超链接地址
-                  value := vartostr(objShape.actionsettings.item(1).hyperlink.address)
+                  value :=strfilter( vartostr(objShape.actionsettings.item(1).hyperlink.address),GetModuleDelimiterChar())
                 else
                   value :='';
               end;
@@ -627,7 +627,7 @@ begin
       objTextFrame := objShape.TextFrame;
       case GradeInfo.ID of
                 { TODO -ojp : 添加检查enter }
-        90: value :=StringReplace(vartostr(objTextFrame.Textrange.text),#13#10,'',[rfReplaceAll]);        //文本框.文本内容
+        90: value :=StrFilter(vartostr(objTextFrame.Textrange.text));        //文本框.文本内容
         91: value := vartostr(objTextFrame.orientation);   //文本框.文本方向
         92: value := vartostr(objTextFrame.HorizontalAnchor)+vartostr(objTextFrame.VerticalAnchor);   //文本框.文本锁定点
         93: value := vartostr(objTextFrame.margintop); //文本框.内部上边距

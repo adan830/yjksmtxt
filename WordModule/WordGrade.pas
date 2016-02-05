@@ -506,7 +506,7 @@ var
 begin
   MyRange:=AWordDoc.Sections.Item(1).Headers.Item(1).Range;
   case GradeInfo.ID  of
-     191,193: value :=trim(MyRange.text);
+     191,193: value :=StrFilter(MyRange.text);
      192,194: value :=inttostr(MyRange.ParagraphFormat.alignment);
   end;
   if aFillMode = fmStandValue then

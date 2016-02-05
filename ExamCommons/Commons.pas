@@ -37,6 +37,8 @@ type
     function StrToGradeInfo(Content:string;var GradeInfo:TGradeInfo;chr:char=','):Integer; //stdcall;
 //    function GradeInfoToStr(GradeInfo: TGradeInfo):string; overload;
     function GradeInfoToStr(GradeInfo: TGradeInfo;chr:char=','):string;   //stdcall ;
+    //将写到评分信息中的敏感数据中特殊符号过滤掉
+    function StrFilter(AStr:string;ADelimiter:char=','):String;
     //评分信息中获得得分
     function GradeinfoStringsToScore(GradeInfoStrings:TStringList):integer;
     function GradeInfoStringsToScoreInfoStrings(EQID:string;GradeInfoStrings:TStrings;chr:char=','):TStrings;
@@ -327,6 +329,14 @@ begin
   result:=sresult;
 end;
 
+function StrFilter(AStr:string;ADelimiter:char=','):String;
+begin
+   //可参考TStrings.SetTextStr来实现
+   result:=trim(aStr);
+   result:=StringReplace(result,#13,'',[rfReplaceAll]);
+   result:=StringReplace(result,#10,'',[rfReplaceAll]);
+   result:=StringReplace(result,ADelimiter,'',[rfReplaceAll]);
+end;
 procedure StrToEnvironmentItem( Content:string;var AEnvironmnetItem:TEnvironmentItem);
 var
   Head,Tail:pchar;

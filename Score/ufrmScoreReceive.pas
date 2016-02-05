@@ -3,13 +3,66 @@ unit ufrmScoreReceive;
 interface
 
 uses
-   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, cxLookAndFeelPainters, cxLabel, cxControls,
-   cxContainer, cxEdit, cxTextEdit, cxMaskEdit, cxButtonEdit, StdCtrls, cxButtons, ExtCtrls, Menus, dxSkinsCore, dxSkinsDefaultPainters,
-   DBClient, DB, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinFoggy, dxSkinGlassOceans,
-   dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
-   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSeven, dxSkinSharp,
-   dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008, dxSkinValentine, dxSkinXmas2008Blue, cxGraphics, cxLookAndFeels,
-   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver;
+   Windows,
+   Messages,
+   SysUtils,
+   Variants,
+   Classes,
+   Graphics,
+   Controls,
+   Forms,
+   Dialogs,
+   cxLookAndFeelPainters,
+   cxLabel,
+   cxControls,
+   cxContainer,
+   cxEdit,
+   cxTextEdit,
+   cxMaskEdit,
+   cxButtonEdit,
+   StdCtrls,
+   cxButtons,
+   ExtCtrls,
+   Menus,
+   dxSkinsCore,
+   dxSkinsDefaultPainters,
+   DBClient,
+   DB,
+   dxSkinBlack,
+   dxSkinBlue,
+   dxSkinCaramel,
+   dxSkinCoffee,
+   dxSkinDarkRoom,
+   dxSkinDarkSide,
+   dxSkinFoggy,
+   dxSkinGlassOceans,
+   dxSkiniMaginary,
+   dxSkinLilian,
+   dxSkinLiquidSky,
+   dxSkinLondonLiquidSky,
+   dxSkinMcSkin,
+   dxSkinMoneyTwins,
+   dxSkinOffice2007Black,
+   dxSkinOffice2007Blue,
+   dxSkinOffice2007Green,
+   dxSkinOffice2007Pink,
+   dxSkinOffice2007Silver,
+   dxSkinPumpkin,
+   dxSkinSeven,
+   dxSkinSharp,
+   dxSkinSilver,
+   dxSkinSpringTime,
+   dxSkinStardust,
+   dxSkinSummer2008,
+   dxSkinValentine,
+   dxSkinXmas2008Blue,
+   cxGraphics,
+   cxLookAndFeels,
+   dxSkinOffice2010Black,
+   dxSkinOffice2010Blue,
+   dxSkinOffice2010Silver,
+   JvExStdCtrls,
+   JvRichEdit;
 
 type
    TfrmScoreReceive = class(TForm)
@@ -25,12 +78,16 @@ type
       edtTime: TcxTextEdit;
       edtRecno: TcxTextEdit;
       cxLabel4: TcxLabel;
+      lbError: TListBox;
+      btnExportErrorRecord: TcxButton;
       procedure Timer1Timer(Sender: TObject);
       procedure edtSourceClick(Sender: TObject);
       procedure btnScoreClick(Sender: TObject);
+      procedure btnExportErrorRecordClick(Sender: TObject);
    private
       // procedure DecryptExamineeInfoCDS(cds: TClientDataSet);
       function GetScoreValue(const scoreStream: TMemoryStream): Integer;
+      function ModifyStream(Stream: TStream): TStream;
       { Private declarations }
    public
       { Public declarations }
@@ -41,14 +98,31 @@ var
 
 implementation
 
-uses udmMain, uPubFn, DataFieldConst, Commons, compress, ScoreIni, datautils;
+uses udmMain,
+   uPubFn,
+   DataFieldConst,
+   Commons,
+   compress,
+   ScoreIni,
+   datautils,
+   examglobal;
 
 {$R *.dfm}
 
+procedure TfrmScoreReceive.btnExportErrorRecordClick(Sender: TObject);
+var
+   filename: string;
+begin
+   filename := IncludeTrailingPathDelimiter(ExtractFilePath(edtSource.Text)) + '接收错误记录.txt';
+   lbError.Items.SaveToFile(filename);
+   Application.MessageBox(pwidechar('已将错误记录保存到文件：' + eol + filename), '提示');
+end;
+
 procedure TfrmScoreReceive.btnScoreClick(Sender: TObject);
 var
-   scoreStream: TMemoryStream;
+   scoreStream, modifiedScore: TMemoryStream;
    score: Integer;
+   currentID: string;
    function myStrToint(const str: string): Integer;
    begin
       if str = '' then
@@ -97,15 +171,15 @@ begin
          // 设置源数据集
          if SetSourceConn(edtSource.Text) then
             begin
-               //if not dmMain.cdsSource.Active  then   dmMain.cdsSource.active := True;
-               //dmMain.cdsSource.IndexFieldNames := '';
-               dmMain.dsSource.DataSet:=nil;
+               // if not dmMain.cdsSource.Active  then   dmMain.cdsSource.active := True;
+               // dmMain.cdsSource.IndexFieldNames := '';
+               dmMain.dsSource.DataSet := nil;
                DecryptExamineeInfoCDS(dmMain.cdsSource, true);
-               //dmMain.cdsSource.IndexFieldNames := DFNEI_EXAMINEEID;
+               // dmMain.cdsSource.IndexFieldNames := DFNEI_EXAMINEEID;
             end;
       end
    else
-      application.MessageBox('上报库路径为空', '错误');
+      Application.MessageBox('上报库路径为空', '错误');
    // 打开汇总成绩库
    dmMain.cdsScore.Active := false;
    dmMain.dsScore.DataSet := nil;
@@ -120,37 +194,65 @@ begin
             while not eof do
                begin
                   edtRecno.Text := inttostr(dmMain.cdsSource.RecNo); // 显示当前源数据库记录号
-                  application.ProcessMessages;
+                  Application.ProcessMessages;
                   scoreStream.Clear;
                   (FieldByName(DFNEI_SCOREINFO) as TBlobField).SaveToStream(scoreStream);
                   // UnCompressStream(scorestream);
-                  score := GetScoreValue(scoreStream);
-                  if dmMain.cdsScore.Locate(DFNEI_EXAMINEEID, dmMain.cdsSource.FieldValues[DFNEI_EXAMINEEID], [loCaseInsensitive]) then
-                     begin
-                        // 更新数据
-                        if score > dmMain.cdsScore.FieldByName(DFNEI_SCORE).AsInteger then
+                  currentID := VarToStr(dmMain.cdsSource.FieldValues[DFNEI_EXAMINEEID]);
+                  try
+                     try
+                        modifiedScore := ModifyStream(scoreStream) as TMemoryStream;
+                        if modifiedScore <> nil then
                            begin
-                              SoureToTotal(dmMain.cdsSource, dmMain.cdsScore, score); // ,scoreStream);
-                              edtUpdateNum.Text := inttostr(StrToInt(edtUpdateNum.Text) + 1); // 显示更新记录数
+                              score := GetScoreValue(modifiedScore);
+                              FreeAndNil(modifiedScore);
+                           end
+                        else
+                           score := GetScoreValue(scoreStream);
+                     except
+                        on E: Exception do
+                           begin
+                              lbError.Items.Add(currentID+'.dat');
+                              next;
+                              Continue;
                            end;
-                     end
-                  else
-                     begin // 添加新数据
-                        dmMain.cdsScore.AppendRecord([FieldValues[DFNEI_EXAMINEEID]]);
-                        SoureToTotal(dmMain.cdsSource, dmMain.cdsScore, score); // ,scoreStream);
-                        edtInsertNum.Text := inttostr(StrToInt(edtInsertNum.Text) + 1); // 显示添加记录数
                      end;
+
+                     if dmMain.cdsScore.Locate(DFNEI_EXAMINEEID, dmMain.cdsSource.FieldValues[DFNEI_EXAMINEEID], [loCaseInsensitive]) then
+                        begin
+                           // 更新数据
+                           if score > dmMain.cdsScore.FieldByName(DFNEI_SCORE).AsInteger then
+                              begin
+                                 SoureToTotal(dmMain.cdsSource, dmMain.cdsScore, score); // ,scoreStream);
+                                 edtUpdateNum.Text := inttostr(StrToInt(edtUpdateNum.Text) + 1); // 显示更新记录数
+                              end;
+                        end
+                     else
+                        begin // 添加新数据
+                           dmMain.cdsScore.AppendRecord([FieldValues[DFNEI_EXAMINEEID]]);
+                           SoureToTotal(dmMain.cdsSource, dmMain.cdsScore, score); // ,scoreStream);
+                           edtInsertNum.Text := inttostr(StrToInt(edtInsertNum.Text) + 1); // 显示添加记录数
+                        end;
+
+                  except
+                     on E: Exception do
+                        begin
+                           Application.MessageBox(pwidechar(currentID), 'error');
+                        end;
+                  end;
                   next;
+
                end;
+
             if dmMain.cdsScore.ApplyUpdates(0) = 0 then
                begin
                   Timer1.Enabled := false;
-                  application.MessageBox('update complete', 'info')
+                  Application.MessageBox('update complete', 'info')
                end
             else
                begin
                   Timer1.Enabled := false;
-                  application.MessageBox('update error', 'error');
+                  Application.MessageBox('update error', 'error');
                end;
          end;
    finally
@@ -162,7 +264,7 @@ end;
 procedure TfrmScoreReceive.edtSourceClick(Sender: TObject);
 begin
    if OpenDialog1.Execute then
-      edtSource.Text := OpenDialog1.FileName
+      edtSource.Text := OpenDialog1.filename
    else
       edtSource.Text := '';
 end;
@@ -178,12 +280,40 @@ var
 begin
    ScoreIni := TScoreIni.Create;
    try
-      scoreStream.Position:=0;
+      scoreStream.Position := 0;
       ScoreIni.LoadFormStream(scoreStream);
       result := ScoreIni.GetScoreValue;
    finally
       ScoreIni.Free;
    end;
+end;
+
+function TfrmScoreReceive.ModifyStream(Stream: TStream): TStream;
+var
+   Size: Integer;
+   Buffer: TBytes;
+   rs: Integer;
+   i: Integer;
+begin
+   result := nil;
+
+   Size := Stream.Size;
+   if Size = 0 then
+      Exit;
+
+   Stream.Position := 0;
+   SetLength(Buffer, Size);
+   Stream.Read(Buffer, 0, Size);
+
+   if Buffer[17] = byte(#0) then
+      begin
+         for i := 17 to 35 do
+            begin
+               if Buffer[i] = byte(#0) then
+                  Buffer[i] := $2C;
+            end;
+         result := TBytesStream.Create(Buffer);
+      end;
 end;
 
 end.
